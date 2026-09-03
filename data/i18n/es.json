@@ -36,5 +36,20 @@
   "game.recapEmpty": "Un día tranquilo.",
   "outcome.success": "Éxito",
   "outcome.failure": "Contratiempo",
-  "option.successSuffix": "% de éxito"
+  "option.successSuffix": "% de éxito",
+  "era.playFree": "Jugar",
+  "era.dailyChallenge": "Reto de Hoy",
+  "daily.badge": "Reto de Hoy",
+  "daily.loginRequired": "Inicia sesión para jugar el Reto de Hoy y aparecer en la clasificación.",
+  "daily.alreadyPlayedHeading": "Ya has jugado el reto de hoy",
+  "daily.comeBackTomorrow": "Vuelve mañana para un nuevo reto.",
+  "daily.scoreHeading": "Puntuación",
+  "daily.scoreObjectives": "Objetivos",
+  "daily.scoreTiebreak": "Bonus de recursos",
+  "daily.scoreTotal": "Total",
+  "daily.leaderboardHeading": "Clasificación de hoy",
+  "daily.leaderboardEmpty": "Todavía no hay puntuaciones hoy — ¡sé el primero!",
+  "daily.leaderboardLoginToAppear": "Inicia sesión para aparecer en la clasificación.",
+  "daily.leaderboardLoading": "Cargando…",
+  "daily.recapUnavailable": "El resumen completo solo está disponible en el dispositivo donde jugaste."
 }

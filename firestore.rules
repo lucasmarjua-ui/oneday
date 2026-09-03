@@ -8,5 +8,13 @@ service cloud.firestore {
       allow read: if request.auth != null;
       allow write: if request.auth != null && request.auth.uid == entryId;
     }
+    // Daily Challenge: one entry per player per era per day. Create-only —
+    // no update or delete — so a player can't overwrite a worse score with a
+    // better one from a second attempt. {leaderboardId} is "{eraId}-{date}".
+    match /dailyLeaderboards/{leaderboardId}/entries/{entryId} {
+      allow read: if request.auth != null;
+      allow create: if request.auth != null && request.auth.uid == entryId;
+      allow update, delete: if false;
+    }
   }
 }

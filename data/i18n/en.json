@@ -36,5 +36,20 @@
   "game.recapEmpty": "A quiet day.",
   "outcome.success": "Success",
   "outcome.failure": "Setback",
-  "option.successSuffix": "% success"
+  "option.successSuffix": "% success",
+  "era.playFree": "Play",
+  "era.dailyChallenge": "Today's Challenge",
+  "daily.badge": "Today's Challenge",
+  "daily.loginRequired": "Log in to play Today's Challenge and appear on the leaderboard.",
+  "daily.alreadyPlayedHeading": "You already played today's challenge",
+  "daily.comeBackTomorrow": "Come back tomorrow for a new challenge.",
+  "daily.scoreHeading": "Score",
+  "daily.scoreObjectives": "Objectives",
+  "daily.scoreTiebreak": "Resource bonus",
+  "daily.scoreTotal": "Total",
+  "daily.leaderboardHeading": "Today's Leaderboard",
+  "daily.leaderboardEmpty": "No scores yet today — be the first!",
+  "daily.leaderboardLoginToAppear": "Log in to appear on the leaderboard.",
+  "daily.leaderboardLoading": "Loading…",
+  "daily.recapUnavailable": "Full recap only available on the device where you played."
 }

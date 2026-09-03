@@ -36,14 +36,20 @@
     </section>
 
     <section id="summary-screen" class="panel" hidden>
-      <h2 id="summary-heading" data-i18n="game.summaryHeading"></h2>
+      <h2 id="summary-heading"></h2>
       <p id="summary-reason" class="app-subtitle"></p>
+      <div class="score-grid" id="summary-score" hidden></div>
       <div class="summary-grid" id="summary-resources"></div>
       <h3 data-i18n="game.objectivesHeading"></h3>
       <ul class="objective-list" id="summary-objectives"></ul>
       <div id="summary-achievements"></div>
       <h3 data-i18n="game.recapHeading"></h3>
       <div class="narrative-log" id="summary-log"></div>
+      <div id="summary-leaderboard-section" hidden>
+        <h3 data-i18n="daily.leaderboardHeading"></h3>
+        <ol class="leaderboard-list" id="summary-leaderboard"></ol>
+      </div>
+      <p id="summary-comeback" class="app-subtitle" hidden data-i18n="daily.comeBackTomorrow"></p>
       <div class="actions-row">
         <button id="play-again" class="btn" type="button" data-i18n="game.playAgain"></button>
         <a class="btn btn-ghost" href="./index.html" data-i18n="game.changeEra"></a>
@@ -52,7 +58,7 @@
   </main>
 
   <script type="module">
-    import './shared/auth.js';
+    import { getCurrentUser } from './shared/auth.js';
     import { loadEra } from './shared/era-registry.js';
     import { loadCharacter, findArchetype } from './shared/character.js';
     import { createResourceState, applyResourceDeltas, isCriticalDepleted, getCriticalResourceKey } from './shared/resources.js';
@@ -61,8 +67,10 @@
     import { pickDailyObjectives, isObjectiveComplete } from './shared/objectives.js';
     import { recordDayGains, checkAndUnlockMetaAchievements } from './shared/achievements.js';
     import { recordDayResult } from './shared/stats.js';
-    import { createRng, randomSeed } from './shared/rng.js';
+    import { createRng, randomSeed, dailySeed } from './shared/rng.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
+    import { getLocalDailyResult, saveLocalDailyResult, checkRemoteDailyEntry, submitDailyScore, getDailyLeaderboard, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
+    import { computeDayScore } from './shared/scoring.js';
 
     const FILLER_CARD = {
       id: 'filler-wait',
@@ -99,6 +107,9 @@
     let currentOutcome = null;
     let summaryData = null;
     let phase = 'decision';
+    let isDaily = false;
+    let dailyDateKeyValue = null;
+    let lastLeaderboardEntries = null;
 
     function mergeDeltas(a = {}, b = {}) {
       const result = { ...a };
@@ -110,11 +121,12 @@
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
       document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'btn' : 'btn btn-ghost';
       document.querySelector('#lang-es').className = getLanguage() === 'es' ? 'btn' : 'btn btn-ghost';
-      eraTitle.textContent = `OneDay — ${localize(era.name)}`;
+      const badge = isDaily ? `<span class="daily-badge">${t('daily.badge')}</span><br>` : '';
+      eraTitle.innerHTML = `${badge}OneDay — ${localize(era.name)}`;
     }
 
     function resetDay() {
-      rng = createRng(randomSeed());
+      rng = createRng(isDaily ? dailySeed(eraId, new Date()) : randomSeed());
       resourceState = createResourceState(era);
       dayState = createDayState(era);
       dailyObjectives = pickDailyObjectives(era, 3, rng);
@@ -224,9 +236,61 @@
       const newlyUnlocked = checkAndUnlockMetaAchievements(eraId, era);
       const criticalKey = getCriticalResourceKey(resourceState, era);
 
-      summaryData = { objectivesResults, newlyUnlocked, criticalKey, finalResources: { ...resourceState }, log: [...narrativeLog] };
+      let score = null;
+      if (isDaily) {
+        score = computeDayScore({ objectivesCompletedCount: completedCount, resourceState, era });
+        const objectivesResultsCompact = objectivesResults.map(entry => ({ id: entry.objective.id, complete: entry.complete }));
+        saveLocalDailyResult(eraId, {
+          date: dailyDateKeyValue,
+          eraId,
+          objectivesResults: objectivesResultsCompact,
+          finalResources: { ...resourceState },
+          criticalKey: criticalKey || null,
+          log: [...narrativeLog],
+          score: score.total,
+          objectivesScore: score.objectivesScore,
+          tiebreakScore: score.tiebreakScore,
+        });
+      }
+
+      summaryData = { objectivesResults, newlyUnlocked, criticalKey, finalResources: { ...resourceState }, log: [...narrativeLog], score, alreadyPlayed: false };
       phase = 'summary';
       renderSummaryUI();
+
+      if (isDaily) {
+        (async () => {
+          if (getCurrentUser()) {
+            await submitDailyScore(eraId, dailyDateKeyValue, {
+              score: score.total,
+              objectivesScore: score.objectivesScore,
+              tiebreakScore: score.tiebreakScore,
+              objectivesResults: objectivesResults.map(entry => ({ id: entry.objective.id, complete: entry.complete })),
+              finalResources: { ...resourceState },
+              criticalKey: criticalKey || null,
+            });
+          }
+          await refreshLeaderboard();
+        })();
+      }
+    }
+
+    function showAlreadyPlayed(saved) {
+      const objectivesResults = (saved.objectivesResults || []).map(entry => {
+        const objective = (era.objectivesPool || []).find(o => o.id === entry.id) || { description: { en: entry.id, es: entry.id } };
+        return { objective, complete: entry.complete };
+      });
+      summaryData = {
+        objectivesResults,
+        newlyUnlocked: [],
+        criticalKey: saved.criticalKey || null,
+        finalResources: saved.finalResources || {},
+        log: saved.log || null,
+        score: { objectivesScore: saved.objectivesScore, tiebreakScore: saved.tiebreakScore, total: saved.score },
+        alreadyPlayed: true,
+      };
+      phase = 'summary';
+      renderSummaryUI();
+      refreshLeaderboard();
     }
 
     function renderSummaryUI() {
@@ -234,21 +298,73 @@
       outcomeScreen.hidden = true;
       summaryScreen.hidden = false;
 
+      document.querySelector('#summary-heading').textContent = summaryData.alreadyPlayed ? t('daily.alreadyPlayedHeading') : t('game.summaryHeading');
       document.querySelector('#summary-reason').textContent = summaryData.criticalKey ? localize(era.badEnding) : localize(era.goodEnding);
 
       document.querySelector('#summary-resources').innerHTML = Object.entries(era.resources).map(([key, config]) => `
-        <div class="summary-stat"><div class="value">${config.icon} ${summaryData.finalResources[key]}</div><div>${localize(config.label)}</div></div>
+        <div class="summary-stat"><div class="value">${config.icon} ${summaryData.finalResources[key] ?? '–'}</div><div>${localize(config.label)}</div></div>
       `).join('');
 
       document.querySelector('#summary-objectives').innerHTML = summaryData.objectivesResults.map(entry => `
         <li class="${entry.complete ? 'complete' : ''}"><span class="objective-mark">${entry.complete ? '✓' : '✗'}</span> ${localize(entry.objective.description)}</li>
       `).join('');
 
-      document.querySelector('#summary-achievements').innerHTML = summaryData.newlyUnlocked.map(achievement => `
+      document.querySelector('#summary-achievements').innerHTML = (summaryData.newlyUnlocked || []).map(achievement => `
         <div class="achievement-toast">🏆 ${localize(achievement.title)} — ${localize(achievement.description)}</div>
       `).join('');
 
-      document.querySelector('#summary-log').innerHTML = summaryData.log.map(line => `<p>${localize(line)}</p>`).join('') || `<p>${t('game.recapEmpty')}</p>`;
+      document.querySelector('#summary-log').innerHTML = summaryData.log
+        ? (summaryData.log.map(line => `<p>${localize(line)}</p>`).join('') || `<p>${t('game.recapEmpty')}</p>`)
+        : `<p>${t('daily.recapUnavailable')}</p>`;
+
+      const scoreSection = document.querySelector('#summary-score');
+      if (summaryData.score) {
+        scoreSection.hidden = false;
+        scoreSection.innerHTML = `
+          <div class="score-stat"><div class="value">${summaryData.score.objectivesScore}</div><div>${t('daily.scoreObjectives')}</div></div>
+          <div class="score-stat"><div class="value">${summaryData.score.tiebreakScore}</div><div>${t('daily.scoreTiebreak')}</div></div>
+          <div class="score-stat total"><div class="value">${summaryData.score.total}</div><div>${t('daily.scoreTotal')}</div></div>
+        `;
+      } else {
+        scoreSection.hidden = true;
+        scoreSection.innerHTML = '';
+      }
+
+      document.querySelector('#play-again').hidden = isDaily;
+      document.querySelector('#summary-comeback').hidden = !isDaily;
+      document.querySelector('#summary-leaderboard-section').hidden = !isDaily;
+    }
+
+    function renderLeaderboardHtml() {
+      const list = document.querySelector('#summary-leaderboard');
+      if (lastLeaderboardEntries === null) {
+        list.innerHTML = `<li>${t('daily.leaderboardLoading')}</li>`;
+        return;
+      }
+      const currentUsername = getCurrentUser()?.displayName;
+      let html = lastLeaderboardEntries.length === 0
+        ? `<li>${t('daily.leaderboardEmpty')}</li>`
+        : lastLeaderboardEntries.map((entry, index) => `
+            <li class="${entry.username === currentUsername ? 'you' : ''}">
+              <span class="leaderboard-rank">#${index + 1}</span>
+              <span class="leaderboard-name">${entry.username}</span>
+              <span class="leaderboard-score">${entry.score}</span>
+            </li>
+          `).join('');
+      if (!getCurrentUser()) html += `<li>${t('daily.leaderboardLoginToAppear')}</li>`;
+      list.innerHTML = html;
+    }
+
+    async function refreshLeaderboard() {
+      lastLeaderboardEntries = null;
+      renderLeaderboardHtml();
+      try {
+        lastLeaderboardEntries = await getDailyLeaderboard(eraId, dailyDateKeyValue, 10);
+      } catch (error) {
+        console.warn('OneDay: could not load daily leaderboard', error);
+        lastLeaderboardEntries = [];
+      }
+      renderLeaderboardHtml();
     }
 
     document.querySelector('#play-again').addEventListener('click', () => {
@@ -262,7 +378,7 @@
       applyStaticI18n();
       if (phase === 'decision') renderDecisionUI();
       else if (phase === 'outcome') renderOutcomeUI();
-      else if (phase === 'summary') renderSummaryUI();
+      else if (phase === 'summary') { renderSummaryUI(); if (isDaily) renderLeaderboardHtml(); }
     });
 
     (async function init() {
@@ -270,6 +386,28 @@
       const loaded = await loadEra(eraId);
       era = loaded.era;
       cards = loaded.cards;
+      isDaily = params.get('daily') === '1';
+      dailyDateKeyValue = todayDateKey();
+
+      if (isDaily) {
+        const local = getLocalDailyResult(eraId);
+        if (hasPlayedToday(local, dailyDateKeyValue)) {
+          applyStaticI18n();
+          showAlreadyPlayed(local);
+          return;
+        }
+        if (getCurrentUser()) {
+          try {
+            const remote = await checkRemoteDailyEntry(eraId, dailyDateKeyValue);
+            if (remote) {
+              applyStaticI18n();
+              showAlreadyPlayed(remote);
+              return;
+            }
+          } catch (error) { console.warn('OneDay: could not check remote daily entry', error); }
+        }
+      }
+
       character = loadCharacter(eraId);
       if (!character) { window.location.href = './index.html'; return; }
       archetype = findArchetype(era, character.archetypeId);

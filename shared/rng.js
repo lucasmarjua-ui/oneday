@@ -29,7 +29,10 @@ export function hashSeed(text) {
   return hash >>> 0;
 }
 
+export function dateKey(date = new Date()) {
+  return date.toISOString().slice(0, 10);
+}
+
 export function dailySeed(eraId, date = new Date()) {
-  const dateKey = date.toISOString().slice(0, 10);
-  return hashSeed(`${dateKey}:${eraId}`);
+  return hashSeed(`${dateKey(date)}:${eraId}`);
 }

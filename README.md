@@ -29,6 +29,7 @@ Then visit `http://localhost:8000`. (A `package.json` exists only to mark the co
 5. Each decision card presents 2-4 options. Every option shows its time cost, resource cost, and success chance before you commit. Success and failure each have their own resource changes and narrative text, and some outcomes set flags that unlock or block later cards in the same day.
 6. The day ends one of two ways, each with its own narrative closing: **time runs out** (a normal ending), or a critical resource (health) **hits zero** (a bad ending, with era-specific flavor text). The summary screen then shows your final resources, a checklist of the 3 objectives randomly picked for that playthrough, and a short recap of what happened.
 7. Some titles are **meta-achievements**: they require accumulating a resource (like lifetime Arete) across multiple playthroughs of the same era, tracked on your profile once you log in.
+8. Each era card also has a **Today's Challenge** button: a shared daily seed instead of a random one, one attempt per player per era per day, and a same-day leaderboard. See [Daily Challenge](#daily-challenge) below.
 
 ## Architecture
 
@@ -48,6 +49,9 @@ shared/
   objectives.js                Daily objective pool selection and completion checks
   achievements.js              Cross-playthrough meta-progress and meta-achievement unlocks
   stats.js                     Per-era play statistics (days played, objectives completed)
+  scoring.js                   Pure Daily Challenge score formula (objectives + resource tiebreak)
+  daily-challenge-logic.js     Pure "already played today?" check (no Firebase import, unit-testable)
+  daily-challenge.js           Daily Challenge localStorage cache + Firestore leaderboard read/write
   theme.css                    Shared visual theme, responsive layout
 data/
   i18n/en.json, es.json        Fixed interface strings (buttons, menus, labels)
@@ -107,9 +111,9 @@ A card option references at most one modifier (`successChance.archetypeBonus.mod
 
 ## Seeded RNG
 
-`shared/rng.js` provides a `mulberry32`-based seeded PRNG. Every function in the engine that needs randomness (`pickWeightedCard`, `resolveOption`, `pickDailyObjectives`) takes an `rng` function as a **required** argument — nothing in the engine calls `Math.random()` directly. Each playthrough creates one RNG instance from a fresh random seed (`createRng(randomSeed())`) and threads it through the whole day, so a given seed with the same choices always reproduces the exact same playthrough (see `tests/greece-data.test.js` for a determinism test that plays two identical seeded runs and asserts identical card sequences and final resources).
+`shared/rng.js` provides a `mulberry32`-based seeded PRNG. Every function in the engine that needs randomness (`pickWeightedCard`, `resolveOption`, `pickDailyObjectives`) takes an `rng` function as a **required** argument — nothing in the engine calls `Math.random()` directly. Each playthrough creates one RNG instance from a seed (`createRng(randomSeed())` for free play, `createRng(dailySeed(eraId, date))` for the Daily Challenge) and threads it through the whole day, so a given seed with the same choices always reproduces the exact same playthrough (see `tests/greece-data.test.js` for a determinism test that plays two identical seeded runs and asserts identical card sequences and final resources).
 
-This is what makes the planned **Daily Challenge** mode possible later without touching the engine: `dailySeed(eraId, date)` already exists and hashes a date + era id into a seed, so "today's challenge" for a given era can share the exact same card sequence and roll outcomes for every player, differing only by the choices they make. Free play just uses `randomSeed()` instead — same engine, different seed source.
+`dailySeed(eraId, date)` hashes a date + era id into a seed, so every player gets the exact same card sequence and roll outcomes for the same choices on a given day. This is the seed source behind [Daily Challenge](#daily-challenge) mode below — the engine needed no changes to support it, only a different `rng` source at the top of `game.html`'s `resetDay()`.
 
 ## Internationalization
 
@@ -127,9 +131,21 @@ Two separate layers of goals:
 - **Daily objectives**: 3 are picked at random (via the seeded RNG) from the era's `objectivesPool` at the start of each playthrough (e.g. "reach 300 drachmas", "never drop below 30 health"), checked against the day's final state and shown as a checklist on the summary screen.
 - **Meta-achievements**: persistent titles tied to the player's account, unlocked by accumulating a resource across multiple playthroughs of the same era (e.g. "Archon of Athens" at 500 lifetime Arete earned). Progress is stored locally under the `oneday.progress` key, synced (like the rest of a signed-in player's data) inside their `users/{uid}` Firestore document, and checked at the end of every day.
 
+## Daily Challenge
+
+Each era's "Today's Challenge" button plays the same engine with one difference: `resetDay()` seeds its RNG from `dailySeed(eraId, today)` instead of `randomSeed()`. Since daily objectives are picked from that same RNG instance (`pickDailyObjectives` runs first, before any card is drawn — this was already how `resetDay()` worked for free play, so the objectives were never a special case), every player gets the identical card sequence, roll outcomes *and* objective set for a given era on a given day. Only the choices a player makes — which option they pick at each card, and which archetype/appearance they chose beforehand — can change the outcome. `tests/daily-challenge.test.js` verifies this directly: two independent simulated playthroughs sharing a seed and making the same choices produce an identical card sequence, objective set and final resources; different choices on the same seed can diverge; and the same era on a different day produces a different sequence.
+
+**One attempt per player per era per day.** A local cache (`oneday.dailyChallenge` in `localStorage`) is checked before starting: if today's era already has a result cached, the saved summary is shown immediately instead of a fresh playthrough — this is what makes the "already played" experience instant rather than a wasted trip through character creation. For a logged-in player, that's backed by something stronger than `localStorage`: `firestore.rules` allows a `dailyLeaderboards/{eraId}-{date}/entries/{uid}` document to be **created but never updated or deleted**. A first score submission after finishing the day succeeds; any second attempt — from the same device with cleared storage, or a different device entirely — is rejected server-side regardless of what the client believes, so the competitive leaderboard can't be farmed by replaying for a better roll. Guests can still play (and get shown their own last result locally), they just don't have a server-side record and don't appear on the leaderboard, matching how guest mode already works everywhere else in this project.
+
+**Scoring** (`shared/scoring.js`, pure and unit-tested): each completed daily objective is worth a flat 100 points; a small 0-10 point tiebreak is added from final health and currency (both normalized — currency against a fixed 500-credit/drachma/provision reference cap rather than each resource's own `max`, since `currency.max` is set to 999999 specifically to mean "no real ceiling" and would make a max-normalized tiebreak worthless). The tiebreak is capped well under one objective's value on purpose, so it can only rank players who completed the *same* number of objectives — it can never let a worse day with better leftover resources outscore a better one. A day that ends in the bad ending scores from whatever objectives and resources it reached, exactly like a day that ends normally; no separate penalty is needed since dying early already means fewer completed objectives.
+
+**Leaderboard**: top 10 scores for today's challenge in that era, read from the same `dailyLeaderboards/{eraId}-{date}/entries` collection, shown on the summary screen (fresh completion or the "already played" view alike). The visible name is simply the player's existing login `displayName` — already captured as their chosen username at registration in `shared/auth.js`, so no new profile field was needed. Firestore calls in `shared/daily-challenge.js` are wrapped in an 8-second timeout: against an unconfigured Firebase project (the placeholder committed here until a real one is wired up — see below), the SDK's promises were found to hang indefinitely rather than reject, which would otherwise leave the leaderboard stuck on "Loading…" forever.
+
+A global, all-time leaderboard for free-play scores (not just the Daily Challenge) would reuse this same read/write pattern easily, but is left for later — it wasn't needed to ship this feature.
+
 ## Testing
 
-The engine's rules (card filtering, weighted selection, success-chance math, objective checks, RNG determinism) are covered by unit tests using Node's built-in test runner — zero test-framework dependencies, consistent with the rest of the project. Each era also has its own `tests/<era>-data.test.js` that validates its real `era.json`/`cards.json` content directly: every field that should be bilingual actually is, every archetype bonus references a modifier the era declares, and a simulated day across 100 different seeds always terminates without throwing.
+The engine's rules (card filtering, weighted selection, success-chance math, objective checks, RNG determinism) are covered by unit tests using Node's built-in test runner — zero test-framework dependencies, consistent with the rest of the project. Each era also has its own `tests/<era>-data.test.js` that validates its real `era.json`/`cards.json` content directly: every field that should be bilingual actually is, every archetype bonus references a modifier the era declares, and a simulated day across 100 different seeds always terminates without throwing. `tests/scoring.test.js` and `tests/daily-challenge.test.js` cover the Daily Challenge specifically: the scoring formula's invariants (objectives dominate, the tiebreak never outweighs one), the "already played today" date logic, and cross-player/cross-day seed determinism — all pure logic, so none of it needs a DOM or a real Firebase project. The Firestore-touching parts of `shared/daily-challenge.js` and `shared/auth.js` are, like the rest of this project's storage code, verified in the browser instead (see below), not unit tested.
 
 ```bash
 npm test
@@ -149,7 +165,7 @@ The `firebaseConfig` in [`shared/firebase-config.js`](shared/firebase-config.js)
 2. **Firestore Database → Create database** (pick a region) — a single click, no further configuration needed.
 3. **Authentication → Get started → Sign-in method → Email/Password → Enable**.
 4. **Authentication → Settings → Authorized domains**: add `lucasmarjua-ui.github.io` so login also works on GitHub Pages (`localhost` is already authorized).
-5. **Firestore Database → Rules**: paste the contents of [`firestore.rules`](firestore.rules) and publish.
+5. **Firestore Database → Rules**: paste the contents of [`firestore.rules`](firestore.rules) and publish — this includes the create-only `dailyLeaderboards` rule the Daily Challenge's anti-farming guarantee depends on.
 
 Everything else — including guest play — works without these steps.
 
@@ -188,7 +204,7 @@ No engine or schema changes were required — `data/eras/neanderthal/` plus one 
 
 ## Roadmap
 
-**Daily Challenge mode**: a deterministic per-day, per-era seed (`dailySeed`, already implemented) so every player gets the same card sequence and roll outcomes on a given day, plus a daily leaderboard per era in Firestore alongside the existing free-play leaderboard. Grow all three eras' card pools toward 40-60 cards each; add a fourth, dystopian city era (content only, same engine); more meta-achievements per era.
+A global, all-time free-play leaderboard per era (same Firestore pattern as the Daily Challenge's, without the daily reset or the create-only lock). Grow all three eras' card pools toward 40-60 cards each; add a fourth, dystopian city era (content only, same engine); more meta-achievements per era.
 
 ## License
 

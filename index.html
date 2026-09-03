@@ -97,6 +97,7 @@
     import { getEraProgress } from './shared/achievements.js';
     import { getEraStats } from './shared/stats.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
+    import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
 
     const eraScreen = document.querySelector('#era-screen');
     const eraGrid = document.querySelector('#era-grid');
@@ -112,6 +113,7 @@
     let currentEra = null;
     let currentCharacter = null;
     let currentPhase = 'era';
+    let currentMode = 'free';
 
     function applyStaticI18n() {
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
@@ -120,15 +122,28 @@
     }
 
     function renderEraGrid() {
-      eraGrid.innerHTML = ERAS.map(era => `
-        <button class="era-card panel" type="button" data-era="${era.id}" ${era.available ? '' : 'disabled'}>
-          <span class="era-icon">${era.icon}</span>
-          <h3>${localize(era.name)}</h3>
-          <p>${era.available ? localize(era.tagline) : t('era.comingSoon')}</p>
-        </button>
-      `).join('');
-      eraGrid.querySelectorAll('.era-card').forEach(card => {
-        card.addEventListener('click', () => selectEra(card.dataset.era));
+      const today = todayDateKey();
+      eraGrid.innerHTML = ERAS.map(era => {
+        const playedToday = era.available && hasPlayedToday(getLocalDailyResult(era.id), today);
+        return `
+          <div class="era-card panel" data-era="${era.id}">
+            <span class="era-icon">${era.icon}</span>
+            <h3>${localize(era.name)}</h3>
+            <p>${era.available ? localize(era.tagline) : t('era.comingSoon')}</p>
+            ${era.available ? `
+              <div class="era-card-actions">
+                <button class="btn" type="button" data-action="free" data-era="${era.id}">${t('era.playFree')}</button>
+                <button class="btn btn-ghost${playedToday ? ' daily-played' : ''}" type="button" data-action="daily" data-era="${era.id}">${playedToday ? '✓ ' : ''}${t('era.dailyChallenge')}</button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+      eraGrid.querySelectorAll('[data-action="free"]').forEach(btn => {
+        btn.addEventListener('click', () => selectEra(btn.dataset.era));
+      });
+      eraGrid.querySelectorAll('[data-action="daily"]').forEach(btn => {
+        btn.addEventListener('click', () => selectDailyChallenge(btn.dataset.era));
       });
     }
 
@@ -136,14 +151,34 @@
       const { era } = await loadEra(eraId);
       currentEra = era;
       currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
+      currentMode = 'free';
       currentPhase = 'archetype';
       eraScreen.hidden = true;
       archetypeScreen.hidden = false;
       renderArchetypeScreen();
     }
 
+    async function selectDailyChallenge(eraId) {
+      if (hasPlayedToday(getLocalDailyResult(eraId), todayDateKey())) {
+        window.location.href = `./game.html?era=${eraId}&daily=1`;
+        return;
+      }
+      const { era } = await loadEra(eraId);
+      currentEra = era;
+      currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
+      currentMode = 'daily';
+      currentPhase = 'archetype';
+      eraScreen.hidden = true;
+      archetypeScreen.hidden = false;
+      renderArchetypeScreen();
+    }
+
+    function modeBadgeHtml() {
+      return currentMode === 'daily' ? `<span class="daily-badge">${t('daily.badge')}</span><br>` : '';
+    }
+
     function renderArchetypeScreen() {
-      archetypeHeading.textContent = `${t('archetype.heading')} — ${localize(currentEra.name)}`;
+      archetypeHeading.innerHTML = `${modeBadgeHtml()}${t('archetype.heading')} — ${localize(currentEra.name)}`;
       archetypeGrid.innerHTML = currentEra.archetypes.map(archetype => `
         <button class="era-card panel${currentCharacter.archetypeId === archetype.id ? ' selected' : ''}" type="button" data-archetype="${archetype.id}">
           <h3>${localize(archetype.name)}</h3>
@@ -172,7 +207,7 @@
     });
 
     function renderAppearanceScreen() {
-      appearanceHeading.textContent = `${t('appearance.heading')} — ${localize(currentEra.name)}`;
+      appearanceHeading.innerHTML = `${modeBadgeHtml()}${t('appearance.heading')} — ${localize(currentEra.name)}`;
       characterPreview.innerHTML = renderCharacterSVG(currentEra, currentCharacter);
 
       baseOptions.innerHTML = `<h4>${t('appearance.baseLabel')}</h4><div class="swatch-row" id="base-swatches"></div>`;
@@ -213,7 +248,8 @@
 
     document.querySelector('#appearance-begin').addEventListener('click', () => {
       saveCharacter(currentEra.id, currentCharacter);
-      window.location.href = `./game.html?era=${currentEra.id}`;
+      const dailyParam = currentMode === 'daily' ? '&daily=1' : '';
+      window.location.href = `./game.html?era=${currentEra.id}${dailyParam}`;
     });
 
     // Language selector
