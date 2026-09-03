@@ -1,0 +1,171 @@
+[
+  {
+    "id": "neanderthal-wake-fire",
+    "text": { "en": "You wake beside the dying embers of last night's fire. The day is yours to survive.", "es": "Despiertas junto a las brasas moribundas del fuego de anoche. El día es tuyo para sobrevivir." },
+    "timeSlots": ["dawn"],
+    "weight": 5,
+    "options": [
+      { "id": "tend-embers", "text": { "en": "Tend the fire and stretch", "es": "Aviva el fuego y estírate" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "The warmth loosens your muscles.", "es": "El calor relaja tus músculos." } } },
+      { "id": "sleep-in-embers", "text": { "en": "Sleep a little longer by the embers", "es": "Duerme un poco más junto a las brasas" }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 20, "health": 2 }, "text": { "en": "You wake rested, but the light is already climbing.", "es": "Despiertas descansado, pero la luz ya ha subido." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-foraging",
+    "text": { "en": "Berries and roots dot the forest floor, easy to miss if you're not looking closely.", "es": "Bayas y raíces salpican el suelo del bosque, fáciles de pasar por alto si no miras con atención." },
+    "timeSlots": ["dawn", "midday", "dusk"],
+    "weight": 4,
+    "options": [
+      { "id": "search-carefully", "text": { "en": "Search carefully", "es": "Busca con cuidado" }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 0.55, "archetypeBonus": { "modifier": "luck", "scale": 0.06 } }, "success": { "resources": { "survival": 20, "currency": 5 }, "text": { "en": "A good patch — enough to eat and enough to spare.", "es": "Un buen hallazgo: suficiente para comer y algo de sobra." } }, "failure": { "resources": { "energy": -5 }, "text": { "en": "Nothing but bitter roots not worth the trouble.", "es": "Nada más que raíces amargas que no valen el esfuerzo." } } },
+      { "id": "move-on-forage", "text": { "en": "Move on", "es": "Sigue adelante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You keep walking.", "es": "Sigues caminando." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-water-source",
+    "text": { "en": "A clear stream cuts through the valley, cold and inviting.", "es": "Un arroyo cristalino atraviesa el valle, frío y tentador." },
+    "timeSlots": ["dawn", "midday", "dusk", "night"],
+    "weight": 3,
+    "options": [
+      { "id": "drink-rest", "text": { "en": "Drink and rest a moment", "es": "Bebe y descansa un momento" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "survival": 25 }, "text": { "en": "The cold water steadies you.", "es": "El agua fría te reconforta." } } },
+      { "id": "skip-water-source", "text": { "en": "Keep moving", "es": "Sigue tu camino" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You press on.", "es": "Continúas adelante." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-beast-tracks",
+    "text": { "en": "Elder hunters speak of an enormous beast seen near the ridge at dawn.", "es": "Los cazadores mayores hablan de una bestia enorme vista cerca de la cresta al amanecer." },
+    "timeSlots": ["dawn", "midday", "dusk", "night"],
+    "weight": 2,
+    "repeatable": true,
+    "conditions": { "flagsExcluded": ["beast-tracked", "great-hunt-won"] },
+    "options": [
+      { "id": "investigate-tracks", "text": { "en": "Investigate the sighting", "es": "Investiga el avistamiento" }, "cost": { "time": 1 }, "successChance": { "base": 0.55, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "flagsSet": ["beast-tracked"], "text": { "en": "You find fresh tracks leading toward the ridge.", "es": "Encuentras huellas frescas que llevan hacia la cresta." } }, "failure": { "text": { "en": "The trail is already cold.", "es": "El rastro ya está frío." } } },
+      { "id": "ignore-tracks", "text": { "en": "Not worth the risk", "es": "No merece el riesgo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You let the elders' talk pass.", "es": "Dejas pasar las palabras de los mayores." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-great-hunt",
+    "text": { "en": "The great beast grazes in a clearing beyond the ridge, unaware of you.", "es": "La gran bestia pace en un claro más allá de la cresta, ajena a tu presencia." },
+    "timeSlots": ["dawn", "dusk"],
+    "weight": 3,
+    "conditions": { "flagsRequired": ["beast-tracked"], "flagsExcluded": ["great-hunt-won"] },
+    "options": [
+      { "id": "attempt-hunt", "text": { "en": "Attempt the hunt", "es": "Intenta la cacería" }, "cost": { "time": 3, "resources": { "energy": -25 } }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "might", "scale": 0.07 } }, "success": { "resources": { "currency": 40, "reputation": 8 }, "flagsSet": ["great-hunt-won"], "text": { "en": "The beast falls. The tribe will feast tonight, and speak of this for seasons.", "es": "La bestia cae. La tribu festejará esta noche, y hablarán de esto durante estaciones." } }, "failure": { "resources": { "health": -20 }, "text": { "en": "The beast turns on you before you can strike. You barely escape.", "es": "La bestia se revuelve contra ti antes de que puedas atacar. Escapas por poco." } } },
+      { "id": "decline-hunt", "text": { "en": "Not today, too dangerous", "es": "Hoy no, demasiado peligroso" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The beast will still be there another day.", "es": "La bestia seguirá ahí otro día." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-shaman-ritual",
+    "text": { "en": "The tribe's shaman prepares a ritual around the fire, reading smoke and bone.", "es": "El chamán de la tribu prepara un ritual junto al fuego, leyendo el humo y los huesos." },
+    "timeSlots": ["dusk", "night"],
+    "weight": 2,
+    "options": [
+      { "id": "join-ritual", "text": { "en": "Join the ritual", "es": "Únete al ritual" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 5 }, "text": { "en": "You read the signs true, and the tribe takes notice.", "es": "Interpretas bien las señales, y la tribu se fija en ti." } }, "failure": { "resources": { "reputation": -1, "energy": -5 }, "text": { "en": "The smoke leaves you dizzy and confused.", "es": "El humo te deja mareado y confundido." } } },
+      { "id": "skip-ritual", "text": { "en": "Watch from a distance", "es": "Observa desde la distancia" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You keep your own counsel.", "es": "Guardas tus propias reflexiones." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-injured-tribesman",
+    "text": { "en": "A young hunter limps into camp, bleeding from a deep gash.", "es": "Un joven cazador cojea hasta el campamento, sangrando por un corte profundo." },
+    "timeSlots": ["dawn", "midday", "dusk", "night"],
+    "weight": 2,
+    "options": [
+      { "id": "tend-wound", "text": { "en": "Tend his wound", "es": "Atiende su herida" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 3 }, "text": { "en": "The bleeding stops. He will remember this.", "es": "La hemorragia se detiene. Él recordará esto." } }, "failure": { "text": { "en": "You do what you can, but he needed more skill than you have.", "es": "Haces lo que puedes, pero él necesitaba más destreza de la que tienes." } } },
+      { "id": "ignore-injured", "text": { "en": "Not your concern", "es": "No es asunto tuyo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "Others notice you turn away.", "es": "Otros notan que te apartas." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-predator-encounter",
+    "text": { "en": "A shadow moves at the treeline — a predator, watching, weighing its odds.", "es": "Una sombra se mueve junto a los árboles: un depredador, observando, calculando sus posibilidades." },
+    "timeSlots": ["dusk", "night"],
+    "weight": 3,
+    "options": [
+      { "id": "stand-ground", "text": { "en": "Stand your ground and scare it off", "es": "Mantente firme y ahuyéntalo" }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.06 } }, "success": { "resources": { "reputation": 4 }, "text": { "en": "You shout and throw stones. The shadow retreats.", "es": "Gritas y lanzas piedras. La sombra se retira." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "It lunges before you're ready. You fight your way free, bloodied.", "es": "Se abalanza antes de que estés listo. Logras escapar, malherido." } } },
+      { "id": "retreat-quietly", "text": { "en": "Retreat quietly", "es": "Retírate en silencio" }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "You back away slowly, and it loses interest.", "es": "Te alejas despacio, y pierde el interés." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-fire-keeping",
+    "text": { "en": "The fire is dwindling and the night is growing cold.", "es": "El fuego se está apagando y la noche se vuelve fría." },
+    "timeSlots": ["night"],
+    "weight": 4,
+    "options": [
+      { "id": "feed-fire", "text": { "en": "Feed the fire carefully", "es": "Alimenta el fuego con cuidado" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "energy": 10 }, "flagsSet": ["kept-fire"], "text": { "en": "The flames catch. Warmth holds through the night.", "es": "Las llamas prenden. El calor se mantiene durante la noche." } }, "failure": { "resources": { "health": -10 }, "text": { "en": "The fire gutters out. The cold bites deep.", "es": "El fuego se apaga. El frío muerde profundo." } } },
+      { "id": "let-fire-die", "text": { "en": "Let it burn out and sleep anyway", "es": "Déjalo apagarse y duerme de todos modos" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "text": { "en": "You curl up and hope for the best.", "es": "Te acurrucas y esperas lo mejor." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-cave-rumor",
+    "text": { "en": "An elder mutters about a hidden cave deeper in the valley, sheltered from wind and rain.", "es": "Un anciano murmura sobre una cueva oculta en lo profundo del valle, protegida del viento y la lluvia." },
+    "timeSlots": ["dawn", "midday", "dusk", "night"],
+    "weight": 2,
+    "repeatable": true,
+    "conditions": { "flagsExcluded": ["cave-rumor-heard", "found-cave"] },
+    "options": [
+      { "id": "ask-elder", "text": { "en": "Ask for directions", "es": "Pídele indicaciones" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "flagsSet": ["cave-rumor-heard"], "text": { "en": "He points toward a rockslide past the twin trees.", "es": "Señala hacia un desprendimiento de rocas pasados los árboles gemelos." } }, "failure": { "text": { "en": "He waves you off, too tired to talk.", "es": "Te despacha con la mano, demasiado cansado para hablar." } } },
+      { "id": "ignore-elder", "text": { "en": "Probably just an old story", "es": "Probablemente solo sea un viejo cuento" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You let it go.", "es": "Lo dejas pasar." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-cave-path",
+    "text": { "en": "Past the twin trees, a rockslide hides a narrow opening, just as the elder described.", "es": "Pasados los árboles gemelos, un desprendimiento de rocas oculta una abertura estrecha, tal como describió el anciano." },
+    "timeSlots": ["dusk", "night"],
+    "weight": 3,
+    "conditions": { "flagsRequired": ["cave-rumor-heard"], "flagsExcluded": ["found-cave"] },
+    "options": [
+      { "id": "follow-cave-path", "text": { "en": "Squeeze through the opening", "es": "Cuélate por la abertura" }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "luck", "scale": 0.06 } }, "success": { "resources": { "reputation": 10, "survival": 20 }, "flagsSet": ["found-cave"], "text": { "en": "A dry, sheltered cave — a real find. The tribe will want to know.", "es": "Una cueva seca y protegida: un hallazgo de verdad. La tribu querrá saberlo." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "The rocks shift and you scrape through bruised, finding nothing.", "es": "Las rocas se mueven y sales magullado, sin encontrar nada." } } },
+      { "id": "not-today-cave", "text": { "en": "Not today, too risky", "es": "Hoy no, demasiado arriesgado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The opening will still be there.", "es": "La abertura seguirá ahí." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-tool-making",
+    "text": { "en": "A flint stone catches your eye, sharp-edged and promising.", "es": "Una piedra de sílex te llama la atención, de bordes afilados y prometedores." },
+    "timeSlots": ["midday", "dusk"],
+    "weight": 3,
+    "options": [
+      { "id": "knap-tool", "text": { "en": "Knap a new tool", "es": "Talla una nueva herramienta" }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.05 } }, "success": { "resources": { "currency": 15 }, "text": { "en": "A clean edge — worth trading or keeping.", "es": "Un filo limpio: vale la pena guardarlo o intercambiarlo." } }, "failure": { "resources": { "health": -5 }, "text": { "en": "The stone shatters wrong and cuts your hand.", "es": "La piedra se rompe mal y te corta la mano." } } },
+      { "id": "leave-flint", "text": { "en": "Leave it be", "es": "Déjala estar" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not today.", "es": "Hoy no." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-share-meal",
+    "text": { "en": "The tribe gathers to share what's been found today.", "es": "La tribu se reúne para compartir lo que se ha encontrado hoy." },
+    "timeSlots": ["dusk", "night"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "options": [
+      { "id": "share-generously", "text": { "en": "Share generously", "es": "Comparte con generosidad" }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "text": { "en": "The tribe eats well tonight, and knows it was your doing.", "es": "La tribu come bien esta noche, y sabe que fue gracias a ti." } } },
+      { "id": "share-modestly", "text": { "en": "Share a modest portion", "es": "Comparte una porción modesta" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "A fair contribution.", "es": "Una aportación justa." } } },
+      { "id": "keep-share", "text": { "en": "Keep your share for yourself", "es": "Guarda tu parte para ti" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "Others notice, and say nothing — for now.", "es": "Otros lo notan, y no dicen nada, por ahora." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-child-play",
+    "text": { "en": "Children of the tribe tug at your arm, wanting to play.", "es": "Los niños de la tribu tiran de tu brazo, queriendo jugar." },
+    "timeSlots": ["midday"],
+    "weight": 2,
+    "options": [
+      { "id": "play-along", "text": { "en": "Play along", "es": "Sigue el juego" }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "Their laughter is worth the tired legs.", "es": "Su risa vale las piernas cansadas." } } },
+      { "id": "wave-off-children", "text": { "en": "Wave them off, too busy", "es": "Despídelos, estás ocupado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "They wander off, a little disappointed.", "es": "Se alejan, algo decepcionados." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-storm-shelter",
+    "text": { "en": "Dark clouds gather fast over the ridge — a storm is coming.", "es": "Nubes oscuras se acumulan rápido sobre la cresta: se acerca una tormenta." },
+    "timeSlots": ["dusk", "night"],
+    "weight": 2,
+    "options": [
+      { "id": "find-shelter", "text": { "en": "Find shelter quickly", "es": "Busca refugio rápido" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "luck", "scale": 0.06 } }, "success": { "resources": { "energy": -5 }, "text": { "en": "You find a rocky overhang just in time.", "es": "Encuentras un saliente rocoso justo a tiempo." } }, "failure": { "resources": { "health": -15, "survival": -10 }, "text": { "en": "The storm catches you in the open, soaked and shivering.", "es": "La tormenta te sorprende a la intemperie, empapado y temblando." } } },
+      { "id": "push-through-storm", "text": { "en": "Push on regardless", "es": "Sigue adelante de todos modos" }, "cost": { "time": 1, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "You grit your teeth and keep moving.", "es": "Aprietas los dientes y sigues adelante." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-elder-wisdom",
+    "text": { "en": "The tribe's eldest calls you over, offering counsel to those who will listen.", "es": "El más anciano de la tribu te llama, ofreciendo consejo a quien quiera escuchar." },
+    "timeSlots": ["midday", "dusk", "night"],
+    "weight": 2,
+    "conditions": { "resources": { "reputation": { "min": 15 } } },
+    "options": [
+      { "id": "listen-elder", "text": { "en": "Listen and learn", "es": "Escucha y aprende" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 3 }, "text": { "en": "Their words carry the weight of many winters.", "es": "Sus palabras llevan el peso de muchos inviernos." } }, "failure": { "text": { "en": "Your mind wanders, and the moment passes.", "es": "Tu mente se distrae, y el momento pasa." } } },
+      { "id": "decline-elder", "text": { "en": "Politely decline", "es": "Declina educadamente" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Another time, perhaps.", "es": "Quizá en otro momento." } } }
+    ]
+  }
+]

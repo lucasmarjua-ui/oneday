@@ -19,9 +19,12 @@ export const ERAS = [
   {
     id: 'neanderthal',
     name: { en: 'Neanderthals', es: 'Neandertales' },
+    tagline: { en: 'Survive one day at the edge of the wild.', es: 'Sobrevive un día al filo de lo salvaje.' },
     icon: '\u{1F525}',
     accentColor: '#8a5a35',
-    available: false,
+    configPath: './data/eras/neanderthal/era.json',
+    cardsPath: './data/eras/neanderthal/cards.json',
+    available: true,
   },
 ];
 

@@ -22,7 +22,7 @@ Then visit `http://localhost:8000`. (A `package.json` exists only to mark the co
 
 ## How to play
 
-1. On the home screen, pick a language (EN/ES, top right) and an era. Only **Ancient Greece** is available at launch — the other cards are placeholders for future eras.
+1. On the home screen, pick a language (EN/ES, top right) and an era. **Ancient Greece** and **Neanderthals** are playable; **Futuristic City** is a placeholder for a future era.
 2. Choose an **archetype** — Warrior, Orator or Philosopher — which fixes your success-chance bonuses for the rest of the playthrough. No option is ever fully blocked by your archetype; it just makes some routes more reliable than others.
 3. Customize your character's appearance: base look, outfit, headgear and an accessory, each just swapping a simple SVG layer (no hand-drawn art per combination).
 4. Click **Begin the Day**. The day runs from 07:00 to 23:00 in a shared time budget; each decision costs a variable number of hours, so a full day is roughly 8-20 decisions depending on your choices.
@@ -51,8 +51,10 @@ shared/
   theme.css                    Shared visual theme, responsive layout
 data/
   i18n/en.json, es.json        Fixed interface strings (buttons, menus, labels)
-  eras/greece/era.json         Resources, archetypes, day structure, character options, objectives, endings
-  eras/greece/cards.json       Decision cards for Ancient Greece (bilingual text throughout)
+  eras/greece/era.json          Resources, archetypes, day structure, character options, objectives, endings
+  eras/greece/cards.json        Decision cards for Ancient Greece (bilingual text throughout)
+  eras/neanderthal/era.json     Same schema, a different resource/archetype set (see Eras built so far)
+  eras/neanderthal/cards.json   Decision cards for the Neanderthal era
 tests/*.test.js                Unit tests for the engine, run with Node's built-in test runner
 firestore.rules                Firestore security rules (reference, pasted into the console)
 .github/workflows/ci.yaml      Runs the test suite on every push and pull request
@@ -169,9 +171,20 @@ Everything else — including guest play — works without these steps.
 ![Summary](screenshots/summary.png)
 End-of-day summary, with the era's own narrative ending
 
+## Eras built so far
+
+**Ancient Greece** (Warrior/Orator/Philosopher, `might`/`wits`/`charm`) was the original pilot. **Neanderthals** (Hunter/Shaman/Forager, `might`/`wits`/`luck`) was built second, specifically to stress-test whether the schema generalizes to a genuinely different world without touching `shared/`:
+
+- **Resources**: Neanderthal fuses `hunger`/`thirst` into a single `survival` resource and drops separate `energy`/`hunger`/`thirst` pairing entirely — a different resource *set*, not just relabeled values. Every module that reads resources (`shared/resources.js`, the HUD, the summary screen, option-cost formatting) already iterates `era.resources` generically; nothing needed to change.
+- **Archetypes**: Neanderthal introduces `luck` as an active modifier (unused by Greece) and drops `charm` — confirming the archetype system isn't implicitly tied to Greece's three names or roles.
+- **Currency**: Neanderthal reuses the `currency` key internally (as "mismo motor, distinto disfraz" intends) for a survival-flavored "Provisions" resource instead of Greece's money-like "Drachmas". Nothing in the engine treats `currency` as behaviorally special — it's clamped and compared exactly like any other resource — so the key name carries no hidden economic assumption.
+- **Character art**: Neanderthal's furs/head/tool wardrobe reuses Greece's existing SVG shape primitives (a rectangle torso as a hide wrap, a rod as a spear, a circle as a hide pouch) recolored and relabeled per era.json — no new shapes were added to `shared/character.js`.
+
+No engine or schema changes were required — `data/eras/neanderthal/` plus one registration line in `shared/era-registry.js` was enough. `tests/neanderthal-data.test.js` encodes this as a regression check (different resource/modifier sets from Greece, `luck` actually exercised by a card, bilingual coverage, and a 100-seed simulated-day crash/determinism check), alongside the pre-existing `tests/greece-data.test.js`.
+
 ## Roadmap
 
-**Daily Challenge mode**: a deterministic per-day, per-era seed (`dailySeed`, already implemented) so every player gets the same card sequence and roll outcomes on a given day, plus a daily leaderboard per era in Firestore alongside the existing free-play leaderboard. Grow the Ancient Greece card pool toward 40-60 cards; add the Futuristic City and Neanderthal eras (content only, same engine); add a dystopian city era; more meta-achievements per era; a proper "coming soon" state polish for locked eras.
+**Daily Challenge mode**: a deterministic per-day, per-era seed (`dailySeed`, already implemented) so every player gets the same card sequence and roll outcomes on a given day, plus a daily leaderboard per era in Firestore alongside the existing free-play leaderboard. Grow the Ancient Greece and Neanderthal card pools toward 40-60 cards each; add the Futuristic City and a dystopian city era (content only, same engine — see [Eras built so far](#eras-built-so-far) for what that validated); more meta-achievements per era; a proper "coming soon" state polish for locked eras.
 
 ## License
 
