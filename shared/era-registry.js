@@ -12,9 +12,12 @@ export const ERAS = [
   {
     id: 'future-city',
     name: { en: 'Futuristic City', es: 'Ciudad Futurista' },
+    tagline: { en: 'Hustle, hack and climb in a city that never logs off.', es: 'Búscate la vida, hackea y asciende en una ciudad que nunca se desconecta.' },
     icon: '\u{1F306}',
     accentColor: '#3d6ea9',
-    available: false,
+    configPath: './data/eras/future-city/era.json',
+    cardsPath: './data/eras/future-city/cards.json',
+    available: true,
   },
   {
     id: 'neanderthal',

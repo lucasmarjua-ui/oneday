@@ -49,3 +49,34 @@ test('renderCharacterSVG returns a well-formed svg string reflecting the chosen 
   assert.ok(svg.endsWith('</svg>'));
   assert.ok(svg.includes('#111'));
 });
+
+const eraWithAccent = {
+  archetypes: [{ id: 'hacker', modifiers: { wits: 3 } }],
+  character: {
+    bases: [{ id: 'base-a', skinColor: '#111' }],
+    slots: [{
+      id: 'attire',
+      options: [
+        { id: 'plain', shape: 'jumpsuit', color: '#123456' },
+        { id: 'accented', shape: 'jumpsuit', color: '#123456', accentColor: '#abcdef' },
+      ],
+    }],
+  },
+};
+
+test('renderCharacterSVG passes accentColor through to shapes that use a second tone', () => {
+  const withoutAccent = renderCharacterSVG(eraWithAccent, { base: 'base-a', slots: { attire: 'plain' } });
+  assert.ok(withoutAccent.includes('#123456'));
+  assert.ok(!withoutAccent.includes('#abcdef'));
+
+  const withAccent = renderCharacterSVG(eraWithAccent, { base: 'base-a', slots: { attire: 'accented' } });
+  assert.ok(withAccent.includes('#123456'));
+  assert.ok(withAccent.includes('#abcdef'));
+});
+
+test('shapes without an accentColor fall back to the base color, never a hardcoded default', () => {
+  const svg = renderCharacterSVG(eraWithAccent, { base: 'base-a', slots: { attire: 'plain' } });
+  // the jumpsuit shape's accent stripe should render using the base color itself, not any fixed hex
+  const occurrences = svg.split('#123456').length - 1;
+  assert.equal(occurrences, 2, 'expected the base color to be used for both the body and the (missing) accent stripe');
+});

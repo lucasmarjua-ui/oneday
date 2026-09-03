@@ -22,7 +22,7 @@ Then visit `http://localhost:8000`. (A `package.json` exists only to mark the co
 
 ## How to play
 
-1. On the home screen, pick a language (EN/ES, top right) and an era. **Ancient Greece** and **Neanderthals** are playable; **Futuristic City** is a placeholder for a future era.
+1. On the home screen, pick a language (EN/ES, top right) and an era: **Ancient Greece**, **Neanderthals** or **Futuristic City** — the three MVP eras, all playable.
 2. Choose an **archetype** — Warrior, Orator or Philosopher — which fixes your success-chance bonuses for the rest of the playthrough. No option is ever fully blocked by your archetype; it just makes some routes more reliable than others.
 3. Customize your character's appearance: base look, outfit, headgear and an accessory, each just swapping a simple SVG layer (no hand-drawn art per combination).
 4. Click **Begin the Day**. The day runs from 07:00 to 23:00 in a shared time budget; each decision costs a variable number of hours, so a full day is roughly 8-20 decisions depending on your choices.
@@ -55,6 +55,8 @@ data/
   eras/greece/cards.json        Decision cards for Ancient Greece (bilingual text throughout)
   eras/neanderthal/era.json     Same schema, a different resource/archetype set (see Eras built so far)
   eras/neanderthal/cards.json   Decision cards for the Neanderthal era
+  eras/future-city/era.json     Same schema again, full resource set + two new SVG character shapes
+  eras/future-city/cards.json   Decision cards for the Futuristic City era
 tests/*.test.js                Unit tests for the engine, run with Node's built-in test runner
 firestore.rules                Firestore security rules (reference, pasted into the console)
 .github/workflows/ci.yaml      Runs the test suite on every push and pull request
@@ -127,7 +129,7 @@ Two separate layers of goals:
 
 ## Testing
 
-The engine's rules (card filtering, weighted selection, success-chance math, objective checks, RNG determinism) are covered by unit tests using Node's built-in test runner — zero test-framework dependencies, consistent with the rest of the project. `tests/greece-data.test.js` also validates the real `era.json`/`cards.json` content directly: every field that should be bilingual actually is, every archetype bonus references a modifier the era declares, and a simulated day across 100 different seeds always terminates without throwing.
+The engine's rules (card filtering, weighted selection, success-chance math, objective checks, RNG determinism) are covered by unit tests using Node's built-in test runner — zero test-framework dependencies, consistent with the rest of the project. Each era also has its own `tests/<era>-data.test.js` that validates its real `era.json`/`cards.json` content directly: every field that should be bilingual actually is, every archetype bonus references a modifier the era declares, and a simulated day across 100 different seeds always terminates without throwing.
 
 ```bash
 npm test
@@ -182,9 +184,11 @@ End-of-day summary, with the era's own narrative ending
 
 No engine or schema changes were required — `data/eras/neanderthal/` plus one registration line in `shared/era-registry.js` was enough. `tests/neanderthal-data.test.js` encodes this as a regression check (different resource/modifier sets from Greece, `luck` actually exercised by a card, bilingual coverage, and a 100-seed simulated-day crash/determinism check), alongside the pre-existing `tests/greece-data.test.js`.
 
+**Futuristic City** (Hacker/Executive/Runner, `might`/`wits`/`charm` — the same three modifiers as Greece) completes the MVP trio as an intentional "middle" case: structurally close to Greece (full six-resource set, an economy + reputation resource, no fusion), but with a fully distinct tone (gig-economy deliveries, corporate ladder-climbing, a hidden-server hacking questline mirroring Greece's shrine and Neanderthal's cave). Its wardrobe needed genuinely new visuals — a jumpsuit, an AR visor, a datapad, a companion drone — that the existing rod/rectangle/circle primitives from Greece and Neanderthal couldn't credibly stretch to. That required one small, deliberate engine change: `shared/character.js`'s shape renderers now take an optional second `accentColor` (alongside the existing `color`), sourced from `era.json` like every other visual property, so a shape can have a two-tone glow/highlight without hardcoding it into the renderer function itself (the mistake `tunic-fine`'s baked-in gold sash made in Greece — left as-is there, not repeated here). `tests/character.test.js` covers the fallback behavior directly (no accent color falls back to the base color, never a fixed default) alongside `tests/future-city-data.test.js`'s usual bilingual/schema/simulated-day checks.
+
 ## Roadmap
 
-**Daily Challenge mode**: a deterministic per-day, per-era seed (`dailySeed`, already implemented) so every player gets the same card sequence and roll outcomes on a given day, plus a daily leaderboard per era in Firestore alongside the existing free-play leaderboard. Grow the Ancient Greece and Neanderthal card pools toward 40-60 cards each; add the Futuristic City and a dystopian city era (content only, same engine — see [Eras built so far](#eras-built-so-far) for what that validated); more meta-achievements per era; a proper "coming soon" state polish for locked eras.
+**Daily Challenge mode**: a deterministic per-day, per-era seed (`dailySeed`, already implemented) so every player gets the same card sequence and roll outcomes on a given day, plus a daily leaderboard per era in Firestore alongside the existing free-play leaderboard. Grow all three eras' card pools toward 40-60 cards each; add a fourth, dystopian city era (content only, same engine); more meta-achievements per era.
 
 ## License
 

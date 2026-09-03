@@ -9,11 +9,16 @@ const SHAPE_RENDERERS = {
   'staff': color => `<rect x="150" y="55" width="6" height="145" rx="3" fill="${color}" />`,
   'shield': color => `<circle cx="45" cy="150" r="22" fill="${color}" stroke="#3a2c1a" stroke-width="3" /><circle cx="45" cy="150" r="10" fill="none" stroke="#3a2c1a" stroke-width="2" />`,
   'lyre': color => `<rect x="140" y="120" width="20" height="30" rx="4" fill="${color}" /><rect x="136" y="98" width="4" height="42" fill="${color}" /><rect x="164" y="98" width="4" height="42" fill="${color}" />`,
+  'jumpsuit': (color, accent) => `<rect x="65" y="100" width="70" height="95" rx="10" fill="${color}" /><rect x="97" y="103" width="6" height="88" rx="3" fill="${accent || color}" />`,
+  'visor': (color, accent) => `<rect x="72" y="50" width="56" height="12" rx="6" fill="${color}" /><rect x="76" y="54" width="48" height="4" rx="2" fill="${accent || color}" />`,
+  'earpiece-hud': (color, accent) => `<circle cx="127" cy="55" r="7" fill="${color}" /><circle cx="127" cy="55" r="3" fill="${accent || color}" />`,
+  'datapad': (color, accent) => `<rect x="144" y="118" width="20" height="28" rx="3" fill="${color}" /><rect x="147" y="122" width="14" height="10" fill="${accent || color}" />`,
+  'drone': (color, accent) => `<circle cx="158" cy="85" r="11" fill="${color}" /><rect x="140" y="83" width="34" height="3" rx="1.5" fill="${accent || color}" opacity="0.8" /><circle cx="158" cy="85" r="4" fill="${accent || color}" />`,
 };
 
-function renderShape(shapeId, color) {
+function renderShape(shapeId, color, accentColor) {
   const renderer = SHAPE_RENDERERS[shapeId] || SHAPE_RENDERERS.none;
-  return renderer(color);
+  return renderer(color, accentColor);
 }
 
 function findOption(era, slotId, optionId) {
@@ -62,7 +67,7 @@ export function renderCharacterSVG(era, character, { size = 200 } = {}) {
   ];
   era.character.slots.forEach(slot => {
     const option = findOption(era, slot.id, character.slots[slot.id]);
-    if (option) layers.push(renderShape(option.shape, option.color));
+    if (option) layers.push(renderShape(option.shape, option.color, option.accentColor));
   });
   return `<svg viewBox="0 0 200 260" width="${size}" height="${size * 1.3}" xmlns="http://www.w3.org/2000/svg">${layers.join('')}</svg>`;
 }

@@ -1,0 +1,98 @@
+{
+  "id": "future-city",
+  "name": { "en": "Futuristic City", "es": "Ciudad Futurista" },
+  "tagline": { "en": "Hustle, hack and climb in a city that never logs off.", "es": "Búscate la vida, hackea y asciende en una ciudad que nunca se desconecta." },
+  "theme": { "accentColor": "#3d6ea9", "icon": "🌆" },
+  "day": {
+    "totalTime": 16,
+    "startLabel": "07:00",
+    "endLabel": "23:00",
+    "slots": [
+      { "id": "signon", "label": { "en": "Sign-On", "es": "Inicio de turno" }, "from": 0, "to": 4 },
+      { "id": "peak", "label": { "en": "Peak Hours", "es": "Horas punta" }, "from": 4, "to": 8 },
+      { "id": "rush", "label": { "en": "Rush Hour", "es": "Hora punta" }, "from": 8, "to": 12 },
+      { "id": "nightshift", "label": { "en": "Night Shift", "es": "Turno de noche" }, "from": 12, "to": 16 }
+    ]
+  },
+  "resources": {
+    "energy": { "label": { "en": "Energy", "es": "Energía" }, "icon": "⚡", "min": 0, "max": 100, "start": 80 },
+    "health": { "label": { "en": "Health", "es": "Salud" }, "icon": "❤️", "min": 0, "max": 100, "start": 100, "critical": true },
+    "hunger": { "label": { "en": "Nutrition", "es": "Nutrición" }, "icon": "🍔", "min": 0, "max": 100, "start": 70 },
+    "thirst": { "label": { "en": "Hydration", "es": "Hidratación" }, "icon": "🥤", "min": 0, "max": 100, "start": 70 },
+    "currency": { "label": { "en": "Credits", "es": "Créditos" }, "icon": "💳", "min": 0, "max": 999999, "start": 30 },
+    "reputation": { "label": { "en": "Corporate Influence", "es": "Influencia Corporativa" }, "icon": "📈", "min": 0, "max": 100, "start": 10 }
+  },
+  "modifiers": ["might", "wits", "charm"],
+  "archetypes": [
+    {
+      "id": "hacker",
+      "name": { "en": "Hacker", "es": "Hacker" },
+      "description": { "en": "A master of networks and hidden backdoors.", "es": "Un maestro de las redes y las puertas traseras ocultas." },
+      "modifiers": { "might": 0, "wits": 3, "charm": 0 }
+    },
+    {
+      "id": "executive",
+      "name": { "en": "Executive", "es": "Ejecutivo" },
+      "description": { "en": "Smooth-talking and well-connected, at home in boardrooms.", "es": "Elocuente y bien conectado, como en casa en las salas de juntas." },
+      "modifiers": { "might": 0, "wits": 0, "charm": 3 }
+    },
+    {
+      "id": "runner",
+      "name": { "en": "Runner", "es": "Mensajero" },
+      "description": { "en": "Fast and tough, built for the streets and the rooftops.", "es": "Rápido y resistente, hecho para las calles y los tejados." },
+      "modifiers": { "might": 3, "wits": 0, "charm": 0 }
+    }
+  ],
+  "character": {
+    "bases": [
+      { "id": "base-light", "label": { "en": "Fair", "es": "Clara" }, "skinColor": "#e8b98a" },
+      { "id": "base-tan", "label": { "en": "Olive", "es": "Trigueña" }, "skinColor": "#c98a55" },
+      { "id": "base-deep", "label": { "en": "Deep", "es": "Oscura" }, "skinColor": "#8a5a35" }
+    ],
+    "slots": [
+      {
+        "id": "attire",
+        "label": { "en": "Attire", "es": "Atuendo" },
+        "options": [
+          { "id": "jumpsuit-worker", "label": { "en": "Worker Jumpsuit", "es": "Mono de trabajo" }, "shape": "jumpsuit", "color": "#5a6470", "accentColor": "#8fa3b8" },
+          { "id": "jumpsuit-corporate", "label": { "en": "Corporate Suit", "es": "Traje corporativo" }, "shape": "jumpsuit", "color": "#1e2530", "accentColor": "#3dd6c8" },
+          { "id": "jumpsuit-street", "label": { "en": "Street Tech Wear", "es": "Ropa tecno callejera" }, "shape": "jumpsuit", "color": "#2a1e35", "accentColor": "#e63dd6" }
+        ]
+      },
+      {
+        "id": "visor",
+        "label": { "en": "Headgear", "es": "Cabeza" },
+        "options": [
+          { "id": "none", "label": { "en": "Bare-faced", "es": "Sin cubrir" }, "shape": "none", "color": "#000000" },
+          { "id": "visor-standard", "label": { "en": "AR Visor", "es": "Visor de RA" }, "shape": "visor", "color": "#1a1a1a", "accentColor": "#3dd6c8" },
+          { "id": "earpiece", "label": { "en": "Neural Earpiece", "es": "Auricular neuronal" }, "shape": "earpiece-hud", "color": "#2a2a2a", "accentColor": "#e63dd6" }
+        ]
+      },
+      {
+        "id": "gear",
+        "label": { "en": "Gear", "es": "Equipo" },
+        "options": [
+          { "id": "none", "label": { "en": "Empty-handed", "es": "Con las manos vacías" }, "shape": "none", "color": "#000000" },
+          { "id": "datapad", "label": { "en": "Datapad", "es": "Tableta de datos" }, "shape": "datapad", "color": "#2a2a2a", "accentColor": "#3dd6c8" },
+          { "id": "drone", "label": { "en": "Companion Drone", "es": "Dron acompañante" }, "shape": "drone", "color": "#4a4a4a", "accentColor": "#e6a83d" }
+        ]
+      }
+    ]
+  },
+  "objectivesPool": [
+    { "id": "wealthy", "description": { "en": "Reach 300 Credits", "es": "Consigue 300 Créditos" }, "check": { "type": "resourceAtLeast", "resource": "currency", "value": 300 } },
+    { "id": "influential", "description": { "en": "Reach 40 Corporate Influence", "es": "Consigue 40 de Influencia Corporativa" }, "check": { "type": "resourceAtLeast", "resource": "reputation", "value": 40 } },
+    { "id": "survive-health", "description": { "en": "Never drop below 30 health", "es": "No bajes de 30 de salud" }, "check": { "type": "resourceNeverBelow", "resource": "health", "value": 30 } },
+    { "id": "well-fed", "description": { "en": "Never drop below 40 Nutrition", "es": "No bajes de 40 de Nutrición" }, "check": { "type": "resourceNeverBelow", "resource": "hunger", "value": 40 } },
+    { "id": "hydrated", "description": { "en": "Never drop below 40 Hydration", "es": "No bajes de 40 de Hidratación" }, "check": { "type": "resourceNeverBelow", "resource": "thirst", "value": 40 } },
+    { "id": "energized", "description": { "en": "Never drop below 20 energy", "es": "No bajes de 20 de energía" }, "check": { "type": "resourceNeverBelow", "resource": "energy", "value": 20 } },
+    { "id": "secret-data", "description": { "en": "Breach the hidden corporate server", "es": "Vulnera el servidor corporativo oculto" }, "check": { "type": "flagSet", "flag": "found-server" } },
+    { "id": "corner-office", "description": { "en": "Get promoted to the corner office", "es": "Consigue el ascenso a la oficina esquinera" }, "check": { "type": "flagSet", "flag": "promoted" } }
+  ],
+  "metaAchievements": [
+    { "id": "silicon-baron", "title": { "en": "Silicon Baron", "es": "Barón del Silicio" }, "description": { "en": "Accumulate 2000 lifetime Credits earned across playthroughs.", "es": "Acumula 2000 Créditos ganados a lo largo de varias partidas." }, "accumulates": "currency", "threshold": 2000 },
+    { "id": "board-member", "title": { "en": "Board Member", "es": "Miembro de la Junta" }, "description": { "en": "Accumulate 500 lifetime Corporate Influence across playthroughs.", "es": "Acumula 500 de Influencia Corporativa a lo largo de varias partidas." }, "accumulates": "reputation", "threshold": 500 }
+  ],
+  "goodEnding": { "en": "The city lights blur past as you clock out. Another cycle survived in the grid.", "es": "Las luces de la ciudad se difuminan mientras fichas la salida. Otro ciclo sobrevivido en la red." },
+  "badEnding": { "en": "Your vitals flatline on a security feed nobody reviews until morning. The city doesn't slow down for you.", "es": "Tus constantes vitales se apagan en una cámara de seguridad que nadie revisa hasta la mañana. La ciudad no se detiene por ti." }
+}
