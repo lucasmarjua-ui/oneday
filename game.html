@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="OneDay: live one decisive day, one decision at a time.">
   <title>OneDay — Playing</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Source+Sans+3:wght@400;600&family=Alfa+Slab+One&family=PT+Sans:wght@400;700&family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap">
@@ -41,7 +42,7 @@
 
     <section id="summary-screen" class="panel" hidden>
       <h2 id="summary-heading"></h2>
-      <p id="summary-reason" class="app-subtitle"></p>
+      <p id="summary-reason"></p>
       <div class="score-grid" id="summary-score" hidden></div>
       <div class="summary-grid" id="summary-resources"></div>
       <h3 data-i18n="game.objectivesHeading"></h3>
@@ -342,18 +343,20 @@
       document.body.classList.remove('critical-alert');
 
       document.querySelector('#summary-heading').textContent = summaryData.alreadyPlayed ? t('daily.alreadyPlayedHeading') : t('game.summaryHeading');
-      document.querySelector('#summary-reason').textContent = summaryData.criticalKey ? localize(era.badEnding) : localize(era.goodEnding);
+      const reasonEl = document.querySelector('#summary-reason');
+      reasonEl.textContent = summaryData.criticalKey ? localize(era.badEnding) : localize(era.goodEnding);
+      reasonEl.className = `ending-banner ${summaryData.criticalKey ? 'bad' : 'good'}`;
 
-      document.querySelector('#summary-resources').innerHTML = Object.entries(era.resources).map(([key, config]) => `
-        <div class="summary-stat"><div class="value">${config.icon} ${summaryData.finalResources[key] ?? '–'}</div><div>${localize(config.label)}</div></div>
+      document.querySelector('#summary-resources').innerHTML = Object.entries(era.resources).map(([key, config], index) => `
+        <div class="summary-stat reveal" style="animation-delay:${index * 0.05}s"><div class="value">${config.icon} ${summaryData.finalResources[key] ?? '–'}</div><div>${localize(config.label)}</div></div>
       `).join('');
 
-      document.querySelector('#summary-objectives').innerHTML = summaryData.objectivesResults.map(entry => `
-        <li class="${entry.complete ? 'complete' : ''}"><span class="objective-mark">${entry.complete ? '✓' : '✗'}</span> ${localize(entry.objective.description)}</li>
+      document.querySelector('#summary-objectives').innerHTML = summaryData.objectivesResults.map((entry, index) => `
+        <li class="reveal ${entry.complete ? 'complete' : ''}" style="animation-delay:${0.15 + index * 0.12}s"><span class="objective-mark">${entry.complete ? '✓' : '✗'}</span> ${localize(entry.objective.description)}</li>
       `).join('');
 
-      document.querySelector('#summary-achievements').innerHTML = (summaryData.newlyUnlocked || []).map(achievement => `
-        <div class="achievement-toast">🏆 ${localize(achievement.title)} — ${localize(achievement.description)}</div>
+      document.querySelector('#summary-achievements').innerHTML = (summaryData.newlyUnlocked || []).map((achievement, index) => `
+        <div class="achievement-toast reveal" style="animation-delay:${0.5 + index * 0.15}s">🏆 ${localize(achievement.title)} — ${localize(achievement.description)}</div>
       `).join('');
 
       document.querySelector('#summary-log').innerHTML = summaryData.log
@@ -364,9 +367,9 @@
       if (summaryData.score) {
         scoreSection.hidden = false;
         scoreSection.innerHTML = `
-          <div class="score-stat"><div class="value">${summaryData.score.objectivesScore}</div><div>${t('daily.scoreObjectives')}</div></div>
-          <div class="score-stat"><div class="value">${summaryData.score.tiebreakScore}</div><div>${t('daily.scoreTiebreak')}</div></div>
-          <div class="score-stat total"><div class="value">${summaryData.score.total}</div><div>${t('daily.scoreTotal')}</div></div>
+          <div class="score-stat reveal" style="animation-delay:0s"><div class="value">${summaryData.score.objectivesScore}</div><div>${t('daily.scoreObjectives')}</div></div>
+          <div class="score-stat reveal" style="animation-delay:0.08s"><div class="value">${summaryData.score.tiebreakScore}</div><div>${t('daily.scoreTiebreak')}</div></div>
+          <div class="score-stat total reveal" style="animation-delay:0.16s"><div class="value">${summaryData.score.total}</div><div>${t('daily.scoreTotal')}</div></div>
         `;
       } else {
         scoreSection.hidden = true;

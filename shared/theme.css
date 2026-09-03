@@ -174,8 +174,8 @@ main {
   gap: 8px;
   border-radius: var(--radius);
   box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 30%, transparent), var(--shadow);
-  animation: cardRiseIn 0.5s ease both;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: cardRiseIn 0.25s ease both;
+  transition: transform 0.2s ease, box-shadow 0.4s ease;
 }
 @keyframes cardRiseIn {
   from { opacity: 0; transform: translateY(16px); }
@@ -203,6 +203,7 @@ main {
   background-image: var(--card-texture-image, none);
   background-size: var(--card-texture-size, auto);
   border-bottom: 2px solid color-mix(in srgb, var(--card-accent, var(--accent)) 55%, transparent);
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 }
 .era-card-art .era-icon { font-size: 2.8rem; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35)); }
 .era-card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
@@ -411,6 +412,18 @@ main {
   margin-bottom: 10px;
 }
 
+.ending-banner {
+  display: inline-block;
+  margin: 4px 0 16px;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  font-weight: bold;
+  font-family: var(--font-heading);
+  border: 1px solid;
+}
+.ending-banner.good { background: color-mix(in srgb, var(--success) 16%, transparent); border-color: var(--success); color: var(--success); }
+.ending-banner.bad { background: color-mix(in srgb, var(--danger) 16%, transparent); border-color: var(--danger); color: var(--danger); }
+
 .summary-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -419,6 +432,12 @@ main {
 }
 .summary-stat { background: color-mix(in srgb, var(--accent) 8%, transparent); border-radius: var(--radius); padding: 12px; text-align: center; }
 .summary-stat .value { font-size: 1.4rem; font-weight: bold; color: var(--accent-dark); }
+
+.reveal { animation: revealIn 0.4s ease both; }
+@keyframes revealIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
 
 .daily-badge {
   display: inline-block;

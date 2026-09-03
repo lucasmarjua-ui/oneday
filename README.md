@@ -36,6 +36,8 @@ Then visit `http://localhost:8000`. (A `package.json` exists only to mark the co
 ```text
 index.html                     Era selection, archetype choice, character appearance, login, profile
 game.html                      The day loop: HUD, decision cards, outcomes, summary
+favicon.svg                    Brand-colored favicon (a handful of SVG shapes, no binary asset)
+assets/social-preview.png      Open Graph / Twitter card image (1200x630, built from the brand tokens)
 shared/
   firebase-config.js           Firebase SDK initialization (client config, not a secret)
   auth.js                      Username/password auth + localStorage <-> Firestore sync
@@ -133,6 +135,16 @@ Each era card previews its own world before you click into it: a small art band 
 
 A three-step "How it works" strip (choose your era → live the day → discover your ending) fills what used to be empty space below the cards, for a first-time visitor sizing up the game before committing to one.
 
+The entrance animation itself is short (a ~120ms stagger across three cards, ~250ms fade-and-rise each — under 400ms end to end). The "looks broken, takes seconds to appear" problem reported against an early version wasn't the animation — it was `init()` awaiting all three eras' theme-preview fetches *before rendering the grid at all*, so nothing appeared until every fetch resolved. The grid now renders the instant `loadStrings()` returns (usually well under 200ms — the previews aren't needed for that), and each card's accent/texture preview fades in a moment later as its own fetch resolves, via a small `applyCardPreview()` that just updates that card's custom properties in place rather than re-rendering (and re-animating) the grid.
+
+### End-of-day summary
+
+The summary screen already inherited the active era's palette, fonts and texture automatically — `applyEraTheme()` runs once for the whole page in `game.html`, so nothing extra was needed for that part. What it didn't have was any sense of payoff:
+
+- The ending line itself is now a bordered banner in success or danger colors depending on which ending you got (`.ending-banner.good` / `.bad`), set in the era's own heading font — the first thing that tells you, at a glance and before reading a word, whether this was a good day or not.
+- Each daily objective in the checklist reveals with a short staggered fade-in (`.reveal`, ~120ms apart) instead of all snapping in at once, so a run with several completed objectives reads as a small cascade of wins rather than a static list.
+- Final resource stats, and the Daily Challenge score breakdown when present, get the same staggered reveal.
+
 ### Game screen polish
 
 - **Character portrait**: a small circular crop of the same `renderCharacterSVG` output from character creation, pinned in the HUD for the whole day — you're no longer flying blind on what you look like once play starts.
@@ -208,6 +220,8 @@ Guest play — the whole game, minus accounts and the leaderboard — works with
 **Data-driven content, engine-agnostic of era.** All narrative content, resources, archetypes and character options live in per-era JSON. The engine only knows about generic concepts (resources, modifiers, time slots, flags), so a new era is pure content, no code changes.
 
 **Seeded RNG as a first-class dependency, not an afterthought.** Every random draw takes an explicit `rng` argument; nothing falls back to `Math.random()`. This keeps playthroughs reproducible for debugging today and makes the Daily Challenge mode (same seed for every player on a given day) a content/UI feature to add later, not an engine rewrite.
+
+**The favicon and social-preview image follow the same "no external art" rule.** `favicon.svg` is a handful of `<circle>`/`<line>` elements in brand brass on charcoal — no binary asset, no icon generator. `assets/social-preview.png` (the Open Graph/Twitter card image) is a small standalone HTML page built from the same brand tokens (Fraunces wordmark, the three-accent gradient blend, one chip per era) and rendered to a PNG at exactly 1200×630 — a design artifact kept alongside the source, not a one-off Photoshop export nobody can reproduce.
 
 ## Screenshots
 

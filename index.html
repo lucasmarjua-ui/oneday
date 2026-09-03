@@ -4,12 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="OneDay: pick an era, build a character, and live one decisive day.">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="OneDay">
   <meta property="og:description" content="Pick an era, build a character, and live one decisive day of data-driven decision cards.">
   <meta property="og:image" content="https://lucasmarjua-ui.github.io/oneday/assets/social-preview.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://lucasmarjua-ui.github.io/oneday/">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="OneDay">
+  <meta name="twitter:description" content="Pick an era, build a character, and live one decisive day of data-driven decision cards.">
+  <meta name="twitter:image" content="https://lucasmarjua-ui.github.io/oneday/assets/social-preview.png">
   <title>OneDay</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;600&family=Cinzel:wght@400;700&family=Source+Sans+3:wght@400;600&family=Alfa+Slab+One&family=PT+Sans:wght@400;700&family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap">
@@ -165,8 +172,8 @@
         const playedToday = era.available && hasPlayedToday(getLocalDailyResult(era.id), today);
         const preview = eraThemePreviews[era.id];
         const cardStyle = preview
-          ? `--card-accent:${preview.colors.accent};--card-texture-image:${preview.textureImage || 'none'};--card-texture-size:${preview.textureSize || 'auto'};--texture-tint:${preview.colors.accent};--texture-tint-secondary:${preview.colors.accentSecondary || preview.colors.accent};animation-delay:${index * 0.1}s`
-          : `animation-delay:${index * 0.1}s`;
+          ? `--card-accent:${preview.colors.accent};--card-texture-image:${preview.textureImage || 'none'};--card-texture-size:${preview.textureSize || 'auto'};--texture-tint:${preview.colors.accent};--texture-tint-secondary:${preview.colors.accentSecondary || preview.colors.accent};animation-delay:${index * 0.06}s`
+          : `animation-delay:${index * 0.06}s`;
         return `
           <div class="era-card panel${era.available ? '' : ' unavailable'}" data-era="${era.id}" style="${cardStyle}">
             <div class="era-card-art"><span class="era-icon">${era.icon}</span></div>
@@ -365,11 +372,30 @@
     });
     document.querySelector('#profile-close').addEventListener('click', () => { profileModal.hidden = true; });
 
+    function applyCardPreview(eraId, preview) {
+      const card = eraGrid.querySelector(`.era-card[data-era="${eraId}"]`);
+      if (!card || !preview) return;
+      card.style.setProperty('--card-accent', preview.colors.accent);
+      card.style.setProperty('--card-texture-image', preview.textureImage || 'none');
+      card.style.setProperty('--card-texture-size', preview.textureSize || 'auto');
+      card.style.setProperty('--texture-tint', preview.colors.accent);
+      card.style.setProperty('--texture-tint-secondary', preview.colors.accentSecondary || preview.colors.accent);
+    }
+
     (async function init() {
-      const [, previews] = await Promise.all([loadStrings(), loadEraThemePreviews()]);
-      eraThemePreviews = previews;
+      // Render the grid the instant strings are ready -- don't make the
+      // first paint wait on the (non-critical) per-era accent/texture
+      // previews, which used to add several extra network round trips
+      // before any card appeared at all.
+      await loadStrings();
       applyStaticI18n();
       renderEraGrid();
+      loadEraThemePreviews()
+        .then(previews => {
+          eraThemePreviews = previews;
+          Object.entries(previews).forEach(([eraId, preview]) => applyCardPreview(eraId, preview));
+        })
+        .catch(error => console.warn('OneDay: could not load era theme previews', error));
     })();
   </script>
 </body>
