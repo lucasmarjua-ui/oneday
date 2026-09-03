@@ -2,7 +2,25 @@
   "id": "neanderthal",
   "name": { "en": "Neanderthals", "es": "Neandertales" },
   "tagline": { "en": "Survive one day at the edge of the wild.", "es": "Sobrevive un día al filo de lo salvaje." },
-  "theme": { "accentColor": "#8a5a35", "icon": "🔥" },
+  "theme": {
+    "icon": "🔥",
+    "colors": {
+      "bg": "#171412",
+      "panel": "#241f1b",
+      "accent": "#e0611e",
+      "accentDark": "#a8420f",
+      "accentSecondary": "#8a5a35",
+      "ink": "#f0e6da",
+      "inkSoft": "#b8a898",
+      "border": "#3a322c"
+    },
+    "fonts": {
+      "heading": "'Alfa Slab One', 'Georgia', serif",
+      "body": "'PT Sans', 'Segoe UI', sans-serif"
+    },
+    "textureImage": "repeating-radial-gradient(circle at 0 0, rgba(255,255,255,0.025) 0, transparent 2px), repeating-radial-gradient(circle at 6px 6px, rgba(0,0,0,0.35) 0, transparent 2px)",
+    "textureSize": "12px 12px"
+  },
   "day": {
     "totalTime": 14,
     "startLabel": "06:00",

@@ -2,7 +2,26 @@
   "id": "future-city",
   "name": { "en": "Futuristic City", "es": "Ciudad Futurista" },
   "tagline": { "en": "Hustle, hack and climb in a city that never logs off.", "es": "Búscate la vida, hackea y asciende en una ciudad que nunca se desconecta." },
-  "theme": { "accentColor": "#3d6ea9", "icon": "🌆" },
+  "theme": {
+    "icon": "🌆",
+    "colors": {
+      "bg": "#0a0e17",
+      "panel": "#12182a",
+      "accent": "#00e5ff",
+      "accentDark": "#0099a8",
+      "accentSecondary": "#3d6ea9",
+      "ink": "#dbe7f0",
+      "inkSoft": "#7f93a8",
+      "border": "#233047",
+      "accentInk": "#04141a"
+    },
+    "fonts": {
+      "heading": "'Orbitron', sans-serif",
+      "body": "'Rajdhani', 'Segoe UI', sans-serif"
+    },
+    "textureImage": "linear-gradient(color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px)",
+    "textureSize": "38px 38px"
+  },
   "day": {
     "totalTime": 16,
     "startLabel": "07:00",

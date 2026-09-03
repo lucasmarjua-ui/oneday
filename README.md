@@ -52,7 +52,10 @@ shared/
   scoring.js                   Pure Daily Challenge score formula (objectives + resource tiebreak)
   daily-challenge-logic.js     Pure "already played today?" check (no Firebase import, unit-testable)
   daily-challenge.js           Daily Challenge localStorage cache + Firestore leaderboard read/write
-  theme.css                    Shared visual theme, responsive layout
+  era-theme.js                 Applies an era's theme tokens as CSS custom properties on <html>
+  resource-bar.js              Pure resource-bar math (which resources bar, fill %, color level)
+  card-icons.js                Infers a decorative category icon from a card's id (keyword match)
+  theme.css                    Shared visual theme: neutral defaults + every era's token overrides
 data/
   i18n/en.json, es.json        Fixed interface strings (buttons, menus, labels)
   eras/greece/era.json          Resources, archetypes, day structure, character options, objectives, endings
@@ -109,6 +112,26 @@ Character creation is a fixed choice, not a point-buy: pick one archetype, which
 | Philosopher | `wits` | Sharp-minded, favoring strategy over force. |
 
 A card option references at most one modifier (`successChance.archetypeBonus.modifier`), so an archetype never fully locks a player out of a route — it just makes some options more or less reliable.
+
+## Visual identity per era
+
+Same "one engine, different disguise" pattern as resources and archetypes, applied to presentation: each `era.json` carries a full `theme` block (colors, a heading/body font pair, a background texture) as plain CSS values, and `shared/era-theme.js` has one generic function, `applyEraTheme(era)`, that writes them onto `<html>` as custom properties (`--accent`, `--font-heading`, `--bg-texture-image`, …). `theme.css` never branches on an era id — it only ever reads these tokens, with OneDay's own neutral cream/brown palette as the `:root` default. The era-selection screen (before you've picked anything) always shows that neutral default; every screen from archetype choice onward calls `applyEraTheme()` and picks up the active era's identity, cleared again via `clearEraTheme()` if you back out to the era grid.
+
+| Era | Palette | Typography |
+|---|---|---|
+| Ancient Greece | Marble ivory base, terracotta accent, Aegean blue as a secondary accent | **Cinzel** headings (Roman inscriptional capitals), **Source Sans 3** body |
+| Neanderthals | Near-black cave stone, ember-orange accent, a fine grain texture | **Alfa Slab One** headings (heavy, carved-looking), **PT Sans** body |
+| Futuristic City | Near-black navy, a single saturated cyan accent (deliberately one neon tone, not a cyan/magenta gradient), a faint glowing grid texture | **Orbitron** headings (geometric sci-fi), **Rajdhani** body |
+
+Getting there also meant hunting down every hardcoded color left over from the original single-palette design — `#fff` button backgrounds, `rgba(169, 128, 61, …)` tints baked in as literal RGB — since those would've stayed the old cream/brown regardless of the active era. They're now `var(--bg-panel)` and `color-mix(in srgb, var(--accent) N%, transparent)` respectively, so every tinted surface actually follows the era. One token exists specifically because of this: `--accent-ink`, the text color used *on* an accent-colored surface (buttons, badges). Greece's and Neanderthal's accents are dark enough for the default light text; Futuristic City's cyan is bright enough that it overrides `--accent-ink` to a dark navy instead, or button text would be nearly unreadable.
+
+### Game screen polish
+
+- **Character portrait**: a small circular crop of the same `renderCharacterSVG` output from character creation, pinned in the HUD for the whole day — you're no longer flying blind on what you look like once play starts.
+- **Resource bars**: any resource with a bounded range (`max - min <= 100`) renders as a filled bar that shifts green → amber → red as it drains, via the pure `shared/resource-bar.js` (`resourceFraction`, `resourceBarLevel`, unit-tested). Currency stays a plain chip — its `max` of 999999 exists specifically to mean "no real ceiling," so a bar for it would always look empty.
+- **Success-chance dial**: each option with real risk shows a small `conic-gradient` ring instead of a bare "62% success" string.
+- **Card category icon**: a large, low-opacity SVG watermark behind each card's text, chosen by `shared/card-icons.js`'s `classifyCardIcon()`. This infers a category from keywords in the card's own `id` (`market`/`haggle` → a shop icon, `water`/`hydro` → a droplet, `wrestl`/`hunt`/`predator` → crossed blades, …) rather than adding a new field to card JSON, so no era's content files needed touching for this. An id matching nothing falls back to a generic icon — never breaks, worst case is a slightly-wrong watermark.
+- **Motion**: a new card/outcome/summary panel plays a brief fade-and-rise on arrival; a resource's number does a quick "tick" scale when it changes value this turn; a critical resource's bar pulses in place, and the whole screen gets a subtle inset red vignette pulse while any critical resource is in its danger zone — cleared the moment the day ends.
 
 ## Seeded RNG
 
@@ -180,10 +203,15 @@ Guest play — the whole game, minus accounts and the leaderboard — works with
 
 ## Screenshots
 
+![Era selection](screenshots/era-select.png)
+The home screen keeps OneDay's own neutral identity — era themes only apply once you're inside one.
+
 | | |
 |---|---|
-| ![Era selection](screenshots/era-select.png) Era selection | ![Archetype selection](screenshots/archetype-select.png) Archetype selection |
-| ![Character appearance](screenshots/character-creation.png) Character appearance | ![Day loop](screenshots/day-loop.png) A decision card mid-day |
+| ![Ancient Greece](screenshots/greece-theme.png) Ancient Greece — marble & terracotta | ![Neanderthals](screenshots/neanderthal-theme.png) Neanderthals — cave & embers |
+
+![Futuristic City](screenshots/future-city-theme.png)
+Futuristic City — neon & concrete
 
 ![Summary](screenshots/summary.png)
 End-of-day summary, with the era's own narrative ending

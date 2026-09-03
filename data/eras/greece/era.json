@@ -2,7 +2,25 @@
   "id": "greece",
   "name": { "en": "Ancient Greece", "es": "Antigua Grecia" },
   "tagline": { "en": "Rise from citizen to legend in one day in the agora.", "es": "Asciende de ciudadano a leyenda en un día en el ágora." },
-  "theme": { "accentColor": "#a9803d", "icon": "🏛️" },
+  "theme": {
+    "icon": "🏛️",
+    "colors": {
+      "bg": "#f1ead9",
+      "panel": "#faf6ec",
+      "accent": "#b1502a",
+      "accentDark": "#8a3d1e",
+      "accentSecondary": "#265d73",
+      "ink": "#2b1f16",
+      "inkSoft": "#6b5842",
+      "border": "#d9c9a8"
+    },
+    "fonts": {
+      "heading": "'Cinzel', 'Georgia', serif",
+      "body": "'Source Sans 3', 'Segoe UI', sans-serif"
+    },
+    "textureImage": "radial-gradient(circle at 15% 20%, rgba(255,255,255,0.5), transparent 35%), radial-gradient(circle at 85% 75%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 45%), radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent-secondary) 5%, transparent), transparent 60%)",
+    "textureSize": "auto"
+  },
   "day": {
     "totalTime": 16,
     "startLabel": "07:00",

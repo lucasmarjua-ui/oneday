@@ -10,6 +10,9 @@
   <meta property="og:url" content="https://lucasmarjua-ui.github.io/oneday/">
   <meta name="twitter:card" content="summary_large_image">
   <title>OneDay</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Source+Sans+3:wght@400;600&family=Alfa+Slab+One&family=PT+Sans:wght@400;700&family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap">
   <link rel="stylesheet" href="./shared/theme.css">
 </head>
 <body>
@@ -98,6 +101,7 @@
     import { getEraStats } from './shared/stats.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
+    import { applyEraTheme, clearEraTheme } from './shared/era-theme.js';
 
     const eraScreen = document.querySelector('#era-screen');
     const eraGrid = document.querySelector('#era-grid');
@@ -153,6 +157,7 @@
       currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
       currentMode = 'free';
       currentPhase = 'archetype';
+      applyEraTheme(era);
       eraScreen.hidden = true;
       archetypeScreen.hidden = false;
       renderArchetypeScreen();
@@ -168,6 +173,7 @@
       currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
       currentMode = 'daily';
       currentPhase = 'archetype';
+      applyEraTheme(era);
       eraScreen.hidden = true;
       archetypeScreen.hidden = false;
       renderArchetypeScreen();
@@ -195,6 +201,7 @@
 
     document.querySelector('#archetype-back').addEventListener('click', () => {
       currentPhase = 'era';
+      clearEraTheme();
       archetypeScreen.hidden = true;
       eraScreen.hidden = false;
     });

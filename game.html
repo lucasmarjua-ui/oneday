@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="OneDay: live one decisive day, one decision at a time.">
   <title>OneDay — Playing</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Source+Sans+3:wght@400;600&family=Alfa+Slab+One&family=PT+Sans:wght@400;700&family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap">
   <link rel="stylesheet" href="./shared/theme.css">
 </head>
 <body>
@@ -24,6 +27,7 @@
     <div class="hud panel" id="hud"></div>
 
     <section id="decision-screen" class="panel">
+      <div id="card-icon-watermark"></div>
       <p class="card-text" id="card-text"></p>
       <div class="options-list" id="options-list"></div>
     </section>
@@ -60,7 +64,7 @@
   <script type="module">
     import { getCurrentUser } from './shared/auth.js';
     import { loadEra } from './shared/era-registry.js';
-    import { loadCharacter, findArchetype } from './shared/character.js';
+    import { loadCharacter, findArchetype, renderCharacterSVG } from './shared/character.js';
     import { createResourceState, applyResourceDeltas, isCriticalDepleted, getCriticalResourceKey } from './shared/resources.js';
     import { createDayState, getCurrentSlot, formatClock, advanceTime, isTimeUp, trackMinSeen } from './shared/day-engine.js';
     import { getValidCards, pickWeightedCard, computeSuccessChance, resolveOption } from './shared/decision-engine.js';
@@ -71,6 +75,9 @@
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, saveLocalDailyResult, checkRemoteDailyEntry, submitDailyScore, getDailyLeaderboard, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
     import { computeDayScore } from './shared/scoring.js';
+    import { applyEraTheme } from './shared/era-theme.js';
+    import { isBarResource, resourceFraction, resourceBarLevel } from './shared/resource-bar.js';
+    import { classifyCardIcon, renderCardIconSVG } from './shared/card-icons.js';
 
     const FILLER_CARD = {
       id: 'filler-wait',
@@ -97,8 +104,10 @@
     let cards = [];
     let character = null;
     let archetype = null;
+    let characterPortraitHtml = '';
     let rng = null;
     let resourceState = null;
+    let previousResourceState = null;
     let dayState = null;
     let dailyObjectives = [];
     let narrativeLog = [];
@@ -117,6 +126,12 @@
       return result;
     }
 
+    function retriggerAnimation(el, className = 'card-enter') {
+      el.classList.remove(className);
+      void el.offsetWidth; // force reflow so the animation replays
+      el.classList.add(className);
+    }
+
     function applyStaticI18n() {
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
       document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'btn' : 'btn btn-ghost';
@@ -128,6 +143,7 @@
     function resetDay() {
       rng = createRng(isDaily ? dailySeed(eraId, new Date()) : randomSeed());
       resourceState = createResourceState(era);
+      previousResourceState = null;
       dayState = createDayState(era);
       dailyObjectives = pickDailyObjectives(era, 3, rng);
       narrativeLog = [];
@@ -138,16 +154,34 @@
     function renderHUD() {
       const slot = getCurrentSlot(era, dayState.elapsed);
       slotLabel.textContent = `${localize(slot.label)} · ${formatClock(era, dayState.elapsed)}`;
+
+      let anyCritical = false;
+      const barsHtml = Object.entries(era.resources).map(([key, config]) => {
+        const value = resourceState[key];
+        const changed = previousResourceState !== null && previousResourceState[key] !== value;
+        if (isBarResource(config)) {
+          const fraction = resourceFraction(value, config);
+          const level = resourceBarLevel(fraction);
+          if (config.critical && level === 'critical') anyCritical = true;
+          return `
+            <div class="resource-bar-item ${level}${changed ? ' tick' : ''}">
+              <div class="resource-bar-label"><span>${config.icon} ${localize(config.label)}</span><b>${value}</b></div>
+              <div class="resource-bar-track"><div class="resource-bar-fill ${level}" style="width:${Math.round(fraction * 100)}%"></div></div>
+            </div>
+          `;
+        }
+        return `<span class="resource-chip${changed ? ' tick' : ''}">${config.icon} ${localize(config.label)}: ${value}</span>`;
+      }).join('');
+
       hud.innerHTML = `
-        <span class="hud-clock">${formatClock(era, dayState.elapsed)} / ${era.day.endLabel}</span>
-        <div class="resource-bars">
-          ${Object.entries(era.resources).map(([key, config]) => {
-            const value = resourceState[key];
-            const low = config.critical && value <= config.min + (config.max - config.min) * 0.2;
-            return `<span class="resource-chip${low ? ' critical-low' : ''}">${config.icon} ${localize(config.label)}: ${value}</span>`;
-          }).join('')}
+        <div class="hud-main">
+          <span class="hud-clock">${formatClock(era, dayState.elapsed)} / ${era.day.endLabel}</span>
+          <div class="resource-bars">${barsHtml}</div>
         </div>
+        ${characterPortraitHtml}
       `;
+      document.body.classList.toggle('critical-alert', anyCritical);
+      previousResourceState = { ...resourceState };
     }
 
     function formatOptionMeta(option) {
@@ -156,9 +190,14 @@
         if (!delta) return;
         parts.push(`${localize(era.resources[key].label)} ${delta > 0 ? '+' : ''}${delta}`);
       });
-      const chance = computeSuccessChance(option.successChance, archetype);
-      if (chance < 1) parts.push(`${Math.round(chance * 100)}${t('option.successSuffix')}`);
       return parts.join(' · ');
+    }
+
+    function chanceDialHtml(option) {
+      const chance = computeSuccessChance(option.successChance, archetype);
+      if (!option.successChance || chance >= 1) return '';
+      const pct = Math.round(chance * 100);
+      return `<div class="chance-dial" style="background:conic-gradient(var(--accent) ${pct}%, var(--border) 0)"><span class="chance-dial-inner">${pct}%</span></div>`;
     }
 
     function pickNextCard() {
@@ -171,16 +210,18 @@
       outcomeScreen.hidden = true;
       summaryScreen.hidden = true;
       renderHUD();
+      document.querySelector('#card-icon-watermark').innerHTML = renderCardIconSVG(classifyCardIcon(currentCard));
       cardText.textContent = localize(currentCard.text);
       optionsList.innerHTML = '';
       currentCard.options.forEach(option => {
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = 'option-btn';
-        btn.innerHTML = `${localize(option.text)}<span class="option-cost">${formatOptionMeta(option)}</span>`;
+        btn.innerHTML = `${chanceDialHtml(option)}<div class="option-body"><span class="option-text">${localize(option.text)}</span><span class="option-cost">${formatOptionMeta(option)}</span></div>`;
         btn.addEventListener('click', () => chooseOption(option));
         optionsList.appendChild(btn);
       });
+      retriggerAnimation(decisionScreen);
     }
 
     function showDecision() {
@@ -218,6 +259,7 @@
         .filter(([, value]) => value !== 0)
         .map(([key, value]) => `<span class="delta-chip ${value > 0 ? 'positive' : 'negative'}">${era.resources[key].icon} ${value > 0 ? '+' : ''}${value}</span>`)
         .join('');
+      retriggerAnimation(outcomeScreen);
     }
 
     document.querySelector('#outcome-continue').addEventListener('click', () => {
@@ -297,6 +339,7 @@
       decisionScreen.hidden = true;
       outcomeScreen.hidden = true;
       summaryScreen.hidden = false;
+      document.body.classList.remove('critical-alert');
 
       document.querySelector('#summary-heading').textContent = summaryData.alreadyPlayed ? t('daily.alreadyPlayedHeading') : t('game.summaryHeading');
       document.querySelector('#summary-reason').textContent = summaryData.criticalKey ? localize(era.badEnding) : localize(era.goodEnding);
@@ -333,6 +376,7 @@
       document.querySelector('#play-again').hidden = isDaily;
       document.querySelector('#summary-comeback').hidden = !isDaily;
       document.querySelector('#summary-leaderboard-section').hidden = !isDaily;
+      retriggerAnimation(summaryScreen);
     }
 
     function renderLeaderboardHtml() {
@@ -386,6 +430,7 @@
       const loaded = await loadEra(eraId);
       era = loaded.era;
       cards = loaded.cards;
+      applyEraTheme(era);
       isDaily = params.get('daily') === '1';
       dailyDateKeyValue = todayDateKey();
 
@@ -411,6 +456,7 @@
       character = loadCharacter(eraId);
       if (!character) { window.location.href = './index.html'; return; }
       archetype = findArchetype(era, character.archetypeId);
+      characterPortraitHtml = `<div class="character-portrait">${renderCharacterSVG(era, character)}</div>`;
       applyStaticI18n();
       resetDay();
       showDecision();
