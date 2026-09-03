@@ -79,6 +79,10 @@
     import { applyEraTheme } from './shared/era-theme.js';
     import { isBarResource, resourceFraction, resourceBarLevel } from './shared/resource-bar.js';
     import { classifyCardIcon, renderCardIconSVG } from './shared/card-icons.js';
+    import { applyCounterDeltas } from './shared/narrative.js';
+    import { selectMemorySeed, extractMemorableState } from './shared/memories-logic.js';
+    import { getEraMemories, recordEraMemories } from './shared/memories.js';
+    import { findNpc, renderNpcPortraitSVG } from './shared/npc.js';
 
     const FILLER_CARD = {
       id: 'filler-wait',
@@ -145,7 +149,8 @@
       rng = createRng(isDaily ? dailySeed(eraId, new Date()) : randomSeed());
       resourceState = createResourceState(era);
       previousResourceState = null;
-      dayState = createDayState(era);
+      const memorySeed = selectMemorySeed(getCurrentUser(), getEraMemories(eraId));
+      dayState = createDayState(era, memorySeed);
       dailyObjectives = pickDailyObjectives(era, 3, rng);
       narrativeLog = [];
       gainsThisDay = {};
@@ -211,7 +216,10 @@
       outcomeScreen.hidden = true;
       summaryScreen.hidden = true;
       renderHUD();
-      document.querySelector('#card-icon-watermark').innerHTML = renderCardIconSVG(classifyCardIcon(currentCard));
+      const npc = currentCard.npcId ? findNpc(era, currentCard.npcId) : null;
+      document.querySelector('#card-icon-watermark').innerHTML = npc
+        ? `<div class="npc-portrait">${renderNpcPortraitSVG(npc)}<span class="npc-name">${localize(npc.name)}</span></div>`
+        : renderCardIconSVG(classifyCardIcon(currentCard));
       cardText.textContent = localize(currentCard.text);
       optionsList.innerHTML = '';
       currentCard.options.forEach(option => {
@@ -238,6 +246,7 @@
       dayState = advanceTime(dayState, option.cost?.time || 0);
       dayState = trackMinSeen(dayState, resourceState);
       if (outcome.flagsSet?.length) dayState = { ...dayState, flags: [...dayState.flags, ...outcome.flagsSet] };
+      if (outcome.countersAdd) dayState = { ...dayState, counters: applyCounterDeltas(dayState.counters, outcome.countersAdd) };
       dayState = { ...dayState, playedCardIds: [...dayState.playedCardIds, currentCard.id] };
       gainsThisDay = mergeDeltas(gainsThisDay, combined);
       if (outcome.text) narrativeLog.push(outcome.text);
@@ -276,6 +285,7 @@
       const completedCount = objectivesResults.filter(entry => entry.complete).length;
       recordDayResult(eraId, { objectivesCompleted: completedCount });
       recordDayGains(eraId, gainsThisDay);
+      if (getCurrentUser()) recordEraMemories(eraId, extractMemorableState(era, dayState));
       const newlyUnlocked = checkAndUnlockMetaAchievements(eraId, era);
       const criticalKey = getCriticalResourceKey(resourceState, era);
 

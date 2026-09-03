@@ -48,3 +48,20 @@ test('trackMinSeen records the lowest value seen for each resource', () => {
   state = trackMinSeen(state, { health: 60 });
   assert.equal(state.minSeen.health, 40);
 });
+
+test('createDayState starts with empty flags and counters when no seed is given', () => {
+  const state = createDayState(era);
+  assert.deepEqual(state.flags, []);
+  assert.deepEqual(state.counters, {});
+});
+
+test('createDayState seeds flags and counters from a memory seed without mutating it', () => {
+  const seed = { flags: ['remembered-helped-thales'], counters: { merchantTrust: 4 } };
+  const state = createDayState(era, seed);
+  assert.deepEqual(state.flags, ['remembered-helped-thales']);
+  assert.deepEqual(state.counters, { merchantTrust: 4 });
+  state.flags.push('extra');
+  state.counters.merchantTrust = 99;
+  assert.deepEqual(seed.flags, ['remembered-helped-thales']);
+  assert.equal(seed.counters.merchantTrust, 4);
+});

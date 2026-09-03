@@ -1,10 +1,11 @@
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js';
 import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js';
 import { firebaseApp } from './firebase-config.js';
+import { mergeMemories } from './memories-logic.js';
 
 const auth = getAuth(firebaseApp);
 const db = getFirestore(firebaseApp);
-const DATA_KEYS = ['oneday.character', 'oneday.progress', 'oneday.stats', 'oneday.achievements'];
+const DATA_KEYS = ['oneday.character', 'oneday.progress', 'oneday.stats', 'oneday.achievements', 'oneday.memories'];
 const USERNAME_PATTERN = /^[a-zA-Z0-9_]{3,16}$/;
 let currentUser = null;
 let listeners = [];
@@ -52,6 +53,7 @@ function mergeData(local, cloud) {
     'oneday.progress': mergeJson(local['oneday.progress'], cloud['oneday.progress'], mergeProgress),
     'oneday.stats': mergeJson(local['oneday.stats'], cloud['oneday.stats'], mergeStats),
     'oneday.achievements': mergeJson(local['oneday.achievements'] ?? '[]', cloud['oneday.achievements'] ?? '[]', mergeAchievements),
+    'oneday.memories': mergeJson(local['oneday.memories'], cloud['oneday.memories'], mergeMemories),
   };
 }
 async function loadUserData(user) {
@@ -91,6 +93,7 @@ window.addEventListener('progresschange', () => saveUserData());
 window.addEventListener('characterchange', () => saveUserData());
 window.addEventListener('statschange', () => saveUserData());
 window.addEventListener('achievementchange', () => saveUserData());
+window.addEventListener('memorieschange', () => saveUserData());
 onAuthStateChanged(auth, async user => {
   currentUser = user;
   if (user) { try { await loadUserData(user); } catch (error) { console.warn('OneDay: failed to load progress', error); } }

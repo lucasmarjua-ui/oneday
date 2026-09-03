@@ -98,6 +98,29 @@
       }
     ]
   },
+  "npcs": [
+    {
+      "id": "npc-thales",
+      "name": { "en": "Thales", "es": "Tales" },
+      "role": { "en": "Agora Merchant", "es": "Mercader del ágora" },
+      "portraitColor": "#b1502a",
+      "attitudeCounter": "merchantTrust"
+    },
+    {
+      "id": "npc-kleon",
+      "name": { "en": "Kleon", "es": "Cleón" },
+      "role": { "en": "Political Rival", "es": "Rival político" },
+      "portraitColor": "#265d73",
+      "attitudeCounter": "kleonRespect"
+    },
+    {
+      "id": "npc-sophia",
+      "name": { "en": "Sophia", "es": "Sofía" },
+      "role": { "en": "Philosophical Mentor", "es": "Mentora filosófica" },
+      "portraitColor": "#8a3d1e",
+      "attitudeCounter": "sophiaRespect"
+    }
+  ],
   "objectivesPool": [
     { "id": "wealthy", "description": { "en": "Reach 300 drachmas", "es": "Consigue 300 dracmas" }, "check": { "type": "resourceAtLeast", "resource": "currency", "value": 300 } },
     { "id": "renowned", "description": { "en": "Reach 40 Arete", "es": "Consigue 40 de Arete" }, "check": { "type": "resourceAtLeast", "resource": "reputation", "value": 40 } },
@@ -107,12 +130,19 @@
     { "id": "energized", "description": { "en": "Never drop below 20 energy", "es": "No bajes de 20 de energía" }, "check": { "type": "resourceNeverBelow", "resource": "energy", "value": 20 } },
     { "id": "secret-shrine", "description": { "en": "Discover the hidden shrine in the hills", "es": "Descubre el santuario oculto en las colinas" }, "check": { "type": "flagSet", "flag": "found-shrine" } },
     { "id": "philosopher", "description": { "en": "Win a debate with a philosopher", "es": "Gana un debate con un filósofo" }, "check": { "type": "flagSet", "flag": "won-debate" } },
-    { "id": "athlete", "description": { "en": "Win an athletic contest", "es": "Gana un concurso atlético" }, "check": { "type": "flagSet", "flag": "won-games" } }
+    { "id": "athlete", "description": { "en": "Win an athletic contest", "es": "Gana un concurso atlético" }, "check": { "type": "flagSet", "flag": "won-games" } },
+    { "id": "merchant-ally", "description": { "en": "Earn Thales' trust", "es": "Gánate la confianza de Tales" }, "check": { "type": "flagSet", "flag": "helped-thales" } },
+    { "id": "bested-rival", "description": { "en": "Outmaneuver Kleon", "es": "Supera a Cleón" }, "check": { "type": "flagSet", "flag": "outmaneuvered-kleon" } },
+    { "id": "sophia-approval", "description": { "en": "Win Sophia's approval", "es": "Gánate la aprobación de Sofía" }, "check": { "type": "flagSet", "flag": "learned-from-sophia" } }
   ],
   "metaAchievements": [
     { "id": "archon", "title": { "en": "Archon of Athens", "es": "Arconte de Atenas" }, "description": { "en": "Accumulate 500 lifetime Arete across playthroughs.", "es": "Acumula 500 de Arete a lo largo de varias partidas." }, "accumulates": "reputation", "threshold": 500 },
     { "id": "merchant-prince", "title": { "en": "Merchant Prince", "es": "Príncipe Mercader" }, "description": { "en": "Accumulate 2000 lifetime drachmas earned across playthroughs.", "es": "Acumula 2000 dracmas ganados a lo largo de varias partidas." }, "accumulates": "currency", "threshold": 2000 }
   ],
+  "memories": {
+    "flags": ["remembered-helped-thales", "remembered-bested-kleon", "remembered-sophia-favor"],
+    "counters": ["merchantTrust", "kleonRespect", "sophiaRespect"]
+  },
   "goodEnding": { "en": "The sun sets over the Acropolis. Your day in Athens is complete.", "es": "El sol se pone sobre la Acrópolis. Tu día en Atenas ha terminado." },
   "badEnding": { "en": "Your strength fails you in the streets of Athens. By morning, word of your fall reaches the agora.", "es": "Tus fuerzas te abandonan en las calles de Atenas. Al amanecer, la noticia de tu caída llega al ágora." }
 }

@@ -8,6 +8,10 @@ export function getValidCards(cards, era, resourceState, dayState) {
     if (card.timeSlots && !card.timeSlots.includes(slot.id)) return false;
     const conditions = card.conditions || {};
     if (!meetsResourceConditions(resourceState, conditions.resources || {})) return false;
+    // Narrative counters (e.g. an NPC's trust) use the exact same min/max
+    // check as resource conditions -- meetsResourceConditions was already
+    // generic, never resource-specific, so it's reused verbatim here.
+    if (!meetsResourceConditions(dayState.counters || {}, conditions.counters || {})) return false;
     if ((conditions.flagsRequired || []).some(flag => !dayState.flags.includes(flag))) return false;
     if ((conditions.flagsExcluded || []).some(flag => dayState.flags.includes(flag))) return false;
     return true;

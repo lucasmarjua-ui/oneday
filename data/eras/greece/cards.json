@@ -45,25 +45,29 @@
   },
   {
     "id": "greece-agora-debate",
-    "text": { "en": "A crowd gathers in the agora around a philosopher questioning a young man's certainty.", "es": "Una multitud se reúne en el ágora en torno a un filósofo que pone en duda las certezas de un joven." },
+    "npcId": "npc-sophia",
+    "threadId": "sophia-thread",
+    "text": { "en": "A crowd gathers in the agora around Sophia, a philosopher questioning a young man's certainty.", "es": "Una multitud se reúne en el ágora en torno a Sofía, una filósofa que pone en duda las certezas de un joven." },
     "timeSlots": ["midday", "afternoon"],
     "weight": 3,
+    "conditions": { "flagsExcluded": ["met-sophia", "remembered-sophia-favor"] },
     "options": [
-      { "id": "join-debate", "text": { "en": "Step in and challenge his argument", "es": "Interviene y desafía su argumento" }, "cost": { "time": 2 }, "successChance": { "base": 0.45, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["won-debate"], "text": { "en": "You dismantle his logic. The crowd murmurs approval.", "es": "Desmontas su lógica. La multitud murmura su aprobación." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "You stumble over your words. The philosopher smiles knowingly.", "es": "Te trabas con las palabras. El filósofo sonríe con suficiencia." } } },
-      { "id": "listen-debate", "text": { "en": "Listen quietly and learn", "es": "Escucha en silencio y aprende" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You absorb a fragment of wisdom.", "es": "Absorbes un fragmento de sabiduría." } } },
+      { "id": "join-debate", "text": { "en": "Step in and challenge her argument", "es": "Interviene y desafía su argumento" }, "cost": { "time": 2 }, "successChance": { "base": 0.45, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["won-debate", "met-sophia"], "countersAdd": { "sophiaRespect": 2 }, "text": { "en": "You dismantle her logic. The crowd murmurs approval, and Sophia studies you with new interest.", "es": "Desmontas su lógica. La multitud murmura su aprobación, y Sofía te observa con renovado interés." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-sophia"], "countersAdd": { "sophiaRespect": -1 }, "text": { "en": "You stumble over your words. Sophia smiles knowingly.", "es": "Te trabas con las palabras. Sofía sonríe con suficiencia." } } },
+      { "id": "listen-debate", "text": { "en": "Listen quietly and learn", "es": "Escucha en silencio y aprende" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["met-sophia"], "countersAdd": { "sophiaRespect": 1 }, "text": { "en": "You absorb a fragment of wisdom.", "es": "Absorbes un fragmento de sabiduría." } } },
       { "id": "avoid-crowd", "text": { "en": "Avoid the crowd entirely", "es": "Evita la multitud por completo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You slip away.", "es": "Te escabulles." } } }
     ]
   },
   {
     "id": "greece-market-haggle",
-    "text": { "en": "A merchant in the agora offers imported pottery at a steep price.", "es": "Un mercader del ágora ofrece cerámica importada a un precio elevado." },
+    "npcId": "npc-thales",
+    "text": { "en": "Thales, a merchant in the agora, offers imported pottery at a steep price.", "es": "Tales, un mercader del ágora, ofrece cerámica importada a un precio elevado." },
     "timeSlots": ["midday", "afternoon"],
     "weight": 4,
-    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "conditions": { "resources": { "currency": { "min": 5 } }, "flagsExcluded": ["met-thales", "remembered-helped-thales"] },
     "options": [
-      { "id": "haggle", "text": { "en": "Try to haggle the price down", "es": "Intenta regatear el precio" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "resources": { "currency": 15, "reputation": 1 }, "flagsSet": ["haggled-once"], "text": { "en": "The merchant relents, impressed by your wit.", "es": "El mercader cede, impresionado por tu ingenio." } }, "failure": { "resources": { "reputation": -1 }, "text": { "en": "The merchant scoffs and waves you off.", "es": "El mercader se burla y te despacha con la mano." } } },
-      { "id": "pay-full", "text": { "en": "Pay the full price for fine pottery", "es": "Paga el precio completo por una cerámica fina" }, "cost": { "time": 1, "resources": { "currency": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You walk away with a handsome piece.", "es": "Te marchas con una bella pieza." } } },
-      { "id": "walk-away-market", "text": { "en": "Walk away", "es": "Te alejas" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You move on.", "es": "Sigues tu camino." } } }
+      { "id": "haggle", "text": { "en": "Try to haggle the price down", "es": "Intenta regatear el precio" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "resources": { "currency": 15, "reputation": 1 }, "flagsSet": ["haggled-once", "met-thales"], "countersAdd": { "merchantTrust": 2 }, "text": { "en": "The merchant relents, impressed by your wit.", "es": "El mercader cede, impresionado por tu ingenio." } }, "failure": { "resources": { "reputation": -1 }, "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": -1 }, "text": { "en": "The merchant scoffs and waves you off.", "es": "El mercader se burla y te despacha con la mano." } } },
+      { "id": "pay-full", "text": { "en": "Pay the full price for fine pottery", "es": "Paga el precio completo por una cerámica fina" }, "cost": { "time": 1, "resources": { "currency": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": 1 }, "text": { "en": "You walk away with a handsome piece.", "es": "Te marchas con una bella pieza." } } },
+      { "id": "walk-away-market", "text": { "en": "Walk away", "es": "Te alejas" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-thales"], "text": { "en": "You move on.", "es": "Sigues tu camino." } } }
     ]
   },
   {
@@ -262,24 +266,135 @@
   },
   {
     "id": "greece-philosopher-favor",
-    "text": { "en": "The philosopher you bested earlier seeks you out, curious for a deeper conversation.", "es": "El filósofo al que venciste antes te busca, curioso por una conversación más profunda." },
+    "npcId": "npc-sophia",
+    "threadId": "sophia-thread",
+    "text": { "en": "Sophia, the philosopher you bested earlier, seeks you out, curious for a deeper conversation.", "es": "Sofía, la filósofa a la que venciste antes, te busca, curiosa por una conversación más profunda." },
     "timeSlots": ["midday", "afternoon"],
     "weight": 1,
-    "conditions": { "flagsRequired": ["won-debate"] },
+    "conditions": { "flagsRequired": ["won-debate"], "flagsExcluded": ["learned-from-sophia"] },
     "options": [
-      { "id": "deeper-debate", "text": { "en": "Engage in a deeper debate", "es": "Entabla un debate más profundo" }, "cost": { "time": 2 }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.08 } }, "success": { "resources": { "reputation": 8 }, "flagsSet": ["philosopher-favor"], "text": { "en": "He calls you a promising mind before his students.", "es": "Te llama una mente prometedora delante de sus alumnos." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "You overreach and lose his respect.", "es": "Te excedes y pierdes su respeto." } } },
+      { "id": "deeper-debate", "text": { "en": "Engage in a deeper debate", "es": "Entabla un debate más profundo" }, "cost": { "time": 2 }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.08 } }, "success": { "resources": { "reputation": 8 }, "flagsSet": ["philosopher-favor", "learned-from-sophia"], "countersAdd": { "sophiaRespect": 3 }, "text": { "en": "She calls you a promising mind before her students.", "es": "Te llama una mente prometedora delante de sus alumnos." } }, "failure": { "resources": { "reputation": -3 }, "countersAdd": { "sophiaRespect": -2 }, "text": { "en": "You overreach and lose her respect.", "es": "Te excedes y pierdes su respeto." } } },
       { "id": "not-today-philosopher", "text": { "en": "Not today", "es": "Hoy no" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Perhaps another time.", "es": "Quizá en otra ocasión." } } }
     ]
   },
   {
     "id": "greece-merchant-investment",
-    "text": { "en": "A merchant seeks investors for a trading voyage to Egypt.", "es": "Un mercader busca inversores para un viaje comercial a Egipto." },
+    "npcId": "npc-thales",
+    "threadId": "thales-thread",
+    "text": { "en": "Thales seeks investors for a trading voyage to Egypt.", "es": "Tales busca inversores para un viaje comercial a Egipto." },
     "timeSlots": ["midday", "afternoon"],
     "weight": 2,
-    "conditions": { "resources": { "currency": { "min": 50 } } },
+    "conditions": { "resources": { "currency": { "min": 50 } }, "flagsRequired": ["met-thales"] },
     "options": [
-      { "id": "invest-voyage", "text": { "en": "Invest in the venture", "es": "Invierte en la empresa" }, "cost": { "time": 2, "resources": { "currency": -50 } }, "successChance": { "base": 0.45, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "currency": 120 }, "text": { "en": "The ship returns laden with goods. Your investment pays off handsomely.", "es": "El barco regresa cargado de mercancías. Tu inversión da grandes frutos." } }, "failure": { "text": { "en": "The ship is delayed by storms. Your coin is gone for now.", "es": "El barco se retrasa por tormentas. Tu dinero se ha perdido, por ahora." } } },
+      { "id": "invest-voyage", "text": { "en": "Invest in the venture", "es": "Invierte en la empresa" }, "cost": { "time": 2, "resources": { "currency": -50 } }, "successChance": { "base": 0.45, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "currency": 120 }, "flagsSet": ["helped-thales"], "countersAdd": { "merchantTrust": 3 }, "text": { "en": "The ship returns laden with goods. Your investment pays off handsomely.", "es": "El barco regresa cargado de mercancías. Tu inversión da grandes frutos." } }, "failure": { "text": { "en": "The ship is delayed by storms. Your coin is gone for now.", "es": "El barco se retrasa por tormentas. Tu dinero se ha perdido, por ahora." } } },
       { "id": "keep-coin", "text": { "en": "Keep your coin safe", "es": "Mantén tu dinero a salvo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Better safe than sorry.", "es": "Más vale prevenir que curar." } } }
+    ]
+  },
+  {
+    "id": "greece-thales-resolution",
+    "npcId": "npc-thales",
+    "threadId": "thales-thread",
+    "text": { "en": "Thales invites you to seal your business dealings with a lasting arrangement.", "es": "Tales te invita a sellar vuestros tratos con un acuerdo duradero." },
+    "timeSlots": ["afternoon", "night"],
+    "weight": 1,
+    "conditions": { "flagsRequired": ["helped-thales"], "flagsExcluded": ["thales-thread-resolved"] },
+    "options": [
+      { "id": "formalize-partnership", "text": { "en": "Formalize a lasting partnership", "es": "Formaliza una sociedad duradera" }, "cost": { "time": 1 }, "successChance": { "base": 0.8, "archetypeBonus": { "modifier": "charm", "scale": 0.04 } }, "success": { "resources": { "currency": 20, "reputation": 2 }, "flagsSet": ["thales-thread-resolved", "remembered-helped-thales"], "countersAdd": { "merchantTrust": 2 }, "text": { "en": "Thales clasps your hand. \"A partner like you is rare,\" he says, sealing the deal with wine.", "es": "Tales te estrecha la mano. \"Un socio como tú es raro\", dice, sellando el trato con vino." } }, "failure": { "flagsSet": ["thales-thread-resolved", "remembered-helped-thales"], "countersAdd": { "merchantTrust": -1 }, "text": { "en": "The terms fall through, but he still speaks well of you around the agora.", "es": "El acuerdo no cuaja, pero sigue hablando bien de ti por el ágora." } } },
+      { "id": "keep-it-casual-thales", "text": { "en": "Keep things friendly but informal", "es": "Mantenlo cordial pero informal" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["thales-thread-resolved", "remembered-helped-thales"], "text": { "en": "You part on good terms, no paperwork needed.", "es": "Os despedís en buenos términos, sin necesidad de papeleo." } } }
+    ]
+  },
+  {
+    "id": "greece-thales-remembers",
+    "npcId": "npc-thales",
+    "threadId": "thales-thread",
+    "text": { "en": "Thales spots you across the agora and waves you over warmly — he has not forgotten your help with his last venture.", "es": "Tales te ve al otro lado del ágora y te llama con la mano, cálido — no ha olvidado tu ayuda en su anterior empresa." },
+    "timeSlots": ["morning", "midday"],
+    "weight": 4,
+    "conditions": { "flagsRequired": ["remembered-helped-thales"], "flagsExcluded": ["met-thales"] },
+    "options": [
+      { "id": "greet-thales", "text": { "en": "Greet him warmly", "es": "Salúdalo con calidez" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 10, "reputation": 1 }, "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": 3 }, "text": { "en": "He presses a small gift of fine pottery into your hands. \"For a friend of the family,\" he says.", "es": "Te pone en las manos un pequeño regalo de cerámica fina. \"Para un amigo de la familia\", dice." } } },
+      { "id": "business-only-thales", "text": { "en": "Keep it brief and businesslike", "es": "Sé breve y ve al grano" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": 1 }, "text": { "en": "He nods, unbothered, and lets you carry on with your day.", "es": "Asiente, sin ofenderse, y te deja seguir con tu día." } } }
+    ]
+  },
+  {
+    "id": "greece-sophia-resolution",
+    "npcId": "npc-sophia",
+    "threadId": "sophia-thread",
+    "text": { "en": "Sophia offers to take you on as a proper student, if you're willing to commit the time.", "es": "Sofía se ofrece a tomarte como alumno formal, si estás dispuesto a dedicarle tiempo." },
+    "timeSlots": ["afternoon", "night"],
+    "weight": 1,
+    "conditions": { "flagsRequired": ["learned-from-sophia"], "flagsExcluded": ["sophia-thread-resolved"] },
+    "options": [
+      { "id": "accept-sophia-teaching", "text": { "en": "Accept her offer to study further", "es": "Acepta su oferta de seguir estudiando" }, "cost": { "time": 2 }, "successChance": { "base": 0.7, "archetypeBonus": { "modifier": "wits", "scale": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["sophia-thread-resolved", "remembered-sophia-favor"], "countersAdd": { "sophiaRespect": 2 }, "text": { "en": "You are welcomed into her circle of students, a mark of honor across the city.", "es": "Te dan la bienvenida a su círculo de alumnos, una distinción reconocida en toda la ciudad." } }, "failure": { "flagsSet": ["sophia-thread-resolved", "remembered-sophia-favor"], "countersAdd": { "sophiaRespect": -1 }, "text": { "en": "The circle's rigor proves too much for today, but she still thinks well of you.", "es": "El rigor del círculo te supera hoy, pero ella sigue pensando bien de ti." } } },
+      { "id": "part-ways-sophia", "text": { "en": "Part ways as equals", "es": "Despídete como iguales" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["sophia-thread-resolved", "remembered-sophia-favor"], "text": { "en": "You part as respected equals, no obligation between you.", "es": "Os despedís como iguales respetados, sin obligación entre vosotros." } } }
+    ]
+  },
+  {
+    "id": "greece-sophia-remembers",
+    "npcId": "npc-sophia",
+    "threadId": "sophia-thread",
+    "text": { "en": "Sophia recognizes you at once among the agora crowd — she still speaks of the mind you showed her last time.", "es": "Sofía te reconoce de inmediato entre la multitud del ágora — todavía habla del ingenio que le mostraste la última vez." },
+    "timeSlots": ["midday", "afternoon"],
+    "weight": 4,
+    "conditions": { "flagsRequired": ["remembered-sophia-favor"], "flagsExcluded": ["met-sophia"] },
+    "options": [
+      { "id": "reconnect-sophia", "text": { "en": "Greet her as a peer", "es": "Salúdala como a una igual" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["met-sophia", "won-debate"], "countersAdd": { "sophiaRespect": 3 }, "text": { "en": "She welcomes you as a peer, not a stranger, and other students take notice.", "es": "Te recibe como a una igual, no como a una desconocida, y otros alumnos se dan cuenta." } } },
+      { "id": "polite-nod-sophia", "text": { "en": "Give a polite nod and move on", "es": "Saluda con un gesto cortés y sigue adelante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-sophia"], "countersAdd": { "sophiaRespect": 1 }, "text": { "en": "She nods back, understanding you're busy today.", "es": "Ella responde con un gesto, entendiendo que hoy andas ocupado." } } }
+    ]
+  },
+  {
+    "id": "greece-kleon-intro",
+    "npcId": "npc-kleon",
+    "threadId": "kleon-thread",
+    "text": { "en": "Kleon, a sharp-tongued rival for influence in the assembly, blocks your path with a mocking smile.", "es": "Cleón, un rival de lengua afilada por la influencia en la asamblea, te corta el paso con una sonrisa burlona." },
+    "timeSlots": ["morning", "midday", "afternoon"],
+    "weight": 3,
+    "conditions": { "flagsExcluded": ["met-kleon", "remembered-bested-kleon"] },
+    "options": [
+      { "id": "challenge-kleon", "text": { "en": "Match his wit in front of onlookers", "es": "Iguala su ingenio delante de los curiosos" }, "cost": { "time": 1 }, "successChance": { "base": 0.45, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": -2 }, "text": { "en": "You turn his mockery back on him. Onlookers laugh, at his expense this time.", "es": "Le devuelves su burla. Los curiosos ríen, esta vez a su costa." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": 2 }, "text": { "en": "He gets the better of the exchange, and you feel the sting of it.", "es": "Sale mejor parado del cruce de palabras, y sientes el escozor." } } },
+      { "id": "flatter-kleon", "text": { "en": "Play along with his flattery", "es": "Sigue su juego de halagos" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": 3 }, "text": { "en": "He seems pleased, already treating you as a useful ally.", "es": "Parece complacido, y ya te trata como a un aliado útil." } } },
+      { "id": "brush-past-kleon", "text": { "en": "Brush past without a word", "es": "Pasa de largo sin decir nada" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": -1 }, "text": { "en": "He calls something mocking after you, but you keep walking.", "es": "Te grita algo burlón, pero sigues caminando." } } }
+    ]
+  },
+  {
+    "id": "greece-kleon-scheme",
+    "npcId": "npc-kleon",
+    "threadId": "kleon-thread",
+    "text": { "en": "Kleon quietly asks you to back a vote that would ruin a mutual rival's standing — off the record, of course.", "es": "Cleón te pide en voz baja que respaldes una votación que arruinaría la reputación de un rival común, extraoficialmente." },
+    "timeSlots": ["midday", "afternoon"],
+    "weight": 2,
+    "conditions": { "flagsRequired": ["met-kleon"], "flagsExcluded": ["kleon-scheme-resolved"] },
+    "options": [
+      { "id": "expose-scheme", "text": { "en": "Expose the scheme publicly", "es": "Expón la trama públicamente" }, "cost": { "time": 2 }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["outmaneuvered-kleon", "kleon-scheme-resolved"], "countersAdd": { "kleonRespect": -3 }, "text": { "en": "You lay his maneuvering bare before the assembly. His allies scatter.", "es": "Dejas su maniobra al descubierto ante la asamblea. Sus aliados se dispersan." } }, "failure": { "resources": { "reputation": -3 }, "flagsSet": ["kleon-scheme-resolved"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "Your accusation falls flat without proof, and Kleon looks pleased.", "es": "Tu acusación no convence sin pruebas, y Cleón parece satisfecho." } } },
+      { "id": "join-scheme", "text": { "en": "Play along for a price", "es": "Sigue el juego a cambio de un precio" }, "cost": { "time": 1 }, "successChance": { "base": 0.6 }, "success": { "resources": { "currency": 20 }, "flagsSet": ["joined-kleon-scheme", "kleon-scheme-resolved"], "countersAdd": { "kleonRespect": 3 }, "text": { "en": "You cast the vote as asked. Coin changes hands quietly afterward.", "es": "Emites el voto como te pidió. El dinero cambia de manos en silencio después." } }, "failure": { "resources": { "reputation": -4 }, "flagsSet": ["kleon-scheme-resolved"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "Word leaks out regardless, and you take the blame alone.", "es": "La noticia se filtra de todos modos, y cargas tú solo con la culpa." } } },
+      { "id": "stay-neutral-kleon", "text": { "en": "Refuse and stay out of it", "es": "Niégate y no te involucres" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["kleon-scheme-resolved"], "text": { "en": "You want no part of it.", "es": "No quieres tomar parte en esto." } } }
+    ]
+  },
+  {
+    "id": "greece-kleon-resolution",
+    "npcId": "npc-kleon",
+    "threadId": "kleon-thread",
+    "text": { "en": "Kleon corners you one final time, but the assembly has already heard how you outmaneuvered him earlier.", "es": "Cleón te acorrala una última vez, pero la asamblea ya sabe cómo lo superaste antes." },
+    "timeSlots": ["afternoon", "night"],
+    "weight": 1,
+    "conditions": { "flagsRequired": ["outmaneuvered-kleon"], "flagsExcluded": ["kleon-thread-resolved"] },
+    "options": [
+      { "id": "gracious-victory", "text": { "en": "Offer him a way to save face", "es": "Ofrécele una salida para no quedar en ridículo" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "He grudgingly nods, and the rivalry cools, for now.", "es": "Asiente a regañadientes, y la rivalidad se enfría, por ahora." } }, "failure": { "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "countersAdd": { "kleonRespect": -1 }, "text": { "en": "He storms off anyway, but the city already remembers who won.", "es": "Se marcha furioso de todos modos, pero la ciudad ya recuerda quién ganó." } } },
+      { "id": "press-advantage", "text": { "en": "Press your advantage publicly", "es": "Presiona tu ventaja en público" }, "cost": { "time": 1 }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "countersAdd": { "kleonRespect": -2 }, "text": { "en": "You drive the point home. Kleon's standing takes a further hit.", "es": "Rematas el asunto. La posición de Cleón se resiente aún más." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "text": { "en": "You overplay your hand, but the earlier victory still stands.", "es": "Te excedes, pero la victoria anterior sigue en pie." } } },
+      { "id": "let-it-rest", "text": { "en": "Let the matter rest", "es": "Deja que el asunto se enfríe" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "text": { "en": "You let it go. Everyone still remembers who came out ahead.", "es": "Lo dejas pasar. Todos recuerdan igualmente quién salió ganando." } } }
+    ]
+  },
+  {
+    "id": "greece-kleon-remembers",
+    "npcId": "npc-kleon",
+    "threadId": "kleon-thread",
+    "text": { "en": "Kleon watches you across the agora with open wariness — word of how you bested him has not been forgotten.", "es": "Cleón te observa desde el otro lado del ágora con clara cautela — no ha olvidado cómo lo venciste." },
+    "timeSlots": ["morning", "midday"],
+    "weight": 4,
+    "conditions": { "flagsRequired": ["remembered-bested-kleon"], "flagsExcluded": ["met-kleon"] },
+    "options": [
+      { "id": "reassure-kleon", "text": { "en": "Offer a nod of reassurance", "es": "Ofrécele un gesto tranquilizador" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "He relaxes, slightly, and keeps his distance.", "es": "Se relaja, un poco, y mantiene las distancias." } } },
+      { "id": "cold-shoulder-kleon", "text": { "en": "Meet his stare and keep walking", "es": "Sostén su mirada y sigue caminando" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": -1 }, "text": { "en": "Neither of you looks away first. Old rivalries die hard.", "es": "Ninguno de los dos aparta la mirada primero. Las viejas rivalidades no mueren fácil." } } }
     ]
   }
 ]

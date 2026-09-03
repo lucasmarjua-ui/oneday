@@ -346,6 +346,33 @@ main {
   pointer-events: none;
   z-index: 0;
 }
+.npc-portrait {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 1;
+}
+.npc-portrait svg {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: var(--bg-panel);
+  box-shadow: var(--shadow);
+}
+.npc-name {
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  background: var(--bg-panel);
+  padding: 1px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+}
 .card-enter { animation: cardEnter 0.3s ease; }
 @keyframes cardEnter {
   from { opacity: 0; transform: translateY(10px); }
