@@ -62,7 +62,8 @@ data/
   eras/future-city/era.json     Same schema again, full resource set + two new SVG character shapes
   eras/future-city/cards.json   Decision cards for the Futuristic City era
 tests/*.test.js                Unit tests for the engine, run with Node's built-in test runner
-firestore.rules                Firestore security rules (reference, pasted into the console)
+firestore.rules                Firestore security rules, deployed via `firebase deploy --only firestore:rules`
+firebase.json, .firebaserc     Points the Firebase CLI at the oneday-game project for that deploy
 .github/workflows/ci.yaml      Runs the test suite on every push and pull request
 .github/workflows/deploy.yaml  Publishes the static site to GitHub Pages on every push to main
 ```
@@ -157,16 +158,15 @@ npm test
 
 OneDay uses its own Firebase project, independent of any other project in this portfolio. It works fully as a guest with no account: character, progress and stats are saved to `localStorage`. Logging in creates or authenticates with a **username and password** (internally mapped to a generated email, `username@oneday.local` — a real email is never asked for or shown). On login, local progress is merged into the `users/{uid}` Firestore document and kept in sync from then on.
 
-The project is `oneday-game`, created and configured via the Firebase CLI — `shared/firebase-config.js` holds its real client config (these are public client identifiers, not secrets; the actual security boundary is `firestore.rules`, deployed to this project).
+The project is `oneday-game`, created and configured via the Firebase CLI (`firebase.json` + `.firebaserc` point at it) — `shared/firebase-config.js` holds its real client config (these are public client identifiers, not secrets; the actual security boundary is `firestore.rules`, deployed to this project with `firebase deploy --only firestore:rules`, which also creates the Firestore database itself on first deploy if it doesn't exist yet).
 
-### Manual console steps
+### One manual console step
 
-Project and Web App creation, and deploying `firestore.rules`, were done via the Firebase CLI. Two things Google requires a human to click through in the console regardless of API/CLI access — true for every Firebase project, not specific to this one:
+Everything above is CLI-automatable. The one thing Google requires a human to click through, for every Firebase project — no API or CLI path around it:
 
-1. **Firestore Database → Create database** (pick a region) — a single click, no further configuration needed.
-2. **Authentication → Get started → Sign-in method → Email/Password → Enable**, then **Authentication → Settings → Authorized domains**: add `lucasmarjua-ui.github.io` so login also works on GitHub Pages (`localhost` is already authorized).
+**Authentication → Get started → Sign-in method → Email/Password → Enable**, then **Authentication → Settings → Authorized domains**: add `lucasmarjua-ui.github.io` so login also works on GitHub Pages (`localhost` is already authorized).
 
-Everything else — including guest play — works without these steps.
+Guest play — the whole game, minus accounts and the leaderboard — works without this step.
 
 ## Technical decisions
 
