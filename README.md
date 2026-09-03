@@ -157,15 +157,14 @@ npm test
 
 OneDay uses its own Firebase project, independent of any other project in this portfolio. It works fully as a guest with no account: character, progress and stats are saved to `localStorage`. Logging in creates or authenticates with a **username and password** (internally mapped to a generated email, `username@oneday.local` — a real email is never asked for or shown). On login, local progress is merged into the `users/{uid}` Firestore document and kept in sync from then on.
 
-### Pending setup in the Firebase console
+The project is `oneday-game`, created and configured via the Firebase CLI — `shared/firebase-config.js` holds its real client config (these are public client identifiers, not secrets; the actual security boundary is `firestore.rules`, deployed to this project).
 
-The `firebaseConfig` in [`shared/firebase-config.js`](shared/firebase-config.js) is a placeholder. Firestore and the email/password provider cannot be enabled through the API or CLI — Google requires a first manual click for each in the console:
+### Manual console steps
 
-1. Create a Firebase project (e.g. `oneday-game`) and a Web App inside it, then copy the resulting config values into `shared/firebase-config.js`.
-2. **Firestore Database → Create database** (pick a region) — a single click, no further configuration needed.
-3. **Authentication → Get started → Sign-in method → Email/Password → Enable**.
-4. **Authentication → Settings → Authorized domains**: add `lucasmarjua-ui.github.io` so login also works on GitHub Pages (`localhost` is already authorized).
-5. **Firestore Database → Rules**: paste the contents of [`firestore.rules`](firestore.rules) and publish — this includes the create-only `dailyLeaderboards` rule the Daily Challenge's anti-farming guarantee depends on.
+Project and Web App creation, and deploying `firestore.rules`, were done via the Firebase CLI. Two things Google requires a human to click through in the console regardless of API/CLI access — true for every Firebase project, not specific to this one:
+
+1. **Firestore Database → Create database** (pick a region) — a single click, no further configuration needed.
+2. **Authentication → Get started → Sign-in method → Email/Password → Enable**, then **Authentication → Settings → Authorized domains**: add `lucasmarjua-ui.github.io` so login also works on GitHub Pages (`localhost` is already authorized).
 
 Everything else — including guest play — works without these steps.
 
