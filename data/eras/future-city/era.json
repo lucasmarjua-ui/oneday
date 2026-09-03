@@ -19,7 +19,7 @@
       "heading": "'Orbitron', sans-serif",
       "body": "'Rajdhani', 'Segoe UI', sans-serif"
     },
-    "textureImage": "linear-gradient(color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--accent) 6%, transparent) 1px, transparent 1px)",
+    "textureImage": "linear-gradient(color-mix(in srgb, var(--texture-tint, var(--accent)) 6%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--texture-tint, var(--accent)) 6%, transparent) 1px, transparent 1px)",
     "textureSize": "38px 38px"
   },
   "day": {

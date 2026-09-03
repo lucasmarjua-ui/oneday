@@ -51,5 +51,12 @@
   "daily.leaderboardEmpty": "No scores yet today — be the first!",
   "daily.leaderboardLoginToAppear": "Log in to appear on the leaderboard.",
   "daily.leaderboardLoading": "Loading…",
-  "daily.recapUnavailable": "Full recap only available on the device where you played."
+  "daily.recapUnavailable": "Full recap only available on the device where you played.",
+  "home.howHeading": "How it works",
+  "home.step1Title": "Choose your era",
+  "home.step1Desc": "Pick a world and build a character suited to it.",
+  "home.step2Title": "Live the day",
+  "home.step2Desc": "Every choice costs time and resources, and rolls against your strengths.",
+  "home.step3Title": "Discover your ending",
+  "home.step3Desc": "See how your story closes, then chase the titles that carry across playthroughs."
 }

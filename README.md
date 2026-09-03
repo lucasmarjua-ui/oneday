@@ -115,7 +115,7 @@ A card option references at most one modifier (`successChance.archetypeBonus.mod
 
 ## Visual identity per era
 
-Same "one engine, different disguise" pattern as resources and archetypes, applied to presentation: each `era.json` carries a full `theme` block (colors, a heading/body font pair, a background texture) as plain CSS values, and `shared/era-theme.js` has one generic function, `applyEraTheme(era)`, that writes them onto `<html>` as custom properties (`--accent`, `--font-heading`, `--bg-texture-image`, …). `theme.css` never branches on an era id — it only ever reads these tokens, with OneDay's own neutral cream/brown palette as the `:root` default. The era-selection screen (before you've picked anything) always shows that neutral default; every screen from archetype choice onward calls `applyEraTheme()` and picks up the active era's identity, cleared again via `clearEraTheme()` if you back out to the era grid.
+Same "one engine, different disguise" pattern as resources and archetypes, applied to presentation: each `era.json` carries a full `theme` block (colors, a heading/body font pair, a background texture) as plain CSS values, and `shared/era-theme.js` has one generic function, `applyEraTheme(era)`, that writes them onto `<html>` as custom properties (`--accent`, `--font-heading`, `--bg-texture-image`, …). `theme.css` never branches on an era id — it only ever reads these tokens, with OneDay's own brand identity (below) as the `:root` default. The era-selection screen (before you've picked anything) always shows that default; every screen from archetype choice onward calls `applyEraTheme()` and picks up the active era's identity, cleared again via `clearEraTheme()` if you back out to the era grid.
 
 | Era | Palette | Typography |
 |---|---|---|
@@ -124,6 +124,14 @@ Same "one engine, different disguise" pattern as resources and archetypes, appli
 | Futuristic City | Near-black navy, a single saturated cyan accent (deliberately one neon tone, not a cyan/magenta gradient), a faint glowing grid texture | **Orbitron** headings (geometric sci-fi), **Rajdhani** body |
 
 Getting there also meant hunting down every hardcoded color left over from the original single-palette design — `#fff` button backgrounds, `rgba(169, 128, 61, …)` tints baked in as literal RGB — since those would've stayed the old cream/brown regardless of the active era. They're now `var(--bg-panel)` and `color-mix(in srgb, var(--accent) N%, transparent)` respectively, so every tinted surface actually follows the era. One token exists specifically because of this: `--accent-ink`, the text color used *on* an accent-colored surface (buttons, badges). Greece's and Neanderthal's accents are dark enough for the default light text; Futuristic City's cyan is bright enough that it overrides `--accent-ink` to a dark navy instead, or button text would be nearly unreadable.
+
+### The home screen's own identity
+
+The era-select screen isn't just "no theme" — it's OneDay's own brand, deliberately distinct from all three eras so it doesn't compete with (or get mistaken for) any of them: near-black charcoal, a warm brass/gold accent (`#c9a24b`, not a color any era uses), **Fraunces** for the wordmark and headings, **Inter** for body text. The header carries a very subtle radial-gradient blend of all three eras' accents — terracotta, ember, cyan — behind the "OneDay" wordmark, hinting at the worlds beyond without borrowing any single one's identity outright.
+
+Each era card previews its own world before you click into it: a small art band at the top rendered with that era's own accent tint and background texture (fetched from that era's `era.json` — just the theme block, not its full card deck, so the preview doesn't wait on content it doesn't need), a matching glow around the card border that intensifies on hover with a slight lift, and a staggered fade-and-rise as the three cards appear. Reusing an era's exact texture recipe here needed one small addition: those textures reference `var(--accent)` directly, which only resolves correctly once `applyEraTheme()` has run — not the case on this deliberately-neutral screen. Each texture now reads `var(--texture-tint, var(--accent))` instead, and the preview card sets `--texture-tint` as a locally-scoped override just for its own art band, without ever touching the page-wide `--accent` the rest of the neutral screen depends on.
+
+A three-step "How it works" strip (choose your era → live the day → discover your ending) fills what used to be empty space below the cards, for a first-time visitor sizing up the game before committing to one.
 
 ### Game screen polish
 

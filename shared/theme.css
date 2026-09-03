@@ -1,20 +1,24 @@
 :root {
-  --bg: #f4ecd8;
-  --bg-panel: #fffaf3;
-  --ink: #2b2118;
-  --ink-soft: #6b5a45;
-  --accent: #a9803d;
-  --accent-dark: #7a5c2a;
-  --accent-secondary: #7a5c2a;
-  --accent-ink: #fffaf3;
+  /* OneDay's own brand identity (the era-select screen, before any era is
+     chosen) -- deliberately not any of the three eras' palettes: dark
+     charcoal instead of Greece's marble or Neanderthal's cave, warm brass
+     instead of any single era's accent. */
+  --bg: #15130f;
+  --bg-panel: #211d17;
+  --ink: #f0e9dc;
+  --ink-soft: #a89a82;
+  --accent: #c9a24b;
+  --accent-dark: #9c7a32;
+  --accent-secondary: #8a6a3a;
+  --accent-ink: #1c1710;
   --danger: #a13a2f;
   --warning: #c98a2b;
   --success: #3a7d44;
-  --border: #d8c7a0;
+  --border: #3a3428;
   --radius: 14px;
-  --shadow: 0 4px 14px rgba(43, 33, 24, 0.15);
-  --font-heading: 'Trebuchet MS', 'Georgia', serif;
-  --font-body: 'Trebuchet MS', 'Georgia', serif;
+  --shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+  --font-heading: 'Fraunces', 'Georgia', serif;
+  --font-body: 'Inter', 'Segoe UI', sans-serif;
   --bg-texture-image: none;
   --bg-texture-size: auto;
 }
@@ -73,6 +77,18 @@ body.critical-alert::after {
   background: var(--bg-panel);
 }
 
+.hero-blend {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-panel);
+  background-image:
+    radial-gradient(circle at 18% 120%, rgba(177, 80, 42, 0.22), transparent 55%),
+    radial-gradient(circle at 55% 140%, rgba(224, 97, 30, 0.18), transparent 55%),
+    radial-gradient(circle at 88% 120%, rgba(0, 229, 255, 0.16), transparent 55%);
+  padding-top: clamp(20px, 5vw, 34px);
+  padding-bottom: clamp(20px, 5vw, 34px);
+}
+
 .app-title, h1, h2, h3, h4 {
   font-family: var(--font-heading);
 }
@@ -82,6 +98,13 @@ body.critical-alert::after {
   margin: 0;
   color: var(--accent-dark);
   letter-spacing: 0.03em;
+}
+
+.app-title-hero {
+  font-size: clamp(2.2rem, 6vw, 3.2rem);
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 2px 18px rgba(201, 162, 75, 0.25);
 }
 
 .app-subtitle {
@@ -143,22 +166,70 @@ main {
 }
 
 .era-card {
+  position: relative;
   text-align: left;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 8px;
   border-radius: var(--radius);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--card-accent, var(--accent)) 30%, transparent), var(--shadow);
+  animation: cardRiseIn 0.5s ease both;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.era-card .era-icon { font-size: 2.4rem; }
+@keyframes cardRiseIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.era-card:has(.era-card-art) { padding: 0; gap: 0; overflow: hidden; }
 .era-card h3 { margin: 0; color: var(--accent-dark); }
 .era-card p { margin: 0; color: var(--ink-soft); font-size: 0.9rem; }
-.era-card[disabled] { opacity: 0.5; cursor: not-allowed; }
-.era-card:not([disabled]):hover { box-shadow: 0 6px 18px color-mix(in srgb, var(--ink) 22%, transparent); transform: translateY(-2px); }
+.era-card.unavailable, .era-card[disabled] { opacity: 0.5; cursor: not-allowed; animation: none; }
+.era-card:not(.unavailable):not([disabled]):hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 26px 2px color-mix(in srgb, var(--card-accent, var(--accent)) 45%, transparent), 0 10px 24px rgba(0, 0, 0, 0.35);
+}
 .era-card.selected { border: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
 .era-card-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 4px; }
 .era-card-actions .btn { flex: 1 1 auto; min-width: 0; padding-left: 10px; padding-right: 10px; font-size: 0.9rem; }
 .era-card-actions .daily-played { border-color: var(--success); color: var(--success); }
+
+.era-card-art {
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: color-mix(in srgb, var(--card-accent, var(--accent)) 20%, var(--bg-panel));
+  background-image: var(--card-texture-image, none);
+  background-size: var(--card-texture-size, auto);
+  border-bottom: 2px solid color-mix(in srgb, var(--card-accent, var(--accent)) 55%, transparent);
+}
+.era-card-art .era-icon { font-size: 2.8rem; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35)); }
+.era-card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+
+.how-it-works { margin-top: 40px; }
+.how-it-works h2 { text-align: center; margin-bottom: 22px; }
+.how-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 24px;
+}
+.how-step { text-align: center; }
+.how-icon {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border: 2px solid var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.how-icon svg { width: 28px; height: 28px; fill: currentColor; }
+.how-step h3 { margin: 0 0 6px; font-size: 1.05rem; }
+.how-step p { margin: 0; font-size: 0.88rem; color: var(--ink-soft); }
 
 .character-layout {
   display: grid;

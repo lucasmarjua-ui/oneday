@@ -51,5 +51,12 @@
   "daily.leaderboardEmpty": "Todavía no hay puntuaciones hoy — ¡sé el primero!",
   "daily.leaderboardLoginToAppear": "Inicia sesión para aparecer en la clasificación.",
   "daily.leaderboardLoading": "Cargando…",
-  "daily.recapUnavailable": "El resumen completo solo está disponible en el dispositivo donde jugaste."
+  "daily.recapUnavailable": "El resumen completo solo está disponible en el dispositivo donde jugaste.",
+  "home.howHeading": "Cómo funciona",
+  "home.step1Title": "Elige tu época",
+  "home.step1Desc": "Elige un mundo y crea un personaje a su medida.",
+  "home.step2Title": "Vive el día",
+  "home.step2Desc": "Cada decisión cuesta tiempo y recursos, y pone a prueba tus puntos fuertes.",
+  "home.step3Title": "Descubre tu final",
+  "home.step3Desc": "Comprueba cómo termina tu historia, y persigue los títulos que se acumulan entre partidas."
 }
