@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OneDay: pick an era, build a character, and live one decisive day.">
+  <meta property="og:title" content="OneDay">
+  <meta property="og:description" content="Pick an era, build a character, and live one decisive day of data-driven decision cards.">
+  <meta property="og:image" content="https://lucasmarjua-ui.github.io/oneday/assets/social-preview.png">
+  <meta property="og:url" content="https://lucasmarjua-ui.github.io/oneday/">
+  <meta name="twitter:card" content="summary_large_image">
+  <title>OneDay</title>
+  <link rel="stylesheet" href="./shared/theme.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1 class="app-title">OneDay</h1>
+      <p class="app-subtitle" data-i18n="app.subtitle"></p>
+    </div>
+    <div class="actions-row" style="margin-top:0;">
+      <button id="lang-en" class="btn" type="button">EN</button>
+      <button id="lang-es" class="btn btn-ghost" type="button">ES</button>
+      <button id="profile-open" class="btn btn-ghost" type="button" data-i18n="nav.profile"></button>
+      <span id="player-name" class="app-subtitle" hidden></span>
+      <button id="login-open" class="btn btn-ghost" type="button" data-i18n="nav.login"></button>
+      <button id="logout" class="btn btn-ghost" type="button" hidden data-i18n="nav.logout"></button>
+    </div>
+  </header>
+
+  <main>
+    <section id="era-screen">
+      <h2 data-i18n="era.chooseHeading"></h2>
+      <div class="era-grid" id="era-grid"></div>
+    </section>
+
+    <section id="archetype-screen" class="panel" hidden>
+      <h2 id="archetype-heading"></h2>
+      <div class="era-grid" id="archetype-grid"></div>
+      <div class="actions-row">
+        <button id="archetype-back" class="btn btn-ghost" type="button" data-i18n="archetype.back"></button>
+        <button id="archetype-next" class="btn" type="button" data-i18n="archetype.next"></button>
+      </div>
+    </section>
+
+    <section id="appearance-screen" class="panel" hidden>
+      <h2 id="appearance-heading"></h2>
+      <div class="character-layout">
+        <div class="character-preview" id="character-preview"></div>
+        <div>
+          <div id="base-options" class="option-row"></div>
+          <div id="slot-options"></div>
+        </div>
+      </div>
+      <div class="actions-row">
+        <button id="appearance-back" class="btn btn-ghost" type="button" data-i18n="appearance.back"></button>
+        <button id="appearance-begin" class="btn" type="button" data-i18n="appearance.begin"></button>
+      </div>
+    </section>
+  </main>
+
+  <div id="login-modal" class="modal-backdrop" hidden>
+    <div class="modal panel">
+      <h2 data-i18n="login.heading"></h2>
+      <p class="app-subtitle" data-i18n="login.description"></p>
+      <div class="field">
+        <label for="login-username" data-i18n="login.username"></label>
+        <input id="login-username" type="text" autocomplete="username" maxlength="16">
+      </div>
+      <div class="field">
+        <label for="login-password" data-i18n="login.password"></label>
+        <input id="login-password" type="password" autocomplete="current-password">
+      </div>
+      <p class="form-error" id="login-error"></p>
+      <div class="modal-actions">
+        <button id="login-close" class="btn btn-ghost" type="button" data-i18n="login.cancel"></button>
+        <button id="login-register" class="btn btn-ghost" type="button" data-i18n="login.register"></button>
+        <button id="login-submit" class="btn" type="button" data-i18n="login.submit"></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="profile-modal" class="modal-backdrop" hidden>
+    <div class="modal panel">
+      <h2 data-i18n="profile.heading"></h2>
+      <div id="profile-body"></div>
+      <div class="modal-actions">
+        <button id="profile-close" class="btn btn-ghost" type="button" data-i18n="profile.close"></button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { ERAS, loadEra } from './shared/era-registry.js';
+    import { getCurrentUser, onUserChange, registerUser, loginUser, logoutUser } from './shared/auth.js';
+    import { createDefaultCharacter, setArchetype, setBase, setSlotOption, renderCharacterSVG, saveCharacter, loadCharacter, findArchetype } from './shared/character.js';
+    import { getEraProgress } from './shared/achievements.js';
+    import { getEraStats } from './shared/stats.js';
+    import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
+
+    const eraScreen = document.querySelector('#era-screen');
+    const eraGrid = document.querySelector('#era-grid');
+    const archetypeScreen = document.querySelector('#archetype-screen');
+    const archetypeHeading = document.querySelector('#archetype-heading');
+    const archetypeGrid = document.querySelector('#archetype-grid');
+    const appearanceScreen = document.querySelector('#appearance-screen');
+    const appearanceHeading = document.querySelector('#appearance-heading');
+    const characterPreview = document.querySelector('#character-preview');
+    const baseOptions = document.querySelector('#base-options');
+    const slotOptions = document.querySelector('#slot-options');
+
+    let currentEra = null;
+    let currentCharacter = null;
+    let currentPhase = 'era';
+
+    function applyStaticI18n() {
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+      document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'btn' : 'btn btn-ghost';
+      document.querySelector('#lang-es').className = getLanguage() === 'es' ? 'btn' : 'btn btn-ghost';
+    }
+
+    function renderEraGrid() {
+      eraGrid.innerHTML = ERAS.map(era => `
+        <button class="era-card panel" type="button" data-era="${era.id}" ${era.available ? '' : 'disabled'}>
+          <span class="era-icon">${era.icon}</span>
+          <h3>${localize(era.name)}</h3>
+          <p>${era.available ? localize(era.tagline) : t('era.comingSoon')}</p>
+        </button>
+      `).join('');
+      eraGrid.querySelectorAll('.era-card').forEach(card => {
+        card.addEventListener('click', () => selectEra(card.dataset.era));
+      });
+    }
+
+    async function selectEra(eraId) {
+      const { era } = await loadEra(eraId);
+      currentEra = era;
+      currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
+      currentPhase = 'archetype';
+      eraScreen.hidden = true;
+      archetypeScreen.hidden = false;
+      renderArchetypeScreen();
+    }
+
+    function renderArchetypeScreen() {
+      archetypeHeading.textContent = `${t('archetype.heading')} — ${localize(currentEra.name)}`;
+      archetypeGrid.innerHTML = currentEra.archetypes.map(archetype => `
+        <button class="era-card panel${currentCharacter.archetypeId === archetype.id ? ' selected' : ''}" type="button" data-archetype="${archetype.id}">
+          <h3>${localize(archetype.name)}</h3>
+          <p>${localize(archetype.description)}</p>
+        </button>
+      `).join('');
+      archetypeGrid.querySelectorAll('.era-card').forEach(card => {
+        card.addEventListener('click', () => {
+          currentCharacter = setArchetype(currentCharacter, card.dataset.archetype);
+          renderArchetypeScreen();
+        });
+      });
+    }
+
+    document.querySelector('#archetype-back').addEventListener('click', () => {
+      currentPhase = 'era';
+      archetypeScreen.hidden = true;
+      eraScreen.hidden = false;
+    });
+
+    document.querySelector('#archetype-next').addEventListener('click', () => {
+      currentPhase = 'appearance';
+      archetypeScreen.hidden = true;
+      appearanceScreen.hidden = false;
+      renderAppearanceScreen();
+    });
+
+    function renderAppearanceScreen() {
+      appearanceHeading.textContent = `${t('appearance.heading')} — ${localize(currentEra.name)}`;
+      characterPreview.innerHTML = renderCharacterSVG(currentEra, currentCharacter);
+
+      baseOptions.innerHTML = `<h4>${t('appearance.baseLabel')}</h4><div class="swatch-row" id="base-swatches"></div>`;
+      const baseSwatches = baseOptions.querySelector('#base-swatches');
+      currentEra.character.bases.forEach(base => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'swatch-btn' + (currentCharacter.base === base.id ? ' selected' : '');
+        btn.textContent = localize(base.label);
+        btn.addEventListener('click', () => { currentCharacter = setBase(currentCharacter, base.id); renderAppearanceScreen(); });
+        baseSwatches.appendChild(btn);
+      });
+
+      slotOptions.innerHTML = '';
+      currentEra.character.slots.forEach(slot => {
+        const row = document.createElement('div');
+        row.className = 'option-row';
+        row.innerHTML = `<h4>${localize(slot.label)}</h4><div class="swatch-row"></div>`;
+        const swatchRow = row.querySelector('.swatch-row');
+        slot.options.forEach(option => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'swatch-btn' + (currentCharacter.slots[slot.id] === option.id ? ' selected' : '');
+          btn.textContent = localize(option.label);
+          btn.addEventListener('click', () => { currentCharacter = setSlotOption(currentCharacter, slot.id, option.id); renderAppearanceScreen(); });
+          swatchRow.appendChild(btn);
+        });
+        slotOptions.appendChild(row);
+      });
+    }
+
+    document.querySelector('#appearance-back').addEventListener('click', () => {
+      currentPhase = 'archetype';
+      appearanceScreen.hidden = true;
+      archetypeScreen.hidden = false;
+      renderArchetypeScreen();
+    });
+
+    document.querySelector('#appearance-begin').addEventListener('click', () => {
+      saveCharacter(currentEra.id, currentCharacter);
+      window.location.href = `./game.html?era=${currentEra.id}`;
+    });
+
+    // Language selector
+    document.querySelector('#lang-en').addEventListener('click', () => setLanguage('en'));
+    document.querySelector('#lang-es').addEventListener('click', () => setLanguage('es'));
+    onLanguageChange(() => {
+      applyStaticI18n();
+      if (currentPhase === 'era') renderEraGrid();
+      else if (currentPhase === 'archetype') renderArchetypeScreen();
+      else if (currentPhase === 'appearance') renderAppearanceScreen();
+    });
+
+    // Login modal
+    const loginModal = document.querySelector('#login-modal');
+    const loginError = document.querySelector('#login-error');
+    document.querySelector('#login-open').addEventListener('click', () => { loginError.textContent = ''; loginModal.hidden = false; });
+    document.querySelector('#login-close').addEventListener('click', () => { loginModal.hidden = true; });
+    document.querySelector('#logout').addEventListener('click', () => logoutUser());
+    document.querySelector('#login-submit').addEventListener('click', () => submitLogin(loginUser));
+    document.querySelector('#login-register').addEventListener('click', () => submitLogin(registerUser));
+
+    async function submitLogin(action) {
+      const username = document.querySelector('#login-username').value;
+      const password = document.querySelector('#login-password').value;
+      loginError.textContent = '';
+      try {
+        await action(username, password);
+        loginModal.hidden = true;
+      } catch (error) {
+        loginError.textContent = error.code === 'auth/invalid-username' ? t('login.errorUsername') : t('login.errorGeneric');
+      }
+    }
+
+    onUserChange(user => {
+      document.querySelector('#player-name').hidden = !user;
+      document.querySelector('#player-name').textContent = user ? user.displayName : '';
+      document.querySelector('#login-open').hidden = !!user;
+      document.querySelector('#logout').hidden = !user;
+    });
+
+    // Profile modal
+    const profileModal = document.querySelector('#profile-modal');
+    const profileBody = document.querySelector('#profile-body');
+    document.querySelector('#profile-open').addEventListener('click', async () => {
+      profileBody.innerHTML = '<p>…</p>';
+      profileModal.hidden = false;
+      const availableEras = ERAS.filter(era => era.available);
+      const sections = await Promise.all(availableEras.map(async meta => {
+        const { era } = await loadEra(meta.id);
+        const progress = getEraProgress(meta.id);
+        const stats = getEraStats(meta.id);
+        const achievementsHtml = (era.metaAchievements || []).map(achievement => {
+          const unlocked = progress.achievementsUnlocked.includes(achievement.id);
+          const total = progress.accumulated[achievement.accumulates] || 0;
+          return `<li class="${unlocked ? 'complete' : ''}"><span class="objective-mark">${unlocked ? '✓' : '•'}</span> ${localize(achievement.title)} — ${Math.min(total, achievement.threshold)}/${achievement.threshold}</li>`;
+        }).join('');
+        return `
+          <div class="option-row">
+            <h4>${localize(era.name)}</h4>
+            <p class="app-subtitle">${t('profile.daysPlayed', { count: stats.daysPlayed, objectives: stats.objectivesCompleted })}</p>
+            <ul class="objective-list">${achievementsHtml || `<li>${t('profile.noAchievements')}</li>`}</ul>
+          </div>
+        `;
+      }));
+      profileBody.innerHTML = sections.join('') || `<p>${t('profile.noEras')}</p>`;
+    });
+    document.querySelector('#profile-close').addEventListener('click', () => { profileModal.hidden = true; });
+
+    (async function init() {
+      await loadStrings();
+      applyStaticI18n();
+      renderEraGrid();
+    })();
+  </script>
+</body>
+</html>

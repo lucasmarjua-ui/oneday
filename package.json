@@ -1,0 +1,9 @@
+{
+  "name": "oneday",
+  "private": true,
+  "type": "module",
+  "description": "OneDay: pick an era, build a character, live one decisive day.",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  }
+}

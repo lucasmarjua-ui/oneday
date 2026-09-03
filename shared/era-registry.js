@@ -1,0 +1,40 @@
+export const ERAS = [
+  {
+    id: 'greece',
+    name: { en: 'Ancient Greece', es: 'Antigua Grecia' },
+    tagline: { en: 'Rise from citizen to legend in one day in the agora.', es: 'Asciende de ciudadano a leyenda en un día en el ágora.' },
+    icon: '\u{1F3DB}\u{FE0F}',
+    accentColor: '#a9803d',
+    configPath: './data/eras/greece/era.json',
+    cardsPath: './data/eras/greece/cards.json',
+    available: true,
+  },
+  {
+    id: 'future-city',
+    name: { en: 'Futuristic City', es: 'Ciudad Futurista' },
+    icon: '\u{1F306}',
+    accentColor: '#3d6ea9',
+    available: false,
+  },
+  {
+    id: 'neanderthal',
+    name: { en: 'Neanderthals', es: 'Neandertales' },
+    icon: '\u{1F525}',
+    accentColor: '#8a5a35',
+    available: false,
+  },
+];
+
+export function getEraMeta(eraId) {
+  return ERAS.find(era => era.id === eraId) || null;
+}
+
+export async function loadEra(eraId) {
+  const meta = getEraMeta(eraId);
+  if (!meta || !meta.available) throw new Error(`Era not available: ${eraId}`);
+  const [era, cards] = await Promise.all([
+    fetch(meta.configPath).then(response => response.json()),
+    fetch(meta.cardsPath).then(response => response.json()),
+  ]);
+  return { era, cards };
+}

@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OneDay: live one decisive day, one decision at a time.">
+  <title>OneDay — Playing</title>
+  <link rel="stylesheet" href="./shared/theme.css">
+</head>
+<body>
+  <header class="app-header">
+    <div>
+      <h1 class="app-title" id="era-title">OneDay</h1>
+      <p class="app-subtitle" id="slot-label"></p>
+    </div>
+    <div class="actions-row" style="margin-top:0;">
+      <button id="lang-en" class="btn" type="button">EN</button>
+      <button id="lang-es" class="btn btn-ghost" type="button">ES</button>
+      <a class="btn btn-ghost" href="./index.html" data-i18n="game.menu"></a>
+    </div>
+  </header>
+
+  <main>
+    <div class="hud panel" id="hud"></div>
+
+    <section id="decision-screen" class="panel">
+      <p class="card-text" id="card-text"></p>
+      <div class="options-list" id="options-list"></div>
+    </section>
+
+    <section id="outcome-screen" class="panel" hidden>
+      <p id="outcome-tag"></p>
+      <p class="outcome-text" id="outcome-text"></p>
+      <div class="outcome-deltas" id="outcome-deltas"></div>
+      <button id="outcome-continue" class="btn" type="button" data-i18n="game.continue"></button>
+    </section>
+
+    <section id="summary-screen" class="panel" hidden>
+      <h2 id="summary-heading" data-i18n="game.summaryHeading"></h2>
+      <p id="summary-reason" class="app-subtitle"></p>
+      <div class="summary-grid" id="summary-resources"></div>
+      <h3 data-i18n="game.objectivesHeading"></h3>
+      <ul class="objective-list" id="summary-objectives"></ul>
+      <div id="summary-achievements"></div>
+      <h3 data-i18n="game.recapHeading"></h3>
+      <div class="narrative-log" id="summary-log"></div>
+      <div class="actions-row">
+        <button id="play-again" class="btn" type="button" data-i18n="game.playAgain"></button>
+        <a class="btn btn-ghost" href="./index.html" data-i18n="game.changeEra"></a>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import './shared/auth.js';
+    import { loadEra } from './shared/era-registry.js';
+    import { loadCharacter, findArchetype } from './shared/character.js';
+    import { createResourceState, applyResourceDeltas, isCriticalDepleted, getCriticalResourceKey } from './shared/resources.js';
+    import { createDayState, getCurrentSlot, formatClock, advanceTime, isTimeUp, trackMinSeen } from './shared/day-engine.js';
+    import { getValidCards, pickWeightedCard, computeSuccessChance, resolveOption } from './shared/decision-engine.js';
+    import { pickDailyObjectives, isObjectiveComplete } from './shared/objectives.js';
+    import { recordDayGains, checkAndUnlockMetaAchievements } from './shared/achievements.js';
+    import { recordDayResult } from './shared/stats.js';
+    import { createRng, randomSeed } from './shared/rng.js';
+    import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
+
+    const FILLER_CARD = {
+      id: 'filler-wait',
+      text: { en: 'Nothing much happens for a moment. The city moves around you.', es: 'No pasa gran cosa por un momento. La ciudad sigue su curso a tu alrededor.' },
+      options: [
+        { id: 'rest', text: { en: 'Take a moment to rest', es: 'Tómate un momento para descansar' }, cost: { time: 1 }, successChance: { base: 1 }, success: { resources: { energy: 5 }, text: { en: 'You catch your breath.', es: 'Recuperas el aliento.' } } },
+      ],
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const eraId = params.get('era');
+    if (!eraId) window.location.href = './index.html';
+
+    const eraTitle = document.querySelector('#era-title');
+    const slotLabel = document.querySelector('#slot-label');
+    const hud = document.querySelector('#hud');
+    const decisionScreen = document.querySelector('#decision-screen');
+    const outcomeScreen = document.querySelector('#outcome-screen');
+    const summaryScreen = document.querySelector('#summary-screen');
+    const cardText = document.querySelector('#card-text');
+    const optionsList = document.querySelector('#options-list');
+
+    let era = null;
+    let cards = [];
+    let character = null;
+    let archetype = null;
+    let rng = null;
+    let resourceState = null;
+    let dayState = null;
+    let dailyObjectives = [];
+    let narrativeLog = [];
+    let gainsThisDay = {};
+    let currentCard = null;
+    let currentOutcome = null;
+    let summaryData = null;
+    let phase = 'decision';
+
+    function mergeDeltas(a = {}, b = {}) {
+      const result = { ...a };
+      Object.entries(b).forEach(([key, value]) => { result[key] = (result[key] || 0) + value; });
+      return result;
+    }
+
+    function applyStaticI18n() {
+      document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+      document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'btn' : 'btn btn-ghost';
+      document.querySelector('#lang-es').className = getLanguage() === 'es' ? 'btn' : 'btn btn-ghost';
+      eraTitle.textContent = `OneDay — ${localize(era.name)}`;
+    }
+
+    function resetDay() {
+      rng = createRng(randomSeed());
+      resourceState = createResourceState(era);
+      dayState = createDayState(era);
+      dailyObjectives = pickDailyObjectives(era, 3, rng);
+      narrativeLog = [];
+      gainsThisDay = {};
+      summaryData = null;
+    }
+
+    function renderHUD() {
+      const slot = getCurrentSlot(era, dayState.elapsed);
+      slotLabel.textContent = `${localize(slot.label)} · ${formatClock(era, dayState.elapsed)}`;
+      hud.innerHTML = `
+        <span class="hud-clock">${formatClock(era, dayState.elapsed)} / ${era.day.endLabel}</span>
+        <div class="resource-bars">
+          ${Object.entries(era.resources).map(([key, config]) => {
+            const value = resourceState[key];
+            const low = config.critical && value <= config.min + (config.max - config.min) * 0.2;
+            return `<span class="resource-chip${low ? ' critical-low' : ''}">${config.icon} ${localize(config.label)}: ${value}</span>`;
+          }).join('')}
+        </div>
+      `;
+    }
+
+    function formatOptionMeta(option) {
+      const parts = [`${option.cost?.time || 0}h`];
+      Object.entries(option.cost?.resources || {}).forEach(([key, delta]) => {
+        if (!delta) return;
+        parts.push(`${localize(era.resources[key].label)} ${delta > 0 ? '+' : ''}${delta}`);
+      });
+      const chance = computeSuccessChance(option.successChance, archetype);
+      if (chance < 1) parts.push(`${Math.round(chance * 100)}${t('option.successSuffix')}`);
+      return parts.join(' · ');
+    }
+
+    function pickNextCard() {
+      const valid = getValidCards(cards, era, resourceState, dayState);
+      currentCard = valid.length ? pickWeightedCard(valid, rng) : FILLER_CARD;
+    }
+
+    function renderDecisionUI() {
+      decisionScreen.hidden = false;
+      outcomeScreen.hidden = true;
+      summaryScreen.hidden = true;
+      renderHUD();
+      cardText.textContent = localize(currentCard.text);
+      optionsList.innerHTML = '';
+      currentCard.options.forEach(option => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'option-btn';
+        btn.innerHTML = `${localize(option.text)}<span class="option-cost">${formatOptionMeta(option)}</span>`;
+        btn.addEventListener('click', () => chooseOption(option));
+        optionsList.appendChild(btn);
+      });
+    }
+
+    function showDecision() {
+      phase = 'decision';
+      pickNextCard();
+      renderDecisionUI();
+    }
+
+    function chooseOption(option) {
+      const { success, outcome } = resolveOption(option, archetype, rng);
+      const combined = mergeDeltas(option.cost?.resources, outcome.resources);
+      resourceState = applyResourceDeltas(resourceState, era, combined);
+      dayState = advanceTime(dayState, option.cost?.time || 0);
+      dayState = trackMinSeen(dayState, resourceState);
+      if (outcome.flagsSet?.length) dayState = { ...dayState, flags: [...dayState.flags, ...outcome.flagsSet] };
+      dayState = { ...dayState, playedCardIds: [...dayState.playedCardIds, currentCard.id] };
+      gainsThisDay = mergeDeltas(gainsThisDay, combined);
+      if (outcome.text) narrativeLog.push(outcome.text);
+
+      currentOutcome = { hasChance: !!option.successChance, success, text: outcome.text, combined };
+      phase = 'outcome';
+      renderHUD();
+      renderOutcomeUI();
+    }
+
+    function renderOutcomeUI() {
+      decisionScreen.hidden = true;
+      outcomeScreen.hidden = false;
+      summaryScreen.hidden = true;
+      document.querySelector('#outcome-tag').innerHTML = currentOutcome.hasChance
+        ? (currentOutcome.success ? `<span class="outcome-success-tag">${t('outcome.success')}</span>` : `<span class="outcome-fail-tag">${t('outcome.failure')}</span>`)
+        : '';
+      document.querySelector('#outcome-text').textContent = currentOutcome.text ? localize(currentOutcome.text) : '';
+      document.querySelector('#outcome-deltas').innerHTML = Object.entries(currentOutcome.combined)
+        .filter(([, value]) => value !== 0)
+        .map(([key, value]) => `<span class="delta-chip ${value > 0 ? 'positive' : 'negative'}">${era.resources[key].icon} ${value > 0 ? '+' : ''}${value}</span>`)
+        .join('');
+    }
+
+    document.querySelector('#outcome-continue').addEventListener('click', () => {
+      if (isTimeUp(dayState) || isCriticalDepleted(resourceState, era)) endDay();
+      else showDecision();
+    });
+
+    function endDay() {
+      const objectivesResults = dailyObjectives.map(objective => ({
+        objective,
+        complete: isObjectiveComplete(objective, { resourceState, dayState }),
+      }));
+      const completedCount = objectivesResults.filter(entry => entry.complete).length;
+      recordDayResult(eraId, { objectivesCompleted: completedCount });
+      recordDayGains(eraId, gainsThisDay);
+      const newlyUnlocked = checkAndUnlockMetaAchievements(eraId, era);
+      const criticalKey = getCriticalResourceKey(resourceState, era);
+
+      summaryData = { objectivesResults, newlyUnlocked, criticalKey, finalResources: { ...resourceState }, log: [...narrativeLog] };
+      phase = 'summary';
+      renderSummaryUI();
+    }
+
+    function renderSummaryUI() {
+      decisionScreen.hidden = true;
+      outcomeScreen.hidden = true;
+      summaryScreen.hidden = false;
+
+      document.querySelector('#summary-reason').textContent = summaryData.criticalKey ? localize(era.badEnding) : localize(era.goodEnding);
+
+      document.querySelector('#summary-resources').innerHTML = Object.entries(era.resources).map(([key, config]) => `
+        <div class="summary-stat"><div class="value">${config.icon} ${summaryData.finalResources[key]}</div><div>${localize(config.label)}</div></div>
+      `).join('');
+
+      document.querySelector('#summary-objectives').innerHTML = summaryData.objectivesResults.map(entry => `
+        <li class="${entry.complete ? 'complete' : ''}"><span class="objective-mark">${entry.complete ? '✓' : '✗'}</span> ${localize(entry.objective.description)}</li>
+      `).join('');
+
+      document.querySelector('#summary-achievements').innerHTML = summaryData.newlyUnlocked.map(achievement => `
+        <div class="achievement-toast">🏆 ${localize(achievement.title)} — ${localize(achievement.description)}</div>
+      `).join('');
+
+      document.querySelector('#summary-log').innerHTML = summaryData.log.map(line => `<p>${localize(line)}</p>`).join('') || `<p>${t('game.recapEmpty')}</p>`;
+    }
+
+    document.querySelector('#play-again').addEventListener('click', () => {
+      resetDay();
+      showDecision();
+    });
+
+    document.querySelector('#lang-en').addEventListener('click', () => setLanguage('en'));
+    document.querySelector('#lang-es').addEventListener('click', () => setLanguage('es'));
+    onLanguageChange(() => {
+      applyStaticI18n();
+      if (phase === 'decision') renderDecisionUI();
+      else if (phase === 'outcome') renderOutcomeUI();
+      else if (phase === 'summary') renderSummaryUI();
+    });
+
+    (async function init() {
+      await loadStrings();
+      const loaded = await loadEra(eraId);
+      era = loaded.era;
+      cards = loaded.cards;
+      character = loadCharacter(eraId);
+      if (!character) { window.location.href = './index.html'; return; }
+      archetype = findArchetype(era, character.archetypeId);
+      applyStaticI18n();
+      resetDay();
+      showDecision();
+    })();
+  </script>
+</body>
+</html>
