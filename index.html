@@ -19,31 +19,49 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;600&family=Cinzel:wght@400;700&family=Source+Sans+3:wght@400;600&family=Alfa+Slab+One&family=PT+Sans:wght@400;700&family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="./shared/theme.css">
 </head>
 <body>
-  <header class="app-header hero-blend">
-    <div>
-      <h1 class="app-title app-title-hero">OneDay</h1>
-      <p class="app-subtitle" data-i18n="app.subtitle"></p>
+  <section class="hero">
+    <video class="hero-video" autoplay loop muted playsinline>
+      <source src="./assets/hero-loop.webm" type="video/webm">
+    </video>
+    <div class="hero-scrim"></div>
+
+    <header class="site-nav">
+      <nav class="nav-inner">
+        <span class="nav-logo">OneDay</span>
+        <div class="nav-links">
+          <a href="#" class="nav-link active" data-i18n="nav.home"></a>
+          <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
+          <a href="#era-grid" class="nav-link" data-i18n="nav.dailyChallenge"></a>
+          <button id="profile-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.profile"></button>
+        </div>
+        <div class="nav-actions">
+          <button id="lang-en" class="lang-btn" type="button">EN</button>
+          <button id="lang-es" class="lang-btn" type="button">ES</button>
+          <span id="player-name" class="nav-player" hidden></span>
+          <button id="login-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.login"></button>
+          <button id="logout" class="nav-link nav-link-btn" type="button" hidden data-i18n="nav.logout"></button>
+          <button id="hero-cta-nav" class="btn liquid-glass" type="button" data-i18n="nav.cta"></button>
+        </div>
+      </nav>
+    </header>
+
+    <div class="hero-content">
+      <h1 class="hero-title animate-fade-rise" id="hero-title"></h1>
+      <p class="hero-subtitle animate-fade-rise-delay" data-i18n="home.heroSubtitle"></p>
+      <button id="hero-cta" class="btn liquid-glass hero-cta animate-fade-rise-delay-2" type="button" data-i18n="nav.cta"></button>
     </div>
-    <div class="actions-row" style="margin-top:0;">
-      <button id="lang-en" class="btn" type="button">EN</button>
-      <button id="lang-es" class="btn btn-ghost" type="button">ES</button>
-      <button id="profile-open" class="btn btn-ghost" type="button" data-i18n="nav.profile"></button>
-      <span id="player-name" class="app-subtitle" hidden></span>
-      <button id="login-open" class="btn btn-ghost" type="button" data-i18n="nav.login"></button>
-      <button id="logout" class="btn btn-ghost" type="button" hidden data-i18n="nav.logout"></button>
-    </div>
-  </header>
+  </section>
 
   <main>
     <section id="era-screen">
       <h2 data-i18n="era.chooseHeading"></h2>
       <div class="era-grid" id="era-grid"></div>
 
-      <section class="how-it-works">
+      <section class="how-it-works" id="how-it-works">
         <h2 data-i18n="home.howHeading"></h2>
         <div class="how-steps">
           <div class="how-step">
@@ -130,8 +148,8 @@
     import { getStreak } from './shared/streaks.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
-    import { applyEraTheme, clearEraTheme } from './shared/era-theme.js';
 
+    const heroSection = document.querySelector('.hero');
     const eraScreen = document.querySelector('#era-screen');
     const eraGrid = document.querySelector('#era-grid');
     const archetypeScreen = document.querySelector('#archetype-screen');
@@ -163,8 +181,9 @@
 
     function applyStaticI18n() {
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
-      document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'btn' : 'btn btn-ghost';
-      document.querySelector('#lang-es').className = getLanguage() === 'es' ? 'btn' : 'btn btn-ghost';
+      document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'lang-btn active' : 'lang-btn';
+      document.querySelector('#lang-es').className = getLanguage() === 'es' ? 'lang-btn active' : 'lang-btn';
+      document.querySelector('#hero-title').innerHTML = `${t('home.heroTitlePart1')} <em class="hero-title-em">${t('home.heroTitlePart2')}</em>`;
     }
 
     function renderEraGrid() {
@@ -172,8 +191,12 @@
       eraGrid.innerHTML = ERAS.map((era, index) => {
         const playedToday = era.available && hasPlayedToday(getLocalDailyResult(era.id), today);
         const preview = eraThemePreviews[era.id];
+        // Only the texture *shape* still varies by era (kept as one of the
+        // few things -- name, icon, texture -- that distinguish a card);
+        // its color always resolves to the single global accent now, so no
+        // --card-accent/--texture-tint is set here anymore.
         const cardStyle = preview
-          ? `--card-accent:${preview.colors.accent};--card-texture-image:${preview.textureImage || 'none'};--card-texture-size:${preview.textureSize || 'auto'};--texture-tint:${preview.colors.accent};--texture-tint-secondary:${preview.colors.accentSecondary || preview.colors.accent};animation-delay:${index * 0.06}s`
+          ? `--card-texture-image:${preview.textureImage || 'none'};--card-texture-size:${preview.textureSize || 'auto'};animation-delay:${index * 0.06}s`
           : `animation-delay:${index * 0.06}s`;
         return `
           <div class="era-card panel${era.available ? '' : ' unavailable'}" data-era="${era.id}" style="${cardStyle}">
@@ -205,7 +228,7 @@
       currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
       currentMode = 'free';
       currentPhase = 'archetype';
-      applyEraTheme(era);
+      heroSection.hidden = true;
       eraScreen.hidden = true;
       archetypeScreen.hidden = false;
       renderArchetypeScreen();
@@ -221,7 +244,7 @@
       currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
       currentMode = 'daily';
       currentPhase = 'archetype';
-      applyEraTheme(era);
+      heroSection.hidden = true;
       eraScreen.hidden = true;
       archetypeScreen.hidden = false;
       renderArchetypeScreen();
@@ -249,8 +272,8 @@
 
     document.querySelector('#archetype-back').addEventListener('click', () => {
       currentPhase = 'era';
-      clearEraTheme();
       archetypeScreen.hidden = true;
+      heroSection.hidden = false;
       eraScreen.hidden = false;
     });
 
@@ -306,6 +329,16 @@
       const dailyParam = currentMode === 'daily' ? '&daily=1' : '';
       window.location.href = `./game.html?era=${currentEra.id}${dailyParam}`;
     });
+
+    // Hero CTAs just jump to the era grid -- there's no separate "start" page,
+    // the cards below are the beginning.
+    function scrollToEraGrid(event) {
+      event.preventDefault();
+      eraGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.querySelector('#hero-cta').addEventListener('click', scrollToEraGrid);
+    document.querySelector('#hero-cta-nav').addEventListener('click', scrollToEraGrid);
+    document.querySelector('.nav-link.active').addEventListener('click', event => { event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
 
     // Language selector
     document.querySelector('#lang-en').addEventListener('click', () => setLanguage('en'));
@@ -380,11 +413,8 @@
     function applyCardPreview(eraId, preview) {
       const card = eraGrid.querySelector(`.era-card[data-era="${eraId}"]`);
       if (!card || !preview) return;
-      card.style.setProperty('--card-accent', preview.colors.accent);
       card.style.setProperty('--card-texture-image', preview.textureImage || 'none');
       card.style.setProperty('--card-texture-size', preview.textureSize || 'auto');
-      card.style.setProperty('--texture-tint', preview.colors.accent);
-      card.style.setProperty('--texture-tint-secondary', preview.colors.accentSecondary || preview.colors.accent);
     }
 
     (async function init() {

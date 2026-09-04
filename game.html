@@ -8,7 +8,7 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Source+Sans+3:wght@400;600&family=Alfa+Slab+One&family=PT+Sans:wght@400;700&family=Orbitron:wght@500;700&family=Rajdhani:wght@400;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="./shared/theme.css">
 </head>
 <body>
@@ -58,7 +58,7 @@
       <p id="summary-comeback" class="app-subtitle" hidden data-i18n="daily.comeBackTomorrow"></p>
       <div class="actions-row">
         <button id="play-again" class="btn" type="button" data-i18n="game.playAgain"></button>
-        <button id="download-card" class="btn btn-ghost" type="button" hidden data-i18n="game.downloadCard"></button>
+        <button id="download-card" class="btn" type="button" hidden data-i18n="game.downloadCard"></button>
         <a class="btn btn-ghost" href="./index.html" data-i18n="game.changeEra"></a>
       </div>
       <canvas id="share-canvas" hidden></canvas>
@@ -79,7 +79,6 @@
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, saveLocalDailyResult, checkRemoteDailyEntry, submitDailyScore, getDailyLeaderboard, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
     import { computeDayScore } from './shared/scoring.js';
-    import { applyEraTheme } from './shared/era-theme.js';
     import { isBarResource, resourceFraction, resourceBarLevel } from './shared/resource-bar.js';
     import { classifyCardIcon, renderCardIconSVG } from './shared/card-icons.js';
     import { applyCounterDeltas } from './shared/narrative.js';
@@ -223,7 +222,7 @@
       renderHUD();
       const npc = currentCard.npcId ? findNpc(era, currentCard.npcId) : null;
       document.querySelector('#card-icon-watermark').innerHTML = npc
-        ? `<div class="npc-portrait">${renderNpcPortraitSVG(npc)}<span class="npc-name">${localize(npc.name)}</span></div>`
+        ? `<div class="npc-portrait"><div class="npc-portrait-badge">${renderNpcPortraitSVG(npc)}</div><span class="npc-name">${localize(npc.name)}</span></div>`
         : renderCardIconSVG(classifyCardIcon(currentCard));
       cardText.textContent = localize(currentCard.text);
       optionsList.innerHTML = '';
@@ -474,7 +473,6 @@
       const loaded = await loadEra(eraId);
       era = loaded.era;
       cards = loaded.cards;
-      applyEraTheme(era);
       isDaily = params.get('daily') === '1';
       dailyDateKeyValue = todayDateKey();
 
