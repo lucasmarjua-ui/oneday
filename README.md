@@ -26,10 +26,10 @@ Then visit `http://localhost:8000`. (A `package.json` exists only to mark the co
 2. Choose an **archetype** — Warrior, Orator or Philosopher — which fixes your success-chance bonuses for the rest of the playthrough. No option is ever fully blocked by your archetype; it just makes some routes more reliable than others.
 3. Customize your character's appearance: base look, outfit, headgear and an accessory, each just swapping a simple SVG layer (no hand-drawn art per combination).
 4. Click **Begin the Day**. The day runs from 07:00 to 23:00 in a shared time budget; each decision costs a variable number of hours, so a full day is roughly 8-20 decisions depending on your choices.
-5. Each decision card presents 2-4 options. Every option shows its time cost, resource cost, and success chance before you commit. Success and failure each have their own resource changes and narrative text, and some outcomes set flags that unlock or block later cards in the same day.
+5. Each decision card presents 2-4 options. Every option shows its time cost, resource cost, and success chance before you commit. Success and failure each have their own resource changes and narrative text, and some outcomes set flags that unlock or block later cards in the same day. A handful of cards belong to **recurring named characters** (a merchant, a rival, a mentor — three per era) who reappear across the day with a small portrait and their own attitude toward you; if you're logged in, some of what happens with them carries into your *next* playthrough of that era. See [NPCs, narrative threads and cross-game memory](#npcs-narrative-threads-and-cross-game-memory) below.
 6. The day ends one of two ways, each with its own narrative closing: **time runs out** (a normal ending), or a critical resource (health) **hits zero** (a bad ending, with era-specific flavor text). The summary screen then shows your final resources, a checklist of the 3 objectives randomly picked for that playthrough, and a short recap of what happened.
 7. Some titles are **meta-achievements**: they require accumulating a resource (like lifetime Arete) across multiple playthroughs of the same era, tracked on your profile once you log in.
-8. Each era card also has a **Today's Challenge** button: a shared daily seed instead of a random one, one attempt per player per era per day, and a same-day leaderboard. See [Daily Challenge](#daily-challenge) below.
+8. Each era card also has a **Today's Challenge** button: a shared daily seed instead of a random one, one attempt per player per era per day, and a same-day leaderboard. Completing it (while logged in) also keeps a single streak alive across all three eras, and its summary screen offers a themed, downloadable result card. See [Daily Challenge](#daily-challenge) and [Streaks and the shareable result card](#streaks-and-the-shareable-result-card) below.
 
 ## Architecture
 
@@ -57,6 +57,13 @@ shared/
   era-theme.js                 Applies an era's theme tokens as CSS custom properties on <html>
   resource-bar.js              Pure resource-bar math (which resources bar, fill %, color level)
   card-icons.js                Infers a decorative category icon from a card's id (keyword match)
+  narrative.js                 Applies deltas to narrative counters (NPC trust, thread progress)
+  npc.js                       Looks up an era's NPC by id, renders its tinted-silhouette portrait
+  memories-logic.js            Pure cross-playthrough memory rules (seed, extract, merge)
+  memories.js                  localStorage read/write for a signed-in player's per-era memories
+  streaks-logic.js             Pure Daily Challenge streak rule (extend/reset/merge)
+  streaks.js                   localStorage read/write for the global Daily Challenge streak
+  share-card.js                Renders a themed, downloadable PNG result card via <canvas>
   theme.css                    Shared visual theme: neutral defaults + every era's token overrides
 data/
   i18n/en.json, es.json        Fixed interface strings (buttons, menus, labels)
@@ -198,7 +205,7 @@ A global, all-time leaderboard for free-play scores (not just the Daily Challeng
 
 ## Testing
 
-The engine's rules (card filtering, weighted selection, success-chance math, objective checks, RNG determinism) are covered by unit tests using Node's built-in test runner — zero test-framework dependencies, consistent with the rest of the project. Each era also has its own `tests/<era>-data.test.js` that validates its real `era.json`/`cards.json` content directly: every field that should be bilingual actually is, every archetype bonus references a modifier the era declares, and a simulated day across 100 different seeds always terminates without throwing. `tests/scoring.test.js` and `tests/daily-challenge.test.js` cover the Daily Challenge specifically: the scoring formula's invariants (objectives dominate, the tiebreak never outweighs one), the "already played today" date logic, and cross-player/cross-day seed determinism — all pure logic, so none of it needs a DOM or a real Firebase project. The Firestore-touching parts of `shared/daily-challenge.js` and `shared/auth.js` are, like the rest of this project's storage code, verified in the browser instead (see below), not unit tested.
+**126 tests**, zero test-framework dependencies, using Node's built-in test runner. The engine's rules (card filtering, weighted selection, success-chance math, objective checks, RNG determinism) are covered directly. Each era also has its own `tests/<era>-data.test.js` that validates its real `era.json`/`cards.json` content: every field that should be bilingual actually is, every archetype bonus references a modifier the era declares, every NPC has a unique id and attitude counter, every `npcId`/`threadId` a card carries resolves and chains 2-4 cards, every memorable flag/counter is actually set by some card and isn't copied verbatim from another era, and a simulated day across 100 different seeds always terminates without throwing. `tests/scoring.test.js` and `tests/daily-challenge.test.js` cover the Daily Challenge specifically: the scoring formula's invariants (objectives dominate, the tiebreak never outweighs one), the "already played today" date logic, and cross-player/cross-day seed determinism. `tests/memories-logic.test.js` and `tests/streaks-logic.test.js` cover cross-game memory and the Daily Challenge streak: seeding is empty for a guest regardless of stored data, only declared-memorable state graduates into storage, and the streak's extend/reset/merge rules (including a month-boundary edge case) — all pure logic, so none of this needs a DOM or a real Firebase project. The Firestore-touching parts of `shared/daily-challenge.js`, `shared/auth.js`, `shared/memories.js` and `shared/streaks.js` are, like the rest of this project's storage code, verified in the browser instead (see below), not unit tested; `shared/share-card.js`'s canvas rendering is verified the same way — by actually generating and downloading a card, not by asserting on pixels.
 
 ```bash
 npm test
@@ -237,15 +244,21 @@ Guest play — the whole game, minus accounts and the leaderboard — works with
 ![Era selection](screenshots/era-select.png)
 The home screen keeps OneDay's own neutral identity — era themes only apply once you're inside one.
 
+![Character creation](screenshots/character-creation.png)
+Archetype and paper-doll character customization, already themed to the chosen era.
+
 | | |
 |---|---|
-| ![Ancient Greece](screenshots/greece-theme.png) Ancient Greece — marble & terracotta | ![Neanderthals](screenshots/neanderthal-theme.png) Neanderthals — cave & embers |
+| ![Ancient Greece, with Kleon](screenshots/greece-theme.png) Ancient Greece — marble & terracotta, Kleon (a recurring rival NPC) mid-card | ![Neanderthals, with Thorn](screenshots/neanderthal-theme.png) Neanderthals — cave & embers, Thorn the rival hunter |
 
-![Futuristic City](screenshots/future-city-theme.png)
-Futuristic City — neon & concrete
+![Futuristic City, with Echo](screenshots/future-city-theme.png)
+Futuristic City — neon & concrete, first contact with Echo, a rogue AI
 
-![Summary](screenshots/summary.png)
-End-of-day summary, with the era's own narrative ending
+![Daily Challenge summary](screenshots/summary.png)
+Daily Challenge summary: the era's own narrative ending, score, and an active streak badge
+
+![Shareable result card](screenshots/share-card-example.png)
+The downloadable result card generated from that same summary, themed to the era it was played in
 
 ## Eras built so far
 
@@ -274,9 +287,16 @@ Both features hang off the same moment — finishing a Daily Challenge attempt �
 - **Streak**: one global counter (`oneday.streak`), not per-era, so playing any era's Daily Challenge keeps it alive — stored in the same `users/{uid}` document as everything else, no new collection. The update rule lives in `shared/streaks-logic.js`'s pure `computeStreakUpdate(current, todayKey)`: same day as last played → unchanged (so re-viewing an "already played today" recap never double-counts); exactly one day later → `currentStreak + 1`; any bigger gap (or never played) → reset to 1. `longestStreak` only ever moves up. `mergeStreak` resolves a merge by trusting whichever side has the more recent `lastPlayedDate` for the current state, while always keeping the higher `longestStreak` from either side — a stale device can't roll back a streak, and a personal best is never lost. It's recorded in `endDay()` right where memories already are, gated on `isDaily && getCurrentUser()`, and shown on the summary screen once it's above 1 (not worth announcing "1-day streak") plus as a running total in the Profile modal.
 - **Shareable result card**: a "Download card" button on the Daily Challenge summary renders a themed PNG via `shared/share-card.js` — an offscreen `<canvas>` drawn with the *played era's own* `theme.colors`/`theme.fonts` (its accent color, its heading font, its icon), not a generic template — then downloads with `canvas.toBlob` + a temporary `<a download>`. It reuses the era's own ending narration (`goodEnding`/`badEnding`) as the card's headline text instead of a generic "day complete", so the card carries the same voice as the game itself. It's deliberately unthemed by *this* module and untested by design (per the brief: worth confirming it doesn't crash, not worth unit-testing pixel output) — verified instead by actually downloading a card per era in the browser during this feature's verification pass.
 
-## Roadmap
+## Known gaps
 
-An achievements showcase in the Profile screen and a Hall of Fame of historical best scores are next. After that: a global, all-time free-play leaderboard per era (same Firestore pattern as the Daily Challenge's, without the daily reset or the create-only lock); growing all three eras' card pools toward 40-60 cards each; a fourth, dystopian city era (content only, same engine); more meta-achievements per era.
+- **Email/Password sign-in isn't enabled yet in the live Firebase project.** The one manual console step described above (**Authentication → Sign-in method → Email/Password → Enable**) hasn't been done for `oneday-game`. Until it is, logging in on the live site fails, which means every account-gated feature — cross-game memory, the Daily Challenge streak, and leaderboard participation — silently behaves exactly like guest mode there: the game is fully playable, it just doesn't remember or rank you yet. This is a deliberate, low-priority gap while the project isn't public yet, not a bug in the feature logic itself, which is unit-tested and was verified in the browser against a stand-in for a logged-in session.
+- **Card pools are intentionally small (18-25 cards per era) for an MVP**, not the 40-60 a long-lived version would want — a full day can repeat the same filler cards on a longer or unlucky run.
+- **No global, all-time leaderboard for free play** — only the Daily Challenge has one; a regular playthrough's score is never submitted anywhere.
+- **No achievements showcase or Hall of Fame screen.** Meta-achievement *progress* is tracked and unlockable (see [Meta-progress and achievements](#meta-progress-and-achievements)), but there's no dedicated gallery view of unlocked titles or historical best scores across players.
+
+## Possible future directions
+
+Not active plans — this project is closed as a finished portfolio piece as of this round of work. If it were picked up again: an achievements showcase and a Hall of Fame in the Profile screen; a global, all-time free-play leaderboard per era (same Firestore pattern as the Daily Challenge's, without the daily reset or the create-only lock); growing all three eras' card pools toward 40-60 cards each; a fourth, dystopian city era (content only, same engine); more meta-achievements per era.
 
 ## License
 
