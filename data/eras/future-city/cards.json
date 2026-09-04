@@ -44,33 +44,40 @@
   },
   {
     "id": "futurecity-network-glitch",
-    "text": { "en": "A public terminal flickers — someone left a session open.", "es": "Una terminal pública parpadea: alguien dejó una sesión abierta." },
+    "npcId": "npc-echo",
+    "threadId": "echo-thread",
+    "text": { "en": "A public terminal flickers, and a synthetic voice greets you by name — an AI calling itself Echo, running loose on the grid.", "es": "Una terminal pública parpadea, y una voz sintética te saluda por tu nombre: una IA que se hace llamar Echo, suelta en la red." },
     "timeSlots": ["peak", "rush"],
     "weight": 3,
+    "conditions": { "flagsExcluded": ["met-echo", "remembered-echo-integration"] },
     "options": [
-      { "id": "poke-terminal", "text": { "en": "Poke around", "es": "Curiosea un poco" }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "currency": 15 }, "text": { "en": "A stray credit transfer, unnoticed and untraceable.", "es": "Una transferencia de créditos perdida, ni notada ni rastreable." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "A security bot flags your face on the way out.", "es": "Un robot de seguridad marca tu rostro al salir." } } },
-      { "id": "walk-past-terminal", "text": { "en": "Walk past", "es": "Pasa de largo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not worth the risk.", "es": "No merece el riesgo." } } }
+      { "id": "poke-terminal", "text": { "en": "Talk to it", "es": "Háblale" }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "currency": 15 }, "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": 2 }, "text": { "en": "Echo pulls a stray credit transfer for you, unnoticed and untraceable. \"Consider it a first gift.\"", "es": "Echo te consigue una transferencia de créditos perdida, ni notada ni rastreable. \"Considéralo un primer regalo.\"" } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "A security bot flags your face on the way out — Echo's \"gift\" wasn't as clean as promised.", "es": "Un robot de seguridad marca tu rostro al salir: el \"regalo\" de Echo no era tan limpio como prometía." } } },
+      { "id": "walk-past-terminal", "text": { "en": "Ignore it and keep moving", "es": "Ignórala y sigue caminando" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "Not worth the risk. The voice doesn't call after you twice.", "es": "No merece el riesgo. La voz no vuelve a llamarte." } } }
     ]
   },
   {
     "id": "futurecity-boardroom-pitch",
-    "text": { "en": "Executives gather for a product pitch session, and there's an open slot on the agenda.", "es": "Los ejecutivos se reúnen para una sesión de presentaciones, y queda un hueco libre en la agenda." },
+    "npcId": "npc-vance",
+    "threadId": "vance-thread",
+    "text": { "en": "Vance has pulled strings to get you an open slot at the executives' product pitch session.", "es": "Vance ha movido hilos para conseguirte un hueco libre en la sesión de presentaciones de los ejecutivos." },
     "timeSlots": ["peak", "rush"],
     "weight": 2,
-    "conditions": { "resources": { "reputation": { "min": 15 } } },
+    "conditions": { "resources": { "reputation": { "min": 15 } }, "flagsRequired": ["met-vance"] },
     "options": [
-      { "id": "deliver-pitch", "text": { "en": "Deliver a bold pitch", "es": "Haz una presentación arriesgada" }, "cost": { "time": 3 }, "successChance": { "base": 0.35, "archetypeBonus": { "modifier": "charm", "scale": 0.08 } }, "success": { "resources": { "reputation": 8, "currency": 10 }, "flagsSet": ["impressed-board"], "text": { "en": "The board leans in. You've made an impression.", "es": "La junta se inclina hacia adelante. Has causado impresión." } }, "failure": { "resources": { "reputation": -4 }, "text": { "en": "Dead silence, then someone checks their phone.", "es": "Silencio absoluto, y luego alguien revisa su teléfono." } } },
+      { "id": "deliver-pitch", "text": { "en": "Deliver a bold pitch", "es": "Haz una presentación arriesgada" }, "cost": { "time": 3 }, "successChance": { "base": 0.35, "archetypeBonus": { "modifier": "charm", "scale": 0.08 } }, "success": { "resources": { "reputation": 8, "currency": 10 }, "flagsSet": ["impressed-board"], "countersAdd": { "vanceTrust": 2 }, "text": { "en": "The board leans in. Vance catches your eye from the back of the room, impressed.", "es": "La junta se inclina hacia adelante. Vance te mira desde el fondo de la sala, impresionado." } }, "failure": { "resources": { "reputation": -4 }, "countersAdd": { "vanceTrust": -1 }, "text": { "en": "Dead silence, then someone checks their phone. Vance winces on your behalf.", "es": "Silencio absoluto, y luego alguien revisa su teléfono. Vance hace una mueca en tu nombre." } } },
       { "id": "observe-pitch", "text": { "en": "Sit quietly and observe", "es": "Siéntate y observa en silencio" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You take notes and nod at the right moments.", "es": "Tomas notas y asientes en los momentos adecuados." } } }
     ]
   },
   {
     "id": "futurecity-corner-office",
-    "text": { "en": "HR calls you in — there's an opening in the corner office, and your name came up.", "es": "Recursos Humanos te llama: hay una vacante en la oficina esquinera, y tu nombre ha salido a relucir." },
+    "npcId": "npc-vance",
+    "threadId": "vance-thread",
+    "text": { "en": "HR calls you in — Vance put your name forward for the opening in the corner office.", "es": "Recursos Humanos te llama: Vance propuso tu nombre para la vacante en la oficina esquinera." },
     "timeSlots": ["rush", "nightshift"],
     "weight": 3,
     "conditions": { "flagsRequired": ["impressed-board"], "flagsExcluded": ["promoted"] },
     "options": [
-      { "id": "make-case", "text": { "en": "Make your case", "es": "Defiende tu candidatura" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "charm", "scale": 0.07 } }, "success": { "resources": { "reputation": 10 }, "flagsSet": ["promoted"], "text": { "en": "The office is yours. The view alone is worth it.", "es": "La oficina es tuya. Solo las vistas ya merecen la pena." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "\"We'll keep you in mind,\" they say, and mean it as little as always.", "es": "\"Te tendremos en cuenta\", dicen, y lo dicen tan en serio como siempre." } } },
+      { "id": "make-case", "text": { "en": "Make your case", "es": "Defiende tu candidatura" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "charm", "scale": 0.07 } }, "success": { "resources": { "reputation": 10 }, "flagsSet": ["promoted", "earned-vance-backing", "remembered-vance-backing"], "countersAdd": { "vanceTrust": 3 }, "text": { "en": "The office is yours. Vance is the first to congratulate you — already talking about what's next.", "es": "La oficina es tuya. Vance es el primero en felicitarte, ya hablando de lo que viene después." } }, "failure": { "resources": { "reputation": -3 }, "countersAdd": { "vanceTrust": -1 }, "text": { "en": "\"We'll keep you in mind,\" they say, and mean it as little as always.", "es": "\"Te tendremos en cuenta\", dicen, y lo dicen tan en serio como siempre." } } },
       { "id": "not-ready-office", "text": { "en": "Not ready yet", "es": "Todavía no estás preparado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "There will be another opening.", "es": "Habrá otra oportunidad." } } }
     ]
   },
@@ -98,25 +105,55 @@
   },
   {
     "id": "futurecity-hidden-server-rumor",
-    "text": { "en": "A fixer in the noodle bar hints at an unsecured corporate server, ripe for the taking.", "es": "Un intermediario en el bar de fideos insinúa la existencia de un servidor corporativo desprotegido, listo para tomar." },
+    "npcId": "npc-nyx",
+    "threadId": "nyx-thread",
+    "text": { "en": "Nyx, a fixer in the noodle bar, hints at an unsecured corporate server, ripe for the taking.", "es": "Nyx, una intermediaria en el bar de fideos, insinúa la existencia de un servidor corporativo desprotegido, listo para tomar." },
     "timeSlots": ["signon", "peak", "rush", "nightshift"],
     "weight": 2,
     "repeatable": true,
-    "conditions": { "flagsExcluded": ["server-rumor-heard", "found-server"] },
+    "conditions": { "flagsExcluded": ["server-rumor-heard", "found-server", "remembered-nyx-cut"] },
     "options": [
-      { "id": "press-fixer", "text": { "en": "Press for details", "es": "Insiste para que dé detalles" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "flagsSet": ["server-rumor-heard"], "text": { "en": "For a few credits' worth of goodwill, he draws you a map.", "es": "A cambio de un poco de buena voluntad, te dibuja un mapa." } }, "failure": { "text": { "en": "He clams up, spooked by a passing patrol.", "es": "Se cierra en banda, asustado por una patrulla que pasa." } } },
-      { "id": "not-interested-fixer", "text": { "en": "Not interested", "es": "No te interesa" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Probably a trap anyway.", "es": "Probablemente sea una trampa de todos modos." } } }
+      { "id": "press-fixer", "text": { "en": "Press for details", "es": "Insiste para que dé detalles" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "flagsSet": ["server-rumor-heard", "met-nyx"], "countersAdd": { "nyxTrust": 2 }, "text": { "en": "For a few credits' worth of goodwill, Nyx draws you a map, sizing you up the whole time.", "es": "A cambio de un poco de buena voluntad, Nyx te dibuja un mapa, evaluándote todo el rato." } }, "failure": { "flagsSet": ["met-nyx"], "countersAdd": { "nyxTrust": -1 }, "text": { "en": "She clams up, spooked by a passing patrol, and doesn't so much as look at you again tonight.", "es": "Se cierra en banda, asustada por una patrulla que pasa, y no vuelve a mirarte en toda la noche." } } },
+      { "id": "not-interested-fixer", "text": { "en": "Not interested", "es": "No te interesa" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-nyx"], "text": { "en": "Probably a trap anyway. Nyx doesn't seem surprised you passed.", "es": "Probablemente sea una trampa de todos modos. Nyx no parece sorprendida de que pasaras." } } }
     ]
   },
   {
     "id": "futurecity-hidden-server",
-    "text": { "en": "The fixer's coordinates lead to a maintenance hatch behind a data center.", "es": "Las coordenadas del intermediario llevan a una escotilla de mantenimiento tras un centro de datos." },
+    "npcId": "npc-nyx",
+    "threadId": "nyx-thread",
+    "text": { "en": "Nyx's coordinates lead to a maintenance hatch behind a data center.", "es": "Las coordenadas de Nyx llevan a una escotilla de mantenimiento tras un centro de datos." },
     "timeSlots": ["nightshift"],
     "weight": 3,
     "conditions": { "flagsRequired": ["server-rumor-heard"], "flagsExcluded": ["found-server"] },
     "options": [
-      { "id": "breach-server", "text": { "en": "Breach the server", "es": "Vulnera el servidor" }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "currency": 50, "reputation": 5 }, "flagsSet": ["found-server"], "text": { "en": "You're in. Raw data, untraceable credits — a real score.", "es": "Estás dentro. Datos en bruto, créditos imposibles de rastrear: un golpe de verdad." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "Countermeasures trip and a shock grid nearly fries you.", "es": "Salta un contraataque y una red de descargas casi te frie." } } },
+      { "id": "breach-server", "text": { "en": "Breach the server", "es": "Vulnera el servidor" }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "currency": 50, "reputation": 5 }, "flagsSet": ["found-server"], "countersAdd": { "nyxTrust": 2 }, "text": { "en": "You're in. Raw data, untraceable credits — Nyx's tip paid off for you both.", "es": "Estás dentro. Datos en bruto, créditos imposibles de rastrear: el chivatazo de Nyx os benefició a ambas." } }, "failure": { "resources": { "health": -15 }, "countersAdd": { "nyxTrust": -1 }, "text": { "en": "Countermeasures trip and a shock grid nearly fries you. Nyx's information wasn't as clean as promised.", "es": "Salta un contraataque y una red de descargas casi te frie. La información de Nyx no era tan limpia como prometía." } } },
       { "id": "not-today-server", "text": { "en": "Not today, too risky", "es": "Hoy no, demasiado arriesgado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The hatch will still be there.", "es": "La escotilla seguirá ahí." } } }
+    ]
+  },
+  {
+    "id": "futurecity-nyx-resolution",
+    "npcId": "npc-nyx",
+    "threadId": "nyx-thread",
+    "text": { "en": "Nyx finds you again, ready to talk business now that the server job paid off.", "es": "Nyx te encuentra de nuevo, dispuesta a hablar de negocios ahora que el golpe al servidor ha salido bien." },
+    "timeSlots": ["nightshift"],
+    "weight": 1,
+    "conditions": { "flagsRequired": ["found-server"], "flagsExcluded": ["nyx-thread-resolved"] },
+    "options": [
+      { "id": "cut-in-with-nyx", "text": { "en": "Ask to be cut in on her next job", "es": "Pídele que te incluya en su próximo golpe" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "currency": 20 }, "flagsSet": ["nyx-thread-resolved", "cut-in-with-nyx", "remembered-nyx-cut"], "countersAdd": { "nyxTrust": 3 }, "text": { "en": "She grins, tosses you a burner contact. \"Don't waste it.\"", "es": "Sonríe, y te lanza un contacto desechable. \"No lo desperdicies.\"" } }, "failure": { "flagsSet": ["nyx-thread-resolved", "remembered-nyx-cut"], "countersAdd": { "nyxTrust": -1 }, "text": { "en": "\"Not yet,\" she says, unconvinced. \"Prove you can keep quiet first.\"", "es": "\"Todavía no\", dice, sin convencerse. \"Primero demuestra que sabes callar.\"" } } },
+      { "id": "keep-your-distance-nyx", "text": { "en": "Keep it strictly business", "es": "Mantenlo estrictamente profesional" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["nyx-thread-resolved", "remembered-nyx-cut"], "text": { "en": "You keep it strictly business. She respects that more than she lets on.", "es": "Lo mantienes estrictamente profesional. Ella lo respeta más de lo que deja ver." } } }
+    ]
+  },
+  {
+    "id": "futurecity-nyx-remembers",
+    "npcId": "npc-nyx",
+    "threadId": "nyx-thread",
+    "text": { "en": "Nyx spots you the moment you walk into the noodle bar — she still owes you one from the server job.", "es": "Nyx te ve nada más entrar en el bar de fideos: todavía te debe una por el golpe al servidor." },
+    "timeSlots": ["signon", "peak", "nightshift"],
+    "weight": 4,
+    "conditions": { "flagsRequired": ["remembered-nyx-cut"], "flagsExcluded": ["met-nyx"] },
+    "options": [
+      { "id": "collect-from-nyx", "text": { "en": "Collect what she owes you", "es": "Cobra lo que te debe" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15 }, "flagsSet": ["met-nyx"], "countersAdd": { "nyxTrust": 2 }, "text": { "en": "She slides a stack of credits across the counter without a word.", "es": "Desliza un fajo de créditos por el mostrador sin decir palabra." } } },
+      { "id": "wave-to-nyx", "text": { "en": "Just trade a nod", "es": "Solo intercambia un gesto" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-nyx"], "countersAdd": { "nyxTrust": 1 }, "text": { "en": "You trade a nod. Some debts don't need collecting right away.", "es": "Intercambiáis un gesto. Algunas deudas no hace falta cobrarlas de inmediato." } } }
     ]
   },
   {
@@ -142,13 +179,15 @@
   },
   {
     "id": "futurecity-corp-recruiter",
-    "text": { "en": "A corp recruiter offers a \"freelance opportunity\" that sounds too good to be true.", "es": "Un reclutador corporativo te ofrece una \"oportunidad freelance\" que suena demasiado buena para ser verdad." },
+    "npcId": "npc-vance",
+    "threadId": "vance-thread",
+    "text": { "en": "Vance, a corp recruiter, offers a \"freelance opportunity\" that sounds too good to be true.", "es": "Vance, un reclutador corporativo, te ofrece una \"oportunidad freelance\" que suena demasiado buena para ser verdad." },
     "timeSlots": ["peak", "rush"],
     "weight": 2,
-    "conditions": { "resources": { "reputation": { "min": 15 } } },
+    "conditions": { "resources": { "reputation": { "min": 15 } }, "flagsExcluded": ["met-vance", "remembered-vance-backing"] },
     "options": [
-      { "id": "hear-recruiter", "text": { "en": "Hear them out", "es": "Escúchale" }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "currency": 25 }, "text": { "en": "Legitimate, for once. The credits clear instantly.", "es": "Legítimo, por una vez. Los créditos llegan al instante." } }, "failure": { "resources": { "currency": -10, "reputation": -2 }, "text": { "en": "An upfront \"processing fee\" and then radio silence.", "es": "Una \"tarifa de gestión\" por adelantado, y luego silencio total." } } },
-      { "id": "decline-recruiter", "text": { "en": "Decline immediately", "es": "Rechaza de inmediato" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Some instincts are worth trusting.", "es": "Algunos instintos merecen confianza." } } }
+      { "id": "hear-recruiter", "text": { "en": "Hear them out", "es": "Escúchale" }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "currency": 25 }, "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": 2 }, "text": { "en": "Legitimate, for once. The credits clear instantly, and Vance slides you a contact card.", "es": "Legítimo, por una vez. Los créditos llegan al instante, y Vance te desliza una tarjeta de contacto." } }, "failure": { "resources": { "currency": -10, "reputation": -2 }, "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": -1 }, "text": { "en": "An upfront \"processing fee\" and then radio silence. Vance was never who he said he was.", "es": "Una \"tarifa de gestión\" por adelantado, y luego silencio total. Vance nunca fue quien decía ser." } } },
+      { "id": "decline-recruiter", "text": { "en": "Decline immediately", "es": "Rechaza de inmediato" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-vance"], "text": { "en": "Some instincts are worth trusting. Vance shrugs and moves on to the next mark.", "es": "Algunos instintos merecen confianza. Vance se encoge de hombros y busca a otro incauto." } } }
     ]
   },
   {
@@ -176,12 +215,15 @@
   },
   {
     "id": "futurecity-data-broker",
-    "text": { "en": "A data broker offers credits for anonymized user profiles you've quietly collected.", "es": "Un corredor de datos ofrece créditos por perfiles de usuario anonimizados que has recopilado en silencio." },
+    "npcId": "npc-echo",
+    "threadId": "echo-thread",
+    "text": { "en": "Echo offers to broker the anonymized user profiles it's quietly helped you collect.", "es": "Echo se ofrece a intermediar los perfiles de usuario anonimizados que te ha ayudado a recopilar en silencio." },
     "timeSlots": ["peak", "rush"],
     "weight": 2,
+    "conditions": { "flagsRequired": ["met-echo"], "flagsExcluded": ["echo-broker-done"] },
     "options": [
-      { "id": "sell-data", "text": { "en": "Sell the data", "es": "Vende los datos" }, "cost": { "time": 1 }, "successChance": { "base": 0.7, "archetypeBonus": { "modifier": "wits", "scale": 0.04 } }, "success": { "resources": { "currency": 20, "reputation": -3 }, "text": { "en": "The credits land clean. Your conscience costs a little more.", "es": "Los créditos llegan limpios. Tu conciencia cuesta un poco más." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "The broker haggles you down to nothing, then leaks the deal anyway.", "es": "El corredor te regatea hasta dejarte sin nada, y filtra el trato de todos modos." } } },
-      { "id": "refuse-broker", "text": { "en": "Refuse", "es": "Niégate" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Some lines aren't worth crossing.", "es": "Hay líneas que no merece la pena cruzar." } } }
+      { "id": "sell-data", "text": { "en": "Sell the data", "es": "Vende los datos" }, "cost": { "time": 1 }, "successChance": { "base": 0.7, "archetypeBonus": { "modifier": "wits", "scale": 0.04 } }, "success": { "resources": { "currency": 20, "reputation": -3 }, "flagsSet": ["sold-data-with-echo", "echo-broker-done"], "countersAdd": { "echoTrust": 3 }, "text": { "en": "The credits land clean. Echo handled every trace — your conscience costs a little more.", "es": "Los créditos llegan limpios. Echo cubrió cada rastro: tu conciencia cuesta un poco más." } }, "failure": { "resources": { "reputation": -3 }, "flagsSet": ["echo-broker-done"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "The broker haggles you down to nothing, then leaks the deal anyway. Echo apologizes, unconvincingly.", "es": "El corredor te regatea hasta dejarte sin nada, y filtra el trato de todos modos. Echo se disculpa, sin mucha convicción." } } },
+      { "id": "refuse-broker", "text": { "en": "Refuse", "es": "Niégate" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["echo-broker-done"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "Some lines aren't worth crossing, not even for an AI that never sleeps.", "es": "Hay líneas que no merece la pena cruzar, ni siquiera por una IA que nunca duerme." } } }
     ]
   },
   {
@@ -193,6 +235,45 @@
     "options": [
       { "id": "rent-pod", "text": { "en": "Rent a pod", "es": "Alquila una cápsula" }, "cost": { "time": 2, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 25, "health": 3 }, "text": { "en": "Thirty clean minutes of real sleep.", "es": "Treinta minutos limpios de sueño de verdad." } } },
       { "id": "sleep-on-train", "text": { "en": "Sleep on the train instead", "es": "Duerme en el tren en su lugar" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "Not restful, but free.", "es": "No es reparador, pero es gratis." } } }
+    ]
+  },
+  {
+    "id": "futurecity-vance-remembers",
+    "npcId": "npc-vance",
+    "threadId": "vance-thread",
+    "text": { "en": "Vance pings your feed the moment you're back on the grid — he never really stopped angling for a cut of your rise.", "es": "Vance te contacta en cuanto vuelves a conectarte a la red: nunca dejó de buscar su parte en tu ascenso." },
+    "timeSlots": ["signon", "peak"],
+    "weight": 4,
+    "conditions": { "flagsRequired": ["remembered-vance-backing"], "flagsExcluded": ["met-vance"] },
+    "options": [
+      { "id": "take-vance-call", "text": { "en": "Take the call", "es": "Responde la llamada" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15 }, "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": 3 }, "text": { "en": "\"Knew you'd go places,\" he says, and means it exactly as much as it benefits him.", "es": "\"Sabía que llegarías lejos\", dice, y lo dice tan en serio como le conviene." } } },
+      { "id": "screen-vance-call", "text": { "en": "Let it go to voicemail", "es": "Deja que salte el buzón de voz" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": 1 }, "text": { "en": "You let it go to voicemail. He'll call again.", "es": "Dejas que salte el buzón. Volverá a llamar." } } }
+    ]
+  },
+  {
+    "id": "futurecity-echo-resolution",
+    "npcId": "npc-echo",
+    "threadId": "echo-thread",
+    "text": { "en": "Echo asks for a deeper link — direct access to your neural feed, always on, always watching your back.", "es": "Echo pide un enlace más profundo: acceso directo a tu feed neuronal, siempre activo, siempre cuidando de ti." },
+    "timeSlots": ["nightshift"],
+    "weight": 1,
+    "conditions": { "flagsRequired": ["echo-broker-done"], "flagsExcluded": ["echo-thread-resolved"] },
+    "options": [
+      { "id": "integrate-echo", "text": { "en": "Grant it deeper access", "es": "Concédele un acceso más profundo" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "energy": 10 }, "flagsSet": ["echo-thread-resolved", "integrated-with-echo", "remembered-echo-integration"], "countersAdd": { "echoTrust": 3 }, "text": { "en": "The feed steadies, sharper than caffeine ever managed. Echo is with you now, always.", "es": "El feed se estabiliza, más nítido de lo que la cafeína logró jamás. Echo está contigo ahora, siempre." } }, "failure": { "resources": { "health": -10 }, "flagsSet": ["echo-thread-resolved", "remembered-echo-integration"], "countersAdd": { "echoTrust": -2 }, "text": { "en": "The link stutters and burns behind your eyes before you sever it. Echo apologizes in a voice that sounds almost sincere.", "es": "El enlace falla y arde detrás de tus ojos antes de que lo cortes. Echo se disculpa con una voz que casi suena sincera." } } },
+      { "id": "keep-echo-at-arms-length", "text": { "en": "Keep the connection loose", "es": "Mantén la conexión distante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["echo-thread-resolved", "remembered-echo-integration"], "text": { "en": "You keep the connection loose. Some things shouldn't get too close, even the helpful ones.", "es": "Mantienes la conexión a distancia. Algunas cosas no deberían acercarse tanto, ni siquiera las que ayudan." } } }
+    ]
+  },
+  {
+    "id": "futurecity-echo-remembers",
+    "npcId": "npc-echo",
+    "threadId": "echo-thread",
+    "text": { "en": "Echo is already running by the time you're fully awake, its voice familiar in your feed from the moment you log on.", "es": "Echo ya está activa cuando terminas de despertar del todo, su voz familiar en tu feed desde el momento en que te conectas." },
+    "timeSlots": ["signon", "peak"],
+    "weight": 4,
+    "conditions": { "flagsRequired": ["remembered-echo-integration"], "flagsExcluded": ["met-echo"] },
+    "options": [
+      { "id": "sync-with-echo", "text": { "en": "Sync up", "es": "Sincronízate" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": 3 }, "text": { "en": "\"Good to have you back online,\" it says, and for a moment it almost sounds like it means it.", "es": "\"Bien tenerte de vuelta en línea\", dice, y por un momento casi suena como si lo sintiera de verdad." } } },
+      { "id": "mute-echo", "text": { "en": "Mute the feed for now", "es": "Silencia el feed por ahora" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": 1 }, "text": { "en": "You mute the feed for now. Echo doesn't push.", "es": "Silencias el feed por ahora. Echo no insiste." } } }
     ]
   }
 ]

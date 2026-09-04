@@ -96,6 +96,29 @@
       }
     ]
   },
+  "npcs": [
+    {
+      "id": "npc-kaia",
+      "name": { "en": "Kaia", "es": "Kaia" },
+      "role": { "en": "Tribe Shaman", "es": "Chamana de la tribu" },
+      "portraitColor": "#8a5a35",
+      "attitudeCounter": "kaiaTrust"
+    },
+    {
+      "id": "npc-thorn",
+      "name": { "en": "Thorn", "es": "Espino" },
+      "role": { "en": "Rival Hunter", "es": "Cazador rival" },
+      "portraitColor": "#a13a2f",
+      "attitudeCounter": "thornRespect"
+    },
+    {
+      "id": "npc-ember",
+      "name": { "en": "Ember", "es": "Brasa" },
+      "role": { "en": "Clan Chief", "es": "Jefa del clan" },
+      "portraitColor": "#e0611e",
+      "attitudeCounter": "chiefFavor"
+    }
+  ],
   "objectivesPool": [
     { "id": "well-fed", "description": { "en": "Never drop below 30 survival", "es": "No bajes de 30 de supervivencia" }, "check": { "type": "resourceNeverBelow", "resource": "survival", "value": 30 } },
     { "id": "survive-health", "description": { "en": "Never drop below 40 health", "es": "No bajes de 40 de salud" }, "check": { "type": "resourceNeverBelow", "resource": "health", "value": 40 } },
@@ -104,12 +127,19 @@
     { "id": "respected", "description": { "en": "Reach 40 Tribal Respect", "es": "Consigue 40 de Respeto de la tribu" }, "check": { "type": "resourceAtLeast", "resource": "reputation", "value": 40 } },
     { "id": "cave-found", "description": { "en": "Discover the sheltered cave", "es": "Descubre la cueva refugio" }, "check": { "type": "flagSet", "flag": "found-cave" } },
     { "id": "fire-mastered", "description": { "en": "Keep the fire burning through the night", "es": "Mantén el fuego encendido durante la noche" }, "check": { "type": "flagSet", "flag": "kept-fire" } },
-    { "id": "great-hunt", "description": { "en": "Bring down the great beast", "es": "Abate a la gran bestia" }, "check": { "type": "flagSet", "flag": "great-hunt-won" } }
+    { "id": "great-hunt", "description": { "en": "Bring down the great beast", "es": "Abate a la gran bestia" }, "check": { "type": "flagSet", "flag": "great-hunt-won" } },
+    { "id": "kaia-apprentice", "description": { "en": "Become Kaia's apprentice", "es": "Conviértete en aprendiz de Kaia" }, "check": { "type": "flagSet", "flag": "named-kaia-apprentice" } },
+    { "id": "thorn-respect", "description": { "en": "Earn Thorn's respect", "es": "Gánate el respeto de Espino" }, "check": { "type": "flagSet", "flag": "helped-thorn" } },
+    { "id": "ember-heir", "description": { "en": "Earn Ember's trust as her voice", "es": "Gánate la confianza de Brasa como su voz" }, "check": { "type": "flagSet", "flag": "earned-ember-trust" } }
   ],
   "metaAchievements": [
     { "id": "tribal-elder", "title": { "en": "Tribal Elder", "es": "Anciano de la tribu" }, "description": { "en": "Accumulate 400 lifetime Tribal Respect across playthroughs.", "es": "Acumula 400 de Respeto de la tribu a lo largo de varias partidas." }, "accumulates": "reputation", "threshold": 400 },
     { "id": "master-provider", "title": { "en": "Master Provider", "es": "Gran Proveedor" }, "description": { "en": "Accumulate 800 lifetime Provisions gathered across playthroughs.", "es": "Acumula 800 Provisiones reunidas a lo largo de varias partidas." }, "accumulates": "currency", "threshold": 800 }
   ],
+  "memories": {
+    "flags": ["remembered-kaia-apprentice", "remembered-helped-thorn", "remembered-ember-favor"],
+    "counters": ["kaiaTrust", "thornRespect", "chiefFavor"]
+  },
   "goodEnding": { "en": "The fire burns low as the tribe settles for the night. Another day survived, another story to tell.", "es": "El fuego se apaga mientras la tribu se acomoda para la noche. Otro día sobrevivido, otra historia que contar." },
   "badEnding": { "en": "Your strength gives out beneath the open sky. The tribe will speak your name by the fire, then move on.", "es": "Tus fuerzas te abandonan bajo el cielo abierto. La tribu dirá tu nombre junto al fuego, y luego seguirá adelante." }
 }

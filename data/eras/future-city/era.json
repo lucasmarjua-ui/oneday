@@ -98,6 +98,29 @@
       }
     ]
   },
+  "npcs": [
+    {
+      "id": "npc-vance",
+      "name": { "en": "Vance", "es": "Vance" },
+      "role": { "en": "Corporate Recruiter", "es": "Reclutador corporativo" },
+      "portraitColor": "#3d6ea9",
+      "attitudeCounter": "vanceTrust"
+    },
+    {
+      "id": "npc-nyx",
+      "name": { "en": "Nyx", "es": "Nyx" },
+      "role": { "en": "Street Fixer", "es": "Intermediaria callejera" },
+      "portraitColor": "#e63dd6",
+      "attitudeCounter": "nyxTrust"
+    },
+    {
+      "id": "npc-echo",
+      "name": { "en": "Echo", "es": "Echo" },
+      "role": { "en": "Rogue AI Assistant", "es": "IA asistente fugitiva" },
+      "portraitColor": "#3dd6c8",
+      "attitudeCounter": "echoTrust"
+    }
+  ],
   "objectivesPool": [
     { "id": "wealthy", "description": { "en": "Reach 300 Credits", "es": "Consigue 300 Créditos" }, "check": { "type": "resourceAtLeast", "resource": "currency", "value": 300 } },
     { "id": "influential", "description": { "en": "Reach 40 Corporate Influence", "es": "Consigue 40 de Influencia Corporativa" }, "check": { "type": "resourceAtLeast", "resource": "reputation", "value": 40 } },
@@ -106,12 +129,19 @@
     { "id": "hydrated", "description": { "en": "Never drop below 40 Hydration", "es": "No bajes de 40 de Hidratación" }, "check": { "type": "resourceNeverBelow", "resource": "thirst", "value": 40 } },
     { "id": "energized", "description": { "en": "Never drop below 20 energy", "es": "No bajes de 20 de energía" }, "check": { "type": "resourceNeverBelow", "resource": "energy", "value": 20 } },
     { "id": "secret-data", "description": { "en": "Breach the hidden corporate server", "es": "Vulnera el servidor corporativo oculto" }, "check": { "type": "flagSet", "flag": "found-server" } },
-    { "id": "corner-office", "description": { "en": "Get promoted to the corner office", "es": "Consigue el ascenso a la oficina esquinera" }, "check": { "type": "flagSet", "flag": "promoted" } }
+    { "id": "corner-office", "description": { "en": "Get promoted to the corner office", "es": "Consigue el ascenso a la oficina esquinera" }, "check": { "type": "flagSet", "flag": "promoted" } },
+    { "id": "vance-ally", "description": { "en": "Earn Vance's backing", "es": "Gánate el respaldo de Vance" }, "check": { "type": "flagSet", "flag": "earned-vance-backing" } },
+    { "id": "nyx-cut", "description": { "en": "Get cut in on Nyx's next job", "es": "Consigue que Nyx te incluya en su próximo golpe" }, "check": { "type": "flagSet", "flag": "cut-in-with-nyx" } },
+    { "id": "echo-integrated", "description": { "en": "Integrate with Echo", "es": "Intégrate con Echo" }, "check": { "type": "flagSet", "flag": "integrated-with-echo" } }
   ],
   "metaAchievements": [
     { "id": "silicon-baron", "title": { "en": "Silicon Baron", "es": "Barón del Silicio" }, "description": { "en": "Accumulate 2000 lifetime Credits earned across playthroughs.", "es": "Acumula 2000 Créditos ganados a lo largo de varias partidas." }, "accumulates": "currency", "threshold": 2000 },
     { "id": "board-member", "title": { "en": "Board Member", "es": "Miembro de la Junta" }, "description": { "en": "Accumulate 500 lifetime Corporate Influence across playthroughs.", "es": "Acumula 500 de Influencia Corporativa a lo largo de varias partidas." }, "accumulates": "reputation", "threshold": 500 }
   ],
+  "memories": {
+    "flags": ["remembered-vance-backing", "remembered-nyx-cut", "remembered-echo-integration"],
+    "counters": ["vanceTrust", "nyxTrust", "echoTrust"]
+  },
   "goodEnding": { "en": "The city lights blur past as you clock out. Another cycle survived in the grid.", "es": "Las luces de la ciudad se difuminan mientras fichas la salida. Otro ciclo sobrevivido en la red." },
   "badEnding": { "en": "Your vitals flatline on a security feed nobody reviews until morning. The city doesn't slow down for you.", "es": "Tus constantes vitales se apagan en una cámara de seguridad que nadie revisa hasta la mañana. La ciudad no se detiene por ti." }
 }

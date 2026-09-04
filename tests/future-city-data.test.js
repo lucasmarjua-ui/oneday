@@ -13,6 +13,7 @@ import { mulberry32 } from '../shared/rng.js';
 const here = dirname(fileURLToPath(import.meta.url));
 const era = JSON.parse(readFileSync(join(here, '../data/eras/future-city/era.json'), 'utf8'));
 const cards = JSON.parse(readFileSync(join(here, '../data/eras/future-city/cards.json'), 'utf8'));
+const greeceEra = JSON.parse(readFileSync(join(here, '../data/eras/greece/era.json'), 'utf8'));
 
 function isBilingual(field) {
   return field && typeof field === 'object' && typeof field.en === 'string' && field.en.length > 0 && typeof field.es === 'string' && field.es.length > 0;
@@ -38,6 +39,51 @@ test('era.json declares bilingual text for every player-facing field', () => {
   era.metaAchievements.forEach(a => {
     assert.ok(isBilingual(a.title), `achievement ${a.id} title`);
     assert.ok(isBilingual(a.description), `achievement ${a.id} description`);
+  });
+  era.npcs.forEach(npc => {
+    assert.ok(isBilingual(npc.name), `npc ${npc.id} name`);
+    assert.ok(isBilingual(npc.role), `npc ${npc.id} role`);
+  });
+});
+
+test('era.json declares a small recurring cast (3-4 NPCs), each with a unique id and attitude counter', () => {
+  assert.ok(era.npcs.length >= 3 && era.npcs.length <= 4, `expected 3-4 NPCs, got ${era.npcs.length}`);
+  const seenIds = new Set();
+  era.npcs.forEach(npc => {
+    assert.ok(!seenIds.has(npc.id), `duplicate npc id: ${npc.id}`);
+    seenIds.add(npc.id);
+    assert.ok(typeof npc.attitudeCounter === 'string' && npc.attitudeCounter.length > 0, `npc ${npc.id} missing attitudeCounter`);
+  });
+});
+
+test('era.json only declares memories for flags/counters that a card in cards.json can actually set', () => {
+  const allSetFlags = new Set();
+  const allCounterKeys = new Set();
+  cards.forEach(card => card.options.forEach(option => {
+    (option.success?.flagsSet || []).forEach(flag => allSetFlags.add(flag));
+    (option.failure?.flagsSet || []).forEach(flag => allSetFlags.add(flag));
+    Object.keys(option.success?.countersAdd || {}).forEach(key => allCounterKeys.add(key));
+    Object.keys(option.failure?.countersAdd || {}).forEach(key => allCounterKeys.add(key));
+  }));
+  (era.memories?.flags || []).forEach(flag => assert.ok(allSetFlags.has(flag), `memorable flag "${flag}" is never set by any card`));
+  (era.memories?.counters || []).forEach(key => assert.ok(allCounterKeys.has(key), `memorable counter "${key}" is never adjusted by any card`));
+});
+
+test('era.json does not literally reuse Greece\'s memorable flag/counter names', () => {
+  const futureCityNames = new Set([...(era.memories?.flags || []), ...(era.memories?.counters || [])]);
+  const greeceNames = new Set([...(greeceEra.memories?.flags || []), ...(greeceEra.memories?.counters || [])]);
+  futureCityNames.forEach(name => assert.ok(!greeceNames.has(name), `memorable name "${name}" is copied verbatim from Greece`));
+});
+
+test('every card.npcId and threadId references a declared NPC and forms a coherent chain', () => {
+  const npcIds = new Set(era.npcs.map(npc => npc.id));
+  const threadCards = {};
+  cards.forEach(card => {
+    if (card.npcId) assert.ok(npcIds.has(card.npcId), `card ${card.id} references undeclared npc "${card.npcId}"`);
+    if (card.threadId) (threadCards[card.threadId] ||= []).push(card);
+  });
+  Object.entries(threadCards).forEach(([threadId, threadCardList]) => {
+    assert.ok(threadCardList.length >= 2 && threadCardList.length <= 4, `thread "${threadId}" should chain 2-4 cards, has ${threadCardList.length}`);
   });
 });
 

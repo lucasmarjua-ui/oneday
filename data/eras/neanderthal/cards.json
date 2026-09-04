@@ -31,45 +31,55 @@
   },
   {
     "id": "neanderthal-beast-tracks",
-    "text": { "en": "Elder hunters speak of an enormous beast seen near the ridge at dawn.", "es": "Los cazadores mayores hablan de una bestia enorme vista cerca de la cresta al amanecer." },
+    "npcId": "npc-thorn",
+    "threadId": "thorn-thread",
+    "text": { "en": "Thorn, a rival hunter, boasts that he's already found signs of the great beast seen near the ridge.", "es": "Espino, un cazador rival, presume de haber encontrado ya señales de la gran bestia vista cerca de la cresta." },
     "timeSlots": ["dawn", "midday", "dusk", "night"],
     "weight": 2,
     "repeatable": true,
-    "conditions": { "flagsExcluded": ["beast-tracked", "great-hunt-won"] },
+    "conditions": { "flagsExcluded": ["beast-tracked", "great-hunt-won", "remembered-helped-thorn"] },
     "options": [
-      { "id": "investigate-tracks", "text": { "en": "Investigate the sighting", "es": "Investiga el avistamiento" }, "cost": { "time": 1 }, "successChance": { "base": 0.55, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "flagsSet": ["beast-tracked"], "text": { "en": "You find fresh tracks leading toward the ridge.", "es": "Encuentras huellas frescas que llevan hacia la cresta." } }, "failure": { "text": { "en": "The trail is already cold.", "es": "El rastro ya está frío." } } },
-      { "id": "ignore-tracks", "text": { "en": "Not worth the risk", "es": "No merece el riesgo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You let the elders' talk pass.", "es": "Dejas pasar las palabras de los mayores." } } }
+      { "id": "investigate-tracks", "text": { "en": "Investigate the sighting", "es": "Investiga el avistamiento" }, "cost": { "time": 1 }, "successChance": { "base": 0.55, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "flagsSet": ["beast-tracked"], "countersAdd": { "thornRespect": 1 }, "text": { "en": "You spot the same fresh tracks Thorn found — if anything, you're gaining on him.", "es": "Encuentras las mismas huellas frescas que Espino: si acaso, le estás ganando terreno." } }, "failure": { "countersAdd": { "thornRespect": -1 }, "text": { "en": "The trail is already cold. Thorn's laughter carries across the camp.", "es": "El rastro ya está frío. La risa de Espino se oye por todo el campamento." } } },
+      { "id": "ignore-tracks", "text": { "en": "Not worth the risk", "es": "No merece el riesgo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You let Thorn's boasting pass.", "es": "Dejas pasar las fanfarronadas de Espino." } } }
     ]
   },
   {
     "id": "neanderthal-great-hunt",
-    "text": { "en": "The great beast grazes in a clearing beyond the ridge, unaware of you.", "es": "La gran bestia pace en un claro más allá de la cresta, ajena a tu presencia." },
+    "npcId": "npc-thorn",
+    "threadId": "thorn-thread",
+    "text": { "en": "The great beast grazes in a clearing beyond the ridge — and Thorn is already circling from the other side.", "es": "La gran bestia pace en un claro más allá de la cresta, y Espino ya está rodeándola desde el otro lado." },
     "timeSlots": ["dawn", "dusk"],
     "weight": 3,
     "conditions": { "flagsRequired": ["beast-tracked"], "flagsExcluded": ["great-hunt-won"] },
     "options": [
-      { "id": "attempt-hunt", "text": { "en": "Attempt the hunt", "es": "Intenta la cacería" }, "cost": { "time": 3, "resources": { "energy": -25 } }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "might", "scale": 0.07 } }, "success": { "resources": { "currency": 40, "reputation": 8 }, "flagsSet": ["great-hunt-won"], "text": { "en": "The beast falls. The tribe will feast tonight, and speak of this for seasons.", "es": "La bestia cae. La tribu festejará esta noche, y hablarán de esto durante estaciones." } }, "failure": { "resources": { "health": -20 }, "text": { "en": "The beast turns on you before you can strike. You barely escape.", "es": "La bestia se revuelve contra ti antes de que puedas atacar. Escapas por poco." } } },
-      { "id": "decline-hunt", "text": { "en": "Not today, too dangerous", "es": "Hoy no, demasiado peligroso" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The beast will still be there another day.", "es": "La bestia seguirá ahí otro día." } } }
+      { "id": "attempt-hunt", "text": { "en": "Attempt the hunt", "es": "Intenta la cacería" }, "cost": { "time": 3, "resources": { "energy": -25 } }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "might", "scale": 0.07 } }, "success": { "resources": { "currency": 40, "reputation": 8 }, "flagsSet": ["great-hunt-won", "bested-thorn"], "countersAdd": { "thornRespect": -3 }, "text": { "en": "The beast falls to your spear, not his. Thorn's face sours as the tribe cheers your name.", "es": "La bestia cae ante tu lanza, no la suya. El gesto de Espino se agria mientras la tribu vitorea tu nombre." } }, "failure": { "resources": { "health": -20 }, "countersAdd": { "thornRespect": 2 }, "text": { "en": "The beast turns on you before you can strike. Thorn hauls you clear, muttering that you owe him now.", "es": "La bestia se revuelve contra ti antes de que puedas atacar. Espino te saca de allí a rastras, murmurando que ahora se la debes." } } },
+      { "id": "decline-hunt", "text": { "en": "Not today, too dangerous", "es": "Hoy no, demasiado peligroso" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "countersAdd": { "thornRespect": 1 }, "text": { "en": "You hold back. Thorn's triumphant shout echoes from the ridge alone.", "es": "Te contienes. El grito triunfal de Espino resuena solo desde la cresta." } } }
     ]
   },
   {
     "id": "neanderthal-shaman-ritual",
-    "text": { "en": "The tribe's shaman prepares a ritual around the fire, reading smoke and bone.", "es": "El chamán de la tribu prepara un ritual junto al fuego, leyendo el humo y los huesos." },
+    "npcId": "npc-kaia",
+    "threadId": "kaia-thread",
+    "text": { "en": "Kaia, the tribe's shaman, prepares a ritual around the fire, reading smoke and bone.", "es": "Kaia, la chamana de la tribu, prepara un ritual junto al fuego, leyendo el humo y los huesos." },
     "timeSlots": ["dusk", "night"],
     "weight": 2,
+    "conditions": { "flagsExcluded": ["met-kaia", "remembered-kaia-apprentice"] },
     "options": [
-      { "id": "join-ritual", "text": { "en": "Join the ritual", "es": "Únete al ritual" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 5 }, "text": { "en": "You read the signs true, and the tribe takes notice.", "es": "Interpretas bien las señales, y la tribu se fija en ti." } }, "failure": { "resources": { "reputation": -1, "energy": -5 }, "text": { "en": "The smoke leaves you dizzy and confused.", "es": "El humo te deja mareado y confundido." } } },
-      { "id": "skip-ritual", "text": { "en": "Watch from a distance", "es": "Observa desde la distancia" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You keep your own counsel.", "es": "Guardas tus propias reflexiones." } } }
+      { "id": "join-ritual", "text": { "en": "Join the ritual", "es": "Únete al ritual" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": 2 }, "text": { "en": "You read the signs true, and Kaia takes notice.", "es": "Interpretas bien las señales, y Kaia se fija en ti." } }, "failure": { "resources": { "reputation": -1, "energy": -5 }, "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": -1 }, "text": { "en": "The smoke leaves you dizzy and confused. Kaia watches, unimpressed.", "es": "El humo te deja mareado y confundido. Kaia observa, poco impresionada." } } },
+      { "id": "skip-ritual", "text": { "en": "Watch from a distance", "es": "Observa desde la distancia" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kaia"], "text": { "en": "You keep your own counsel, and Kaia says nothing.", "es": "Guardas tus propias reflexiones, y Kaia no dice nada." } } }
     ]
   },
   {
     "id": "neanderthal-injured-tribesman",
-    "text": { "en": "A young hunter limps into camp, bleeding from a deep gash.", "es": "Un joven cazador cojea hasta el campamento, sangrando por un corte profundo." },
+    "npcId": "npc-thorn",
+    "threadId": "thorn-thread",
+    "text": { "en": "Thorn limps into camp, bleeding from a deep gash — the same hunt that made or humbled him.", "es": "Espino cojea hasta el campamento, sangrando por un corte profundo: la misma cacería que lo consagró o lo humilló." },
     "timeSlots": ["dawn", "midday", "dusk", "night"],
     "weight": 2,
+    "conditions": { "flagsRequired": ["beast-tracked"], "flagsExcluded": ["thorn-aftermath-done"] },
     "options": [
-      { "id": "tend-wound", "text": { "en": "Tend his wound", "es": "Atiende su herida" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 3 }, "text": { "en": "The bleeding stops. He will remember this.", "es": "La hemorragia se detiene. Él recordará esto." } }, "failure": { "text": { "en": "You do what you can, but he needed more skill than you have.", "es": "Haces lo que puedes, pero él necesitaba más destreza de la que tienes." } } },
-      { "id": "ignore-injured", "text": { "en": "Not your concern", "es": "No es asunto tuyo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "Others notice you turn away.", "es": "Otros notan que te apartas." } } }
+      { "id": "tend-wound", "text": { "en": "Tend his wound", "es": "Atiende su herida" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["helped-thorn", "thorn-aftermath-done", "remembered-helped-thorn"], "countersAdd": { "thornRespect": 4 }, "text": { "en": "The bleeding stops. Thorn meets your eyes, and for the first time, it isn't a challenge.", "es": "La hemorragia se detiene. Espino te mira a los ojos, y por primera vez no es un desafío." } }, "failure": { "flagsSet": ["thorn-aftermath-done"], "text": { "en": "You do what you can, but he needed more skill than you have.", "es": "Haces lo que puedes, pero él necesitaba más destreza de la que tienes." } } },
+      { "id": "ignore-injured", "text": { "en": "Not your concern", "es": "No es asunto tuyo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "flagsSet": ["thorn-aftermath-done"], "countersAdd": { "thornRespect": -2 }, "text": { "en": "Others notice you turn away. Thorn will remember this, too.", "es": "Otros notan que te apartas. Espino también recordará esto." } } }
     ]
   },
   {
@@ -127,14 +137,56 @@
   },
   {
     "id": "neanderthal-share-meal",
-    "text": { "en": "The tribe gathers to share what's been found today.", "es": "La tribu se reúne para compartir lo que se ha encontrado hoy." },
+    "npcId": "npc-ember",
+    "threadId": "ember-thread",
+    "text": { "en": "Ember, the clan chief, calls the tribe together to share what's been found today.", "es": "Brasa, la jefa del clan, reúne a la tribu para compartir lo que se ha encontrado hoy." },
     "timeSlots": ["dusk", "night"],
     "weight": 3,
-    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "conditions": { "resources": { "currency": { "min": 5 } }, "flagsExcluded": ["met-ember", "remembered-ember-favor"] },
     "options": [
-      { "id": "share-generously", "text": { "en": "Share generously", "es": "Comparte con generosidad" }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "text": { "en": "The tribe eats well tonight, and knows it was your doing.", "es": "La tribu come bien esta noche, y sabe que fue gracias a ti." } } },
-      { "id": "share-modestly", "text": { "en": "Share a modest portion", "es": "Comparte una porción modesta" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "A fair contribution.", "es": "Una aportación justa." } } },
-      { "id": "keep-share", "text": { "en": "Keep your share for yourself", "es": "Guarda tu parte para ti" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "Others notice, and say nothing — for now.", "es": "Otros lo notan, y no dicen nada, por ahora." } } }
+      { "id": "share-generously", "text": { "en": "Share generously", "es": "Comparte con generosidad" }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 3 }, "text": { "en": "The tribe eats well tonight, and Ember marks your generosity.", "es": "La tribu come bien esta noche, y Brasa toma nota de tu generosidad." } } },
+      { "id": "share-modestly", "text": { "en": "Share a modest portion", "es": "Comparte una porción modesta" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 1 }, "text": { "en": "A fair contribution. Ember nods, satisfied.", "es": "Una aportación justa. Brasa asiente, satisfecha." } } },
+      { "id": "keep-share", "text": { "en": "Keep your share for yourself", "es": "Guarda tu parte para ti" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": -2 }, "text": { "en": "Others notice, and say nothing — for now. Ember's eyes linger on you a moment too long.", "es": "Otros lo notan, y no dicen nada, por ahora. La mirada de Brasa se detiene en ti un instante de más." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-ember-counsel",
+    "npcId": "npc-ember",
+    "threadId": "ember-thread",
+    "text": { "en": "Ember pulls you aside from the fire circle — a hard choice weighs on the tribe, and she wants to hear you out.", "es": "Brasa te aparta del círculo del fuego: una decisión difícil pesa sobre la tribu, y quiere escuchar tu opinión." },
+    "timeSlots": ["dusk", "night"],
+    "weight": 2,
+    "conditions": { "flagsRequired": ["met-ember"], "counters": { "chiefFavor": { "min": 2 } }, "flagsExcluded": ["ember-counsel-done"] },
+    "options": [
+      { "id": "advise-move-camp", "text": { "en": "Urge the tribe to move camp before the cold deepens", "es": "Insta a la tribu a trasladar el campamento antes de que arrecie el frío" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["advised-ember", "ember-counsel-done"], "countersAdd": { "chiefFavor": 3 }, "text": { "en": "The tribe breaks camp at dawn, and Ember credits your foresight.", "es": "La tribu levanta el campamento al amanecer, y Brasa reconoce tu previsión." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["ember-counsel-done"], "countersAdd": { "chiefFavor": -1 }, "text": { "en": "The tribe grumbles at the disruption, and Ember quietly reconsiders trusting your counsel.", "es": "La tribu protesta por la molestia, y Brasa reconsidera en silencio confiar en tu consejo." } } },
+      { "id": "advise-stay", "text": { "en": "Urge the tribe to hold their ground", "es": "Insta a la tribu a mantener su posición" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.06 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["advised-ember", "ember-counsel-done"], "countersAdd": { "chiefFavor": 3 }, "text": { "en": "The camp holds, stronger for staying together, and Ember is glad she asked.", "es": "El campamento resiste, más fuerte por permanecer unido, y Brasa se alegra de haberte preguntado." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["ember-counsel-done"], "countersAdd": { "chiefFavor": -1 }, "text": { "en": "The decision to stay costs the tribe dearly, and doubt creeps into Ember's trust.", "es": "La decisión de quedarse le cuesta caro a la tribu, y la duda se cuela en la confianza de Brasa." } } },
+      { "id": "defer-to-ember", "text": { "en": "Defer to her judgment", "es": "Confía en su juicio" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["ember-counsel-done"], "text": { "en": "You keep your counsel to yourself. Ember decides alone, as she always has.", "es": "Guardas tu opinión para ti. Brasa decide sola, como siempre ha hecho." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-ember-resolution",
+    "npcId": "npc-ember",
+    "threadId": "ember-thread",
+    "text": { "en": "As the fire burns low, Ember names those she trusts to speak for the tribe when she cannot.", "es": "Mientras el fuego se apaga, Brasa nombra a quienes confía para hablar por la tribu cuando ella no pueda." },
+    "timeSlots": ["night"],
+    "weight": 1,
+    "conditions": { "flagsRequired": ["advised-ember"], "flagsExcluded": ["ember-thread-resolved"] },
+    "options": [
+      { "id": "accept-ember-mantle", "text": { "en": "Accept the responsibility", "es": "Acepta la responsabilidad" }, "cost": { "time": 1 }, "successChance": { "base": 0.7, "archetypeBonus": { "modifier": "might", "scale": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["ember-thread-resolved", "earned-ember-trust", "remembered-ember-favor"], "countersAdd": { "chiefFavor": 2 }, "text": { "en": "Ember places a hand on your shoulder before the whole tribe. You are kin in more than blood now.", "es": "Brasa te pone una mano en el hombro ante toda la tribu. Ahora eres familia en más que sangre." } }, "failure": { "flagsSet": ["ember-thread-resolved", "remembered-ember-favor"], "countersAdd": { "chiefFavor": -1 }, "text": { "en": "You stumble over the words, but Ember's trust in you doesn't waver.", "es": "Te trabas con las palabras, pero la confianza de Brasa en ti no flaquea." } } },
+      { "id": "stay-humble", "text": { "en": "Ask her to choose someone else", "es": "Pídele que elija a otra persona" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["ember-thread-resolved", "remembered-ember-favor"], "text": { "en": "You bow your head. Ember respects the honesty, and the offer stands for another day.", "es": "Bajas la cabeza. Brasa respeta la honestidad, y la oferta sigue en pie para otro día." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-ember-remembers",
+    "npcId": "npc-ember",
+    "threadId": "ember-thread",
+    "text": { "en": "Ember catches your eye across the fire circle the moment you wake — she has not forgotten what you did for this tribe.", "es": "Brasa te busca con la mirada en el círculo del fuego en cuanto despiertas: no ha olvidado lo que hiciste por esta tribu." },
+    "timeSlots": ["dawn", "midday"],
+    "weight": 4,
+    "conditions": { "flagsRequired": ["remembered-ember-favor"], "flagsExcluded": ["met-ember"] },
+    "options": [
+      { "id": "greet-ember", "text": { "en": "Greet her warmly", "es": "Salúdala con calidez" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 4 }, "text": { "en": "She waves you to sit beside her, a place usually kept for kin.", "es": "Te hace señas para que te sientes a su lado, un lugar reservado normalmente para la familia." } } },
+      { "id": "nod-and-go-ember", "text": { "en": "Nod and move on", "es": "Asiente y sigue adelante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 1 }, "text": { "en": "You nod respectfully and let her return to the tribe's business.", "es": "Asientes con respeto y la dejas volver a los asuntos de la tribu." } } }
     ]
   },
   {
@@ -159,13 +211,54 @@
   },
   {
     "id": "neanderthal-elder-wisdom",
-    "text": { "en": "The tribe's eldest calls you over, offering counsel to those who will listen.", "es": "El más anciano de la tribu te llama, ofreciendo consejo a quien quiera escuchar." },
+    "npcId": "npc-kaia",
+    "threadId": "kaia-thread",
+    "text": { "en": "Kaia calls you over again, offering deeper counsel to those who will listen.", "es": "Kaia te llama de nuevo, ofreciendo un consejo más profundo a quien quiera escuchar." },
     "timeSlots": ["midday", "dusk", "night"],
     "weight": 2,
-    "conditions": { "resources": { "reputation": { "min": 15 } } },
+    "conditions": { "resources": { "reputation": { "min": 15 } }, "flagsRequired": ["met-kaia"] },
     "options": [
-      { "id": "listen-elder", "text": { "en": "Listen and learn", "es": "Escucha y aprende" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 3 }, "text": { "en": "Their words carry the weight of many winters.", "es": "Sus palabras llevan el peso de muchos inviernos." } }, "failure": { "text": { "en": "Your mind wanders, and the moment passes.", "es": "Tu mente se distrae, y el momento pasa." } } },
+      { "id": "listen-elder", "text": { "en": "Listen and learn", "es": "Escucha y aprende" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["learned-from-kaia"], "countersAdd": { "kaiaTrust": 2 }, "text": { "en": "Her words carry the weight of many winters, and she nods, pleased.", "es": "Sus palabras llevan el peso de muchos inviernos, y ella asiente, complacida." } }, "failure": { "countersAdd": { "kaiaTrust": -1 }, "text": { "en": "Your mind wanders, and the moment passes.", "es": "Tu mente se distrae, y el momento pasa." } } },
       { "id": "decline-elder", "text": { "en": "Politely decline", "es": "Declina educadamente" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Another time, perhaps.", "es": "Quizá en otro momento." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-kaia-resolution",
+    "npcId": "npc-kaia",
+    "threadId": "kaia-thread",
+    "text": { "en": "Kaia beckons you to sit beside her at the fire and offers to teach you her ways in full.", "es": "Kaia te hace un gesto para que te sientes a su lado junto al fuego y se ofrece a enseñarte sus artes por completo." },
+    "timeSlots": ["night"],
+    "weight": 1,
+    "conditions": { "flagsRequired": ["learned-from-kaia"], "flagsExcluded": ["kaia-thread-resolved"] },
+    "options": [
+      { "id": "accept-apprenticeship", "text": { "en": "Accept the apprenticeship", "es": "Acepta el aprendizaje" }, "cost": { "time": 2 }, "successChance": { "base": 0.7, "archetypeBonus": { "modifier": "wits", "scale": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["kaia-thread-resolved", "named-kaia-apprentice", "remembered-kaia-apprentice"], "countersAdd": { "kaiaTrust": 2 }, "text": { "en": "You become her apprentice before the whole tribe, a rare honor.", "es": "Te conviertes en su aprendiz ante toda la tribu, un honor poco frecuente." } }, "failure": { "flagsSet": ["kaia-thread-resolved", "remembered-kaia-apprentice"], "countersAdd": { "kaiaTrust": -1 }, "text": { "en": "You falter learning the old rites, but she keeps you close all the same.", "es": "Te cuesta aprender los antiguos ritos, pero ella te mantiene cerca de todos modos." } } },
+      { "id": "stay-a-hunter", "text": { "en": "Stay a hunter, not a shaman", "es": "Sigue siendo cazador, no chamán" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["kaia-thread-resolved", "remembered-kaia-apprentice"], "text": { "en": "You thank her, but your place is among the hunters, not the fire circle.", "es": "Le das las gracias, pero tu lugar está entre los cazadores, no junto al fuego." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-kaia-remembers",
+    "npcId": "npc-kaia",
+    "threadId": "kaia-thread",
+    "text": { "en": "Kaia beckons you close by the morning fire the moment she sees you — she has not forgotten what passed between you.", "es": "Kaia te hace señas para que te acerques al fuego en cuanto te ve: no ha olvidado lo que pasó entre vosotras." },
+    "timeSlots": ["dawn", "midday"],
+    "weight": 4,
+    "conditions": { "flagsRequired": ["remembered-kaia-apprentice"], "flagsExcluded": ["met-kaia"] },
+    "options": [
+      { "id": "greet-kaia", "text": { "en": "Greet her warmly", "es": "Salúdala con calidez" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": 3 }, "text": { "en": "She presses a warm stone into your palm, an old comfort between kin.", "es": "Te pone una piedra tibia en la mano, un viejo consuelo entre familia." } } },
+      { "id": "nod-and-go-kaia", "text": { "en": "Nod and move on", "es": "Asiente y sigue adelante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": 1 }, "text": { "en": "You nod respectfully and let the morning carry you onward.", "es": "Asientes con respeto y dejas que la mañana te lleve consigo." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-thorn-remembers",
+    "npcId": "npc-thorn",
+    "threadId": "thorn-thread",
+    "text": { "en": "Thorn nods to you across the camp the moment he sees you — a rival's respect, earned once already.", "es": "Espino te saluda con un gesto en cuanto te ve al otro lado del campamento: el respeto de un rival, ya ganado una vez." },
+    "timeSlots": ["dawn", "midday", "dusk"],
+    "weight": 4,
+    "conditions": { "flagsRequired": ["remembered-helped-thorn"], "flagsExcluded": ["beast-tracked"] },
+    "options": [
+      { "id": "reconnect-thorn", "text": { "en": "Ask what he's found", "es": "Pregúntale qué ha encontrado" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["beast-tracked"], "countersAdd": { "thornRespect": 3 }, "text": { "en": "He tips his head toward the ridge. \"Tracks are already there. Same as last time — race you.\"", "es": "Señala hacia la cresta con la cabeza. \"Las huellas ya están ahí. Igual que la última vez: te reto a una carrera.\"" } } },
+      { "id": "nod-and-pass-thorn", "text": { "en": "Nod and let him lead", "es": "Asiente y déjale ir primero" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["beast-tracked"], "countersAdd": { "thornRespect": 1 }, "text": { "en": "He nods once, already scanning the ridge. Old rivalries settle into old habits.", "es": "Asiente una vez, ya escudriñando la cresta. Las viejas rivalidades se acomodan en viejas costumbres." } } }
     ]
   }
 ]
