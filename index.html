@@ -127,6 +127,7 @@
     import { createDefaultCharacter, setArchetype, setBase, setSlotOption, renderCharacterSVG, saveCharacter, loadCharacter, findArchetype } from './shared/character.js';
     import { getEraProgress } from './shared/achievements.js';
     import { getEraStats } from './shared/stats.js';
+    import { getStreak } from './shared/streaks.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
     import { applyEraTheme, clearEraTheme } from './shared/era-theme.js';
@@ -350,6 +351,10 @@
     document.querySelector('#profile-open').addEventListener('click', async () => {
       profileBody.innerHTML = '<p>…</p>';
       profileModal.hidden = false;
+      const streak = getStreak();
+      const streakHtml = streak.currentStreak > 0
+        ? `<p class="streak-banner">${t('profile.streak', { count: streak.currentStreak, best: streak.longestStreak })}</p>`
+        : `<p class="app-subtitle">${t('profile.streakNone')}</p>`;
       const availableEras = ERAS.filter(era => era.available);
       const sections = await Promise.all(availableEras.map(async meta => {
         const { era } = await loadEra(meta.id);
@@ -368,7 +373,7 @@
           </div>
         `;
       }));
-      profileBody.innerHTML = sections.join('') || `<p>${t('profile.noEras')}</p>`;
+      profileBody.innerHTML = streakHtml + (sections.join('') || `<p>${t('profile.noEras')}</p>`);
     });
     document.querySelector('#profile-close').addEventListener('click', () => { profileModal.hidden = true; });
 

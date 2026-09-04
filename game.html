@@ -44,6 +44,7 @@
       <h2 id="summary-heading"></h2>
       <p id="summary-reason"></p>
       <div class="score-grid" id="summary-score" hidden></div>
+      <p id="summary-streak" class="streak-banner" hidden></p>
       <div class="summary-grid" id="summary-resources"></div>
       <h3 data-i18n="game.objectivesHeading"></h3>
       <ul class="objective-list" id="summary-objectives"></ul>
@@ -57,8 +58,10 @@
       <p id="summary-comeback" class="app-subtitle" hidden data-i18n="daily.comeBackTomorrow"></p>
       <div class="actions-row">
         <button id="play-again" class="btn" type="button" data-i18n="game.playAgain"></button>
+        <button id="download-card" class="btn btn-ghost" type="button" hidden data-i18n="game.downloadCard"></button>
         <a class="btn btn-ghost" href="./index.html" data-i18n="game.changeEra"></a>
       </div>
+      <canvas id="share-canvas" hidden></canvas>
     </section>
   </main>
 
@@ -83,6 +86,8 @@
     import { selectMemorySeed, extractMemorableState } from './shared/memories-logic.js';
     import { getEraMemories, recordEraMemories } from './shared/memories.js';
     import { findNpc, renderNpcPortraitSVG } from './shared/npc.js';
+    import { getStreak, recordStreakForToday } from './shared/streaks.js';
+    import { renderShareCardCanvas, downloadCanvasAsPng } from './shared/share-card.js';
 
     const FILLER_CARD = {
       id: 'filler-wait',
@@ -286,6 +291,7 @@
       recordDayResult(eraId, { objectivesCompleted: completedCount });
       recordDayGains(eraId, gainsThisDay);
       if (getCurrentUser()) recordEraMemories(eraId, extractMemorableState(era, dayState));
+      if (isDaily && getCurrentUser()) recordStreakForToday(dailyDateKeyValue);
       const newlyUnlocked = checkAndUnlockMetaAchievements(eraId, era);
       const criticalKey = getCriticalResourceKey(resourceState, era);
 
@@ -306,7 +312,7 @@
         });
       }
 
-      summaryData = { objectivesResults, newlyUnlocked, criticalKey, finalResources: { ...resourceState }, log: [...narrativeLog], score, alreadyPlayed: false };
+      summaryData = { objectivesResults, newlyUnlocked, criticalKey, finalResources: { ...resourceState }, log: [...narrativeLog], score, streak: getStreak(), alreadyPlayed: false };
       phase = 'summary';
       renderSummaryUI();
 
@@ -339,6 +345,7 @@
         finalResources: saved.finalResources || {},
         log: saved.log || null,
         score: { objectivesScore: saved.objectivesScore, tiebreakScore: saved.tiebreakScore, total: saved.score },
+        streak: getStreak(),
         alreadyPlayed: true,
       };
       phase = 'summary';
@@ -386,9 +393,18 @@
         scoreSection.innerHTML = '';
       }
 
+      const streakEl = document.querySelector('#summary-streak');
+      if (isDaily && summaryData.streak && summaryData.streak.currentStreak > 1) {
+        streakEl.hidden = false;
+        streakEl.textContent = t('daily.streakLabel', { count: summaryData.streak.currentStreak });
+      } else {
+        streakEl.hidden = true;
+      }
+
       document.querySelector('#play-again').hidden = isDaily;
       document.querySelector('#summary-comeback').hidden = !isDaily;
       document.querySelector('#summary-leaderboard-section').hidden = !isDaily;
+      document.querySelector('#download-card').hidden = !isDaily || !summaryData.score;
       retriggerAnimation(summaryScreen);
     }
 
@@ -427,6 +443,21 @@
     document.querySelector('#play-again').addEventListener('click', () => {
       resetDay();
       showDecision();
+    });
+
+    document.querySelector('#download-card').addEventListener('click', async () => {
+      const canvas = document.querySelector('#share-canvas');
+      await renderShareCardCanvas(canvas, {
+        era,
+        eraName: localize(era.name),
+        endingText: summaryData.criticalKey ? localize(era.badEnding) : localize(era.goodEnding),
+        dateLabel: dailyDateKeyValue,
+        score: summaryData.score,
+        objectives: summaryData.objectivesResults.map(entry => ({ description: localize(entry.objective.description), complete: entry.complete })),
+        streak: summaryData.streak,
+        appLabel: 'OneDay',
+      });
+      downloadCanvasAsPng(canvas, `oneday-${eraId}-${dailyDateKeyValue}.png`);
     });
 
     document.querySelector('#lang-en').addEventListener('click', () => setLanguage('en'));

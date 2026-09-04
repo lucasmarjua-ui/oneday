@@ -267,9 +267,16 @@ No engine or schema changes were required — `data/eras/neanderthal/` plus one 
 
 Each era declares its own memorable flags/counters with names that mean something in that world — `remembered-helped-thorn`/`thornRespect` for Neanderthals, `remembered-nyx-cut`/`nyxTrust` for the Futuristic City — never Greece's names copied over; `tests/neanderthal-data.test.js` and `tests/future-city-data.test.js` assert this directly, alongside the same NPC-cast-size, `npcId`/`threadId`-resolves, and memorable-name-is-actually-set checks Greece's tests already ran.
 
+## Streaks and the shareable result card
+
+Both features hang off the same moment — finishing a Daily Challenge attempt — and both are account-gated, same as cross-game memory: a guest gets no streak and no continuity, which is the accepted fallback for now while real login is being fixed separately.
+
+- **Streak**: one global counter (`oneday.streak`), not per-era, so playing any era's Daily Challenge keeps it alive — stored in the same `users/{uid}` document as everything else, no new collection. The update rule lives in `shared/streaks-logic.js`'s pure `computeStreakUpdate(current, todayKey)`: same day as last played → unchanged (so re-viewing an "already played today" recap never double-counts); exactly one day later → `currentStreak + 1`; any bigger gap (or never played) → reset to 1. `longestStreak` only ever moves up. `mergeStreak` resolves a merge by trusting whichever side has the more recent `lastPlayedDate` for the current state, while always keeping the higher `longestStreak` from either side — a stale device can't roll back a streak, and a personal best is never lost. It's recorded in `endDay()` right where memories already are, gated on `isDaily && getCurrentUser()`, and shown on the summary screen once it's above 1 (not worth announcing "1-day streak") plus as a running total in the Profile modal.
+- **Shareable result card**: a "Download card" button on the Daily Challenge summary renders a themed PNG via `shared/share-card.js` — an offscreen `<canvas>` drawn with the *played era's own* `theme.colors`/`theme.fonts` (its accent color, its heading font, its icon), not a generic template — then downloads with `canvas.toBlob` + a temporary `<a download>`. It reuses the era's own ending narration (`goodEnding`/`badEnding`) as the card's headline text instead of a generic "day complete", so the card carries the same voice as the game itself. It's deliberately unthemed by *this* module and untested by design (per the brief: worth confirming it doesn't crash, not worth unit-testing pixel output) — verified instead by actually downloading a card per era in the browser during this feature's verification pass.
+
 ## Roadmap
 
-A global, all-time free-play leaderboard per era (same Firestore pattern as the Daily Challenge's, without the daily reset or the create-only lock). Grow all three eras' card pools toward 40-60 cards each; add a fourth, dystopian city era (content only, same engine); more meta-achievements per era.
+An achievements showcase in the Profile screen and a Hall of Fame of historical best scores are next. After that: a global, all-time free-play leaderboard per era (same Firestore pattern as the Daily Challenge's, without the daily reset or the create-only lock); growing all three eras' card pools toward 40-60 cards each; a fourth, dystopian city era (content only, same engine); more meta-achievements per era.
 
 ## License
 
