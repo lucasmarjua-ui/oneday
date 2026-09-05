@@ -87,6 +87,9 @@
     import { findNpc, renderNpcPortraitSVG } from './shared/npc.js';
     import { getStreak, recordStreakForToday } from './shared/streaks.js';
     import { renderShareCardCanvas, downloadCanvasAsPng } from './shared/share-card.js';
+    import { mountAtmosphereBackground } from './shared/atmosphere-bg.js';
+
+    mountAtmosphereBackground();
 
     const FILLER_CARD = {
       id: 'filler-wait',

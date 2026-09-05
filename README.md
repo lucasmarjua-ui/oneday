@@ -38,7 +38,6 @@ index.html                     Era selection, archetype choice, character appear
 game.html                      The day loop: HUD, decision cards, outcomes, summary
 favicon.svg                    Brand-colored favicon (a handful of SVG shapes, no binary asset)
 assets/social-preview.png      Open Graph / Twitter card image (1200x630, built from the brand tokens)
-assets/hero-loop.webm          Home screen's looping background video (real, self-recorded gameplay)
 shared/
   firebase-config.js           Firebase SDK initialization (client config, not a secret)
   auth.js                      Username/password auth + localStorage <-> Firestore sync
@@ -57,6 +56,7 @@ shared/
   daily-challenge.js           Daily Challenge localStorage cache + Firestore leaderboard read/write
   resource-bar.js              Pure resource-bar math (which resources bar, fill %, color level)
   card-icons.js                Infers a decorative category icon from a card's id (keyword match)
+  atmosphere-bg.js             One generated fog/light-halo <canvas> background, mounted on every page
   narrative.js                 Applies deltas to narrative counters (NPC trust, thread progress)
   npc.js                       Looks up an era's NPC by id, renders its tinted-silhouette portrait
   memories-logic.js            Pure cross-playthrough memory rules (seed, extract, merge)
@@ -139,11 +139,13 @@ OneDay went through two different visual systems. The first gave each era its ow
 
 Entrances use one `fade-rise` keyframe (`opacity 0→1`, `translateY(24px)→0`) at three stagger delays (`.animate-fade-rise`, `-delay`, `-delay-2`), reused for the hero copy, era cards, decision cards and summary reveals alike — one motion language instead of several per-screen animations.
 
-### The home screen: a real video hero
+### One generated atmosphere, everywhere
 
-The home screen leads with a full-bleed, looping background video (`assets/hero-loop.webm`, `<video autoplay loop muted playsinline>`) behind the headline and era cards. It's genuine footage of the game itself — recorded by driving a real browser session through character creation and a recurring-NPC card in all three eras with Playwright's built-in video capture — not a licensed or generated asset. The video sits at low opacity with a blur/desaturate filter and a dark gradient scrim over it (`.hero-scrim`) specifically so it reads as atmospheric motion rather than legible, competing UI text; an earlier pass that let the recording *start* on the home screen itself created a distracting "ghost duplicate" of the live foreground text, so the recording was redone to show only in-game footage. No system `ffmpeg` was available in the build environment, so the video is served as `.webm` (Playwright's recorder produces this natively) rather than transcoded to `.mp4` — full support across all evergreen browsers this game targets, so not a compromise for a portfolio site.
+Every screen — home, era-select, character creation, the whole day loop in all three eras, every summary — sits over the exact same backdrop: a handful of slow-drifting, low-opacity radial-gradient "fog" blobs plus one soft light halo, all in the site's own navy hue, rendered on a single fixed, full-viewport `<canvas>` (`shared/atmosphere-bg.js`, `mountAtmosphereBackground()`) pinned behind all page content (`z-index: 0`, everything else in the game already sat at `z-index: 1` or higher for the critical-alert vignette, so no new stacking rules were needed). Both `index.html` and `game.html` call the same function once at startup — one shared component, not a per-screen effect or something reimplemented on each page.
 
-The nav (logo, Home/How it works/Today's Challenge/Profile links, language toggle, login, and a glass "Get Started" pill) sits inside that same hero band, over the video; both CTA buttons (nav and hero) just smooth-scroll down to the era cards — there's no separate "start" page, the cards are the beginning. Past era-select, into character creation and the day loop, the background returns to flat navy — the video is a hero-only device, not a persistent backdrop.
+This replaced an earlier version of this same idea that used a real screen-recorded video loop instead of generated fog. Two things pushed it toward canvas instead: wanting the exact same backdrop behind decision cards and the day loop too (a single looping video working believably as the backdrop for gameplay screens it wasn't recorded *of* would have looked wrong), and wanting one small file with full control over its exact color, rather than a multi-megabyte video asset to maintain. The canvas approach is also cheaper at runtime once it's playing everywhere rather than one hero screen: gradient *stops* fade to transparent instead of an expensive per-frame blur filter, the canvas is capped at 1.5x device pixel ratio, and the draw loop self-throttles to ~24fps — verified via Playwright's `PerformanceObserver('longtask')` API under iPhone 13 emulation with the animation running continuously: zero long tasks (0ms) over a 3-second sample, and UI clicks (era → archetype transition) still resolved in under 150ms. `prefers-reduced-motion: reduce` freezes it on a single static frame.
+
+The nav (logo, Home/How it works/Today's Challenge/Profile links, language toggle, login, and a glass "Get Started" pill) is its own persistent header, shown on every phase of the home page, not nested inside the decorative hero band — an earlier structure that put it *inside* `.hero` meant the whole nav (including language and login) disappeared the moment you moved into character creation, since that section hides once an era is picked. Both CTA buttons (nav and hero) just smooth-scroll down to the era cards — there's no separate "start" page, the cards are the beginning.
 
 A three-step "How it works" strip (choose your era → live the day → discover your ending) sits below the era cards for a first-time visitor sizing up the game before committing to one.
 

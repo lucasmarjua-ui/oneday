@@ -23,32 +23,27 @@
   <link rel="stylesheet" href="./shared/theme.css">
 </head>
 <body>
+  <header class="site-nav">
+    <nav class="nav-inner">
+      <span class="nav-logo">OneDay</span>
+      <div class="nav-links">
+        <a href="#" class="nav-link active" data-i18n="nav.home"></a>
+        <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
+        <a href="#era-grid" class="nav-link" data-i18n="nav.dailyChallenge"></a>
+        <button id="profile-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.profile"></button>
+      </div>
+      <div class="nav-actions">
+        <button id="lang-en" class="lang-btn" type="button">EN</button>
+        <button id="lang-es" class="lang-btn" type="button">ES</button>
+        <span id="player-name" class="nav-player" hidden></span>
+        <button id="login-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.login"></button>
+        <button id="logout" class="nav-link nav-link-btn" type="button" hidden data-i18n="nav.logout"></button>
+        <button id="hero-cta-nav" class="btn liquid-glass" type="button" data-i18n="nav.cta"></button>
+      </div>
+    </nav>
+  </header>
+
   <section class="hero">
-    <video class="hero-video" autoplay loop muted playsinline>
-      <source src="./assets/hero-loop.webm" type="video/webm">
-    </video>
-    <div class="hero-scrim"></div>
-
-    <header class="site-nav">
-      <nav class="nav-inner">
-        <span class="nav-logo">OneDay</span>
-        <div class="nav-links">
-          <a href="#" class="nav-link active" data-i18n="nav.home"></a>
-          <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
-          <a href="#era-grid" class="nav-link" data-i18n="nav.dailyChallenge"></a>
-          <button id="profile-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.profile"></button>
-        </div>
-        <div class="nav-actions">
-          <button id="lang-en" class="lang-btn" type="button">EN</button>
-          <button id="lang-es" class="lang-btn" type="button">ES</button>
-          <span id="player-name" class="nav-player" hidden></span>
-          <button id="login-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.login"></button>
-          <button id="logout" class="nav-link nav-link-btn" type="button" hidden data-i18n="nav.logout"></button>
-          <button id="hero-cta-nav" class="btn liquid-glass" type="button" data-i18n="nav.cta"></button>
-        </div>
-      </nav>
-    </header>
-
     <div class="hero-content">
       <h1 class="hero-title animate-fade-rise" id="hero-title"></h1>
       <p class="hero-subtitle animate-fade-rise-delay" data-i18n="home.heroSubtitle"></p>
@@ -148,6 +143,9 @@
     import { getStreak } from './shared/streaks.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
+    import { mountAtmosphereBackground } from './shared/atmosphere-bg.js';
+
+    mountAtmosphereBackground();
 
     const heroSection = document.querySelector('.hero');
     const eraScreen = document.querySelector('#era-screen');
