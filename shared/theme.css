@@ -194,6 +194,7 @@ body.critical-alert::after {
 }
 .nav-logo {
   font-family: var(--font-display);
+  font-style: italic;
   font-size: 1.9rem;
   letter-spacing: -0.02em;
   color: var(--ink);
@@ -522,6 +523,11 @@ main {
 }
 .era-card-art .era-icon { font-size: 2.8rem; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35)); }
 .era-card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+
+.daily-picker-section { text-align: center; }
+.daily-picker-section h2 { margin-bottom: 18px; }
+.daily-picker-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+.daily-picker-row .btn.daily-played { color: var(--success); }
 
 .how-it-works { margin-top: 40px; }
 .how-it-works h2 { text-align: center; margin-bottom: 22px; }

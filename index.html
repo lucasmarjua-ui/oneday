@@ -19,7 +19,7 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
   <link rel="stylesheet" href="./shared/theme.css">
 </head>
 <body>
@@ -29,7 +29,7 @@
       <div class="nav-links">
         <a href="#" class="nav-link active" data-i18n="nav.home"></a>
         <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
-        <a href="#era-grid" class="nav-link" data-i18n="nav.dailyChallenge"></a>
+        <a href="#daily-picker" class="nav-link" data-i18n="nav.dailyChallenge"></a>
         <button id="profile-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.profile"></button>
       </div>
       <div class="nav-actions">
@@ -47,7 +47,7 @@
       <div class="nav-mobile-menu liquid-glass" id="nav-mobile-menu">
         <a href="#" class="nav-link active" data-i18n="nav.home"></a>
         <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
-        <a href="#era-grid" class="nav-link" data-i18n="nav.dailyChallenge"></a>
+        <a href="#daily-picker" class="nav-link" data-i18n="nav.dailyChallenge"></a>
         <button class="nav-link nav-link-btn" type="button" data-i18n="nav.profile" id="profile-open-mobile"></button>
       </div>
     </nav>
@@ -84,8 +84,10 @@
 
   <main>
     <section id="era-screen">
-      <h2 data-i18n="era.chooseHeading"></h2>
-      <div class="era-grid" id="era-grid"></div>
+      <section class="daily-picker-section" id="daily-picker">
+        <h2 data-i18n="daily.chooseEraHeading"></h2>
+        <div class="daily-picker-row" id="daily-picker-row"></div>
+      </section>
 
       <section class="how-it-works" id="how-it-works">
         <h2 data-i18n="home.howHeading"></h2>
@@ -180,7 +182,6 @@
 
     const heroSection = document.querySelector('.hero');
     const eraScreen = document.querySelector('#era-screen');
-    const eraGrid = document.querySelector('#era-grid');
     const archetypeScreen = document.querySelector('#archetype-screen');
     const archetypeHeading = document.querySelector('#archetype-heading');
     const archetypeGrid = document.querySelector('#archetype-grid');
@@ -194,21 +195,8 @@
     let currentCharacter = null;
     let currentPhase = 'era';
     let currentMode = 'free';
-    let eraThemePreviews = {};
     let activeSwitcherEraId = null;
     let switcherCooldown = false;
-
-    // Lightweight fetch of just era.json (skips cards.json) so the era-select
-    // screen can show each era's own accent/texture without waiting on its
-    // full card deck.
-    async function loadEraThemePreviews() {
-      const availableEras = ERAS.filter(era => era.available);
-      const entries = await Promise.all(availableEras.map(async meta => {
-        const era = await fetch(meta.configPath).then(response => response.json());
-        return [meta.id, era.theme];
-      }));
-      return Object.fromEntries(entries);
-    }
 
     function applyStaticI18n() {
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
@@ -217,38 +205,18 @@
       document.querySelector('#hero-title').innerHTML = `${t('home.heroTitlePart1')} <em class="hero-title-em">${t('home.heroTitlePart2')}</em>`;
     }
 
-    function renderEraGrid() {
+    // The video hero now covers "pick an era and play free" on its own, so
+    // this is just what's left: a compact, liquid-glass way to reach Today's
+    // Challenge per era, since the hero's own "Play Now" only ever starts
+    // free play.
+    function renderDailyPicker() {
       const today = todayDateKey();
-      eraGrid.innerHTML = ERAS.map((era, index) => {
-        const playedToday = era.available && hasPlayedToday(getLocalDailyResult(era.id), today);
-        const preview = eraThemePreviews[era.id];
-        // Only the texture *shape* still varies by era (kept as one of the
-        // few things -- name, icon, texture -- that distinguish a card);
-        // its color always resolves to the single global accent now, so no
-        // --card-accent/--texture-tint is set here anymore.
-        const cardStyle = preview
-          ? `--card-texture-image:${preview.textureImage || 'none'};--card-texture-size:${preview.textureSize || 'auto'};animation-delay:${index * 0.06}s`
-          : `animation-delay:${index * 0.06}s`;
-        return `
-          <div class="era-card panel${era.available ? '' : ' unavailable'}" data-era="${era.id}" style="${cardStyle}">
-            <div class="era-card-art"><span class="era-icon">${era.icon}</span></div>
-            <div class="era-card-body">
-              <h3>${localize(era.name)}</h3>
-              <p>${era.available ? localize(era.tagline) : t('era.comingSoon')}</p>
-              ${era.available ? `
-                <div class="era-card-actions">
-                  <button class="btn" type="button" data-action="free" data-era="${era.id}">${t('era.playFree')}</button>
-                  <button class="btn btn-ghost${playedToday ? ' daily-played' : ''}" type="button" data-action="daily" data-era="${era.id}">${playedToday ? '✓ ' : ''}${t('era.dailyChallenge')}</button>
-                </div>
-              ` : ''}
-            </div>
-          </div>
-        `;
+      const row = document.querySelector('#daily-picker-row');
+      row.innerHTML = ERAS.filter(era => era.available).map(era => {
+        const playedToday = hasPlayedToday(getLocalDailyResult(era.id), today);
+        return `<button class="btn${playedToday ? ' daily-played' : ''}" type="button" data-era="${era.id}">${playedToday ? '✓ ' : ''}${localize(era.name)}</button>`;
       }).join('');
-      eraGrid.querySelectorAll('[data-action="free"]').forEach(btn => {
-        btn.addEventListener('click', () => selectEra(btn.dataset.era));
-      });
-      eraGrid.querySelectorAll('[data-action="daily"]').forEach(btn => {
+      row.querySelectorAll('button').forEach(btn => {
         btn.addEventListener('click', () => selectDailyChallenge(btn.dataset.era));
       });
     }
@@ -422,7 +390,7 @@
     document.querySelector('#lang-es').addEventListener('click', () => setLanguage('es'));
     onLanguageChange(() => {
       applyStaticI18n();
-      if (currentPhase === 'era') { renderEraGrid(); renderEraSwitcher(); }
+      if (currentPhase === 'era') { renderDailyPicker(); renderEraSwitcher(); }
       else if (currentPhase === 'archetype') renderArchetypeScreen();
       else if (currentPhase === 'appearance') renderAppearanceScreen();
     });
@@ -487,31 +455,14 @@
     });
     document.querySelector('#profile-close').addEventListener('click', () => { profileModal.hidden = true; });
 
-    function applyCardPreview(eraId, preview) {
-      const card = eraGrid.querySelector(`.era-card[data-era="${eraId}"]`);
-      if (!card || !preview) return;
-      card.style.setProperty('--card-texture-image', preview.textureImage || 'none');
-      card.style.setProperty('--card-texture-size', preview.textureSize || 'auto');
-    }
-
     (async function init() {
-      // Render the grid the instant strings are ready -- don't make the
-      // first paint wait on the (non-critical) per-era accent/texture
-      // previews, which used to add several extra network round trips
-      // before any card appeared at all.
       await loadStrings();
       applyStaticI18n();
-      renderEraGrid();
+      renderDailyPicker();
       renderEraSwitcher();
       document.querySelectorAll('.hero-video-layer').forEach(video => {
         video.classList.toggle('active', video.dataset.eraVideo === activeSwitcherEraId);
       });
-      loadEraThemePreviews()
-        .then(previews => {
-          eraThemePreviews = previews;
-          Object.entries(previews).forEach(([eraId, preview]) => applyCardPreview(eraId, preview));
-        })
-        .catch(error => console.warn('OneDay: could not load era theme previews', error));
     })();
   </script>
 </body>

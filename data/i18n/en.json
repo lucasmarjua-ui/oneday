@@ -33,6 +33,7 @@
   "profile.streak": "🔥 {count}-day streak (best: {best})",
   "profile.streakNone": "No Daily Challenge streak yet — play Today's Challenge in any era to start one.",
   "era.chooseHeading": "Choose your era",
+  "daily.chooseEraHeading": "Play Today's Challenge in...",
   "era.comingSoon": "Coming soon.",
   "archetype.heading": "Choose your archetype",
   "archetype.back": "Back to eras",
