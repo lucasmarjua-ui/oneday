@@ -335,6 +335,25 @@ body.critical-alert::after {
   0%, 100% { transform: translateY(0) scale(1.03); }
   50% { transform: translateY(-6px) scale(1.03); }
 }
+
+/* The rusted train-window frame sits above the era photos and the scrim,
+   below the floating hourglass and the hero copy -- its cut-out center is
+   real transparency in the PNG itself, so the active era photo just shows
+   through, no extra layering logic needed here. Reuses the same bob
+   keyframe as the floating hourglass, with the constant scale(1.03)
+   keeping its edges past the viewport so the bob never reveals an empty
+   corner. */
+.hero-window-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  pointer-events: none;
+  animation: hero-icon-bob 3s ease-in-out infinite;
+}
+
 .hero-floating-icon {
   position: absolute;
   top: 14%;
