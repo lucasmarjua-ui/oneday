@@ -107,7 +107,8 @@ body.critical-alert::after {
 .panel, .btn, .era-card, .option-btn, .swatch-btn, .modal, .resource-chip,
 .achievement-toast, .score-stat, .summary-stat, .streak-banner,
 .character-portrait, .chance-dial, .npc-portrait-badge, .field input,
-.daily-badge, .ending-banner {
+.daily-badge, .ending-banner, .nav-links, .nav-mobile-toggle,
+.nav-mobile-menu, .hero-badge {
   background: rgba(255, 255, 255, 0.01);
   background-blend-mode: luminosity;
   backdrop-filter: blur(4px);
@@ -122,7 +123,8 @@ body.critical-alert::after {
 .achievement-toast::before, .score-stat::before, .summary-stat::before,
 .streak-banner::before, .character-portrait::before, .chance-dial::before,
 .npc-portrait-badge::before, .field input::before, .daily-badge::before,
-.ending-banner::before {
+.ending-banner::before, .nav-links::before, .nav-mobile-toggle::before,
+.nav-mobile-menu::before, .hero-badge::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -162,16 +164,9 @@ body.critical-alert::after {
   display: block;
 }
 
-/* ---------- Home screen: hero + nav ---------- */
+/* ---------- Home screen: full-screen video hero + nav ---------- */
 
-.hero {
-  position: relative;
-  min-height: 92vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.site-nav { position: relative; z-index: 10; }
+.site-nav { position: relative; z-index: 20; }
 .nav-inner {
   display: flex;
   align-items: center;
@@ -179,7 +174,7 @@ body.critical-alert::after {
   gap: 16px;
   max-width: 1280px;
   margin: 0 auto;
-  padding: 24px clamp(16px, 4vw, 32px);
+  padding: 20px clamp(16px, 4vw, 32px);
   flex-wrap: wrap;
 }
 .nav-logo {
@@ -188,11 +183,17 @@ body.critical-alert::after {
   letter-spacing: -0.02em;
   color: var(--ink);
 }
-.nav-links { display: none; align-items: center; gap: 24px; }
+.nav-links {
+  display: none;
+  align-items: center;
+  gap: 22px;
+  border-radius: 999px;
+  padding: 10px 22px;
+}
 @media (min-width: 768px) { .nav-links { display: flex; } }
 .nav-link {
   font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: var(--ink-soft);
   text-decoration: none;
   background: none;
@@ -200,6 +201,7 @@ body.critical-alert::after {
   padding: 0;
   cursor: pointer;
   transition: color 0.15s ease;
+  white-space: nowrap;
 }
 .nav-link:hover, .nav-link.active { color: var(--ink); }
 .nav-link-btn { font-family: var(--font-body); }
@@ -216,22 +218,137 @@ body.critical-alert::after {
 .lang-btn.active { color: var(--ink); font-weight: 600; }
 .nav-player { font-size: 0.85rem; color: var(--ink-soft); }
 
+.btn-solid {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: none;
+  background: var(--ink);
+  color: hsl(var(--primary-foreground));
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+.btn-solid:hover { transform: scale(1.03); opacity: 0.92; }
+.btn-solid:active { transform: scale(1); }
+
+/* Mobile nav toggle: a liquid-glass square with two stacked SVGs crossfaded
+   via opacity/rotate instead of swapping DOM nodes, so the 300ms transition
+   is purely CSS. */
+.nav-mobile-toggle {
+  display: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ink);
+}
+@media (max-width: 767px) { .nav-mobile-toggle { display: flex; } }
+.nav-mobile-toggle svg {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.nav-mobile-toggle .icon-menu { opacity: 1; transform: rotate(0deg); }
+.nav-mobile-toggle .icon-close { opacity: 0; transform: rotate(-90deg); }
+.nav-mobile-toggle.open .icon-menu { opacity: 0; transform: rotate(90deg); }
+.nav-mobile-toggle.open .icon-close { opacity: 1; transform: rotate(0deg); }
+.nav-mobile-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 16px;
+  right: 16px;
+  z-index: 25;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 20px;
+  border-radius: var(--radius);
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu .nav-link { font-size: 0.95rem; }
+@media (min-width: 768px) { .nav-mobile-menu { display: none !important; } }
+
+.hero {
+  position: relative;
+  height: calc(100vh - 84px);
+  min-height: 480px;
+  overflow: hidden;
+  background: #000;
+}
+.hero-video-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  filter: blur(1px) saturate(0.7) brightness(0.8);
+  transition: opacity 1000ms ease-in-out;
+  z-index: 0;
+}
+.hero-video-layer.active { opacity: 0.6; }
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(180deg, hsl(var(--background) / 0.82) 0%, hsl(var(--background) / 0.68) 45%, hsl(var(--background) / 0.9) 100%);
+}
+
+@keyframes hero-icon-bob {
+  0%, 100% { transform: translateY(0) scale(1.03); }
+  50% { transform: translateY(-6px) scale(1.03); }
+}
+.hero-floating-icon {
+  position: absolute;
+  top: 14%;
+  right: 8%;
+  z-index: 2;
+  width: 56px;
+  height: 56px;
+  color: hsl(var(--foreground) / 0.5);
+  animation: hero-icon-bob 3s ease-in-out infinite;
+  pointer-events: none;
+  display: none;
+}
+@media (min-width: 900px) { .hero-floating-icon { display: block; } }
+
 .hero-content {
   position: relative;
   z-index: 10;
-  flex: 1;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: clamp(24px, 6vw, 64px) 24px clamp(48px, 10vw, 120px);
+  padding: clamp(16px, 4vw, 32px) 24px;
+  gap: 22px;
+}
+.hero-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  font-style: italic;
 }
 .hero-title {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(2.75rem, 8vw, 6.2rem);
-  line-height: 0.95;
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 1.1;
   letter-spacing: -0.02em;
   max-width: 60rem;
   margin: 0;
@@ -240,12 +357,44 @@ body.critical-alert::after {
 .hero-title-em { font-style: normal; color: var(--ink-soft); }
 .hero-subtitle {
   color: var(--ink-soft);
-  font-size: clamp(1rem, 1.5vw, 1.15rem);
-  max-width: 40rem;
-  margin: 28px 0 0;
+  font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+  max-width: 38rem;
+  margin: 0;
   line-height: 1.6;
 }
-.hero-cta { padding: 20px 48px; font-size: 1rem; margin-top: 40px; }
+.hero-cta { padding: 16px 40px; font-size: 0.95rem; }
+
+.era-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 6px;
+}
+.era-switcher-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--ink);
+  opacity: 0.5;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+.era-switcher-btn:hover { opacity: 0.8; }
+.era-switcher-btn.active { opacity: 1; border-color: var(--ink); font-weight: 600; }
+
+.hero-stats {
+  display: flex;
+  gap: clamp(20px, 5vw, 48px);
+  margin-top: 6px;
+}
+.hero-stat { text-align: center; }
+.hero-stat .value { font-family: var(--font-display); font-size: 1.8rem; color: var(--ink); line-height: 1; }
+.hero-stat .label { font-family: var(--font-body); font-size: 0.72rem; color: var(--ink-soft); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
 
 /* game.html's in-play top bar (title/clock + language + menu) -- the home
    screen uses .site-nav instead, but this is still the header everywhere

@@ -38,16 +38,47 @@
         <span id="player-name" class="nav-player" hidden></span>
         <button id="login-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.login"></button>
         <button id="logout" class="nav-link nav-link-btn" type="button" hidden data-i18n="nav.logout"></button>
-        <button id="hero-cta-nav" class="btn liquid-glass" type="button" data-i18n="nav.cta"></button>
+        <button id="hero-cta-nav" class="btn-solid" type="button" data-i18n="home.playNow"></button>
+        <button id="nav-mobile-toggle" class="nav-mobile-toggle liquid-glass" type="button" aria-label="Menu" aria-expanded="false">
+          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+        </button>
+      </div>
+      <div class="nav-mobile-menu liquid-glass" id="nav-mobile-menu">
+        <a href="#" class="nav-link active" data-i18n="nav.home"></a>
+        <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
+        <a href="#era-grid" class="nav-link" data-i18n="nav.dailyChallenge"></a>
+        <button class="nav-link nav-link-btn" type="button" data-i18n="nav.profile" id="profile-open-mobile"></button>
       </div>
     </nav>
   </header>
 
-  <section class="hero">
+  <section class="hero" id="video-hero">
+    <video class="hero-video-layer" data-era-video="greece" autoplay muted loop playsinline>
+      <source src="./assets/era-loop-greece.webm" type="video/webm">
+    </video>
+    <video class="hero-video-layer" data-era-video="neanderthal" autoplay muted loop playsinline>
+      <source src="./assets/era-loop-neanderthal.webm" type="video/webm">
+    </video>
+    <video class="hero-video-layer" data-era-video="future-city" autoplay muted loop playsinline>
+      <source src="./assets/era-loop-future-city.webm" type="video/webm">
+    </video>
+    <div class="hero-scrim"></div>
+    <svg class="hero-floating-icon animate-fade-rise" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M6 2h12M6 22h12M6 2c0 6 4 6 4 10s-4 4-4 10M18 2c0 6-4 6-4 10s4 4 4 10"/>
+    </svg>
+
     <div class="hero-content">
+      <span class="hero-badge liquid-glass animate-fade-rise" data-i18n="home.heroBadge"></span>
       <h1 class="hero-title animate-fade-rise" id="hero-title"></h1>
       <p class="hero-subtitle animate-fade-rise-delay" data-i18n="home.heroSubtitle"></p>
-      <button id="hero-cta" class="btn liquid-glass hero-cta animate-fade-rise-delay-2" type="button" data-i18n="nav.cta"></button>
+      <button id="hero-cta" class="btn-solid hero-cta animate-fade-rise-delay-2" type="button" data-i18n="home.playNow"></button>
+      <div class="era-switcher animate-fade-rise-delay-2" id="era-switcher"></div>
+      <div class="hero-stats animate-fade-rise-delay-2">
+        <div class="hero-stat"><div class="value">3</div><div class="label" data-i18n="home.statsEras"></div></div>
+        <div class="hero-stat"><div class="value">2</div><div class="label" data-i18n="home.statsLanguages"></div></div>
+        <div class="hero-stat"><div class="value">126</div><div class="label" data-i18n="home.statsTests"></div></div>
+      </div>
     </div>
   </section>
 
@@ -164,6 +195,8 @@
     let currentPhase = 'era';
     let currentMode = 'free';
     let eraThemePreviews = {};
+    let activeSwitcherEraId = null;
+    let switcherCooldown = false;
 
     // Lightweight fetch of just era.json (skips cards.json) so the era-select
     // screen can show each era's own accent/texture without waiting on its
@@ -328,22 +361,68 @@
       window.location.href = `./game.html?era=${currentEra.id}${dailyParam}`;
     });
 
-    // Hero CTAs just jump to the era grid -- there's no separate "start" page,
-    // the cards below are the beginning.
-    function scrollToEraGrid(event) {
-      event.preventDefault();
-      eraGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    // Video hero era switcher: a row of tabs, one per playable era, each
+    // backed by its own <video> layer already sitting in the DOM (all
+    // muted/looping from the start -- switching only ever toggles opacity,
+    // never restarts playback, so there's no decode/seek stall on click).
+    function renderEraSwitcher() {
+      const availableEras = ERAS.filter(era => era.available);
+      if (!activeSwitcherEraId) activeSwitcherEraId = availableEras[0]?.id || null;
+      const switcherEl = document.querySelector('#era-switcher');
+      switcherEl.innerHTML = availableEras.map(era => `
+        <button class="era-switcher-btn${era.id === activeSwitcherEraId ? ' active' : ''}" type="button" data-era-video="${era.id}">${localize(era.name)}</button>
+      `).join('');
+      switcherEl.querySelectorAll('.era-switcher-btn').forEach(btn => {
+        btn.addEventListener('click', () => setActiveSwitcherEra(btn.dataset.eraVideo));
+      });
     }
-    document.querySelector('#hero-cta').addEventListener('click', scrollToEraGrid);
-    document.querySelector('#hero-cta-nav').addEventListener('click', scrollToEraGrid);
-    document.querySelector('.nav-link.active').addEventListener('click', event => { event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+
+    function setActiveSwitcherEra(eraId) {
+      if (eraId === activeSwitcherEraId || switcherCooldown) return;
+      activeSwitcherEraId = eraId;
+      switcherCooldown = true;
+      setTimeout(() => { switcherCooldown = false; }, 1000);
+
+      document.querySelectorAll('.era-switcher-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.eraVideo === eraId);
+      });
+      document.querySelectorAll('.hero-video-layer').forEach(video => {
+        video.classList.toggle('active', video.dataset.eraVideo === eraId);
+      });
+    }
+
+    // The hero's own CTAs start the era currently showing in the switcher
+    // directly -- the video hero *is* the era picker now, not just a
+    // scroll-past banner in front of one. The full era grid further down
+    // stays in place for Today's Challenge and browsing full descriptions.
+    document.querySelector('#hero-cta').addEventListener('click', () => { if (activeSwitcherEraId) selectEra(activeSwitcherEraId); });
+    document.querySelector('#hero-cta-nav').addEventListener('click', () => { if (activeSwitcherEraId) selectEra(activeSwitcherEraId); });
+    document.querySelectorAll('.nav-link.active').forEach(link => {
+      link.addEventListener('click', event => { event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); closeMobileMenu(); });
+    });
+
+    // Mobile nav menu
+    const mobileToggle = document.querySelector('#nav-mobile-toggle');
+    const mobileMenu = document.querySelector('#nav-mobile-menu');
+    function closeMobileMenu() {
+      mobileToggle.classList.remove('open');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      mobileMenu.classList.remove('open');
+    }
+    mobileToggle.addEventListener('click', () => {
+      const open = mobileToggle.classList.toggle('open');
+      mobileToggle.setAttribute('aria-expanded', String(open));
+      mobileMenu.classList.toggle('open', open);
+    });
+    mobileMenu.querySelectorAll('a.nav-link').forEach(link => link.addEventListener('click', closeMobileMenu));
+    document.querySelector('#profile-open-mobile').addEventListener('click', () => { closeMobileMenu(); document.querySelector('#profile-open').click(); });
 
     // Language selector
     document.querySelector('#lang-en').addEventListener('click', () => setLanguage('en'));
     document.querySelector('#lang-es').addEventListener('click', () => setLanguage('es'));
     onLanguageChange(() => {
       applyStaticI18n();
-      if (currentPhase === 'era') renderEraGrid();
+      if (currentPhase === 'era') { renderEraGrid(); renderEraSwitcher(); }
       else if (currentPhase === 'archetype') renderArchetypeScreen();
       else if (currentPhase === 'appearance') renderAppearanceScreen();
     });
@@ -423,6 +502,10 @@
       await loadStrings();
       applyStaticI18n();
       renderEraGrid();
+      renderEraSwitcher();
+      document.querySelectorAll('.hero-video-layer').forEach(video => {
+        video.classList.toggle('active', video.dataset.eraVideo === activeSwitcherEraId);
+      });
       loadEraThemePreviews()
         .then(previews => {
           eraThemePreviews = previews;
