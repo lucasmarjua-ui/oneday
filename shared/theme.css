@@ -104,7 +104,7 @@ body.critical-alert::after {
 
 /* Every card/panel/button/badge surface in the game shares the glass
    treatment -- listed together so no HTML template needed an extra class. */
-.panel, .btn, .era-card, .option-btn, .swatch-btn, .modal, .resource-chip,
+.panel, .btn, .archetype-card, .option-card, .swatch-btn, .modal, .resource-chip,
 .achievement-toast, .score-stat, .summary-stat, .streak-banner,
 .character-portrait, .chance-dial, .npc-portrait-badge, .field input,
 .daily-badge, .ending-banner, .nav-links, .nav-mobile-toggle,
@@ -118,7 +118,7 @@ body.critical-alert::after {
   position: relative;
   overflow: hidden;
 }
-.panel::before, .btn::before, .era-card::before, .option-btn::before,
+.panel::before, .btn::before, .archetype-card::before, .option-card::before,
 .swatch-btn::before, .modal::before, .resource-chip::before,
 .achievement-toast::before, .score-stat::before, .summary-stat::before,
 .streak-banner::before, .character-portrait::before, .chance-dial::before,
@@ -495,44 +495,69 @@ main {
   padding: clamp(14px, 3vw, 24px);
 }
 
-.era-grid {
+.archetype-grid {
+  --card-count: 3;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(var(--card-count), minmax(0, 1fr));
   gap: 16px;
   margin-top: 16px;
 }
+@media (max-width: 720px) {
+  .archetype-grid { grid-template-columns: 1fr; }
+}
 
-.era-card {
+.archetype-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   text-align: left;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding: 22px 20px;
   border-radius: var(--radius);
-  animation: fade-rise 0.6s ease-out both;
+  animation: fade-rise 0.55s ease-out both;
   transition: transform 0.2s ease;
 }
-.era-card:has(.era-card-art) { padding: 0; gap: 0; }
-.era-card h3 { margin: 0; color: var(--ink); }
-.era-card p { margin: 0; color: var(--ink-soft); font-size: 0.9rem; }
-.era-card.unavailable, .era-card[disabled] { opacity: 0.5; cursor: not-allowed; animation: none; }
-.era-card:not(.unavailable):not([disabled]):hover { transform: translateY(-4px); }
-.era-card.selected { box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 0 0 1.5px hsl(var(--foreground) / 0.5); }
-.era-card-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 4px; }
-.era-card-actions .btn { flex: 1 1 auto; min-width: 0; padding-left: 10px; padding-right: 10px; font-size: 0.85rem; }
-.era-card-actions .daily-played { color: var(--success); }
-
-.era-card-art {
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: hsl(var(--foreground) / 0.06);
-  background-image: var(--card-texture-image, none);
-  background-size: var(--card-texture-size, auto);
+.archetype-card > * { position: relative; z-index: 1; }
+.archetype-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+  background: var(--card-gradient, none);
+  pointer-events: none;
 }
-.era-card-art .era-icon { font-size: 2.8rem; filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.35)); }
-.era-card-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.archetype-card h3 { margin: 0; color: var(--ink); }
+.archetype-card p { margin: 0; color: var(--ink-soft); font-size: 0.9rem; }
+.archetype-card.unavailable, .archetype-card[disabled] { opacity: 0.5; cursor: not-allowed; animation: none; }
+.archetype-card:not(.unavailable):not([disabled]):hover { transform: translateY(-4px); }
+.archetype-card.selected { box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 0 0 1.5px rgba(var(--accent-glow, 255, 255, 255), 0.75); }
+
+/* ---------- Decorative glass-card ornament + LED cost readout ----------
+   Shared by option cards (decision screen) and archetype cards: a small
+   SVG gauge/connections-map (shared/card-art.js, purely decorative, varies
+   per card) plus, for options, a dot-matrix "LED" rendering of the
+   cost/time string (shared/led-digits.js) instead of plain digits. */
+.option-ornament {
+  width: 40px;
+  height: 40px;
+  color: var(--ink);
+  flex: 0 0 auto;
+  opacity: 0.85;
+}
+.led-text { display: inline-flex; align-items: center; gap: 2px; color: var(--ink); }
+.led-digit circle { fill: currentColor; }
+.led-digit { filter: drop-shadow(0 0 3px currentColor); opacity: 0.95; }
+.led-char { font-family: var(--font-body); font-size: 0.78rem; color: var(--ink-soft); padding: 0 1px; }
+
+/* Stagger: each card in a grid enters a beat after the one before it. */
+.option-card:nth-child(1), .archetype-card:nth-child(1) { animation-delay: 0s; }
+.option-card:nth-child(2), .archetype-card:nth-child(2) { animation-delay: 0.08s; }
+.option-card:nth-child(3), .archetype-card:nth-child(3) { animation-delay: 0.16s; }
+.option-card:nth-child(4), .archetype-card:nth-child(4) { animation-delay: 0.24s; }
 
 .daily-picker-section { text-align: center; }
 .daily-picker-section h2 { margin-bottom: 18px; }
@@ -592,7 +617,13 @@ main {
   cursor: pointer;
   font-family: inherit;
 }
-.swatch-btn.selected { box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 0 0 1.5px hsl(var(--foreground) / 0.5); font-weight: 600; }
+.swatch-btn.selected { box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1), 0 0 0 1.5px rgba(var(--accent-glow, 255, 255, 255), 0.75); font-weight: 600; }
+
+/* Per-era accent used only for this small glow -- everything else about
+   the appearance/archetype screens stays the one global navy/glass identity. */
+body[data-era="greece"] { --accent-glow: 217, 138, 74; }
+body[data-era="neanderthal"] { --accent-glow: 224, 121, 30; }
+body[data-era="future-city"] { --accent-glow: 217, 70, 239; }
 
 .hud {
   display: flex;
@@ -698,23 +729,49 @@ main {
 }
 .card-enter { animation: fade-rise 0.5s ease-out both; }
 
-.options-list { display: flex; flex-direction: column; gap: 10px; position: relative; z-index: 1; }
-.option-btn {
+.options-grid {
+  --card-count: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--card-count), minmax(0, 1fr));
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 640px) {
+  .options-grid { grid-template-columns: 1fr; }
+}
+.option-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: flex;
-  align-items: center;
-  gap: 12px;
+  flex-direction: column;
+  gap: 14px;
   text-align: left;
-  padding: 12px 16px;
+  padding: 20px 18px 18px;
   border-radius: var(--radius);
   color: var(--ink);
   cursor: pointer;
   font-family: inherit;
   font-size: 1rem;
-  transition: background 0.15s ease;
+  animation: fade-rise 0.55s ease-out both;
+  transition: transform 0.2s ease;
 }
-.option-btn:hover { background: hsl(var(--foreground) / 0.06); }
-.option-body { flex: 1 1 auto; min-width: 0; }
-.option-cost { display: block; font-size: 0.8rem; color: var(--ink-soft); margin-top: 4px; }
+.option-card:hover { transform: translateY(-4px); }
+.option-card:active { transform: translateY(-1px); }
+.option-card > * { position: relative; z-index: 1; }
+.option-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.5;
+  background: var(--card-gradient, none);
+  pointer-events: none;
+}
+.option-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.option-text { display: block; font-weight: 600; line-height: 1.4; }
+.option-cost-row { margin-top: auto; padding-top: 4px; }
 
 .chance-dial {
   flex: 0 0 auto;

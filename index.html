@@ -107,7 +107,7 @@
 
     <section id="archetype-screen" class="panel" hidden>
       <h2 id="archetype-heading"></h2>
-      <div class="era-grid" id="archetype-grid"></div>
+      <div class="archetype-grid" id="archetype-grid"></div>
       <div class="actions-row">
         <button id="archetype-back" class="btn btn-ghost" type="button" data-i18n="archetype.back"></button>
         <button id="archetype-next" class="btn" type="button" data-i18n="archetype.next"></button>
@@ -171,6 +171,7 @@
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
     import { mountAtmosphereBackground } from './shared/atmosphere-bg.js';
+    import { getCardGradient, renderCardOrnamentSVG } from './shared/card-art.js';
 
     mountAtmosphereBackground();
 
@@ -192,6 +193,17 @@
     let activeSwitcherEraId = null;
     let switcherCooldown = false;
 
+    // Fire immediately, not gated behind the async i18n fetch below: era
+    // names/tags come from each era's own bilingual data (localize()), never
+    // from the UI-string bundle loadStrings() fetches, so there's no reason
+    // the hero's background photo should sit at opacity 0 (a black hero)
+    // for however long that network request takes. This is what actually
+    // was causing the visible black-screen flash on load.
+    renderEraSwitcher();
+    document.querySelectorAll('.hero-bg-layer').forEach(layer => {
+      layer.classList.toggle('active', layer.dataset.eraBg === activeSwitcherEraId);
+    });
+
     function applyStaticI18n() {
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
       document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'lang-btn active' : 'lang-btn';
@@ -199,7 +211,7 @@
       document.querySelector('#hero-title').innerHTML = `${t('home.heroTitlePart1')} <em class="hero-title-em">${t('home.heroTitlePart2')}</em>`;
     }
 
-    // The video hero now covers "pick an era and play free" on its own, so
+    // The photo hero now covers "pick an era and play free" on its own, so
     // this is just what's left: a compact, liquid-glass way to reach Today's
     // Challenge per era, since the hero's own "Play Now" only ever starts
     // free play.
@@ -218,6 +230,7 @@
     async function selectEra(eraId) {
       const { era } = await loadEra(eraId);
       currentEra = era;
+      document.body.dataset.era = eraId;
       currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
       currentMode = 'free';
       currentPhase = 'archetype';
@@ -234,6 +247,7 @@
       }
       const { era } = await loadEra(eraId);
       currentEra = era;
+      document.body.dataset.era = eraId;
       currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
       currentMode = 'daily';
       currentPhase = 'archetype';
@@ -249,13 +263,15 @@
 
     function renderArchetypeScreen() {
       archetypeHeading.innerHTML = `${modeBadgeHtml()}${t('archetype.heading')} — ${localize(currentEra.name)}`;
-      archetypeGrid.innerHTML = currentEra.archetypes.map(archetype => `
-        <button class="era-card panel${currentCharacter.archetypeId === archetype.id ? ' selected' : ''}" type="button" data-archetype="${archetype.id}">
+      archetypeGrid.style.setProperty('--card-count', Math.min(currentEra.archetypes.length, 4));
+      archetypeGrid.innerHTML = currentEra.archetypes.map((archetype, index) => `
+        <button class="archetype-card${currentCharacter.archetypeId === archetype.id ? ' selected' : ''}" type="button" data-archetype="${archetype.id}" style="--card-gradient: ${getCardGradient(currentEra.id, index)}">
+          ${renderCardOrnamentSVG(archetype.id)}
           <h3>${localize(archetype.name)}</h3>
           <p>${localize(archetype.description)}</p>
         </button>
       `).join('');
-      archetypeGrid.querySelectorAll('.era-card').forEach(card => {
+      archetypeGrid.querySelectorAll('.archetype-card').forEach(card => {
         card.addEventListener('click', () => {
           currentCharacter = setArchetype(currentCharacter, card.dataset.archetype);
           renderArchetypeScreen();
@@ -453,10 +469,6 @@
       await loadStrings();
       applyStaticI18n();
       renderDailyPicker();
-      renderEraSwitcher();
-      document.querySelectorAll('.hero-bg-layer').forEach(layer => {
-        layer.classList.toggle('active', layer.dataset.eraBg === activeSwitcherEraId);
-      });
     })();
   </script>
 </body>

@@ -30,7 +30,7 @@
     <section id="decision-screen" class="panel">
       <div id="card-icon-watermark"></div>
       <p class="card-text" id="card-text"></p>
-      <div class="options-list" id="options-list"></div>
+      <div class="options-grid" id="options-list"></div>
     </section>
 
     <section id="outcome-screen" class="panel" hidden>
@@ -88,6 +88,8 @@
     import { getStreak, recordStreakForToday } from './shared/streaks.js';
     import { renderShareCardCanvas, downloadCanvasAsPng } from './shared/share-card.js';
     import { mountEraImageBackground } from './shared/atmosphere-bg.js';
+    import { getCardGradient, renderCardOrnamentSVG } from './shared/card-art.js';
+    import { renderLedText } from './shared/led-digits.js';
 
     const FILLER_CARD = {
       id: 'filler-wait',
@@ -100,7 +102,7 @@
     const params = new URLSearchParams(window.location.search);
     const eraId = params.get('era');
     if (!eraId) window.location.href = './index.html';
-    else mountEraImageBackground(eraId);
+    else { mountEraImageBackground(eraId); document.body.dataset.era = eraId; }
 
     const eraTitle = document.querySelector('#era-title');
     const slotLabel = document.querySelector('#slot-label');
@@ -227,12 +229,18 @@
         ? `<div class="npc-portrait"><div class="npc-portrait-badge">${renderNpcPortraitSVG(npc)}</div><span class="npc-name">${localize(npc.name)}</span></div>`
         : renderCardIconSVG(classifyCardIcon(currentCard));
       cardText.textContent = localize(currentCard.text);
+      optionsList.style.setProperty('--card-count', currentCard.options.length);
       optionsList.innerHTML = '';
-      currentCard.options.forEach(option => {
+      currentCard.options.forEach((option, index) => {
         const btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'option-btn';
-        btn.innerHTML = `${chanceDialHtml(option)}<div class="option-body"><span class="option-text">${localize(option.text)}</span><span class="option-cost">${formatOptionMeta(option)}</span></div>`;
+        btn.className = 'option-card';
+        btn.style.setProperty('--card-gradient', getCardGradient(eraId, index));
+        btn.innerHTML = `
+          <div class="option-card-top">${renderCardOrnamentSVG(option.id || index)}${chanceDialHtml(option)}</div>
+          <span class="option-text">${localize(option.text)}</span>
+          <div class="option-cost-row"><span class="led-text">${renderLedText(formatOptionMeta(option))}</span></div>
+        `;
         btn.addEventListener('click', () => chooseOption(option));
         optionsList.appendChild(btn);
       });
