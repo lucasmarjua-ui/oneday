@@ -182,7 +182,11 @@ body.critical-alert::after {
 
 /* ---------- Home screen: full-screen hero + nav ---------- */
 
-.site-nav { position: relative; z-index: 20; }
+/* Floats transparently over the hero's own background layers (photo +
+   window frame, z-index 0/1) as part of the hero's content layer, instead
+   of being a normal block above it that pushes the hero down and leaves
+   its own flat body-navy strip showing where no image ever reaches. */
+.site-nav { position: absolute; top: 0; left: 0; right: 0; z-index: 2; }
 .nav-inner {
   display: flex;
   align-items: center;
@@ -297,8 +301,8 @@ body.critical-alert::after {
 
 .hero {
   position: relative;
-  height: calc(100vh - 84px);
-  min-height: 480px;
+  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
   background: #000;
 }
@@ -379,6 +383,12 @@ body.critical-alert::after {
   text-align: center;
   padding: clamp(16px, 4vw, 32px) 24px;
   gap: 22px;
+  /* This box spans the full hero height (so its content can center
+     vertically), which now overlaps .site-nav floating above it at the
+     top -- its own empty top/bottom padding would otherwise still
+     intercept clicks meant for the nav underneath. Only the actual
+     interactive children opt back in below. */
+  pointer-events: none;
 }
 .hero-badge {
   display: inline-block;
@@ -407,7 +417,7 @@ body.critical-alert::after {
   margin: 0;
   line-height: 1.6;
 }
-.hero-cta { padding: 16px 40px; font-size: 0.95rem; }
+.hero-cta { padding: 16px 40px; font-size: 0.95rem; pointer-events: auto; }
 
 .era-switcher {
   display: flex;
@@ -416,6 +426,7 @@ body.critical-alert::after {
   justify-content: center;
   gap: 4px;
   margin-top: 6px;
+  pointer-events: auto;
 }
 .era-switcher-btn {
   background: none;

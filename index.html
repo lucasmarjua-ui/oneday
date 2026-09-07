@@ -23,36 +23,6 @@
   <link rel="stylesheet" href="./shared/theme.css">
 </head>
 <body>
-  <header class="site-nav">
-    <nav class="nav-inner">
-      <span class="nav-logo">OneDay</span>
-      <div class="nav-links">
-        <a href="#" class="nav-link active" data-i18n="nav.home"></a>
-        <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
-        <a href="#daily-picker" class="nav-link" data-i18n="nav.dailyChallenge"></a>
-        <button id="profile-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.profile"></button>
-      </div>
-      <div class="nav-actions">
-        <button id="lang-en" class="lang-btn" type="button">EN</button>
-        <button id="lang-es" class="lang-btn" type="button">ES</button>
-        <span id="player-name" class="nav-player" hidden></span>
-        <button id="login-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.login"></button>
-        <button id="logout" class="nav-link nav-link-btn" type="button" hidden data-i18n="nav.logout"></button>
-        <button id="hero-cta-nav" class="btn-solid" type="button" data-i18n="home.playNow"></button>
-        <button id="nav-mobile-toggle" class="nav-mobile-toggle liquid-glass" type="button" aria-label="Menu" aria-expanded="false">
-          <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-          <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
-        </button>
-      </div>
-      <div class="nav-mobile-menu liquid-glass" id="nav-mobile-menu">
-        <a href="#" class="nav-link active" data-i18n="nav.home"></a>
-        <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
-        <a href="#daily-picker" class="nav-link" data-i18n="nav.dailyChallenge"></a>
-        <button class="nav-link nav-link-btn" type="button" data-i18n="nav.profile" id="profile-open-mobile"></button>
-      </div>
-    </nav>
-  </header>
-
   <section class="hero" id="home-hero">
     <div class="hero-bg-layer" data-era-bg="greece" style="background-image: url('./assets/era-bg-greece.jpg')"></div>
     <div class="hero-bg-layer" data-era-bg="neanderthal" style="background-image: url('./assets/era-bg-neanderthal.jpg')"></div>
@@ -62,6 +32,36 @@
     <svg class="hero-floating-icon animate-fade-rise" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M6 2h12M6 22h12M6 2c0 6 4 6 4 10s-4 4-4 10M18 2c0 6-4 6-4 10s4 4 4 10"/>
     </svg>
+
+    <header class="site-nav">
+      <nav class="nav-inner">
+        <span class="nav-logo">OneDay</span>
+        <div class="nav-links">
+          <a href="#" class="nav-link active" data-i18n="nav.home"></a>
+          <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
+          <a href="#daily-picker" class="nav-link" data-i18n="nav.dailyChallenge"></a>
+          <button id="profile-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.profile"></button>
+        </div>
+        <div class="nav-actions">
+          <button id="lang-en" class="lang-btn" type="button">EN</button>
+          <button id="lang-es" class="lang-btn" type="button">ES</button>
+          <span id="player-name" class="nav-player" hidden></span>
+          <button id="login-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.login"></button>
+          <button id="logout" class="nav-link nav-link-btn" type="button" hidden data-i18n="nav.logout"></button>
+          <button id="hero-cta-nav" class="btn-solid" type="button" data-i18n="home.playNow"></button>
+          <button id="nav-mobile-toggle" class="nav-mobile-toggle liquid-glass" type="button" aria-label="Menu" aria-expanded="false">
+            <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
+          </button>
+        </div>
+        <div class="nav-mobile-menu liquid-glass" id="nav-mobile-menu">
+          <a href="#" class="nav-link active" data-i18n="nav.home"></a>
+          <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
+          <a href="#daily-picker" class="nav-link" data-i18n="nav.dailyChallenge"></a>
+          <button class="nav-link nav-link-btn" type="button" data-i18n="nav.profile" id="profile-open-mobile"></button>
+        </div>
+      </nav>
+    </header>
 
     <div class="hero-content">
       <span class="hero-badge liquid-glass animate-fade-rise" data-i18n="home.heroBadge"></span>
