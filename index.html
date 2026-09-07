@@ -53,16 +53,10 @@
     </nav>
   </header>
 
-  <section class="hero" id="video-hero">
-    <video class="hero-video-layer" data-era-video="greece" autoplay muted loop playsinline>
-      <source src="./assets/era-loop-greece.webm" type="video/webm">
-    </video>
-    <video class="hero-video-layer" data-era-video="neanderthal" autoplay muted loop playsinline>
-      <source src="./assets/era-loop-neanderthal.webm" type="video/webm">
-    </video>
-    <video class="hero-video-layer" data-era-video="future-city" autoplay muted loop playsinline>
-      <source src="./assets/era-loop-future-city.webm" type="video/webm">
-    </video>
+  <section class="hero" id="home-hero">
+    <div class="hero-bg-layer" data-era-bg="greece" style="background-image: url('./assets/era-bg-greece.jpg')"></div>
+    <div class="hero-bg-layer" data-era-bg="neanderthal" style="background-image: url('./assets/era-bg-neanderthal.jpg')"></div>
+    <div class="hero-bg-layer" data-era-bg="future-city" style="background-image: url('./assets/era-bg-future-city.jpg')"></div>
     <div class="hero-scrim"></div>
     <svg class="hero-floating-icon animate-fade-rise" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M6 2h12M6 22h12M6 2c0 6 4 6 4 10s-4 4-4 10M18 2c0 6-4 6-4 10s4 4 4 10"/>
@@ -329,19 +323,19 @@
       window.location.href = `./game.html?era=${currentEra.id}${dailyParam}`;
     });
 
-    // Video hero era switcher: a row of tabs, one per playable era, each
-    // backed by its own <video> layer already sitting in the DOM (all
-    // muted/looping from the start -- switching only ever toggles opacity,
-    // never restarts playback, so there's no decode/seek stall on click).
+    // Home hero era switcher: a row of tabs, one per playable era, each
+    // backed by its own background-photo layer already sitting in the DOM --
+    // switching only ever toggles opacity, never swaps the image src, so
+    // there's no reload/flicker on click.
     function renderEraSwitcher() {
       const availableEras = ERAS.filter(era => era.available);
       if (!activeSwitcherEraId) activeSwitcherEraId = availableEras[0]?.id || null;
       const switcherEl = document.querySelector('#era-switcher');
       switcherEl.innerHTML = availableEras.map(era => `
-        <button class="era-switcher-btn${era.id === activeSwitcherEraId ? ' active' : ''}" type="button" data-era-video="${era.id}">${localize(era.name)}</button>
+        <button class="era-switcher-btn${era.id === activeSwitcherEraId ? ' active' : ''}" type="button" data-era-bg="${era.id}">${localize(era.name)}</button>
       `).join('');
       switcherEl.querySelectorAll('.era-switcher-btn').forEach(btn => {
-        btn.addEventListener('click', () => setActiveSwitcherEra(btn.dataset.eraVideo));
+        btn.addEventListener('click', () => setActiveSwitcherEra(btn.dataset.eraBg));
       });
     }
 
@@ -352,15 +346,15 @@
       setTimeout(() => { switcherCooldown = false; }, 1000);
 
       document.querySelectorAll('.era-switcher-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.eraVideo === eraId);
+        btn.classList.toggle('active', btn.dataset.eraBg === eraId);
       });
-      document.querySelectorAll('.hero-video-layer').forEach(video => {
-        video.classList.toggle('active', video.dataset.eraVideo === eraId);
+      document.querySelectorAll('.hero-bg-layer').forEach(layer => {
+        layer.classList.toggle('active', layer.dataset.eraBg === eraId);
       });
     }
 
     // The hero's own CTAs start the era currently showing in the switcher
-    // directly -- the video hero *is* the era picker now, not just a
+    // directly -- the hero *is* the era picker now, not just a
     // scroll-past banner in front of one. The full era grid further down
     // stays in place for Today's Challenge and browsing full descriptions.
     document.querySelector('#hero-cta').addEventListener('click', () => { if (activeSwitcherEraId) selectEra(activeSwitcherEraId); });
@@ -460,8 +454,8 @@
       applyStaticI18n();
       renderDailyPicker();
       renderEraSwitcher();
-      document.querySelectorAll('.hero-video-layer').forEach(video => {
-        video.classList.toggle('active', video.dataset.eraVideo === activeSwitcherEraId);
+      document.querySelectorAll('.hero-bg-layer').forEach(layer => {
+        layer.classList.toggle('active', layer.dataset.eraBg === activeSwitcherEraId);
       });
     })();
   </script>
