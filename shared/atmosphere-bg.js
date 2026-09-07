@@ -81,3 +81,27 @@ export function mountAtmosphereBackground() {
     canvas.remove();
   };
 }
+
+// Once a player has actually picked an era, that era's own short gameplay
+// clip (the same file the home hero's video switcher uses) replaces the
+// generic fog for the rest of that session -- game.html calls this instead
+// of mountAtmosphereBackground(), never both, so the day loop feels like
+// it's still inside that era's world rather than back to a neutral default.
+// The dim/blur/desaturate treatment matches the hero's inactive->active
+// video layers exactly, since it was already verified there to keep real
+// UI visible in the footage from reading as a second, competing interface.
+export function mountEraVideoBackground(eraId) {
+  if (document.getElementById('era-video-bg')) return;
+  const video = document.createElement('video');
+  video.id = 'era-video-bg';
+  video.autoplay = true;
+  video.muted = true;
+  video.loop = true;
+  video.playsInline = true;
+  video.setAttribute('aria-hidden', 'true');
+  const source = document.createElement('source');
+  source.src = `./assets/era-loop-${eraId}.webm`;
+  source.type = 'video/webm';
+  video.appendChild(source);
+  document.body.prepend(video);
+}

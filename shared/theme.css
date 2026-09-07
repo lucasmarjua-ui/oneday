@@ -164,6 +164,21 @@ body.critical-alert::after {
   display: block;
 }
 
+/* game.html's persistent per-era background, once an era is actually being
+   played -- same dim/blur/desaturate treatment as the home hero's video
+   layers, so the day loop's real UI (cards, HUD) stays legible over real
+   footage of that era's own world instead of a neutral fog. */
+#era-video-bg {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  pointer-events: none;
+  filter: blur(1px) saturate(0.7) brightness(0.75);
+}
+
 /* ---------- Home screen: full-screen video hero + nav ---------- */
 
 .site-nav { position: relative; z-index: 20; }

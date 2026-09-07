@@ -87,9 +87,7 @@
     import { findNpc, renderNpcPortraitSVG } from './shared/npc.js';
     import { getStreak, recordStreakForToday } from './shared/streaks.js';
     import { renderShareCardCanvas, downloadCanvasAsPng } from './shared/share-card.js';
-    import { mountAtmosphereBackground } from './shared/atmosphere-bg.js';
-
-    mountAtmosphereBackground();
+    import { mountEraVideoBackground } from './shared/atmosphere-bg.js';
 
     const FILLER_CARD = {
       id: 'filler-wait',
@@ -102,6 +100,7 @@
     const params = new URLSearchParams(window.location.search);
     const eraId = params.get('era');
     if (!eraId) window.location.href = './index.html';
+    else mountEraVideoBackground(eraId);
 
     const eraTitle = document.querySelector('#era-title');
     const slotLabel = document.querySelector('#slot-label');
