@@ -1,0 +1,439 @@
+[
+  {
+    "id": "edo-wake-tenement",
+    "text": { "en": "The hour of the hare. You wake on a thin futon in a Nihonbashi row house, the whole street already awake around you.", "es": "La hora de la liebre. Despiertas sobre un futón fino en una casa adosada de Nihonbashi, con toda la calle ya despierta a tu alrededor." },
+    "timeSlots": ["dawn"],
+    "weight": 5,
+    "options": [
+      { "id": "sweep-doorstep", "text": { "en": "Sweep your doorstep like a good neighbor", "es": "Barre tu entrada como buen vecino" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10, "reputation": 1 }, "text": { "en": "The widow next door nods approval. In a row house, that is worth something.", "es": "La viuda de al lado asiente con aprobación. En una casa adosada, eso vale algo." } } },
+      { "id": "sleep-in-tenement", "text": { "en": "Pull the quilt back over your head", "es": "Vuelve a taparte con el edredón" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 20, "health": 2 }, "text": { "en": "You surface again to full daylight and the smell of someone else's breakfast.", "es": "Vuelves en ti con la luz plena y el olor del desayuno de otro." } } }
+    ]
+  },
+  {
+    "id": "edo-miso-stall",
+    "text": { "en": "A stall on the corner ladles miso soup and rice into wooden bowls for the workers heading out.", "es": "Un puesto en la esquina sirve sopa de miso y arroz en cuencos de madera para los obreros que salen." },
+    "timeSlots": ["dawn", "morning"],
+    "weight": 4,
+    "conditions": { "resources": { "currency": { "min": 4 } } },
+    "options": [
+      { "id": "buy-miso", "text": { "en": "Buy a bowl of soup and rice", "es": "Compra un cuenco de sopa y arroz" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -6 } }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 30, "thirst": 15 }, "text": { "en": "Salt, warmth, and enough rice to matter.", "es": "Sal, calor, y arroz suficiente para notarlo." } } },
+      { "id": "buy-round-miso", "text": { "en": "Buy bowls for the porters waiting behind you", "es": "Compra cuencos para los porteadores que esperan detrás" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -18 } }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 30, "thirst": 10, "reputation": 4 }, "text": { "en": "Four men bow to a stranger. By evening the whole ward has heard about it.", "es": "Cuatro hombres se inclinan ante un desconocido. Al anochecer, todo el barrio lo sabe." } } },
+      { "id": "skip-miso", "text": { "en": "Walk on hungry", "es": "Sigue adelante con hambre" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The steam follows you down the street.", "es": "El vapor te sigue calle abajo." } } }
+    ]
+  },
+  {
+    "id": "edo-well-gossip",
+    "text": { "en": "The tenement well is crowded with women drawing water and trading every rumor in the ward.", "es": "El pozo del vecindario está lleno de mujeres sacando agua e intercambiando todos los rumores del barrio." },
+    "timeSlots": ["dawn", "morning", "afternoon", "evening"],
+    "weight": 3,
+    "options": [
+      { "id": "draw-water-edo", "text": { "en": "Draw your water and go", "es": "Saca tu agua y vete" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 30 }, "text": { "en": "Cold water from a deep well. Nothing else needed.", "es": "Agua fría de un pozo profundo. No hace falta nada más." } } },
+      { "id": "listen-gossip", "text": { "en": "Linger and listen to the gossip", "es": "Quédate y escucha los chismes" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 20 }, "flagsSet": ["heard-ward-gossip"], "text": { "en": "A rōnin has been drinking near the bridge and daring men to draw on him. Useful to know.", "es": "Un rōnin ha estado bebiendo cerca del puente y retando a los hombres a desenvainar. Conviene saberlo." } } }
+    ]
+  },
+  {
+    "id": "edo-fish-market",
+    "text": { "en": "At the Nihonbashi fish market the auction is already roaring, and a wholesaler is short of hands to haul crates.", "es": "En el mercado de pescado de Nihonbashi la subasta ya ruge, y a un mayorista le faltan manos para cargar cajas." },
+    "timeSlots": ["dawn", "morning"],
+    "weight": 4,
+    "conditions": { "resources": { "energy": { "min": 20 } } },
+    "options": [
+      { "id": "haul-crates", "text": { "en": "Haul crates until the auction ends", "es": "Carga cajas hasta que acabe la subasta" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -18 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 20, "hunger": 5 }, "text": { "en": "Wet rope, cold hands, honest pay — and a bonito tail thrown in for the effort.", "es": "Cuerda mojada, manos frías, paga honrada, y una cola de bonito de propina por el esfuerzo." } } },
+      { "id": "buy-cheap-fish", "text": { "en": "Buy the last of the cheap fish before it's gone", "es": "Compra el último pescado barato antes de que se acabe" }, "traits": { "cunning": 1 }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "currency": 25, "hunger": 10 }, "text": { "en": "You resell half of it two streets over at double the price. The other half is dinner.", "es": "Revendes la mitad dos calles más allá al doble de precio. La otra mitad es la cena." } }, "failure": { "resources": { "hunger": 10 }, "text": { "en": "Nobody wants it by the time you find a corner to sell from. At least you eat.", "es": "Nadie lo quiere cuando encuentras una esquina donde venderlo. Al menos comes." } } },
+      { "id": "skip-market-edo", "text": { "en": "Push through the crowd and move on", "es": "Ábrete paso entre la multitud y sigue" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The shouting fades behind you.", "es": "Los gritos se apagan a tu espalda." } } }
+    ]
+  },
+  {
+    "id": "edo-temple-bell",
+    "text": { "en": "At Sensoji, the bell-ringer has thrown his back out and the hour bell is going unstruck.", "es": "En Sensoji, al campanero se le ha destrozado la espalda y la campana de la hora se queda sin tañer." },
+    "timeSlots": ["dawn", "morning"],
+    "weight": 3,
+    "npcId": "npc-tetsuo",
+    "threadId": "tetsuo-thread",
+    "conditions": { "flagsExcluded": ["met-tetsuo", "remembered-tetsuo-blessing"] },
+    "options": [
+      { "id": "ring-the-bell", "text": { "en": "Swing the beam and ring the hour", "es": "Empuja la viga y tañe la hora" }, "traits": { "diligent": 1 }, "cost": { "time": 1, "resources": { "energy": -12 } }, "successChance": { "base": 0.7, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["rang-temple-bell", "met-tetsuo"], "countersAdd": { "tetsuoFavor": 2 }, "text": { "en": "The note rolls out over the rooftops and half of Edo sets its morning by you. Tetsuo, the monk, watches with quiet interest.", "es": "La nota rueda sobre los tejados y media Edo pone en hora su mañana contigo. Tetsuo, el monje, observa con interés callado." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-tetsuo"], "countersAdd": { "tetsuoFavor": -1 }, "text": { "en": "Your strike lands flat and the bell mutters instead of singing. Tetsuo winces politely.", "es": "Tu golpe cae plano y la campana masculla en vez de cantar. Tetsuo hace una mueca cortés." } } },
+      { "id": "fetch-monk-help", "text": { "en": "Fetch a physician for the bell-ringer instead", "es": "Ve a buscar un médico para el campanero" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "currency": -12 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["met-tetsuo"], "countersAdd": { "tetsuoFavor": 3 }, "text": { "en": "The old man is carried inside and dosed. Tetsuo says nothing, but he remembers who paid.", "es": "Se llevan al anciano dentro y lo medican. Tetsuo no dice nada, pero recuerda quién pagó." } } },
+      { "id": "walk-past-temple", "text": { "en": "Bow at the gate and walk on", "es": "Inclínate en la puerta y sigue" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-tetsuo"], "text": { "en": "The hour goes unrung behind you.", "es": "La hora queda sin tañer a tu espalda." } } }
+    ]
+  },
+  {
+    "id": "edo-tetsuo-sutra",
+    "text": { "en": "Tetsuo is copying sutras in the temple hall and slides a second brush across the mat toward you.", "es": "Tetsuo copia sutras en la sala del templo y desliza un segundo pincel por la estera hacia ti." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 2,
+    "npcId": "npc-tetsuo",
+    "threadId": "tetsuo-thread",
+    "conditions": { "flagsRequired": ["met-tetsuo"], "flagsExcluded": ["tetsuo-sutra-done"] },
+    "options": [
+      { "id": "copy-sutra", "text": { "en": "Take the brush and copy alongside him", "es": "Toma el pincel y copia a su lado" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.55, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["copied-sutra", "tetsuo-sutra-done"], "countersAdd": { "tetsuoFavor": 3 }, "text": { "en": "Your characters are clumsy but unhurried. \"That,\" Tetsuo says, \"is the whole of it.\"", "es": "Tus caracteres son torpes pero sin prisa. \"Eso\", dice Tetsuo, \"es todo el asunto.\"" } }, "failure": { "flagsSet": ["tetsuo-sutra-done"], "countersAdd": { "tetsuoFavor": -1 }, "text": { "en": "You blot the page twice and give up. He copies over your line without comment.", "es": "Emborronas la página dos veces y te rindes. Él copia sobre tu línea sin comentarios." } } },
+      { "id": "ask-tetsuo-question", "text": { "en": "Ask him what he is running from", "es": "Pregúntale de qué está huyendo" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["tetsuo-sutra-done"], "countersAdd": { "tetsuoFavor": 2 }, "text": { "en": "\"A name,\" he says, and keeps writing. It is more than he has told anyone this year.", "es": "\"Un nombre\", dice, y sigue escribiendo. Es más de lo que le ha contado a nadie este año." } }, "failure": { "flagsSet": ["tetsuo-sutra-done"], "countersAdd": { "tetsuoFavor": -2 }, "text": { "en": "The brush stops. \"You should go,\" he says, and does not look up again.", "es": "El pincel se detiene. \"Deberías irte\", dice, y no vuelve a levantar la vista." } } },
+      { "id": "leave-tetsuo-writing", "text": { "en": "Leave him to his work", "es": "Déjalo con su trabajo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["tetsuo-sutra-done"], "text": { "en": "The brush scratches on behind you.", "es": "El pincel sigue rascando a tu espalda." } } }
+    ]
+  },
+  {
+    "id": "edo-tetsuo-blessing",
+    "text": { "en": "Tetsuo finds you at the gate at dusk with a folded paper charm in his hand.", "es": "Tetsuo te encuentra en la puerta al anochecer con un amuleto de papel doblado en la mano." },
+    "timeSlots": ["evening"],
+    "weight": 2,
+    "npcId": "npc-tetsuo",
+    "threadId": "tetsuo-thread",
+    "conditions": { "flagsRequired": ["copied-sutra"], "flagsExcluded": ["tetsuo-thread-resolved"] },
+    "options": [
+      { "id": "accept-charm", "text": { "en": "Accept the charm and his blessing", "es": "Acepta el amuleto y su bendición" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5, "health": 5 }, "flagsSet": ["tetsuo-thread-resolved", "remembered-tetsuo-blessing"], "countersAdd": { "tetsuoFavor": 3 }, "text": { "en": "He ties it to your sleeve himself. \"Come back,\" he says. \"The bell needs a second pair of arms.\"", "es": "Te lo ata él mismo a la manga. \"Vuelve\", dice. \"La campana necesita un segundo par de brazos.\"" } } },
+      { "id": "refuse-charm", "text": { "en": "Refuse it — he needs the merit more than you", "es": "Recházalo: él necesita el mérito más que tú" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["tetsuo-thread-resolved", "remembered-tetsuo-blessing"], "countersAdd": { "tetsuoFavor": 4 }, "text": { "en": "He laughs for the first time all day, and keeps the charm. You have made a friend at Sensoji.", "es": "Se ríe por primera vez en todo el día, y se queda el amuleto. Has hecho un amigo en Sensoji." } } }
+    ]
+  },
+  {
+    "id": "edo-tetsuo-remembers",
+    "text": { "en": "Tetsuo is waiting at the temple gate before you reach it, sleeves already rolled. He has not forgotten you.", "es": "Tetsuo espera en la puerta del templo antes de que llegues, con las mangas ya remangadas. No te ha olvidado." },
+    "timeSlots": ["dawn", "morning"],
+    "weight": 4,
+    "npcId": "npc-tetsuo",
+    "threadId": "tetsuo-thread",
+    "conditions": { "flagsRequired": ["remembered-tetsuo-blessing"], "flagsExcluded": ["met-tetsuo"] },
+    "options": [
+      { "id": "ring-bell-together", "text": { "en": "Ring the hour bell together", "es": "Tañe la campana de la hora con él" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["met-tetsuo", "rang-temple-bell"], "countersAdd": { "tetsuoFavor": 3 }, "text": { "en": "Two sets of arms, one clean note. The ward wakes to it.", "es": "Dos pares de brazos, una nota limpia. El barrio despierta con ella." } } },
+      { "id": "quick-bow-tetsuo", "text": { "en": "Bow quickly and carry on", "es": "Inclínate rápido y sigue" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-tetsuo"], "countersAdd": { "tetsuoFavor": 1 }, "text": { "en": "He returns the bow and lets you go. There is always tomorrow.", "es": "Devuelve la reverencia y te deja marchar. Siempre queda mañana." } } }
+    ]
+  },
+  {
+    "id": "edo-hana-teahouse",
+    "text": { "en": "A tea house by the canal is short a server for the midday rush, and Hana, its mistress, is looking straight at you.", "es": "Una casa de té junto al canal anda corta de personal para el ajetreo del mediodía, y Hana, su dueña, te mira directamente." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 4,
+    "npcId": "npc-hana",
+    "threadId": "hana-thread",
+    "conditions": { "flagsExcluded": ["met-hana", "remembered-hana-partner"] },
+    "options": [
+      { "id": "serve-tea", "text": { "en": "Take a tray and work the room", "es": "Coge una bandeja y atiende la sala" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "currency": 22, "thirst": 15 }, "flagsSet": ["met-hana"], "countersAdd": { "hanaTrust": 2 }, "text": { "en": "You keep every cup full and spill nothing. Hana pays you properly and remembers your face.", "es": "Mantienes todas las tazas llenas y no derramas nada. Hana te paga como es debido y recuerda tu cara." } }, "failure": { "resources": { "currency": 6, "reputation": -2 }, "flagsSet": ["met-hana"], "countersAdd": { "hanaTrust": -1 }, "text": { "en": "A tray goes over onto a merchant's lap. Hana pays you anyway, minus the cost of the cups.", "es": "Una bandeja acaba en el regazo de un mercader. Hana te paga igual, menos el coste de las tazas." } } },
+      { "id": "buy-tea-only", "text": { "en": "Just sit and order tea like a customer", "es": "Solo siéntate y pide té como un cliente" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 30, "energy": 5 }, "flagsSet": ["met-hana"], "text": { "en": "Good sencha, a cushion by the window, and the canal going by.", "es": "Buen sencha, un cojín junto a la ventana, y el canal pasando." } } },
+      { "id": "decline-teahouse", "text": { "en": "Pretend not to notice her look", "es": "Finge no ver su mirada" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-hana"], "countersAdd": { "hanaTrust": -1 }, "text": { "en": "She finds someone else within the minute.", "es": "Encuentra a otro en menos de un minuto." } } }
+    ]
+  },
+  {
+    "id": "edo-hana-debt",
+    "text": { "en": "Hana pulls you behind the screen: a rice broker holds her note and wants the whole sum by the lantern hours.", "es": "Hana te lleva tras el biombo: un corredor de arroz tiene su pagaré y quiere la suma entera antes de las horas de farol." },
+    "timeSlots": ["afternoon"],
+    "weight": 3,
+    "npcId": "npc-hana",
+    "threadId": "hana-thread",
+    "conditions": { "flagsRequired": ["met-hana"], "flagsExcluded": ["hana-debt-done"] },
+    "options": [
+      { "id": "pay-hana-debt", "text": { "en": "Pay the broker yourself", "es": "Paga tú al corredor" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -50 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 8 }, "flagsSet": ["paid-hana-debt", "hana-debt-done"], "countersAdd": { "hanaTrust": 4 }, "text": { "en": "The note is torn in front of her. She does not thank you out loud, which is how you know she means it.", "es": "El pagaré se rompe delante de ella. No te da las gracias en voz alta, y por eso sabes que lo siente de verdad." } } },
+      { "id": "outtalk-broker", "text": { "en": "Talk the broker down to a longer term", "es": "Convence al corredor de alargar el plazo" }, "traits": { "cunning": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["paid-hana-debt", "hana-debt-done"], "countersAdd": { "hanaTrust": 3 }, "text": { "en": "Three cups of tea and one veiled reference to his own creditors, and the term is doubled.", "es": "Tres tazas de té y una alusión velada a sus propios acreedores, y el plazo se duplica." } }, "failure": { "resources": { "reputation": -3 }, "flagsSet": ["hana-debt-done"], "countersAdd": { "hanaTrust": -1 }, "text": { "en": "He listens, smiles, and repeats the deadline word for word.", "es": "Escucha, sonríe, y repite el plazo palabra por palabra." } } },
+      { "id": "stay-out-hana-debt", "text": { "en": "This is not your debt", "es": "Esta deuda no es tuya" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["hana-debt-done"], "countersAdd": { "hanaTrust": -2 }, "text": { "en": "She nods once, quickly, and goes back to the front room.", "es": "Asiente una vez, rápido, y vuelve a la sala principal." } } }
+    ]
+  },
+  {
+    "id": "edo-hana-lanterns",
+    "text": { "en": "Hana is carrying paper lanterns down to the river, and there are more than she can float alone.", "es": "Hana lleva faroles de papel hasta el río, y son más de los que puede echar al agua ella sola." },
+    "timeSlots": ["evening"],
+    "weight": 2,
+    "npcId": "npc-hana",
+    "threadId": "hana-thread",
+    "conditions": { "flagsRequired": ["paid-hana-debt"], "flagsExcluded": ["hana-thread-resolved"] },
+    "options": [
+      { "id": "float-lanterns", "text": { "en": "Float the lanterns with her", "es": "Echa los faroles al agua con ella" }, "traits": { "generous": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 6, "energy": 5 }, "flagsSet": ["hana-lanterns-lit", "hana-thread-resolved", "remembered-hana-partner"], "countersAdd": { "hanaTrust": 4 }, "text": { "en": "One for her mother, one for the tea house, one she does not explain. The current takes them all.", "es": "Uno por su madre, uno por la casa de té, uno que no explica. La corriente se los lleva todos." } } },
+      { "id": "propose-partnership", "text": { "en": "Offer to buy into the tea house instead", "es": "Ofrécele en cambio entrar como socio en la casa de té" }, "traits": { "cunning": 1 }, "cost": { "time": 1, "resources": { "currency": -40 } }, "successChance": { "base": 0.6, "traitBonus": { "trait": "cunning", "perPoint": 0.04 } }, "success": { "resources": { "currency": 30, "reputation": 4 }, "flagsSet": ["hana-thread-resolved", "remembered-hana-partner"], "countersAdd": { "hanaTrust": 2 }, "text": { "en": "She names a fair share and a hard condition: never at the front of house. Agreed.", "es": "Nombra una parte justa y una condición dura: nunca en la sala principal. Trato hecho." } }, "failure": { "flagsSet": ["hana-thread-resolved", "remembered-hana-partner"], "countersAdd": { "hanaTrust": -1 }, "text": { "en": "\"You paid a debt, not a price,\" she says. The lanterns go out one at a time.", "es": "\"Pagaste una deuda, no un precio\", dice. Los faroles se apagan uno a uno." } } }
+    ]
+  },
+  {
+    "id": "edo-hana-remembers",
+    "text": { "en": "The tea house door slides open before you touch it. Hana has kept your cushion by the window free all morning.", "es": "La puerta de la casa de té se abre antes de que la toques. Hana te ha guardado libre el cojín de la ventana toda la mañana." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 4,
+    "npcId": "npc-hana",
+    "threadId": "hana-thread",
+    "conditions": { "flagsRequired": ["remembered-hana-partner"], "flagsExcluded": ["met-hana"] },
+    "options": [
+      { "id": "sit-with-hana", "text": { "en": "Sit and let her pour", "es": "Siéntate y deja que sirva ella" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 30, "energy": 10, "reputation": 3 }, "flagsSet": ["met-hana"], "countersAdd": { "hanaTrust": 3 }, "text": { "en": "She pours, sits down opposite you, and does not get up when the next customers arrive.", "es": "Sirve, se sienta frente a ti, y no se levanta cuando llegan los siguientes clientes." } } },
+      { "id": "work-shift-hana", "text": { "en": "Take a tray without being asked", "es": "Coge una bandeja sin que te lo pidan" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 25 }, "flagsSet": ["met-hana"], "countersAdd": { "hanaTrust": 2 }, "text": { "en": "You know where the cups live now. She lets you work and pays you at the old rate.", "es": "Ya sabes dónde están las tazas. Te deja trabajar y te paga a la tarifa de siempre." } } }
+    ]
+  },
+  {
+    "id": "edo-saburo-challenge",
+    "text": { "en": "By the bridge, a masterless samurai — Saburo, they call him — is drunk and loudly daring passers-by to draw on him.", "es": "Junto al puente, un samurái sin señor —Saburo, lo llaman— está borracho y reta a gritos a los transeúntes a desenvainar." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 3,
+    "npcId": "npc-saburo",
+    "threadId": "saburo-thread",
+    "conditions": { "flagsExcluded": ["met-saburo", "remembered-saburo-bond"] },
+    "options": [
+      { "id": "talk-down-saburo", "text": { "en": "Talk him down before someone dies", "es": "Cálmalo antes de que alguien muera" }, "traits": { "bold": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.45, "traitBonus": { "trait": "bold", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 7 }, "flagsSet": ["duel-averted", "met-saburo"], "countersAdd": { "saburoRespect": 3 }, "text": { "en": "You stand in the open and keep talking until his hand leaves the hilt. The bridge crowd breathes again.", "es": "Te plantas al descubierto y sigues hablando hasta que su mano suelta la empuñadura. La gente del puente vuelve a respirar." } }, "failure": { "resources": { "health": -15, "reputation": -2 }, "flagsSet": ["met-saburo"], "countersAdd": { "saburoRespect": 1 }, "text": { "en": "The flat of his blade catches your ribs. He apologizes afterward, which somehow makes it worse.", "es": "El lomo de su hoja te alcanza las costillas. Después se disculpa, lo que de algún modo lo empeora." } } },
+      { "id": "buy-saburo-drink", "text": { "en": "Buy him a drink and sit down with him", "es": "Invítale a una copa y siéntate con él" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "currency": -15 } }, "successChance": { "base": 0.75 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["duel-averted", "met-saburo"], "countersAdd": { "saburoRespect": 2 }, "text": { "en": "Two cups in, he stops challenging strangers and starts talking about his dead lord instead.", "es": "A las dos copas deja de retar a desconocidos y empieza a hablar de su señor muerto." } }, "failure": { "resources": { "currency": -10 }, "flagsSet": ["met-saburo"], "text": { "en": "He drinks yours and his, then wanders off toward the next bridge.", "es": "Se bebe la tuya y la suya, y se aleja hacia el siguiente puente." } } },
+      { "id": "avoid-saburo", "text": { "en": "Cross by the other bridge", "es": "Cruza por el otro puente" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-saburo"], "countersAdd": { "saburoRespect": -1 }, "text": { "en": "A long way round, and nobody's blood on the boards.", "es": "Un buen rodeo, y ninguna sangre en los tablones." } } }
+    ]
+  },
+  {
+    "id": "edo-saburo-sword",
+    "text": { "en": "Saburo needs to pawn his long sword to eat, and cannot make himself walk into the shop.", "es": "Saburo necesita empeñar su espada larga para comer, y no consigue entrar en la tienda." },
+    "timeSlots": ["afternoon", "evening"],
+    "weight": 2,
+    "npcId": "npc-saburo",
+    "threadId": "saburo-thread",
+    "conditions": { "flagsRequired": ["met-saburo"], "flagsExcluded": ["saburo-sword-done"] },
+    "options": [
+      { "id": "pawn-for-saburo", "text": { "en": "Go in and negotiate for him", "es": "Entra y negocia por él" }, "traits": { "cunning": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.55, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "currency": 20, "reputation": 3 }, "flagsSet": ["saburo-sword-done", "helped-saburo"], "countersAdd": { "saburoRespect": 3 }, "text": { "en": "You get twice what the broker first offered and hand every coin to Saburo outside.", "es": "Consigues el doble de lo que ofreció el corredor y le das cada moneda a Saburo fuera." } }, "failure": { "resources": { "reputation": -1 }, "flagsSet": ["saburo-sword-done"], "countersAdd": { "saburoRespect": -1 }, "text": { "en": "The broker knows exactly what a rōnin's blade is worth to a rōnin. You take the low price.", "es": "El corredor sabe exactamente lo que vale la hoja de un rōnin para un rōnin. Aceptas el precio bajo." } } },
+      { "id": "feed-saburo-instead", "text": { "en": "Feed him yourself so he keeps the sword", "es": "Dale de comer tú para que conserve la espada" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["saburo-sword-done", "helped-saburo"], "countersAdd": { "saburoRespect": 4 }, "text": { "en": "He eats in silence, then re-ties the sword at his hip and bows lower than his rank requires.", "es": "Come en silencio, se vuelve a atar la espada a la cadera y se inclina más de lo que su rango exige." } } },
+      { "id": "leave-saburo-pawn", "text": { "en": "Leave him to it", "es": "Déjalo con lo suyo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["saburo-sword-done"], "countersAdd": { "saburoRespect": -2 }, "text": { "en": "When you look back he is still standing outside the shop.", "es": "Cuando miras atrás, sigue plantado fuera de la tienda." } } }
+    ]
+  },
+  {
+    "id": "edo-saburo-resolution",
+    "text": { "en": "Saburo finds you at the lantern hour, sober, with a proposal: a guard post at the river gate needs two men.", "es": "Saburo te encuentra a la hora de los faroles, sobrio, con una propuesta: el puesto de guardia de la puerta del río necesita dos hombres." },
+    "timeSlots": ["evening"],
+    "weight": 2,
+    "npcId": "npc-saburo",
+    "threadId": "saburo-thread",
+    "conditions": { "flagsRequired": ["helped-saburo"], "flagsExcluded": ["saburo-thread-resolved"] },
+    "options": [
+      { "id": "take-guard-post", "text": { "en": "Take the post with him", "es": "Acepta el puesto con él" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 0.7, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 30, "reputation": 5 }, "flagsSet": ["saburo-thread-resolved", "remembered-saburo-bond"], "countersAdd": { "saburoRespect": 4 }, "text": { "en": "A quiet watch, one turned-back smuggler, and a wage for both of you. He calls you by name at the end of it.", "es": "Una guardia tranquila, un contrabandista rechazado, y un salario para ambos. Al terminar te llama por tu nombre." } }, "failure": { "resources": { "health": -12 }, "flagsSet": ["saburo-thread-resolved", "remembered-saburo-bond"], "countersAdd": { "saburoRespect": 2 }, "text": { "en": "Three men try the gate at once. You hold it between you, bloodied, and get paid anyway.", "es": "Tres hombres intentan la puerta a la vez. La aguantáis entre los dos, ensangrentados, y os pagan igual." } } },
+      { "id": "decline-guard-post", "text": { "en": "Decline, but drink with him first", "es": "Decline, pero bebe con él antes" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["saburo-thread-resolved", "remembered-saburo-bond"], "text": { "en": "\"A man should know what he isn't,\" he says, and takes the post alone.", "es": "\"Un hombre debe saber lo que no es\", dice, y acepta el puesto él solo." } } }
+    ]
+  },
+  {
+    "id": "edo-saburo-remembers",
+    "text": { "en": "Saburo is waiting at the bridge, sober and early, with his sword tied properly and two cups already bought.", "es": "Saburo espera en el puente, sobrio y temprano, con la espada bien atada y dos copas ya pagadas." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 4,
+    "npcId": "npc-saburo",
+    "threadId": "saburo-thread",
+    "conditions": { "flagsRequired": ["remembered-saburo-bond"], "flagsExcluded": ["met-saburo"] },
+    "options": [
+      { "id": "drink-with-saburo", "text": { "en": "Take the cup he bought you", "es": "Acepta la copa que te ha pagado" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3, "thirst": 10 }, "flagsSet": ["met-saburo", "duel-averted"], "countersAdd": { "saburoRespect": 3 }, "text": { "en": "\"I have not drawn on a stranger since,\" he says. That is his whole report of the year.", "es": "\"No he desenvainado contra un desconocido desde entonces\", dice. Ese es todo su informe del año." } } },
+      { "id": "spar-with-saburo", "text": { "en": "Ask him to teach you the guard stance", "es": "Pídele que te enseñe la guardia" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2, "health": 3 }, "flagsSet": ["met-saburo", "duel-averted"], "countersAdd": { "saburoRespect": 2 }, "text": { "en": "An hour of footwork on the riverbank. You are worse at it than you hoped and he is patient about it.", "es": "Una hora de juego de pies en la orilla. Se te da peor de lo que esperabas y él es paciente al respecto." } } }
+    ]
+  },
+  {
+    "id": "edo-sumo-bout",
+    "text": { "en": "A ring of sand has been raked flat outside the shrine and two porters are throwing each other for coppers.", "es": "Han rastrillado un círculo de arena frente al santuario y dos porteadores se lanzan el uno al otro por unas monedas." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 3,
+    "conditions": { "resources": { "energy": { "min": 25 } } },
+    "options": [
+      { "id": "enter-sumo", "text": { "en": "Step into the ring", "es": "Entra en el círculo" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -22 } }, "successChance": { "base": 0.45, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 25, "reputation": 6 }, "flagsSet": ["won-sumo-bout"], "text": { "en": "You get under him and out he goes, into the crowd. They pay a winner well here.", "es": "Te metes por debajo y sale disparado hacia la multitud. Aquí se paga bien al ganador." } }, "failure": { "resources": { "health": -12, "reputation": -1 }, "text": { "en": "You land outside the ring on your shoulder. The crowd is delighted.", "es": "Aterrizas fuera del círculo sobre el hombro. La multitud está encantada." } } },
+      { "id": "bet-on-sumo", "text": { "en": "Bet on the smaller man", "es": "Apuesta por el más pequeño" }, "traits": { "cunning": 1 }, "cost": { "time": 1, "resources": { "currency": -12 } }, "successChance": { "base": 0.5 }, "success": { "resources": { "currency": 36 }, "text": { "en": "He wins on a throw nobody saw coming. Nobody except you.", "es": "Gana con una proyección que nadie vio venir. Nadie salvo tú." } }, "failure": { "text": { "en": "The big man simply walks him out of the ring.", "es": "El grande simplemente lo saca del círculo caminando." } } },
+      { "id": "watch-sumo", "text": { "en": "Watch from the shrine steps", "es": "Mira desde las escaleras del santuario" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Free entertainment, and no sand in your teeth.", "es": "Espectáculo gratis, y sin arena en los dientes." } } }
+    ]
+  },
+  {
+    "id": "edo-kabuki-theatre",
+    "text": { "en": "The kabuki theatre is packing in for the afternoon performance, and touts are selling standing places at the back.", "es": "El teatro kabuki se llena para la función de la tarde, y los revendedores venden sitios de pie al fondo." },
+    "timeSlots": ["afternoon"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 15 } } },
+    "options": [
+      { "id": "buy-kabuki-seat", "text": { "en": "Pay for a real seat", "es": "Paga por un asiento de verdad" }, "traits": { "bold": 1 }, "cost": { "time": 3, "resources": { "currency": -35 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5, "energy": 10 }, "flagsSet": ["saw-kabuki"], "text": { "en": "Three hours of thunder, ghosts and revenge. You come out changed and slightly hoarse.", "es": "Tres horas de truenos, fantasmas y venganza. Sales cambiado y algo afónico." } } },
+      { "id": "stand-at-back", "text": { "en": "Take a standing place at the back", "es": "Coge un sitio de pie al fondo" }, "traits": { "prudent": 1 }, "cost": { "time": 2, "resources": { "currency": -12 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2, "energy": -5 }, "flagsSet": ["saw-kabuki"], "text": { "en": "You see two thirds of the stage and all of the crowd. Worth it.", "es": "Ves dos tercios del escenario y todo el público. Vale la pena." } } },
+      { "id": "sneak-into-kabuki", "text": { "en": "Slip in through the actors' door", "es": "Cuélate por la puerta de los actores" }, "traits": { "cunning": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.45, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["saw-kabuki"], "text": { "en": "You watch the whole thing from the wings, close enough to hear the actors breathe.", "es": "Ves la función entera desde los bastidores, tan cerca que oyes respirar a los actores." } }, "failure": { "resources": { "reputation": -4, "currency": -10 }, "text": { "en": "A stagehand throws you out onto the street and fines you for the trouble.", "es": "Un tramoyista te echa a la calle y te multa por las molestias." } } }
+    ]
+  },
+  {
+    "id": "edo-fire-watch",
+    "text": { "en": "The ward's fire watch is a man short tonight, and Edo has burned to the ground more times than anyone likes to count.", "es": "La guardia de incendios del barrio está falta de un hombre esta noche, y Edo ha ardido más veces de las que a nadie le gusta contar." },
+    "timeSlots": ["evening"],
+    "weight": 4,
+    "options": [
+      { "id": "stand-fire-watch", "text": { "en": "Stand the watch", "es": "Haz la guardia" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15, "reputation": 6 }, "flagsSet": ["stood-fire-watch"], "text": { "en": "Clappers, cold air, and nothing burns. That is the whole job, and the ward knows its worth.", "es": "Tablillas, aire frío, y nada arde. Ese es todo el trabajo, y el barrio sabe lo que vale." } } },
+      { "id": "pay-substitute", "text": { "en": "Pay someone else to take your turn", "es": "Paga a otro para que haga tu turno" }, "traits": { "cunning": 1 }, "cost": { "time": 0, "resources": { "currency": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -2 }, "text": { "en": "Perfectly legal, universally noticed.", "es": "Perfectamente legal, universalmente advertido." } } },
+      { "id": "skip-fire-watch", "text": { "en": "Claim you have business elsewhere", "es": "Alega que tienes asuntos en otra parte" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -4 }, "text": { "en": "The headman writes your name down. He writes it slowly.", "es": "El jefe del barrio apunta tu nombre. Lo apunta despacio." } } }
+    ]
+  },
+  {
+    "id": "edo-ward-fire",
+    "text": { "en": "Clappers hammer three streets over and the sky goes orange. A bucket line is forming and it is short.", "es": "Las tablillas repican tres calles más allá y el cielo se vuelve naranja. Se está formando una cadena de cubos y falta gente." },
+    "timeSlots": ["evening"],
+    "weight": 2,
+    "options": [
+      { "id": "join-bucket-line", "text": { "en": "Take a place in the bucket line", "es": "Ocupa un puesto en la cadena de cubos" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -20 } }, "successChance": { "base": 0.65, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 10 }, "flagsSet": ["fought-fire"], "text": { "en": "Two houses lost instead of twenty. Your eyebrows will grow back.", "es": "Dos casas perdidas en vez de veinte. Las cejas ya te volverán a crecer." } }, "failure": { "resources": { "health": -18, "reputation": 4 }, "text": { "en": "A beam comes down across the line. You are pulled out burned, but they got the fire.", "es": "Una viga se derrumba sobre la cadena. Te sacan quemado, pero apagaron el fuego." } } },
+      { "id": "rescue-belongings", "text": { "en": "Help the family carry out what they can", "es": "Ayuda a la familia a sacar lo que puedan" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["fought-fire"], "text": { "en": "A chest, a loom and a grandmother, in that order of difficulty.", "es": "Un arcón, un telar y una abuela, en ese orden de dificultad." } } },
+      { "id": "move-your-own-things", "text": { "en": "Go home and move your own things", "es": "Vete a casa y mueve tus propias cosas" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The wind turns. Your street is spared, and everyone saw which way you ran.", "es": "El viento cambia. Tu calle se salva, y todos vieron hacia dónde corriste." } } }
+    ]
+  },
+  {
+    "id": "edo-shrine-garden-rumor",
+    "text": { "en": "A gardener mentions a walled garden behind the shrine that the priests keep to themselves.", "es": "Un jardinero menciona un jardín amurallado tras el santuario que los sacerdotes se guardan para sí." },
+    "timeSlots": ["dawn", "morning", "afternoon"],
+    "weight": 2,
+    "repeatable": true,
+    "conditions": { "flagsExcluded": ["garden-rumor-heard", "found-garden"] },
+    "options": [
+      { "id": "ask-gardener", "text": { "en": "Ask him how to get in", "es": "Pregúntale cómo entrar" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "flagsSet": ["garden-rumor-heard"], "text": { "en": "\"The side gate sticks,\" he says, \"and nobody has fixed it in nine years.\"", "es": "\"La puerta lateral se atasca\", dice, \"y nadie la ha arreglado en nueve años.\"" } }, "failure": { "text": { "en": "He goes back to his raking and pretends he said nothing.", "es": "Vuelve a su rastrillo y finge que no ha dicho nada." } } },
+      { "id": "ignore-gardener", "text": { "en": "Priests can keep their garden", "es": "Los sacerdotes pueden quedarse su jardín" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You have your own day to get on with.", "es": "Ya tienes tu propio día del que ocuparte." } } }
+    ]
+  },
+  {
+    "id": "edo-hidden-garden",
+    "text": { "en": "The side gate behind the shrine does stick, exactly as described, and nobody is watching it.", "es": "La puerta lateral tras el santuario se atasca, exactamente como te dijeron, y nadie la vigila." },
+    "timeSlots": ["afternoon", "evening"],
+    "weight": 3,
+    "conditions": { "flagsRequired": ["garden-rumor-heard"], "flagsExcluded": ["found-garden"] },
+    "options": [
+      { "id": "enter-garden", "text": { "en": "Push through the gate", "es": "Empuja la puerta" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.55, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 8, "energy": 15 }, "flagsSet": ["found-garden"], "text": { "en": "Moss, a stone basin, one ancient plum tree, and absolute silence in the middle of Edo. You sit for an hour and nobody comes.", "es": "Musgo, una pila de piedra, un viejísimo ciruelo, y silencio absoluto en mitad de Edo. Te sientas una hora y no viene nadie." } }, "failure": { "resources": { "reputation": -5 }, "text": { "en": "A novice finds you crouched in the moss and shouts for the head priest.", "es": "Un novicio te encuentra agachado en el musgo y llama a gritos al sacerdote principal." } } },
+      { "id": "ask-permission-garden", "text": { "en": "Go around and ask the priests properly", "es": "Da la vuelta y pídeselo a los sacerdotes como es debido" }, "traits": { "prudent": 1 }, "cost": { "time": 2, "resources": { "currency": -15 } }, "successChance": { "base": 0.7 }, "success": { "resources": { "reputation": 4, "energy": 10 }, "flagsSet": ["found-garden"], "text": { "en": "An offering, a bow, and they open it for you themselves. It is even better with permission.", "es": "Una ofrenda, una reverencia, y te lo abren ellos mismos. Es aún mejor con permiso." } }, "failure": { "text": { "en": "\"Not today,\" says the head priest, and keeps your offering.", "es": "\"Hoy no\", dice el sacerdote principal, y se queda tu ofrenda." } } }
+    ]
+  },
+  {
+    "id": "edo-rice-levy",
+    "text": { "en": "A ward official is collecting the rice levy door to door, and his abacus is generous to himself.", "es": "Un funcionario del barrio cobra el tributo de arroz puerta por puerta, y su ábaco es generoso consigo mismo." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 15 } } },
+    "options": [
+      { "id": "pay-levy", "text": { "en": "Pay what he asks and bow", "es": "Paga lo que pide e inclínate" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -25 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "Nobody was ever ruined by paying a levy. Only by not.", "es": "A nadie lo arruinó pagar un tributo. Solo no pagarlo." } } },
+      { "id": "audit-levy", "text": { "en": "Check his arithmetic in front of the neighbors", "es": "Comprueba sus cuentas delante de los vecinos" }, "traits": { "cunning": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "currency": -10, "reputation": 6 }, "flagsSet": ["caught-levy-fraud"], "text": { "en": "Two beads out of place, in his favor, three houses running. The whole street pays less today.", "es": "Dos cuentas mal puestas, a su favor, en tres casas seguidas. Hoy toda la calle paga menos." } }, "failure": { "resources": { "currency": -25, "reputation": -4 }, "text": { "en": "The abacus is correct. He recalculates your share upward for the insult.", "es": "El ábaco está bien. Recalcula tu parte al alza por la ofensa." } } },
+      { "id": "pay-for-neighbor", "text": { "en": "Pay the widow's share as well as yours", "es": "Paga la parte de la viuda además de la tuya" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -45 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 7 }, "flagsSet": ["paid-widow-levy"], "text": { "en": "The official does not care who pays. The street cares very much who did.", "es": "Al funcionario le da igual quién pague. A la calle le importa mucho quién lo hizo." } } }
+    ]
+  },
+  {
+    "id": "edo-paper-workshop",
+    "text": { "en": "A paper-screen maker has an order of forty shoji due tomorrow and half the frames still bare.", "es": "Un fabricante de biombos tiene un pedido de cuarenta shoji para mañana y la mitad de los marcos todavía desnudos." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 3,
+    "options": [
+      { "id": "paste-screens", "text": { "en": "Paste screens until the light goes", "es": "Encola biombos hasta que se vaya la luz" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 28 }, "text": { "en": "Forty screens, no wrinkles, paid in full. Your hands smell of rice glue for a day.", "es": "Cuarenta biombos, sin arrugas, pagado íntegro. Las manos te huelen a cola de arroz un día entero." } } },
+      { "id": "learn-papermaking", "text": { "en": "Ask him to teach you the technique", "es": "Pídele que te enseñe la técnica" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "energy": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 10, "reputation": 2 }, "flagsSet": ["learned-paper-craft"], "text": { "en": "Grain direction, glue temperature, the trick with the damp cloth. Half a trade in one afternoon.", "es": "Dirección de la fibra, temperatura de la cola, el truco del paño húmedo. Medio oficio en una tarde." } } },
+      { "id": "decline-paper", "text": { "en": "Not your problem", "es": "No es tu problema" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "He will be up all night.", "es": "Se pasará la noche en vela." } } }
+    ]
+  },
+  {
+    "id": "edo-daimyo-procession",
+    "text": { "en": "A daimyo's procession is coming down the avenue and every commoner is expected on their knees, face down.", "es": "La comitiva de un daimyo baja por la avenida y se espera que todo plebeyo se arrodille con la cara al suelo." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 3,
+    "options": [
+      { "id": "kneel-procession", "text": { "en": "Kneel with everyone else", "es": "Arrodíllate con todos los demás" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Gravel in your knees, the smell of lacquer and horse, and it is over.", "es": "Grava en las rodillas, olor a laca y a caballo, y se acaba." } } },
+      { "id": "peek-procession", "text": { "en": "Kneel, but look up to see the lord", "es": "Arrodíllate, pero levanta la vista para ver al señor" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["saw-daimyo"], "text": { "en": "A young face, bored and tired, behind the curtain. Somehow that is worth knowing.", "es": "Un rostro joven, aburrido y cansado, tras la cortina. De algún modo, vale la pena saberlo." } }, "failure": { "resources": { "health": -10, "reputation": -3 }, "text": { "en": "A retainer catches your eye and puts a spear butt in your back for it.", "es": "Un vasallo te ve la mirada y te clava el asta de una lanza en la espalda por ello." } } },
+      { "id": "duck-into-alley", "text": { "en": "Duck into an alley and avoid it entirely", "es": "Métete en un callejón y evítalo por completo" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": -5 }, "text": { "en": "You take the long way and keep your dignity and your knees.", "es": "Das el rodeo y conservas la dignidad y las rodillas." } } }
+    ]
+  },
+  {
+    "id": "edo-bathhouse",
+    "text": { "en": "The bathhouse is heating up for the evening, and the attendant waves you toward the changing room.", "es": "El baño público se está calentando para la noche, y el encargado te señala el vestuario." },
+    "timeSlots": ["evening"],
+    "weight": 4,
+    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "options": [
+      { "id": "long-soak", "text": { "en": "Take a long soak", "es": "Date un buen baño" }, "traits": { "prudent": 1 }, "cost": { "time": 2, "resources": { "currency": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 25, "health": 6, "thirst": -5 }, "text": { "en": "Scalding water and a ceiling full of steam. Everything hurts less afterward.", "es": "Agua ardiendo y un techo lleno de vapor. Después todo duele menos." } } },
+      { "id": "bathhouse-talk", "text": { "en": "Soak and trade news with the regulars", "es": "Báñate e intercambia noticias con los habituales" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "currency": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 18, "reputation": 3 }, "flagsSet": ["bathhouse-news"], "text": { "en": "Rice prices, a scandal at the magistrate's office, and who is about to marry whom. Currency of a different kind.", "es": "Precios del arroz, un escándalo en la oficina del magistrado, y quién va a casarse con quién. Moneda de otro tipo." } } },
+      { "id": "skip-bathhouse", "text": { "en": "Go straight home, filthy", "es": "Vete directo a casa, sucio" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The steam smells very good from the street.", "es": "El vapor huele muy bien desde la calle." } } }
+    ]
+  },
+  {
+    "id": "edo-soba-stall",
+    "text": { "en": "A night soba stall sets up under the willow, its lamp the only light on the street.", "es": "Un puesto nocturno de soba se instala bajo el sauce, con su farol como única luz de la calle." },
+    "timeSlots": ["evening"],
+    "weight": 4,
+    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "options": [
+      { "id": "eat-soba", "text": { "en": "Eat a bowl standing at the counter", "es": "Come un cuenco de pie en la barra" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 30, "thirst": 10 }, "text": { "en": "Buckwheat, hot broth, cold night. Nothing better exists at this hour.", "es": "Trigo sarraceno, caldo caliente, noche fría. No existe nada mejor a esta hora." } } },
+      { "id": "pay-for-stranger-soba", "text": { "en": "Pay for the shivering apprentice behind you", "es": "Paga el cuenco del aprendiz que tiembla detrás de ti" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -16 } }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 30, "reputation": 4 }, "text": { "en": "He eats like he has not all day, because he has not. He asks your name; you do not give it.", "es": "Come como si llevara todo el día sin hacerlo, porque así es. Te pregunta tu nombre; no se lo dices." } } },
+      { "id": "skip-soba", "text": { "en": "Walk past the lamp", "es": "Pasa de largo del farol" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The smell follows you for a block.", "es": "El olor te sigue una manzana entera." } } }
+    ]
+  },
+  {
+    "id": "edo-pickpocket",
+    "text": { "en": "In the crush at the bridge approach, a small hand closes on your purse cord.", "es": "En el apretujón a la entrada del puente, una mano pequeña se cierra sobre el cordón de tu bolsa." },
+    "timeSlots": ["morning", "afternoon", "evening"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 15 } } },
+    "options": [
+      { "id": "catch-pickpocket", "text": { "en": "Catch the wrist and hold on", "es": "Agarra la muñeca y no la sueltes" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.55, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["caught-thief"], "text": { "en": "A boy of eight, all bones. The crowd wants him beaten. You let him go, and they mutter about that too.", "es": "Un niño de ocho años, todo huesos. La multitud quiere que le peguen. Lo sueltas, y también murmuran por eso." } }, "failure": { "resources": { "currency": -20 }, "text": { "en": "The cord parts and the crowd closes. Your purse is three streets away already.", "es": "El cordón se rompe y la multitud se cierra. Tu bolsa ya está a tres calles." } } },
+      { "id": "let-thief-go", "text": { "en": "Let go and let him have it", "es": "Suelta y déjale llevárselo" }, "traits": { "generous": 1 }, "cost": { "time": 0, "resources": { "currency": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "He looks back once, which pickpockets never do.", "es": "Mira atrás una vez, cosa que los carteristas nunca hacen." } } },
+      { "id": "shift-purse", "text": { "en": "Shift the purse inside your sleeve without a word", "es": "Pasa la bolsa al interior de la manga sin decir nada" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The hand finds nothing and withdraws. No fuss, nothing lost.", "es": "La mano no encuentra nada y se retira. Sin escándalo, sin pérdidas." } } }
+    ]
+  },
+  {
+    "id": "edo-woodblock-print",
+    "text": { "en": "A print seller is laying out fresh ukiyo-e sheets: actors, courtesans, and a view of Fuji from the new bridge.", "es": "Un vendedor de estampas extiende hojas frescas de ukiyo-e: actores, cortesanas, y una vista del Fuji desde el puente nuevo." },
+    "timeSlots": ["afternoon", "evening"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 10 } } },
+    "options": [
+      { "id": "buy-print", "text": { "en": "Buy the Fuji print", "es": "Compra la estampa del Fuji" }, "traits": { "curious": 1 }, "cost": { "time": 1, "resources": { "currency": -18 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2, "energy": 5 }, "flagsSet": ["bought-print"], "text": { "en": "Blue on blue on blue. You will pin it to the wall and look at it for years.", "es": "Azul sobre azul sobre azul. La clavarás en la pared y la mirarás durante años." } } },
+      { "id": "buy-print-to-resell", "text": { "en": "Buy a stack of actor prints to resell", "es": "Compra un montón de estampas de actores para revender" }, "traits": { "cunning": 1 }, "cost": { "time": 2, "resources": { "currency": -30 } }, "successChance": { "base": 0.55, "traitBonus": { "trait": "cunning", "perPoint": 0.04 } }, "success": { "resources": { "currency": 60 }, "text": { "en": "The theatre crowd empties out at exactly the right moment and buys every sheet.", "es": "El público del teatro sale justo en el momento adecuado y compra todas las hojas." } }, "failure": { "text": { "en": "Two other sellers had the same idea, and cheaper.", "es": "Otros dos vendedores tuvieron la misma idea, y más barato." } } },
+      { "id": "just-look-prints", "text": { "en": "Look, admire, buy nothing", "es": "Mira, admira, no compres nada" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The seller lets you, because everyone does.", "es": "El vendedor te deja, porque todos lo hacen." } } }
+    ]
+  },
+  {
+    "id": "edo-street-doctor",
+    "text": { "en": "A street physician has set out his moxa and needles and is offering treatment at a bargain rate.", "es": "Un médico callejero ha extendido su moxa y sus agujas y ofrece tratamiento a precio de saldo." },
+    "timeSlots": ["afternoon", "evening"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 10 }, "health": { "max": 80 } } },
+    "options": [
+      { "id": "take-treatment", "text": { "en": "Let him treat you", "es": "Deja que te trate" }, "traits": { "prudent": 1 }, "cost": { "time": 2, "resources": { "currency": -18 } }, "successChance": { "base": 0.75 }, "success": { "resources": { "health": 25 }, "text": { "en": "Needles, burning herb, and an hour lying still. You get up genuinely better.", "es": "Agujas, hierba ardiendo, y una hora tumbado. Te levantas realmente mejor." } }, "failure": { "resources": { "health": -5 }, "text": { "en": "The moxa burns too deep and he charges you anyway.", "es": "La moxa quema demasiado hondo y te cobra igual." } } },
+      { "id": "ask-doctor-training", "text": { "en": "Ask him where he learned all this", "es": "Pregúntale dónde aprendió todo eso" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["learned-medicine"], "text": { "en": "Nagasaki, from a Dutch surgeon's translated book. He shows you a diagram of a heart.", "es": "Nagasaki, del libro traducido de un cirujano holandés. Te enseña un diagrama de un corazón." } } },
+      { "id": "decline-doctor", "text": { "en": "You have had enough needles for one life", "es": "Ya has tenido suficientes agujas para una vida" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "He shrugs and calls to the next passer-by.", "es": "Se encoge de hombros y llama al siguiente transeúnte." } } }
+    ]
+  },
+  {
+    "id": "edo-canal-boat",
+    "text": { "en": "A boatman poling an empty barge back up the canal offers a ride, if you help push off the mud banks.", "es": "Un barquero que sube una barcaza vacía por el canal ofrece llevarte, si le ayudas a empujar en los bancos de lodo." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 3,
+    "options": [
+      { "id": "help-pole-barge", "text": { "en": "Take a pole and work your passage", "es": "Coge una pértiga y págate el pasaje trabajando" }, "traits": { "diligent": 1 }, "cost": { "time": 1, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 10, "reputation": 1 }, "text": { "en": "An hour of quiet water and he pays you besides, out of surprise more than obligation.", "es": "Una hora de agua tranquila y encima te paga, más por sorpresa que por obligación." } } },
+      { "id": "ask-boatman-city", "text": { "en": "Ride along and ask him about the canals", "es": "Ve de pasajero y pregúntale por los canales" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2, "energy": 5 }, "flagsSet": ["learned-canals"], "text": { "en": "Which gates flood, which bridges are new, where the old shoreline was. Edo is a map in his head.", "es": "Qué compuertas se desbordan, qué puentes son nuevos, dónde estaba la orilla antigua. Edo es un mapa en su cabeza." } } },
+      { "id": "walk-instead-canal", "text": { "en": "Walk, it isn't far", "es": "Ve andando, no está lejos" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "energy": -8 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "The barge overtakes you twice.", "es": "La barcaza te adelanta dos veces." } } }
+    ]
+  },
+  {
+    "id": "edo-moon-viewing",
+    "text": { "en": "On the embankment, families have set out mats and dumplings to watch the moon come up over the river.", "es": "En el terraplén, las familias han extendido esteras y bolitas de arroz para ver salir la luna sobre el río." },
+    "timeSlots": ["evening"],
+    "weight": 3,
+    "options": [
+      { "id": "join-moon-viewing", "text": { "en": "Accept an invitation onto a stranger's mat", "es": "Acepta la invitación a la estera de un desconocido" }, "traits": { "generous": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4, "hunger": 15, "energy": 10 }, "flagsSet": ["moon-viewing"], "text": { "en": "Dumplings, bad poetry, someone's grandmother telling a ghost story. The moon does come up, eventually.", "es": "Bolitas de arroz, mala poesía, la abuela de alguien contando una historia de fantasmas. La luna acaba saliendo." } } },
+      { "id": "compose-poem", "text": { "en": "Compose a verse of your own for them", "es": "Compón un verso propio para ellos" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["moon-viewing", "wrote-poem"], "text": { "en": "Seventeen syllables about a fire watch and a moon. Someone writes it down.", "es": "Diecisiete sílabas sobre una guardia de incendios y una luna. Alguien la anota." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "You run out of syllables halfway. The grandmother finishes it for you, better.", "es": "Te quedas sin sílabas a la mitad. La abuela lo termina por ti, mejor." } } },
+      { "id": "watch-moon-alone", "text": { "en": "Watch alone from further along the bank", "es": "Míralo solo desde más allá en la orilla" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "The same moon, quieter.", "es": "La misma luna, más en silencio." } } }
+    ]
+  },
+  {
+    "id": "edo-runaway-horse",
+    "text": { "en": "A packhorse bolts down the crowded avenue, its load half off and a child directly in its path.", "es": "Un caballo de carga se desboca por la avenida atestada, con la carga medio suelta y un niño justo en su camino." },
+    "timeSlots": ["morning", "afternoon"],
+    "weight": 2,
+    "options": [
+      { "id": "grab-horse", "text": { "en": "Get in front of it", "es": "Ponte delante" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "energy": -12 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 9 }, "flagsSet": ["stopped-horse"], "text": { "en": "You get a hand to the bridle and swing it wide. The whole avenue saw it.", "es": "Alcanzas la brida y lo desvías. La avenida entera lo vio." } }, "failure": { "resources": { "health": -20, "reputation": 3 }, "text": { "en": "A hoof catches your hip, but the horse turns. The child is fine; you are not.", "es": "Un casco te alcanza la cadera, pero el caballo gira. El niño está bien; tú no." } } },
+      { "id": "pull-child-clear", "text": { "en": "Grab the child instead", "es": "Agarra al niño en su lugar" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.85 }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["saved-child-horse"], "text": { "en": "You have her under one arm before the hooves arrive. Her mother cannot speak for a minute.", "es": "La tienes bajo el brazo antes de que lleguen los cascos. Su madre no puede hablar durante un minuto." } }, "failure": { "resources": { "health": -10, "reputation": 3 }, "text": { "en": "You reach her and take the shoulder-blow meant for her.", "es": "Llegas hasta ella y recibes el golpe que iba para ella." } } },
+      { "id": "get-clear-horse", "text": { "en": "Get yourself out of the way", "es": "Quítate de en medio" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -3 }, "text": { "en": "A porter gets there first. You are close enough to have.", "es": "Un porteador llega primero. Estabas lo bastante cerca para haberlo hecho tú." } } }
+    ]
+  },
+  {
+    "id": "edo-dice-den",
+    "text": { "en": "Behind a rice shop, dice are rattling in a cup and the door is open just wide enough.", "es": "Detrás de una tienda de arroz, unos dados repican en un cubilete y la puerta está abierta lo justo." },
+    "timeSlots": ["evening"],
+    "weight": 2,
+    "conditions": { "resources": { "currency": { "min": 20 } } },
+    "options": [
+      { "id": "play-dice-edo", "text": { "en": "Sit in for a few throws", "es": "Siéntate a unas cuantas tiradas" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "currency": -20 } }, "successChance": { "base": 0.45 }, "success": { "resources": { "currency": 55 }, "text": { "en": "Even, odd, even. You leave while the leaving is good.", "es": "Par, impar, par. Te vas mientras irse sigue siendo buena idea." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "Odd, odd, odd. The house is very calm about it.", "es": "Impar, impar, impar. La casa se lo toma con mucha calma." } } },
+      { "id": "warn-gamblers", "text": { "en": "Warn the young man losing everything", "es": "Avisa al joven que lo está perdiendo todo" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["saved-gambler"], "text": { "en": "You get him out the door with his coat and half his money. He hates you for about an hour.", "es": "Lo sacas por la puerta con su abrigo y la mitad de su dinero. Te odia durante una hora aproximadamente." } }, "failure": { "resources": { "health": -8 }, "text": { "en": "The house objects to your interference, physically.", "es": "A la casa le molesta tu intromisión, físicamente." } } },
+      { "id": "walk-past-dice-den", "text": { "en": "Keep walking", "es": "Sigue caminando" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The rattling stops behind a closed door.", "es": "El repiqueteo se apaga tras una puerta cerrada." } } }
+    ]
+  },
+  {
+    "id": "edo-dutch-curiosity",
+    "text": { "en": "A trader back from Nagasaki is showing a Dutch clock to a crowd, and charging to let people hear it strike.", "es": "Un comerciante recién llegado de Nagasaki enseña un reloj holandés a la multitud, y cobra por dejar oír cómo da la hora." },
+    "timeSlots": ["afternoon"],
+    "weight": 2,
+    "conditions": { "resources": { "currency": { "min": 10 } } },
+    "options": [
+      { "id": "pay-to-see-clock", "text": { "en": "Pay to see the mechanism", "es": "Paga por ver el mecanismo" }, "traits": { "curious": 1 }, "cost": { "time": 1, "resources": { "currency": -12 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["saw-dutch-clock"], "text": { "en": "Brass wheels inside brass wheels, counting hours that never change length. A completely foreign idea of time.", "es": "Ruedas de latón dentro de ruedas de latón, contando horas que nunca cambian de duración. Una idea del tiempo completamente ajena." } } },
+      { "id": "sketch-clock", "text": { "en": "Sketch the works from the front row", "es": "Dibuja el mecanismo desde la primera fila" }, "traits": { "cunning": 1 }, "cost": { "time": 2, "resources": { "currency": -12 } }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "currency": 35 }, "flagsSet": ["saw-dutch-clock"], "text": { "en": "A clockmaker two streets over pays well for your drawing and asks no questions.", "es": "Un relojero dos calles más allá paga bien por tu dibujo y no hace preguntas." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "The trader spots the paper and has you moved along, loudly.", "es": "El comerciante ve el papel y hace que te echen, a gritos." } } },
+      { "id": "skip-clock", "text": { "en": "A bell tells the hour well enough", "es": "Una campana ya da bien la hora" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "It strikes behind you as you go, sounding like nothing in Edo.", "es": "Suena a tu espalda mientras te alejas, como nada en Edo." } } }
+    ]
+  },
+  {
+    "id": "edo-night-return",
+    "text": { "en": "The ward gates close at the last bell, and your street is on the far side of two of them.", "es": "Las puertas del barrio se cierran a la última campana, y tu calle está al otro lado de dos de ellas." },
+    "timeSlots": ["evening"],
+    "weight": 3,
+    "options": [
+      { "id": "hurry-home", "text": { "en": "Hurry and make the gates", "es": "Date prisa y llega antes del cierre" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "Through the second gate as the bar comes down. Your own futon tonight.", "es": "Cruzas la segunda puerta mientras baja la tranca. Esta noche, tu propio futón." } } },
+      { "id": "tip-gatekeeper", "text": { "en": "Tip the gatekeeper to hold it open", "es": "Soborna al portero para que la deje abierta" }, "traits": { "cunning": 1 }, "cost": { "time": 0, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "Coins go into a sleeve and the gate stays open a minute longer. For everyone, as it happens.", "es": "Unas monedas entran en una manga y la puerta sigue abierta un minuto más. Para todos, de hecho." } } },
+      { "id": "sleep-out-edo", "text": { "en": "Give up and sleep in a temple porch", "es": "Ríndete y duerme en el pórtico de un templo" }, "traits": { "bold": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5, "health": -5, "reputation": 1 }, "text": { "en": "Cold boards, a stray cat, and the whole city quiet for once.", "es": "Tablas frías, un gato callejero, y toda la ciudad en silencio por una vez." } } }
+    ]
+  }
+]

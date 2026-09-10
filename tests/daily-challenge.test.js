@@ -9,7 +9,6 @@ import { createResourceState, applyResourceDeltas, isCriticalDepleted } from '..
 import { createDayState, isTimeUp, trackMinSeen, advanceTime } from '../shared/day-engine.js';
 import { getValidCards, pickWeightedCard, resolveOption } from '../shared/decision-engine.js';
 import { pickDailyObjectives } from '../shared/objectives.js';
-import { createDefaultCharacter, findArchetype } from '../shared/character.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const era = JSON.parse(readFileSync(join(here, '../data/eras/greece/era.json'), 'utf8'));
@@ -37,8 +36,6 @@ test('dailySeed is stable across repeated calls for the same era and day (indepe
 });
 
 function playDailyChallenge(eraId, seed, pickOptionIndex) {
-  const character = createDefaultCharacter(era);
-  const archetype = findArchetype(era, character.archetypeId);
   const rng = mulberry32(seed);
   let resourceState = createResourceState(era);
   let dayState = createDayState(era);
@@ -48,10 +45,10 @@ function playDailyChallenge(eraId, seed, pickOptionIndex) {
   while (!isTimeUp(dayState) && !isCriticalDepleted(resourceState, era) && steps < 500) {
     steps++;
     const valid = getValidCards(cards, era, resourceState, dayState);
-    const card = valid.length ? pickWeightedCard(valid, rng) : { id: 'filler', options: [{ id: 'rest', cost: { time: 1 }, successChance: { base: 1 }, success: { resources: { energy: 5 } } }] };
+    const card = valid.length ? pickWeightedCard(valid, rng) : { id: 'filler', options: [{ id: 'rest', traits: { prudent: 1 }, cost: { time: 1 }, successChance: { base: 1 }, success: { resources: { energy: 5 } } }] };
     cardSequence.push(card.id);
     const option = card.options[pickOptionIndex(card, rng)];
-    const { outcome } = resolveOption(option, archetype, rng);
+    const { outcome } = resolveOption(option, { resourceState, era, traits: dayState.traits }, rng);
     const combined = { ...(option.cost?.resources || {}) };
     Object.entries(outcome.resources || {}).forEach(([key, value]) => { combined[key] = (combined[key] || 0) + value; });
     resourceState = applyResourceDeltas(resourceState, era, combined);

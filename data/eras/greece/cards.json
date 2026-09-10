@@ -5,8 +5,8 @@
     "timeSlots": ["morning"],
     "weight": 5,
     "options": [
-      { "id": "stretch", "text": { "en": "Stretch and prepare for the day", "es": "Estírate y prepárate para el día" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "You feel ready.", "es": "Te sientes preparado." } } },
-      { "id": "sleep-in", "text": { "en": "Sleep a little longer", "es": "Duerme un poco más" }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 20, "health": 2 }, "text": { "en": "You wake refreshed, but the sun is higher now.", "es": "Despiertas descansado, pero el sol ya está alto." } } }
+      { "id": "stretch", "text": { "en": "Stretch and prepare for the day", "es": "Estírate y prepárate para el día" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "You feel ready.", "es": "Te sientes preparado." } } },
+      { "id": "sleep-in", "text": { "en": "Sleep a little longer", "es": "Duerme un poco más" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 20, "health": 2 }, "text": { "en": "You wake refreshed, but the sun is higher now.", "es": "Despiertas descansado, pero el sol ya está alto." } } }
     ]
   },
   {
@@ -16,9 +16,9 @@
     "weight": 4,
     "conditions": { "resources": { "currency": { "min": 5 } } },
     "options": [
-      { "id": "buy-bread", "text": { "en": "Buy a loaf", "es": "Compra una hogaza" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.95 }, "success": { "resources": { "hunger": 30 }, "text": { "en": "The warm bread satisfies you.", "es": "El pan caliente te sacia." } }, "failure": { "resources": { "hunger": 10 }, "text": { "en": "The baker shortchanges the loaf, but it still helps.", "es": "El panadero te da menos de lo debido, pero aun así ayuda." } } },
-      { "id": "barter-bread", "text": { "en": "Barter old sandals for bread", "es": "Cambia unas sandalias viejas por pan" }, "cost": { "time": 1 }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "resources": { "hunger": 25 }, "text": { "en": "The baker takes pity and trades.", "es": "El panadero se apiada y acepta el trueque." } }, "failure": { "resources": { "reputation": -1 }, "text": { "en": "The baker laughs you off. Onlookers snicker.", "es": "El panadero se ríe de ti. Los curiosos se burlan." } } },
-      { "id": "skip-bread", "text": { "en": "Walk past, hungry or not", "es": "Sigue caminando, con hambre o sin ella" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You press on.", "es": "Sigues adelante." } } }
+      { "id": "buy-bread", "text": { "en": "Buy a loaf", "es": "Compra una hogaza" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.95 }, "success": { "resources": { "hunger": 30 }, "text": { "en": "The warm bread satisfies you.", "es": "El pan caliente te sacia." } }, "failure": { "resources": { "hunger": 10 }, "text": { "en": "The baker shortchanges the loaf, but it still helps.", "es": "El panadero te da menos de lo debido, pero aun así ayuda." } } },
+      { "id": "barter-bread", "text": { "en": "Barter old sandals for bread", "es": "Cambia unas sandalias viejas por pan" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.4, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "hunger": 25 }, "text": { "en": "The baker takes pity and trades.", "es": "El panadero se apiada y acepta el trueque." } }, "failure": { "resources": { "reputation": -1 }, "text": { "en": "The baker laughs you off. Onlookers snicker.", "es": "El panadero se ríe de ti. Los curiosos se burlan." } } },
+      { "id": "skip-bread", "text": { "en": "Walk past, hungry or not", "es": "Sigue caminando, con hambre o sin ella" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You press on.", "es": "Sigues adelante." } } }
     ]
   },
   {
@@ -27,8 +27,8 @@
     "timeSlots": ["morning", "midday", "afternoon", "night"],
     "weight": 3,
     "options": [
-      { "id": "draw-water", "text": { "en": "Draw water from the well", "es": "Saca agua del pozo" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 30 }, "text": { "en": "Cool water, welcome relief.", "es": "Agua fresca, un alivio bienvenido." } } },
-      { "id": "skip-water", "text": { "en": "Skip it for now", "es": "Lo dejas para más tarde" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You move on.", "es": "Sigues tu camino." } } }
+      { "id": "draw-water", "text": { "en": "Draw water from the well", "es": "Saca agua del pozo" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 30 }, "text": { "en": "Cool water, welcome relief.", "es": "Agua fresca, un alivio bienvenido." } } },
+      { "id": "skip-water", "text": { "en": "Skip it for now", "es": "Lo dejas para más tarde" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You move on.", "es": "Sigues tu camino." } } }
     ]
   },
   {
@@ -38,9 +38,9 @@
     "weight": 3,
     "conditions": { "resources": { "energy": { "min": 20 } } },
     "options": [
-      { "id": "train-hard", "text": { "en": "Train hard among the athletes", "es": "Entrena duro junto a los atletas" }, "cost": { "time": 2, "resources": { "energy": -20 } }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "might", "scale": 0.06 } }, "success": { "resources": { "reputation": 3 }, "text": { "en": "Your form draws approving nods.", "es": "Tu técnica arranca gestos de aprobación." } }, "failure": { "resources": { "health": -8 }, "text": { "en": "You strain a muscle pushing too hard.", "es": "Te tiras un músculo por esforzarte demasiado." } } },
-      { "id": "watch-training", "text": { "en": "Watch quietly from the side", "es": "Observa en silencio desde un lado" }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "You rest and observe.", "es": "Descansas y observas." } } },
-      { "id": "skip-gym", "text": { "en": "Skip the gymnasium", "es": "Te saltas el gimnasio" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not today.", "es": "Hoy no." } } }
+      { "id": "train-hard", "text": { "en": "Train hard among the athletes", "es": "Entrena duro junto a los atletas" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -20 } }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 3 }, "text": { "en": "Your form draws approving nods.", "es": "Tu técnica arranca gestos de aprobación." } }, "failure": { "resources": { "health": -8 }, "text": { "en": "You strain a muscle pushing too hard.", "es": "Te tiras un músculo por esforzarte demasiado." } } },
+      { "id": "watch-training", "text": { "en": "Watch quietly from the side", "es": "Observa en silencio desde un lado" }, "traits": { "curious": 1 }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "You rest and observe.", "es": "Descansas y observas." } } },
+      { "id": "skip-gym", "text": { "en": "Skip the gymnasium", "es": "Te saltas el gimnasio" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not today.", "es": "Hoy no." } } }
     ]
   },
   {
@@ -52,9 +52,9 @@
     "weight": 3,
     "conditions": { "flagsExcluded": ["met-sophia", "remembered-sophia-favor"] },
     "options": [
-      { "id": "join-debate", "text": { "en": "Step in and challenge her argument", "es": "Interviene y desafía su argumento" }, "cost": { "time": 2 }, "successChance": { "base": 0.45, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["won-debate", "met-sophia"], "countersAdd": { "sophiaRespect": 2 }, "text": { "en": "You dismantle her logic. The crowd murmurs approval, and Sophia studies you with new interest.", "es": "Desmontas su lógica. La multitud murmura su aprobación, y Sofía te observa con renovado interés." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-sophia"], "countersAdd": { "sophiaRespect": -1 }, "text": { "en": "You stumble over your words. Sophia smiles knowingly.", "es": "Te trabas con las palabras. Sofía sonríe con suficiencia." } } },
-      { "id": "listen-debate", "text": { "en": "Listen quietly and learn", "es": "Escucha en silencio y aprende" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["met-sophia"], "countersAdd": { "sophiaRespect": 1 }, "text": { "en": "You absorb a fragment of wisdom.", "es": "Absorbes un fragmento de sabiduría." } } },
-      { "id": "avoid-crowd", "text": { "en": "Avoid the crowd entirely", "es": "Evita la multitud por completo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You slip away.", "es": "Te escabulles." } } }
+      { "id": "join-debate", "text": { "en": "Step in and challenge her argument", "es": "Interviene y desafía su argumento" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.45, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["won-debate", "met-sophia"], "countersAdd": { "sophiaRespect": 2 }, "text": { "en": "You dismantle her logic. The crowd murmurs approval, and Sophia studies you with new interest.", "es": "Desmontas su lógica. La multitud murmura su aprobación, y Sofía te observa con renovado interés." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-sophia"], "countersAdd": { "sophiaRespect": -1 }, "text": { "en": "You stumble over your words. Sophia smiles knowingly.", "es": "Te trabas con las palabras. Sofía sonríe con suficiencia." } } },
+      { "id": "listen-debate", "text": { "en": "Listen quietly and learn", "es": "Escucha en silencio y aprende" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["met-sophia"], "countersAdd": { "sophiaRespect": 1 }, "text": { "en": "You absorb a fragment of wisdom.", "es": "Absorbes un fragmento de sabiduría." } } },
+      { "id": "avoid-crowd", "text": { "en": "Avoid the crowd entirely", "es": "Evita la multitud por completo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You slip away.", "es": "Te escabulles." } } }
     ]
   },
   {
@@ -65,9 +65,9 @@
     "weight": 4,
     "conditions": { "resources": { "currency": { "min": 5 } }, "flagsExcluded": ["met-thales", "remembered-helped-thales"] },
     "options": [
-      { "id": "haggle", "text": { "en": "Try to haggle the price down", "es": "Intenta regatear el precio" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "resources": { "currency": 15, "reputation": 1 }, "flagsSet": ["haggled-once", "met-thales"], "countersAdd": { "merchantTrust": 2 }, "text": { "en": "The merchant relents, impressed by your wit.", "es": "El mercader cede, impresionado por tu ingenio." } }, "failure": { "resources": { "reputation": -1 }, "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": -1 }, "text": { "en": "The merchant scoffs and waves you off.", "es": "El mercader se burla y te despacha con la mano." } } },
-      { "id": "pay-full", "text": { "en": "Pay the full price for fine pottery", "es": "Paga el precio completo por una cerámica fina" }, "cost": { "time": 1, "resources": { "currency": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": 1 }, "text": { "en": "You walk away with a handsome piece.", "es": "Te marchas con una bella pieza." } } },
-      { "id": "walk-away-market", "text": { "en": "Walk away", "es": "Te alejas" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-thales"], "text": { "en": "You move on.", "es": "Sigues tu camino." } } }
+      { "id": "haggle", "text": { "en": "Try to haggle the price down", "es": "Intenta regatear el precio" }, "traits": { "cunning": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "currency": 15, "reputation": 1 }, "flagsSet": ["haggled-once", "met-thales"], "countersAdd": { "merchantTrust": 2 }, "text": { "en": "The merchant relents, impressed by your wit.", "es": "El mercader cede, impresionado por tu ingenio." } }, "failure": { "resources": { "reputation": -1 }, "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": -1 }, "text": { "en": "The merchant scoffs and waves you off.", "es": "El mercader se burla y te despacha con la mano." } } },
+      { "id": "pay-full", "text": { "en": "Pay the full price for fine pottery", "es": "Paga el precio completo por una cerámica fina" }, "traits": { "diligent": 1 }, "cost": { "time": 1, "resources": { "currency": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": 1 }, "text": { "en": "You walk away with a handsome piece.", "es": "Te marchas con una bella pieza." } } },
+      { "id": "walk-away-market", "text": { "en": "Walk away", "es": "Te alejas" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-thales"], "text": { "en": "You move on.", "es": "Sigues tu camino." } } }
     ]
   },
   {
@@ -77,8 +77,8 @@
     "weight": 2,
     "conditions": { "resources": { "reputation": { "min": 15 } } },
     "options": [
-      { "id": "give-speech", "text": { "en": "Address the Assembly", "es": "Dirígete a la Asamblea" }, "cost": { "time": 3 }, "successChance": { "base": 0.35, "archetypeBonus": { "modifier": "charm", "scale": 0.08 } }, "success": { "resources": { "reputation": 8, "currency": 10 }, "flagsSet": ["spoke-in-assembly"], "text": { "en": "Your words move the citizens. You are paid a speaker's stipend.", "es": "Tus palabras conmueven a los ciudadanos. Recibes un estipendio por hablar." } }, "failure": { "resources": { "reputation": -4 }, "text": { "en": "You are heckled off the speaker's stone.", "es": "Te abuchean y te bajan de la tribuna." } } },
-      { "id": "just-vote", "text": { "en": "Listen and cast your vote", "es": "Escucha y emite tu voto" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You do your civic duty.", "es": "Cumples con tu deber cívico." } } }
+      { "id": "give-speech", "text": { "en": "Address the Assembly", "es": "Dirígete a la Asamblea" }, "traits": { "generous": 1 }, "cost": { "time": 3 }, "successChance": { "base": 0.35, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 8, "currency": 10 }, "flagsSet": ["spoke-in-assembly"], "text": { "en": "Your words move the citizens. You are paid a speaker's stipend.", "es": "Tus palabras conmueven a los ciudadanos. Recibes un estipendio por hablar." } }, "failure": { "resources": { "reputation": -4 }, "text": { "en": "You are heckled off the speaker's stone.", "es": "Te abuchean y te bajan de la tribuna." } } },
+      { "id": "just-vote", "text": { "en": "Listen and cast your vote", "es": "Escucha y emite tu voto" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You do your civic duty.", "es": "Cumples con tu deber cívico." } } }
     ]
   },
   {
@@ -88,9 +88,9 @@
     "weight": 3,
     "conditions": { "resources": { "currency": { "min": 10 } } },
     "options": [
-      { "id": "generous-offering", "text": { "en": "Make a generous offering", "es": "Haz una ofrenda generosa" }, "cost": { "time": 1, "resources": { "currency": -20 } }, "successChance": { "base": 0.9 }, "success": { "resources": { "reputation": 4, "health": 2 }, "text": { "en": "Priests bless you before the crowd.", "es": "Los sacerdotes te bendicen ante la multitud." } }, "failure": { "text": { "en": "Your offering goes unnoticed in the crowd.", "es": "Tu ofrenda pasa desapercibida entre la multitud." } } },
-      { "id": "modest-offering", "text": { "en": "Make a modest offering", "es": "Haz una ofrenda modesta" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.95 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "A small gesture of piety.", "es": "Un pequeño gesto de piedad." } } },
-      { "id": "pray-only", "text": { "en": "Pray without an offering", "es": "Reza sin hacer ofrenda" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You offer only words.", "es": "Solo ofreces palabras." } } }
+      { "id": "generous-offering", "text": { "en": "Make a generous offering", "es": "Haz una ofrenda generosa" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "currency": -20 } }, "successChance": { "base": 0.9 }, "success": { "resources": { "reputation": 4, "health": 2 }, "text": { "en": "Priests bless you before the crowd.", "es": "Los sacerdotes te bendicen ante la multitud." } }, "failure": { "text": { "en": "Your offering goes unnoticed in the crowd.", "es": "Tu ofrenda pasa desapercibida entre la multitud." } } },
+      { "id": "modest-offering", "text": { "en": "Make a modest offering", "es": "Haz una ofrenda modesta" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.95 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "A small gesture of piety.", "es": "Un pequeño gesto de piedad." } } },
+      { "id": "pray-only", "text": { "en": "Pray without an offering", "es": "Reza sin hacer ofrenda" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You offer only words.", "es": "Solo ofreces palabras." } } }
     ]
   },
   {
@@ -100,8 +100,8 @@
     "weight": 1,
     "conditions": { "resources": { "currency": { "min": 30 } } },
     "options": [
-      { "id": "consult-oracle", "text": { "en": "Pay for a consultation", "es": "Paga por una consulta" }, "cost": { "time": 3, "resources": { "currency": -30 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "reputation": 5 }, "text": { "en": "The oracle's words seem to favor you, and others take notice.", "es": "Las palabras del oráculo parecen favorecerte, y otros se dan cuenta." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "The oracle's cryptic words unsettle those who hear them.", "es": "Las palabras crípticas del oráculo inquietan a quienes las oyen." } } },
-      { "id": "skip-oracle", "text": { "en": "Oracles are for fools", "es": "Los oráculos son cosa de necios" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You walk on unbothered.", "es": "Sigues caminando sin inmutarte." } } }
+      { "id": "consult-oracle", "text": { "en": "Pay for a consultation", "es": "Paga por una consulta" }, "traits": { "curious": 1 }, "cost": { "time": 3, "resources": { "currency": -30 } }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 5 }, "text": { "en": "The oracle's words seem to favor you, and others take notice.", "es": "Las palabras del oráculo parecen favorecerte, y otros se dan cuenta." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "The oracle's cryptic words unsettle those who hear them.", "es": "Las palabras crípticas del oráculo inquietan a quienes las oyen." } } },
+      { "id": "skip-oracle", "text": { "en": "Oracles are for fools", "es": "Los oráculos son cosa de necios" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You walk on unbothered.", "es": "Sigues caminando sin inmutarte." } } }
     ]
   },
   {
@@ -111,8 +111,8 @@
     "weight": 2,
     "conditions": { "resources": { "currency": { "min": 10 } } },
     "options": [
-      { "id": "chase-thief", "text": { "en": "Grab the thief's wrist", "es": "Agarra la muñeca del ladrón" }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.06 } }, "success": { "resources": { "reputation": 2 }, "text": { "en": "You catch him and the crowd cheers.", "es": "Lo atrapas y la multitud vitorea." } }, "failure": { "resources": { "currency": -15, "health": -5 }, "text": { "en": "He slips free, elbowing you hard as he flees with coin.", "es": "Se escabulle, dándote un codazo mientras huye con tu dinero." } } },
-      { "id": "let-it-go", "text": { "en": "Let it go, not worth the risk", "es": "Déjalo pasar, no merece el riesgo" }, "cost": { "time": 0, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "He takes what he can and vanishes.", "es": "Se lleva lo que puede y desaparece." } } }
+      { "id": "chase-thief", "text": { "en": "Grab the thief's wrist", "es": "Agarra la muñeca del ladrón" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 2 }, "text": { "en": "You catch him and the crowd cheers.", "es": "Lo atrapas y la multitud vitorea." } }, "failure": { "resources": { "currency": -15, "health": -5 }, "text": { "en": "He slips free, elbowing you hard as he flees with coin.", "es": "Se escabulle, dándote un codazo mientras huye con tu dinero." } } },
+      { "id": "let-it-go", "text": { "en": "Let it go, not worth the risk", "es": "Déjalo pasar, no merece el riesgo" }, "traits": { "prudent": 1 }, "cost": { "time": 0, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "He takes what he can and vanishes.", "es": "Se lleva lo que puede y desaparece." } } }
     ]
   },
   {
@@ -122,9 +122,9 @@
     "weight": 2,
     "conditions": { "resources": { "currency": { "min": 10 } } },
     "options": [
-      { "id": "give-coins", "text": { "en": "Give a few coins", "es": "Dale algunas monedas" }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "text": { "en": "The old man blesses your name.", "es": "El anciano bendice tu nombre." } } },
-      { "id": "kind-words", "text": { "en": "Offer only kind words", "es": "Ofrécele solo palabras amables" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "He nods, grateful for the company.", "es": "Asiente, agradecido por la compañía." } } },
-      { "id": "ignore-beggar", "text": { "en": "Look away and keep walking", "es": "Aparta la mirada y sigue caminando" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "Someone nearby notices your indifference.", "es": "Alguien cercano nota tu indiferencia." } } }
+      { "id": "give-coins", "text": { "en": "Give a few coins", "es": "Dale algunas monedas" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "text": { "en": "The old man blesses your name.", "es": "El anciano bendice tu nombre." } } },
+      { "id": "kind-words", "text": { "en": "Offer only kind words", "es": "Ofrécele solo palabras amables" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "He nods, grateful for the company.", "es": "Asiente, agradecido por la compañía." } } },
+      { "id": "ignore-beggar", "text": { "en": "Look away and keep walking", "es": "Aparta la mirada y sigue caminando" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "Someone nearby notices your indifference.", "es": "Alguien cercano nota tu indiferencia." } } }
     ]
   },
   {
@@ -133,8 +133,8 @@
     "timeSlots": ["morning"],
     "weight": 2,
     "options": [
-      { "id": "help-nets", "text": { "en": "Help haul the nets", "es": "Ayuda a recoger las redes" }, "cost": { "time": 2, "resources": { "energy": -15 } }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "might", "scale": 0.05 } }, "success": { "resources": { "currency": 15, "hunger": 10 }, "text": { "en": "You share in the catch and his gratitude.", "es": "Compartes la pesca y su gratitud." } }, "failure": { "resources": { "energy": -15, "health": -5 }, "text": { "en": "The net drags you into the shallows.", "es": "La red te arrastra hacia las aguas poco profundas." } } },
-      { "id": "decline-nets", "text": { "en": "Decline, not your trade", "es": "Declina, no es tu oficio" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You leave him to it.", "es": "Lo dejas seguir solo." } } }
+      { "id": "help-nets", "text": { "en": "Help haul the nets", "es": "Ayuda a recoger las redes" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -15 } }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 15, "hunger": 10 }, "text": { "en": "You share in the catch and his gratitude.", "es": "Compartes la pesca y su gratitud." } }, "failure": { "resources": { "energy": -15, "health": -5 }, "text": { "en": "The net drags you into the shallows.", "es": "La red te arrastra hacia las aguas poco profundas." } } },
+      { "id": "decline-nets", "text": { "en": "Decline, not your trade", "es": "Declina, no es tu oficio" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You leave him to it.", "es": "Lo dejas seguir solo." } } }
     ]
   },
   {
@@ -143,8 +143,8 @@
     "timeSlots": ["morning", "midday", "afternoon", "night"],
     "weight": 2,
     "options": [
-      { "id": "perform-poetry", "text": { "en": "Perform poetry for coins", "es": "Recita poesía a cambio de monedas" }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.45, "archetypeBonus": { "modifier": "charm", "scale": 0.07 } }, "success": { "resources": { "currency": 20, "reputation": 2 }, "text": { "en": "The crowd tosses coins and cheers your verse.", "es": "La multitud lanza monedas y aclama tus versos." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "You forget your lines. Someone laughs cruelly.", "es": "Olvidas tus versos. Alguien se ríe con crueldad." } } },
-      { "id": "just-watch-performer", "text": { "en": "Just watch", "es": "Solo observas" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You enjoy the show.", "es": "Disfrutas del espectáculo." } } }
+      { "id": "perform-poetry", "text": { "en": "Perform poetry for coins", "es": "Recita poesía a cambio de monedas" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.45, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "currency": 20, "reputation": 2 }, "text": { "en": "The crowd tosses coins and cheers your verse.", "es": "La multitud lanza monedas y aclama tus versos." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "You forget your lines. Someone laughs cruelly.", "es": "Olvidas tus versos. Alguien se ríe con crueldad." } } },
+      { "id": "just-watch-performer", "text": { "en": "Just watch", "es": "Solo observas" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You enjoy the show.", "es": "Disfrutas del espectáculo." } } }
     ]
   },
   {
@@ -153,8 +153,8 @@
     "timeSlots": ["afternoon"],
     "weight": 2,
     "options": [
-      { "id": "mediate-fairly", "text": { "en": "Hear both sides and mediate", "es": "Escucha a ambas partes y media" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 4 }, "text": { "en": "Both sides accept your fair judgment.", "es": "Ambas partes aceptan tu juicio justo." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "Both sides leave angry at you instead of each other.", "es": "Ambos se marchan enfadados contigo en vez de entre ellos." } } },
-      { "id": "refuse-mediation", "text": { "en": "Refuse to get involved", "es": "Te niegas a involucrarte" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not your quarrel.", "es": "No es tu pelea." } } }
+      { "id": "mediate-fairly", "text": { "en": "Hear both sides and mediate", "es": "Escucha a ambas partes y media" }, "traits": { "generous": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 4 }, "text": { "en": "Both sides accept your fair judgment.", "es": "Ambas partes aceptan tu juicio justo." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "Both sides leave angry at you instead of each other.", "es": "Ambos se marchan enfadados contigo en vez de entre ellos." } } },
+      { "id": "refuse-mediation", "text": { "en": "Refuse to get involved", "es": "Te niegas a involucrarte" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not your quarrel.", "es": "No es tu pelea." } } }
     ]
   },
   {
@@ -164,8 +164,8 @@
     "weight": 2,
     "conditions": { "resources": { "energy": { "min": 25 } } },
     "options": [
-      { "id": "enter-wrestling", "text": { "en": "Enter the match", "es": "Entra en el combate" }, "cost": { "time": 2, "resources": { "energy": -25 } }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "might", "scale": 0.07 } }, "success": { "resources": { "reputation": 6, "currency": 10 }, "flagsSet": ["won-games"], "text": { "en": "You pin your opponent. The crowd roars your name.", "es": "Inmovilizas a tu oponente. La multitud ruge tu nombre." } }, "failure": { "resources": { "health": -10, "reputation": -1 }, "text": { "en": "You are thrown hard into the dust.", "es": "Te derriban con fuerza contra el polvo." } } },
-      { "id": "watch-wrestling", "text": { "en": "Watch from the sidelines", "es": "Observa desde la grada" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You cheer for the champions.", "es": "Animas a los campeones." } } }
+      { "id": "enter-wrestling", "text": { "en": "Enter the match", "es": "Entra en el combate" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -25 } }, "successChance": { "base": 0.4, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 6, "currency": 10 }, "flagsSet": ["won-games"], "text": { "en": "You pin your opponent. The crowd roars your name.", "es": "Inmovilizas a tu oponente. La multitud ruge tu nombre." } }, "failure": { "resources": { "health": -10, "reputation": -1 }, "text": { "en": "You are thrown hard into the dust.", "es": "Te derriban con fuerza contra el polvo." } } },
+      { "id": "watch-wrestling", "text": { "en": "Watch from the sidelines", "es": "Observa desde la grada" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You cheer for the champions.", "es": "Animas a los campeones." } } }
     ]
   },
   {
@@ -174,8 +174,8 @@
     "timeSlots": ["night"],
     "weight": 2,
     "options": [
-      { "id": "recite-verse", "text": { "en": "Recite an epic verse", "es": "Recita un verso épico" }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 5, "currency": 10 }, "text": { "en": "Your verse silences the room, then erupts in praise.", "es": "Tu verso silencia la sala, que luego estalla en elogios." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "You lose your place mid-verse.", "es": "Pierdes el hilo a mitad del verso." } } },
-      { "id": "applaud-crowd", "text": { "en": "Applaud from the crowd", "es": "Aplaude desde el público" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You enjoy the evening's entertainment.", "es": "Disfrutas del entretenimiento de la noche." } } }
+      { "id": "recite-verse", "text": { "en": "Recite an epic verse", "es": "Recita un verso épico" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.4, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 5, "currency": 10 }, "text": { "en": "Your verse silences the room, then erupts in praise.", "es": "Tu verso silencia la sala, que luego estalla en elogios." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "You lose your place mid-verse.", "es": "Pierdes el hilo a mitad del verso." } } },
+      { "id": "applaud-crowd", "text": { "en": "Applaud from the crowd", "es": "Aplaude desde el público" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You enjoy the evening's entertainment.", "es": "Disfrutas del entretenimiento de la noche." } } }
     ]
   },
   {
@@ -185,8 +185,8 @@
     "weight": 3,
     "conditions": { "resources": { "reputation": { "min": 15 } } },
     "options": [
-      { "id": "attend-symposium", "text": { "en": "Attend and mingle with the influential guests", "es": "Asiste y alterna con los invitados influyentes" }, "cost": { "time": 3, "resources": { "currency": -10 } }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["attended-symposium"], "text": { "en": "You charm the room and make useful friends.", "es": "Encandilas a la sala y haces amistades útiles." } }, "failure": { "resources": { "reputation": -2, "energy": -10 }, "text": { "en": "You drink too much wine and embarrass yourself.", "es": "Bebes demasiado vino y haces el ridículo." } } },
-      { "id": "decline-symposium", "text": { "en": "Decline politely", "es": "Declina educadamente" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You return home instead.", "es": "Vuelves a casa en su lugar." } } }
+      { "id": "attend-symposium", "text": { "en": "Attend and mingle with the influential guests", "es": "Asiste y alterna con los invitados influyentes" }, "traits": { "generous": 1 }, "cost": { "time": 3, "resources": { "currency": -10 } }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["attended-symposium"], "text": { "en": "You charm the room and make useful friends.", "es": "Encandilas a la sala y haces amistades útiles." } }, "failure": { "resources": { "reputation": -2, "energy": -10 }, "text": { "en": "You drink too much wine and embarrass yourself.", "es": "Bebes demasiado vino y haces el ridículo." } } },
+      { "id": "decline-symposium", "text": { "en": "Decline politely", "es": "Declina educadamente" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You return home instead.", "es": "Vuelves a casa en su lugar." } } }
     ]
   },
   {
@@ -196,8 +196,8 @@
     "weight": 2,
     "conditions": { "resources": { "currency": { "min": 5 } } },
     "options": [
-      { "id": "share-wine", "text": { "en": "Share wine with strangers", "es": "Comparte vino con desconocidos" }, "cost": { "time": 2, "resources": { "currency": -5, "energy": -5 } }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "charm", "scale": 0.04 } }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["made-friend"], "text": { "en": "You make a new friend over drinks.", "es": "Haces un nuevo amigo entre copas." } }, "failure": { "resources": { "currency": -10 }, "text": { "en": "You wake to find your pouch lighter.", "es": "Despiertas y descubres que tu bolsa pesa menos." } } },
-      { "id": "drink-alone", "text": { "en": "Drink alone, quietly", "es": "Bebe solo, en silencio" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "text": { "en": "A quiet moment to yourself.", "es": "Un momento tranquilo a solas." } } }
+      { "id": "share-wine", "text": { "en": "Share wine with strangers", "es": "Comparte vino con desconocidos" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "currency": -5, "energy": -5 } }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["made-friend"], "text": { "en": "You make a new friend over drinks.", "es": "Haces un nuevo amigo entre copas." } }, "failure": { "resources": { "currency": -10 }, "text": { "en": "You wake to find your pouch lighter.", "es": "Despiertas y descubres que tu bolsa pesa menos." } } },
+      { "id": "drink-alone", "text": { "en": "Drink alone, quietly", "es": "Bebe solo, en silencio" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "text": { "en": "A quiet moment to yourself.", "es": "Un momento tranquilo a solas." } } }
     ]
   },
   {
@@ -206,8 +206,8 @@
     "timeSlots": ["night"],
     "weight": 2,
     "options": [
-      { "id": "join-watch", "text": { "en": "Help patrol the streets", "es": "Ayuda a patrullar las calles" }, "cost": { "time": 2, "resources": { "energy": -15 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.05 } }, "success": { "resources": { "currency": 10, "reputation": 2 }, "text": { "en": "A quiet, uneventful patrol earns you a small wage.", "es": "Una patrulla tranquila y sin incidentes te da un pequeño salario." } }, "failure": { "resources": { "health": -10 }, "text": { "en": "You stumble into trouble in a dark alley.", "es": "Te topas con problemas en un callejón oscuro." } } },
-      { "id": "go-home", "text": { "en": "Go home and rest", "es": "Vuelve a casa a descansar" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 15 }, "text": { "en": "You rest for tomorrow.", "es": "Descansas para mañana." } } }
+      { "id": "join-watch", "text": { "en": "Help patrol the streets", "es": "Ayuda a patrullar las calles" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -15 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 10, "reputation": 2 }, "text": { "en": "A quiet, uneventful patrol earns you a small wage.", "es": "Una patrulla tranquila y sin incidentes te da un pequeño salario." } }, "failure": { "resources": { "health": -10 }, "text": { "en": "You stumble into trouble in a dark alley.", "es": "Te topas con problemas en un callejón oscuro." } } },
+      { "id": "go-home", "text": { "en": "Go home and rest", "es": "Vuelve a casa a descansar" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 15 }, "text": { "en": "You rest for tomorrow.", "es": "Descansas para mañana." } } }
     ]
   },
   {
@@ -216,8 +216,8 @@
     "timeSlots": ["morning", "midday", "afternoon", "night"],
     "weight": 2,
     "options": [
-      { "id": "visit-family", "text": { "en": "Stop in for a meal", "es": "Entra a comer" }, "cost": { "time": 2 }, "successChance": { "base": 0.95 }, "success": { "resources": { "hunger": 30, "thirst": 15, "health": 5 }, "text": { "en": "A warm meal and welcome company.", "es": "Una comida caliente y compañía bienvenida." } }, "failure": { "text": { "en": "No one is home.", "es": "No hay nadie en casa." } } },
-      { "id": "skip-family", "text": { "en": "Skip it, too busy", "es": "Pasa de largo, estás ocupado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You keep moving.", "es": "Sigues adelante." } } }
+      { "id": "visit-family", "text": { "en": "Stop in for a meal", "es": "Entra a comer" }, "traits": { "generous": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.95 }, "success": { "resources": { "hunger": 30, "thirst": 15, "health": 5 }, "text": { "en": "A warm meal and welcome company.", "es": "Una comida caliente y compañía bienvenida." } }, "failure": { "text": { "en": "No one is home.", "es": "No hay nadie en casa." } } },
+      { "id": "skip-family", "text": { "en": "Skip it, too busy", "es": "Pasa de largo, estás ocupado" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You keep moving.", "es": "Sigues adelante." } } }
     ]
   },
   {
@@ -226,8 +226,8 @@
     "timeSlots": ["afternoon"],
     "weight": 2,
     "options": [
-      { "id": "join-procession", "text": { "en": "Join the procession", "es": "Únete a la procesión" }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.9 }, "success": { "resources": { "reputation": 3 }, "text": { "en": "You are seen celebrating with the city.", "es": "Te ven celebrando junto a la ciudad." } }, "failure": { "resources": { "reputation": -1 }, "text": { "en": "You lose the rhythm and stumble, drawing laughter.", "es": "Pierdes el ritmo y tropiezas, provocando risas." } } },
-      { "id": "watch-procession", "text": { "en": "Watch from a distance", "es": "Observa desde la distancia" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You enjoy the spectacle.", "es": "Disfrutas del espectáculo." } } }
+      { "id": "join-procession", "text": { "en": "Join the procession", "es": "Únete a la procesión" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.9 }, "success": { "resources": { "reputation": 3 }, "text": { "en": "You are seen celebrating with the city.", "es": "Te ven celebrando junto a la ciudad." } }, "failure": { "resources": { "reputation": -1 }, "text": { "en": "You lose the rhythm and stumble, drawing laughter.", "es": "Pierdes el ritmo y tropiezas, provocando risas." } } },
+      { "id": "watch-procession", "text": { "en": "Watch from a distance", "es": "Observa desde la distancia" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You enjoy the spectacle.", "es": "Disfrutas del espectáculo." } } }
     ]
   },
   {
@@ -237,8 +237,8 @@
     "weight": 2,
     "conditions": { "resources": { "currency": { "max": 100 } } },
     "options": [
-      { "id": "help-craftsman", "text": { "en": "Offer to help finish the work", "es": "Ofrécete a ayudar a terminar el trabajo" }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.05 } }, "success": { "resources": { "currency": 20 }, "text": { "en": "The grateful craftsman pays you well.", "es": "El artesano, agradecido, te paga bien." } }, "failure": { "resources": { "energy": -10 }, "text": { "en": "You slow him down more than help.", "es": "Lo retrasas más de lo que lo ayudas." } } },
-      { "id": "move-along-craftsman", "text": { "en": "Move along", "es": "Sigue tu camino" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not your concern.", "es": "No es asunto tuyo." } } }
+      { "id": "help-craftsman", "text": { "en": "Offer to help finish the work", "es": "Ofrécete a ayudar a terminar el trabajo" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 20 }, "text": { "en": "The grateful craftsman pays you well.", "es": "El artesano, agradecido, te paga bien." } }, "failure": { "resources": { "energy": -10 }, "text": { "en": "You slow him down more than help.", "es": "Lo retrasas más de lo que lo ayudas." } } },
+      { "id": "move-along-craftsman", "text": { "en": "Move along", "es": "Sigue tu camino" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not your concern.", "es": "No es asunto tuyo." } } }
     ]
   },
   {
@@ -249,8 +249,8 @@
     "repeatable": true,
     "conditions": { "flagsExcluded": ["shrine-rumor-heard", "found-shrine"] },
     "options": [
-      { "id": "ask-rumor", "text": { "en": "Ask him to say more", "es": "Pídele que cuente más" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "flagsSet": ["shrine-rumor-heard"], "text": { "en": "He describes a path through the hills, marked by a broken column.", "es": "Describe un sendero por las colinas, marcado por una columna rota." } }, "failure": { "text": { "en": "He clams up, suspicious of strangers.", "es": "Se cierra en banda, receloso de los desconocidos." } } },
-      { "id": "ignore-rumor", "text": { "en": "Ignore the old drunk", "es": "Ignora al viejo borracho" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Probably nonsense anyway.", "es": "Probablemente sean tonterías." } } }
+      { "id": "ask-rumor", "text": { "en": "Ask him to say more", "es": "Pídele que cuente más" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "flagsSet": ["shrine-rumor-heard"], "text": { "en": "He describes a path through the hills, marked by a broken column.", "es": "Describe un sendero por las colinas, marcado por una columna rota." } }, "failure": { "text": { "en": "He clams up, suspicious of strangers.", "es": "Se cierra en banda, receloso de los desconocidos." } } },
+      { "id": "ignore-rumor", "text": { "en": "Ignore the old drunk", "es": "Ignora al viejo borracho" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Probably nonsense anyway.", "es": "Probablemente sean tonterías." } } }
     ]
   },
   {
@@ -260,8 +260,8 @@
     "weight": 3,
     "conditions": { "flagsRequired": ["shrine-rumor-heard"], "flagsExcluded": ["found-shrine"] },
     "options": [
-      { "id": "follow-path", "text": { "en": "Follow the path into the hills", "es": "Sigue el sendero hacia las colinas" }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.05 } }, "success": { "resources": { "reputation": 10 }, "flagsSet": ["found-shrine"], "text": { "en": "You find a forgotten shrine, untouched for generations. Word of your discovery will spread.", "es": "Encuentras un santuario olvidado, intacto durante generaciones. La noticia de tu hallazgo se extenderá." } }, "failure": { "resources": { "health": -15, "energy": -20 }, "text": { "en": "You lose the path in the dark and stumble back bruised.", "es": "Pierdes el sendero en la oscuridad y regresas magullado." } } },
-      { "id": "not-today-shrine", "text": { "en": "Not today, too risky", "es": "Hoy no, demasiado arriesgado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The path will still be there.", "es": "El sendero seguirá ahí." } } }
+      { "id": "follow-path", "text": { "en": "Follow the path into the hills", "es": "Sigue el sendero hacia las colinas" }, "traits": { "bold": 1 }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 10 }, "flagsSet": ["found-shrine"], "text": { "en": "You find a forgotten shrine, untouched for generations. Word of your discovery will spread.", "es": "Encuentras un santuario olvidado, intacto durante generaciones. La noticia de tu hallazgo se extenderá." } }, "failure": { "resources": { "health": -15, "energy": -20 }, "text": { "en": "You lose the path in the dark and stumble back bruised.", "es": "Pierdes el sendero en la oscuridad y regresas magullado." } } },
+      { "id": "not-today-shrine", "text": { "en": "Not today, too risky", "es": "Hoy no, demasiado arriesgado" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The path will still be there.", "es": "El sendero seguirá ahí." } } }
     ]
   },
   {
@@ -273,8 +273,8 @@
     "weight": 1,
     "conditions": { "flagsRequired": ["won-debate"], "flagsExcluded": ["learned-from-sophia"] },
     "options": [
-      { "id": "deeper-debate", "text": { "en": "Engage in a deeper debate", "es": "Entabla un debate más profundo" }, "cost": { "time": 2 }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.08 } }, "success": { "resources": { "reputation": 8 }, "flagsSet": ["philosopher-favor", "learned-from-sophia"], "countersAdd": { "sophiaRespect": 3 }, "text": { "en": "She calls you a promising mind before her students.", "es": "Te llama una mente prometedora delante de sus alumnos." } }, "failure": { "resources": { "reputation": -3 }, "countersAdd": { "sophiaRespect": -2 }, "text": { "en": "You overreach and lose her respect.", "es": "Te excedes y pierdes su respeto." } } },
-      { "id": "not-today-philosopher", "text": { "en": "Not today", "es": "Hoy no" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Perhaps another time.", "es": "Quizá en otra ocasión." } } }
+      { "id": "deeper-debate", "text": { "en": "Engage in a deeper debate", "es": "Entabla un debate más profundo" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.4, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 8 }, "flagsSet": ["philosopher-favor", "learned-from-sophia"], "countersAdd": { "sophiaRespect": 3 }, "text": { "en": "She calls you a promising mind before her students.", "es": "Te llama una mente prometedora delante de sus alumnos." } }, "failure": { "resources": { "reputation": -3 }, "countersAdd": { "sophiaRespect": -2 }, "text": { "en": "You overreach and lose her respect.", "es": "Te excedes y pierdes su respeto." } } },
+      { "id": "not-today-philosopher", "text": { "en": "Not today", "es": "Hoy no" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Perhaps another time.", "es": "Quizá en otra ocasión." } } }
     ]
   },
   {
@@ -286,8 +286,8 @@
     "weight": 2,
     "conditions": { "resources": { "currency": { "min": 50 } }, "flagsRequired": ["met-thales"] },
     "options": [
-      { "id": "invest-voyage", "text": { "en": "Invest in the venture", "es": "Invierte en la empresa" }, "cost": { "time": 2, "resources": { "currency": -50 } }, "successChance": { "base": 0.45, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "currency": 120 }, "flagsSet": ["helped-thales"], "countersAdd": { "merchantTrust": 3 }, "text": { "en": "The ship returns laden with goods. Your investment pays off handsomely.", "es": "El barco regresa cargado de mercancías. Tu inversión da grandes frutos." } }, "failure": { "text": { "en": "The ship is delayed by storms. Your coin is gone for now.", "es": "El barco se retrasa por tormentas. Tu dinero se ha perdido, por ahora." } } },
-      { "id": "keep-coin", "text": { "en": "Keep your coin safe", "es": "Mantén tu dinero a salvo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Better safe than sorry.", "es": "Más vale prevenir que curar." } } }
+      { "id": "invest-voyage", "text": { "en": "Invest in the venture", "es": "Invierte en la empresa" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "currency": -50 } }, "successChance": { "base": 0.45, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "currency": 120 }, "flagsSet": ["helped-thales"], "countersAdd": { "merchantTrust": 3 }, "text": { "en": "The ship returns laden with goods. Your investment pays off handsomely.", "es": "El barco regresa cargado de mercancías. Tu inversión da grandes frutos." } }, "failure": { "text": { "en": "The ship is delayed by storms. Your coin is gone for now.", "es": "El barco se retrasa por tormentas. Tu dinero se ha perdido, por ahora." } } },
+      { "id": "keep-coin", "text": { "en": "Keep your coin safe", "es": "Mantén tu dinero a salvo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Better safe than sorry.", "es": "Más vale prevenir que curar." } } }
     ]
   },
   {
@@ -299,8 +299,8 @@
     "weight": 1,
     "conditions": { "flagsRequired": ["helped-thales"], "flagsExcluded": ["thales-thread-resolved"] },
     "options": [
-      { "id": "formalize-partnership", "text": { "en": "Formalize a lasting partnership", "es": "Formaliza una sociedad duradera" }, "cost": { "time": 1 }, "successChance": { "base": 0.8, "archetypeBonus": { "modifier": "charm", "scale": 0.04 } }, "success": { "resources": { "currency": 20, "reputation": 2 }, "flagsSet": ["thales-thread-resolved", "remembered-helped-thales"], "countersAdd": { "merchantTrust": 2 }, "text": { "en": "Thales clasps your hand. \"A partner like you is rare,\" he says, sealing the deal with wine.", "es": "Tales te estrecha la mano. \"Un socio como tú es raro\", dice, sellando el trato con vino." } }, "failure": { "flagsSet": ["thales-thread-resolved", "remembered-helped-thales"], "countersAdd": { "merchantTrust": -1 }, "text": { "en": "The terms fall through, but he still speaks well of you around the agora.", "es": "El acuerdo no cuaja, pero sigue hablando bien de ti por el ágora." } } },
-      { "id": "keep-it-casual-thales", "text": { "en": "Keep things friendly but informal", "es": "Mantenlo cordial pero informal" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["thales-thread-resolved", "remembered-helped-thales"], "text": { "en": "You part on good terms, no paperwork needed.", "es": "Os despedís en buenos términos, sin necesidad de papeleo." } } }
+      { "id": "formalize-partnership", "text": { "en": "Formalize a lasting partnership", "es": "Formaliza una sociedad duradera" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.8, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "currency": 20, "reputation": 2 }, "flagsSet": ["thales-thread-resolved", "remembered-helped-thales"], "countersAdd": { "merchantTrust": 2 }, "text": { "en": "Thales clasps your hand. \"A partner like you is rare,\" he says, sealing the deal with wine.", "es": "Tales te estrecha la mano. \"Un socio como tú es raro\", dice, sellando el trato con vino." } }, "failure": { "flagsSet": ["thales-thread-resolved", "remembered-helped-thales"], "countersAdd": { "merchantTrust": -1 }, "text": { "en": "The terms fall through, but he still speaks well of you around the agora.", "es": "El acuerdo no cuaja, pero sigue hablando bien de ti por el ágora." } } },
+      { "id": "keep-it-casual-thales", "text": { "en": "Keep things friendly but informal", "es": "Mantenlo cordial pero informal" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["thales-thread-resolved", "remembered-helped-thales"], "text": { "en": "You part on good terms, no paperwork needed.", "es": "Os despedís en buenos términos, sin necesidad de papeleo." } } }
     ]
   },
   {
@@ -312,8 +312,8 @@
     "weight": 4,
     "conditions": { "flagsRequired": ["remembered-helped-thales"], "flagsExcluded": ["met-thales"] },
     "options": [
-      { "id": "greet-thales", "text": { "en": "Greet him warmly", "es": "Salúdalo con calidez" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 10, "reputation": 1 }, "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": 3 }, "text": { "en": "He presses a small gift of fine pottery into your hands. \"For a friend of the family,\" he says.", "es": "Te pone en las manos un pequeño regalo de cerámica fina. \"Para un amigo de la familia\", dice." } } },
-      { "id": "business-only-thales", "text": { "en": "Keep it brief and businesslike", "es": "Sé breve y ve al grano" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": 1 }, "text": { "en": "He nods, unbothered, and lets you carry on with your day.", "es": "Asiente, sin ofenderse, y te deja seguir con tu día." } } }
+      { "id": "greet-thales", "text": { "en": "Greet him warmly", "es": "Salúdalo con calidez" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 10, "reputation": 1 }, "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": 3 }, "text": { "en": "He presses a small gift of fine pottery into your hands. \"For a friend of the family,\" he says.", "es": "Te pone en las manos un pequeño regalo de cerámica fina. \"Para un amigo de la familia\", dice." } } },
+      { "id": "business-only-thales", "text": { "en": "Keep it brief and businesslike", "es": "Sé breve y ve al grano" }, "traits": { "cunning": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-thales"], "countersAdd": { "merchantTrust": 1 }, "text": { "en": "He nods, unbothered, and lets you carry on with your day.", "es": "Asiente, sin ofenderse, y te deja seguir con tu día." } } }
     ]
   },
   {
@@ -325,8 +325,8 @@
     "weight": 1,
     "conditions": { "flagsRequired": ["learned-from-sophia"], "flagsExcluded": ["sophia-thread-resolved"] },
     "options": [
-      { "id": "accept-sophia-teaching", "text": { "en": "Accept her offer to study further", "es": "Acepta su oferta de seguir estudiando" }, "cost": { "time": 2 }, "successChance": { "base": 0.7, "archetypeBonus": { "modifier": "wits", "scale": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["sophia-thread-resolved", "remembered-sophia-favor"], "countersAdd": { "sophiaRespect": 2 }, "text": { "en": "You are welcomed into her circle of students, a mark of honor across the city.", "es": "Te dan la bienvenida a su círculo de alumnos, una distinción reconocida en toda la ciudad." } }, "failure": { "flagsSet": ["sophia-thread-resolved", "remembered-sophia-favor"], "countersAdd": { "sophiaRespect": -1 }, "text": { "en": "The circle's rigor proves too much for today, but she still thinks well of you.", "es": "El rigor del círculo te supera hoy, pero ella sigue pensando bien de ti." } } },
-      { "id": "part-ways-sophia", "text": { "en": "Part ways as equals", "es": "Despídete como iguales" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["sophia-thread-resolved", "remembered-sophia-favor"], "text": { "en": "You part as respected equals, no obligation between you.", "es": "Os despedís como iguales respetados, sin obligación entre vosotros." } } }
+      { "id": "accept-sophia-teaching", "text": { "en": "Accept her offer to study further", "es": "Acepta su oferta de seguir estudiando" }, "traits": { "diligent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.7, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["sophia-thread-resolved", "remembered-sophia-favor"], "countersAdd": { "sophiaRespect": 2 }, "text": { "en": "You are welcomed into her circle of students, a mark of honor across the city.", "es": "Te dan la bienvenida a su círculo de alumnos, una distinción reconocida en toda la ciudad." } }, "failure": { "flagsSet": ["sophia-thread-resolved", "remembered-sophia-favor"], "countersAdd": { "sophiaRespect": -1 }, "text": { "en": "The circle's rigor proves too much for today, but she still thinks well of you.", "es": "El rigor del círculo te supera hoy, pero ella sigue pensando bien de ti." } } },
+      { "id": "part-ways-sophia", "text": { "en": "Part ways as equals", "es": "Despídete como iguales" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["sophia-thread-resolved", "remembered-sophia-favor"], "text": { "en": "You part as respected equals, no obligation between you.", "es": "Os despedís como iguales respetados, sin obligación entre vosotros." } } }
     ]
   },
   {
@@ -338,8 +338,8 @@
     "weight": 4,
     "conditions": { "flagsRequired": ["remembered-sophia-favor"], "flagsExcluded": ["met-sophia"] },
     "options": [
-      { "id": "reconnect-sophia", "text": { "en": "Greet her as a peer", "es": "Salúdala como a una igual" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["met-sophia", "won-debate"], "countersAdd": { "sophiaRespect": 3 }, "text": { "en": "She welcomes you as a peer, not a stranger, and other students take notice.", "es": "Te recibe como a una igual, no como a una desconocida, y otros alumnos se dan cuenta." } } },
-      { "id": "polite-nod-sophia", "text": { "en": "Give a polite nod and move on", "es": "Saluda con un gesto cortés y sigue adelante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-sophia"], "countersAdd": { "sophiaRespect": 1 }, "text": { "en": "She nods back, understanding you're busy today.", "es": "Ella responde con un gesto, entendiendo que hoy andas ocupado." } } }
+      { "id": "reconnect-sophia", "text": { "en": "Greet her as a peer", "es": "Salúdala como a una igual" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["met-sophia", "won-debate"], "countersAdd": { "sophiaRespect": 3 }, "text": { "en": "She welcomes you as a peer, not a stranger, and other students take notice.", "es": "Te recibe como a una igual, no como a una desconocida, y otros alumnos se dan cuenta." } } },
+      { "id": "polite-nod-sophia", "text": { "en": "Give a polite nod and move on", "es": "Saluda con un gesto cortés y sigue adelante" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-sophia"], "countersAdd": { "sophiaRespect": 1 }, "text": { "en": "She nods back, understanding you're busy today.", "es": "Ella responde con un gesto, entendiendo que hoy andas ocupado." } } }
     ]
   },
   {
@@ -351,9 +351,9 @@
     "weight": 3,
     "conditions": { "flagsExcluded": ["met-kleon", "remembered-bested-kleon"] },
     "options": [
-      { "id": "challenge-kleon", "text": { "en": "Match his wit in front of onlookers", "es": "Iguala su ingenio delante de los curiosos" }, "cost": { "time": 1 }, "successChance": { "base": 0.45, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": -2 }, "text": { "en": "You turn his mockery back on him. Onlookers laugh, at his expense this time.", "es": "Le devuelves su burla. Los curiosos ríen, esta vez a su costa." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": 2 }, "text": { "en": "He gets the better of the exchange, and you feel the sting of it.", "es": "Sale mejor parado del cruce de palabras, y sientes el escozor." } } },
-      { "id": "flatter-kleon", "text": { "en": "Play along with his flattery", "es": "Sigue su juego de halagos" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": 3 }, "text": { "en": "He seems pleased, already treating you as a useful ally.", "es": "Parece complacido, y ya te trata como a un aliado útil." } } },
-      { "id": "brush-past-kleon", "text": { "en": "Brush past without a word", "es": "Pasa de largo sin decir nada" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": -1 }, "text": { "en": "He calls something mocking after you, but you keep walking.", "es": "Te grita algo burlón, pero sigues caminando." } } }
+      { "id": "challenge-kleon", "text": { "en": "Match his wit in front of onlookers", "es": "Iguala su ingenio delante de los curiosos" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.45, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": -2 }, "text": { "en": "You turn his mockery back on him. Onlookers laugh, at his expense this time.", "es": "Le devuelves su burla. Los curiosos ríen, esta vez a su costa." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": 2 }, "text": { "en": "He gets the better of the exchange, and you feel the sting of it.", "es": "Sale mejor parado del cruce de palabras, y sientes el escozor." } } },
+      { "id": "flatter-kleon", "text": { "en": "Play along with his flattery", "es": "Sigue su juego de halagos" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": 3 }, "text": { "en": "He seems pleased, already treating you as a useful ally.", "es": "Parece complacido, y ya te trata como a un aliado útil." } } },
+      { "id": "brush-past-kleon", "text": { "en": "Brush past without a word", "es": "Pasa de largo sin decir nada" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": -1 }, "text": { "en": "He calls something mocking after you, but you keep walking.", "es": "Te grita algo burlón, pero sigues caminando." } } }
     ]
   },
   {
@@ -365,9 +365,9 @@
     "weight": 2,
     "conditions": { "flagsRequired": ["met-kleon"], "flagsExcluded": ["kleon-scheme-resolved"] },
     "options": [
-      { "id": "expose-scheme", "text": { "en": "Expose the scheme publicly", "es": "Expón la trama públicamente" }, "cost": { "time": 2 }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["outmaneuvered-kleon", "kleon-scheme-resolved"], "countersAdd": { "kleonRespect": -3 }, "text": { "en": "You lay his maneuvering bare before the assembly. His allies scatter.", "es": "Dejas su maniobra al descubierto ante la asamblea. Sus aliados se dispersan." } }, "failure": { "resources": { "reputation": -3 }, "flagsSet": ["kleon-scheme-resolved"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "Your accusation falls flat without proof, and Kleon looks pleased.", "es": "Tu acusación no convence sin pruebas, y Cleón parece satisfecho." } } },
-      { "id": "join-scheme", "text": { "en": "Play along for a price", "es": "Sigue el juego a cambio de un precio" }, "cost": { "time": 1 }, "successChance": { "base": 0.6 }, "success": { "resources": { "currency": 20 }, "flagsSet": ["joined-kleon-scheme", "kleon-scheme-resolved"], "countersAdd": { "kleonRespect": 3 }, "text": { "en": "You cast the vote as asked. Coin changes hands quietly afterward.", "es": "Emites el voto como te pidió. El dinero cambia de manos en silencio después." } }, "failure": { "resources": { "reputation": -4 }, "flagsSet": ["kleon-scheme-resolved"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "Word leaks out regardless, and you take the blame alone.", "es": "La noticia se filtra de todos modos, y cargas tú solo con la culpa." } } },
-      { "id": "stay-neutral-kleon", "text": { "en": "Refuse and stay out of it", "es": "Niégate y no te involucres" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["kleon-scheme-resolved"], "text": { "en": "You want no part of it.", "es": "No quieres tomar parte en esto." } } }
+      { "id": "expose-scheme", "text": { "en": "Expose the scheme publicly", "es": "Expón la trama públicamente" }, "traits": { "cunning": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.4, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["outmaneuvered-kleon", "kleon-scheme-resolved"], "countersAdd": { "kleonRespect": -3 }, "text": { "en": "You lay his maneuvering bare before the assembly. His allies scatter.", "es": "Dejas su maniobra al descubierto ante la asamblea. Sus aliados se dispersan." } }, "failure": { "resources": { "reputation": -3 }, "flagsSet": ["kleon-scheme-resolved"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "Your accusation falls flat without proof, and Kleon looks pleased.", "es": "Tu acusación no convence sin pruebas, y Cleón parece satisfecho." } } },
+      { "id": "join-scheme", "text": { "en": "Play along for a price", "es": "Sigue el juego a cambio de un precio" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6 }, "success": { "resources": { "currency": 20 }, "flagsSet": ["joined-kleon-scheme", "kleon-scheme-resolved"], "countersAdd": { "kleonRespect": 3 }, "text": { "en": "You cast the vote as asked. Coin changes hands quietly afterward.", "es": "Emites el voto como te pidió. El dinero cambia de manos en silencio después." } }, "failure": { "resources": { "reputation": -4 }, "flagsSet": ["kleon-scheme-resolved"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "Word leaks out regardless, and you take the blame alone.", "es": "La noticia se filtra de todos modos, y cargas tú solo con la culpa." } } },
+      { "id": "stay-neutral-kleon", "text": { "en": "Refuse and stay out of it", "es": "Niégate y no te involucres" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["kleon-scheme-resolved"], "text": { "en": "You want no part of it.", "es": "No quieres tomar parte en esto." } } }
     ]
   },
   {
@@ -379,9 +379,9 @@
     "weight": 1,
     "conditions": { "flagsRequired": ["outmaneuvered-kleon"], "flagsExcluded": ["kleon-thread-resolved"] },
     "options": [
-      { "id": "gracious-victory", "text": { "en": "Offer him a way to save face", "es": "Ofrécele una salida para no quedar en ridículo" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "He grudgingly nods, and the rivalry cools, for now.", "es": "Asiente a regañadientes, y la rivalidad se enfría, por ahora." } }, "failure": { "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "countersAdd": { "kleonRespect": -1 }, "text": { "en": "He storms off anyway, but the city already remembers who won.", "es": "Se marcha furioso de todos modos, pero la ciudad ya recuerda quién ganó." } } },
-      { "id": "press-advantage", "text": { "en": "Press your advantage publicly", "es": "Presiona tu ventaja en público" }, "cost": { "time": 1 }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "countersAdd": { "kleonRespect": -2 }, "text": { "en": "You drive the point home. Kleon's standing takes a further hit.", "es": "Rematas el asunto. La posición de Cleón se resiente aún más." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "text": { "en": "You overplay your hand, but the earlier victory still stands.", "es": "Te excedes, pero la victoria anterior sigue en pie." } } },
-      { "id": "let-it-rest", "text": { "en": "Let the matter rest", "es": "Deja que el asunto se enfríe" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "text": { "en": "You let it go. Everyone still remembers who came out ahead.", "es": "Lo dejas pasar. Todos recuerdan igualmente quién salió ganando." } } }
+      { "id": "gracious-victory", "text": { "en": "Offer him a way to save face", "es": "Ofrécele una salida para no quedar en ridículo" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "He grudgingly nods, and the rivalry cools, for now.", "es": "Asiente a regañadientes, y la rivalidad se enfría, por ahora." } }, "failure": { "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "countersAdd": { "kleonRespect": -1 }, "text": { "en": "He storms off anyway, but the city already remembers who won.", "es": "Se marcha furioso de todos modos, pero la ciudad ya recuerda quién ganó." } } },
+      { "id": "press-advantage", "text": { "en": "Press your advantage publicly", "es": "Presiona tu ventaja en público" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.4, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "countersAdd": { "kleonRespect": -2 }, "text": { "en": "You drive the point home. Kleon's standing takes a further hit.", "es": "Rematas el asunto. La posición de Cleón se resiente aún más." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "text": { "en": "You overplay your hand, but the earlier victory still stands.", "es": "Te excedes, pero la victoria anterior sigue en pie." } } },
+      { "id": "let-it-rest", "text": { "en": "Let the matter rest", "es": "Deja que el asunto se enfríe" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["kleon-thread-resolved", "remembered-bested-kleon"], "text": { "en": "You let it go. Everyone still remembers who came out ahead.", "es": "Lo dejas pasar. Todos recuerdan igualmente quién salió ganando." } } }
     ]
   },
   {
@@ -393,8 +393,134 @@
     "weight": 4,
     "conditions": { "flagsRequired": ["remembered-bested-kleon"], "flagsExcluded": ["met-kleon"] },
     "options": [
-      { "id": "reassure-kleon", "text": { "en": "Offer a nod of reassurance", "es": "Ofrécele un gesto tranquilizador" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "He relaxes, slightly, and keeps his distance.", "es": "Se relaja, un poco, y mantiene las distancias." } } },
-      { "id": "cold-shoulder-kleon", "text": { "en": "Meet his stare and keep walking", "es": "Sostén su mirada y sigue caminando" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": -1 }, "text": { "en": "Neither of you looks away first. Old rivalries die hard.", "es": "Ninguno de los dos aparta la mirada primero. Las viejas rivalidades no mueren fácil." } } }
+      { "id": "reassure-kleon", "text": { "en": "Offer a nod of reassurance", "es": "Ofrécele un gesto tranquilizador" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": 1 }, "text": { "en": "He relaxes, slightly, and keeps his distance.", "es": "Se relaja, un poco, y mantiene las distancias." } } },
+      { "id": "cold-shoulder-kleon", "text": { "en": "Meet his stare and keep walking", "es": "Sostén su mirada y sigue caminando" }, "traits": { "cunning": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kleon"], "countersAdd": { "kleonRespect": -1 }, "text": { "en": "Neither of you looks away first. Old rivalries die hard.", "es": "Ninguno de los dos aparta la mirada primero. Las viejas rivalidades no mueren fácil." } } }
+    ]
+  },
+  {
+    "id": "greece-potter-kiln",
+    "text": { "en": "A potter in the Kerameikos is firing a kiln alone and waves you over — the heat needs feeding through the morning.", "es": "Un alfarero del Cerámico enciende un horno él solo y te hace señas: hay que alimentar el fuego toda la mañana." },
+    "timeSlots": ["morning", "midday"],
+    "weight": 3,
+    "options": [
+      { "id": "work-kiln", "text": { "en": "Feed the kiln through the firing", "es": "Alimenta el horno durante la cocción" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 0.7, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 14, "reputation": 1 }, "text": { "en": "The vases come out red and unbroken. The potter pays and remembers your name.", "es": "Las vasijas salen rojas e intactas. El alfarero paga y recuerda tu nombre." } }, "failure": { "resources": { "health": -6 }, "text": { "en": "You misjudge the heat and burn your forearm on the kiln door.", "es": "Calculas mal el calor y te quemas el antebrazo con la puerta del horno." } } },
+      { "id": "buy-cheap-vase", "text": { "en": "Buy a cracked vase cheap for your family", "es": "Compra barata una vasija agrietada para tu familia" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -4 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "It will hold olives well enough. Your mother will like it.", "es": "Servirá para las aceitunas. A tu madre le gustará." } } },
+      { "id": "skip-kiln", "text": { "en": "Keep walking", "es": "Sigue caminando" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The smoke follows you down the street.", "es": "El humo te sigue calle abajo." } } }
+    ]
+  },
+  {
+    "id": "greece-olive-harvest",
+    "text": { "en": "Outside the walls, a landowner is hiring pickers for the olive harvest, paying by the basket.", "es": "Fuera de las murallas, un terrateniente contrata recolectores para la cosecha de aceitunas, pagando por cesta." },
+    "timeSlots": ["morning"],
+    "weight": 3,
+    "conditions": { "resources": { "energy": { "min": 25 } } },
+    "options": [
+      { "id": "pick-olives", "text": { "en": "Pick olives until midday", "es": "Recoge aceitunas hasta el mediodía" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 18, "hunger": 5 }, "text": { "en": "Your back aches but the baskets fill. He pays fair and throws in a handful of olives.", "es": "Te duele la espalda, pero las cestas se llenan. Paga lo justo y añade un puñado de aceitunas." } } },
+      { "id": "haggle-wage", "text": { "en": "Haggle for a better wage first", "es": "Regatea primero un salario mejor" }, "traits": { "cunning": 1 }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "currency": 28 }, "text": { "en": "He grumbles, but a known face is worth a few extra obols to him.", "es": "Refunfuña, pero una cara conocida le vale unos óbolos de más." } }, "failure": { "resources": { "reputation": -1 }, "text": { "en": "He sends you off and hires someone hungrier. The morning is wasted.", "es": "Te despide y contrata a alguien con más hambre. La mañana se pierde." } } },
+      { "id": "decline-harvest", "text": { "en": "Field work is beneath you today", "es": "Hoy el campo no es para ti" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You turn back toward the city.", "es": "Vuelves hacia la ciudad." } } }
+    ]
+  },
+  {
+    "id": "greece-theatre-audition",
+    "text": { "en": "The chorus for tonight's tragedy has lost a voice, and the chorus-master is auditioning anyone who can hold a note.", "es": "El coro de la tragedia de esta noche ha perdido una voz, y el corego prueba a cualquiera que sepa sostener una nota." },
+    "timeSlots": ["afternoon"],
+    "weight": 2,
+    "options": [
+      { "id": "audition-chorus", "text": { "en": "Audition for the chorus", "es": "Preséntate a la prueba del coro" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.45, "traitBonus": { "trait": "bold", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 6, "currency": 8 }, "flagsSet": ["stage-chorus"], "text": { "en": "You sing the strophe clean. Tonight you wear the mask before the whole city.", "es": "Cantas la estrofa sin fallar. Esta noche llevarás la máscara ante toda la ciudad." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "Your voice cracks on the second line. The chorus-master winces.", "es": "Tu voz se quiebra en el segundo verso. El corego hace una mueca." } } },
+      { "id": "watch-rehearsal", "text": { "en": "Watch the rehearsal from the top rows", "es": "Observa el ensayo desde las gradas altas" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You learn how the masks throw a voice across stone.", "es": "Aprendes cómo las máscaras lanzan la voz sobre la piedra." } } },
+      { "id": "leave-theatre", "text": { "en": "Leave them to it", "es": "Déjalos con lo suyo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Someone else will wear the mask.", "es": "Otro llevará la máscara." } } }
+    ]
+  },
+  {
+    "id": "greece-athena-altar",
+    "text": { "en": "Priests prepare a sacrifice at the altar of Athena, and citizens press forward with offerings of their own.", "es": "Los sacerdotes preparan un sacrificio en el altar de Atenea, y los ciudadanos se adelantan con ofrendas propias." },
+    "timeSlots": ["morning", "night"],
+    "weight": 2,
+    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "options": [
+      { "id": "offer-lamb", "text": { "en": "Buy a lamb for the altar", "es": "Compra un cordero para el altar" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -25 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5, "health": 3, "hunger": 10 }, "text": { "en": "The priests share the roasted meat; your piety is spoken of on the steps.", "es": "Los sacerdotes reparten la carne asada; tu piedad se comenta en las escalinatas." } } },
+      { "id": "light-incense", "text": { "en": "Light a pinch of incense", "es": "Enciende una pizca de incienso" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -3 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "A modest smoke rises with the rest.", "es": "Un humo modesto se eleva con los demás." } } },
+      { "id": "question-rites", "text": { "en": "Ask aloud what the gods actually want", "es": "Pregunta en voz alta qué quieren los dioses realmente" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.4, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["questioned-priest"], "text": { "en": "A priest takes the question seriously, and the crowd listens to you both.", "es": "Un sacerdote se toma la pregunta en serio, y la multitud os escucha a ambos." } }, "failure": { "resources": { "reputation": -4 }, "text": { "en": "An old woman calls you impious and the crowd agrees with her.", "es": "Una anciana te llama impío y la multitud le da la razón." } } }
+    ]
+  },
+  {
+    "id": "greece-piraeus-smuggler",
+    "text": { "en": "At Piraeus, a ship's captain offers coin to anyone who will look the other way while amphorae come ashore untaxed.", "es": "En el Pireo, el capitán de un barco ofrece dinero a quien mire hacia otro lado mientras desembarcan ánforas sin pagar impuestos." },
+    "timeSlots": ["night"],
+    "weight": 2,
+    "options": [
+      { "id": "take-smuggler-coin", "text": { "en": "Take the coin and see nothing", "es": "Acepta el dinero y no veas nada" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.75 }, "success": { "resources": { "currency": 30, "reputation": -2 }, "flagsSet": ["smuggler-coin"], "text": { "en": "The amphorae vanish into the dark and the silver is heavy in your hand.", "es": "Las ánforas desaparecen en la oscuridad y la plata pesa en tu mano." } }, "failure": { "resources": { "reputation": -6, "currency": -10 }, "text": { "en": "A harbor inspector arrives mid-unloading. The captain vanishes; you pay the fine.", "es": "Un inspector del puerto llega a mitad de la descarga. El capitán desaparece; la multa la pagas tú." } } },
+      { "id": "report-smuggler", "text": { "en": "Report him to the harbor guard", "es": "Denúncialo a la guardia del puerto" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 5, "currency": 8 }, "text": { "en": "The guard seizes the cargo and slips you a reward for the tip.", "es": "La guardia incauta la carga y te desliza una recompensa por el aviso." } }, "failure": { "resources": { "health": -10 }, "text": { "en": "The guard is slow, and the captain's men are not. You limp home.", "es": "La guardia es lenta, y los hombres del capitán no. Vuelves a casa cojeando." } } },
+      { "id": "walk-on-piraeus", "text": { "en": "Walk on, it isn't your harbor", "es": "Sigue adelante, no es tu puerto" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The waves cover whatever happens next.", "es": "Las olas cubren lo que pase después." } } }
+    ]
+  },
+  {
+    "id": "greece-spartan-envoy",
+    "text": { "en": "A Spartan envoy crosses the agora in his red cloak while Athenians jeer from the stalls.", "es": "Un enviado espartano cruza el ágora con su capa roja mientras los atenienses lo abuchean desde los puestos." },
+    "timeSlots": ["midday", "afternoon"],
+    "weight": 2,
+    "conditions": { "resources": { "reputation": { "min": 20 } } },
+    "options": [
+      { "id": "speak-with-spartan", "text": { "en": "Walk beside him and ask about Sparta", "es": "Camina a su lado y pregúntale por Esparta" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.55, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["spoke-with-sparta"], "text": { "en": "He answers in few words, but they are honest ones. Some Athenians respect the gesture.", "es": "Responde con pocas palabras, pero honestas. Algunos atenienses respetan el gesto." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "The crowd decides you are a Spartan sympathizer and says so loudly.", "es": "La multitud decide que simpatizas con Esparta y lo dice a gritos." } } },
+      { "id": "join-jeering", "text": { "en": "Join the jeering", "es": "Únete al abucheo" }, "traits": { "bold": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Cheap applause from the stalls. The envoy does not turn his head.", "es": "Aplausos baratos desde los puestos. El enviado ni gira la cabeza." } } },
+      { "id": "keep-distance-spartan", "text": { "en": "Keep your distance", "es": "Mantén las distancias" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Politics is a fire best watched from afar.", "es": "La política es un fuego que conviene mirar de lejos." } } }
+    ]
+  },
+  {
+    "id": "greece-sick-neighbor",
+    "text": { "en": "Your neighbor's daughter runs out into the street: her father burns with fever and no physician will come without coin.", "es": "La hija de tu vecino sale corriendo a la calle: su padre arde de fiebre y ningún médico vendrá sin dinero." },
+    "timeSlots": ["morning", "midday", "afternoon", "night"],
+    "weight": 2,
+    "options": [
+      { "id": "fetch-physician", "text": { "en": "Fetch a physician and pay him yourself", "es": "Trae a un médico y págalo tú" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "currency": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["helped-neighbor"], "text": { "en": "The physician bleeds him and the fever breaks by evening. The family will not forget it.", "es": "El médico lo sangra y la fiebre remite al anochecer. La familia no lo olvidará." } } },
+      { "id": "sit-with-sick", "text": { "en": "Sit with him and cool the fever with water", "es": "Quédate con él y baja la fiebre con agua" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -5 } }, "successChance": { "base": 0.7 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["helped-neighbor"], "text": { "en": "By evening he can sit up and drink. His daughter kisses your hands.", "es": "Al anochecer puede incorporarse y beber. Su hija te besa las manos." } }, "failure": { "resources": { "health": -12 }, "text": { "en": "The fever breaks in him and starts in you.", "es": "La fiebre remite en él y empieza en ti." } } },
+      { "id": "avoid-sick-house", "text": { "en": "Stay well away from a fever house", "es": "Mantente lejos de una casa con fiebre" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "The girl watches you go. So does the street.", "es": "La niña te ve marchar. La calle también." } } }
+    ]
+  },
+  {
+    "id": "greece-stargazer",
+    "text": { "en": "On the hill above the city, an old astronomer sets up his sighting rods and invites anyone awake to learn the sky.", "es": "En la colina sobre la ciudad, un viejo astrónomo coloca sus varas de medición e invita a quien esté despierto a aprender el cielo." },
+    "timeSlots": ["night"],
+    "weight": 2,
+    "options": [
+      { "id": "learn-stars", "text": { "en": "Learn the constellations from him", "es": "Aprende de él las constelaciones" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["learned-stars"], "text": { "en": "He names Orion, the Bear, the Pleiades, and shows you how sailors steer by them.", "es": "Nombra a Orión, la Osa, las Pléyades, y te enseña cómo los marineros se guían por ellas." } } },
+      { "id": "carry-instruments", "text": { "en": "Carry his instruments up the hill for a coin", "es": "Súbele los instrumentos a la colina por una moneda" }, "traits": { "diligent": 1 }, "cost": { "time": 1, "resources": { "energy": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 5 }, "text": { "en": "Heavy bronze, light pay, but honest.", "es": "Bronce pesado, paga ligera, pero honrada." } } },
+      { "id": "go-to-bed-stars", "text": { "en": "The stars will be there tomorrow", "es": "Las estrellas seguirán ahí mañana" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "You sleep while he counts.", "es": "Duermes mientras él cuenta." } } }
+    ]
+  },
+  {
+    "id": "greece-dice-game",
+    "text": { "en": "Sailors in a doorway rattle knucklebones in a cup and wave you into the game.", "es": "Unos marineros en un portal agitan tabas en un cubilete y te invitan a la partida." },
+    "timeSlots": ["night"],
+    "weight": 2,
+    "conditions": { "resources": { "currency": { "min": 10 } } },
+    "options": [
+      { "id": "play-dice", "text": { "en": "Play a few rounds", "es": "Juega unas rondas" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5 }, "success": { "resources": { "currency": 20 }, "text": { "en": "The bones fall your way. You leave before your luck turns.", "es": "Las tabas caen a tu favor. Te vas antes de que cambie la suerte." } }, "failure": { "resources": { "currency": -10 }, "text": { "en": "Three throws, three losses. The sailors are very sympathetic.", "es": "Tres tiradas, tres derrotas. Los marineros lo sienten muchísimo." } } },
+      { "id": "cheat-dice", "text": { "en": "Slip in your own weighted bones", "es": "Cuela tus propias tabas trucadas" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.45, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "currency": 30 }, "text": { "en": "Nobody looks too closely at a winning throw.", "es": "Nadie mira demasiado de cerca una tirada ganadora." } }, "failure": { "resources": { "currency": -10, "health": -8, "reputation": -5 }, "text": { "en": "A sailor catches the switch. You leave with fewer coins and a split lip.", "es": "Un marinero pilla el cambio. Te vas con menos monedas y el labio partido." } } },
+      { "id": "watch-dice", "text": { "en": "Just watch the game", "es": "Solo mira la partida" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You learn which sailor cheats, and say nothing.", "es": "Descubres qué marinero hace trampas, y no dices nada." } } }
+    ]
+  },
+  {
+    "id": "greece-ostracism-vote",
+    "text": { "en": "The assembly is voting to ostracize a leading citizen, and a mob is already scratching his name onto potsherds.", "es": "La asamblea vota para desterrar a un ciudadano destacado, y una turba ya raya su nombre en los tiestos." },
+    "timeSlots": ["afternoon"],
+    "weight": 2,
+    "conditions": { "resources": { "reputation": { "min": 10 } } },
+    "options": [
+      { "id": "speak-against-mob", "text": { "en": "Speak against the mob", "es": "Habla en contra de la turba" }, "traits": { "bold": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.4, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 7 }, "flagsSet": ["defied-mob"], "text": { "en": "Enough citizens hesitate that the vote fails. Some call you brave; others take note.", "es": "Bastantes ciudadanos dudan y la votación fracasa. Unos te llaman valiente; otros toman nota." } }, "failure": { "resources": { "reputation": -5 }, "text": { "en": "You are shouted down, and a few sherds now carry your name too.", "es": "Te acallan a gritos, y algunos tiestos ahora llevan también tu nombre." } } },
+      { "id": "vote-with-crowd", "text": { "en": "Scratch the name and vote with the crowd", "es": "Raya el nombre y vota con la multitud" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Safe in the majority. The exile leaves at dawn.", "es": "A salvo en la mayoría. El desterrado se marcha al amanecer." } } },
+      { "id": "sell-vote", "text": { "en": "Sell your sherd to the faction that pays most", "es": "Vende tu tiesto a la facción que más pague" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15, "reputation": -3 }, "text": { "en": "Silver for a scratch of clay. Democracy, of a kind.", "es": "Plata por un rasguño en arcilla. Democracia, a su manera." } } }
+    ]
+  },
+  {
+    "id": "greece-scroll-copying",
+    "text": { "en": "A scribe near the Stoa pays copyists by the column to duplicate a battered scroll of Homer.", "es": "Un escriba junto a la Estoa paga a copistas por columna para duplicar un rollo maltrecho de Homero." },
+    "timeSlots": ["midday"],
+    "weight": 2,
+    "options": [
+      { "id": "copy-scroll", "text": { "en": "Copy columns for pay", "es": "Copia columnas a cambio de paga" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 14 }, "text": { "en": "Ink-stained fingers and a neat stack of columns. He pays on the spot.", "es": "Dedos manchados de tinta y una pila ordenada de columnas. Paga en el acto." } } },
+      { "id": "read-scroll", "text": { "en": "Read the scroll instead of copying it", "es": "Lee el rollo en vez de copiarlo" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "You lose the afternoon to Hector and Achilles and come out quoting.", "es": "Pierdes la tarde con Héctor y Aquiles, y sales recitando." } } },
+      { "id": "decline-scribe", "text": { "en": "Not your trade", "es": "No es tu oficio" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You leave the ink to others.", "es": "Dejas la tinta a otros." } } }
     ]
   }
 ]

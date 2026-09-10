@@ -1,27 +1,23 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { getValidCards, pickWeightedCard, computeSuccessChance, resolveOption } from '../shared/decision-engine.js';
+import { getValidCards, pickWeightedCard, computeSuccessChance, resolveOption, TRAIT_BONUS_DEFAULT_CAP } from '../shared/decision-engine.js';
 import { createDayState } from '../shared/day-engine.js';
 import { mulberry32 } from '../shared/rng.js';
 
-const era = { day: { totalTime: 16, slots: [{ id: 'morning', from: 0, to: 4 }, { id: 'night', from: 4, to: 16 }] } };
+const era = {
+  day: { totalTime: 16, slots: [{ id: 'morning', from: 0, to: 4 }, { id: 'night', from: 4, to: 16 }] },
+  resources: { energy: { min: 0, max: 100, start: 50 } },
+};
 
 test('getValidCards filters by time slot', () => {
   const cards = [{ id: 'a', timeSlots: ['morning'] }, { id: 'b', timeSlots: ['night'] }];
-  const dayState = createDayState(era);
-  assert.deepEqual(getValidCards(cards, era, {}, dayState).map(c => c.id), ['a']);
+  assert.deepEqual(getValidCards(cards, era, {}, createDayState(era)).map(c => c.id), ['a']);
 });
 
-test('getValidCards excludes already-played non-repeatable cards', () => {
-  const cards = [{ id: 'a', timeSlots: ['morning'] }];
-  const dayState = { ...createDayState(era), playedCardIds: ['a'] };
-  assert.equal(getValidCards(cards, era, {}, dayState).length, 0);
-});
-
-test('getValidCards keeps repeatable cards even after being played', () => {
-  const cards = [{ id: 'a', timeSlots: ['morning'], repeatable: true }];
-  const dayState = { ...createDayState(era), playedCardIds: ['a'] };
-  assert.equal(getValidCards(cards, era, {}, dayState).length, 1);
+test('getValidCards excludes already-played non-repeatable cards but keeps repeatable ones', () => {
+  const dayState = { ...createDayState(era), playedCardIds: ['a', 'b'] };
+  const cards = [{ id: 'a', timeSlots: ['morning'] }, { id: 'b', timeSlots: ['morning'], repeatable: true }];
+  assert.deepEqual(getValidCards(cards, era, {}, dayState).map(c => c.id), ['b']);
 });
 
 test('getValidCards enforces resource conditions and required/excluded flags', () => {
@@ -34,78 +30,103 @@ test('getValidCards enforces resource conditions and required/excluded flags', (
   assert.deepEqual(getValidCards(cards, era, { currency: 10 }, dayState).map(c => c.id), ['needs-flag']);
 });
 
-test('getValidCards enforces counter conditions (e.g. NPC trust thresholds)', () => {
+test('getValidCards enforces counter conditions, e.g. an NPC trust threshold', () => {
   const cards = [
-    { id: 'trusted-only', timeSlots: ['morning'], conditions: { counters: { merchantTrust: { min: 3 } } } },
-    { id: 'no-counter-needed', timeSlots: ['morning'] },
+    { id: 'trusted-only', timeSlots: ['morning'], conditions: { counters: { trust: { min: 3 } } } },
+    { id: 'always', timeSlots: ['morning'] },
   ];
-  const lowTrust = { ...createDayState(era), counters: { merchantTrust: 1 } };
-  assert.deepEqual(getValidCards(cards, era, {}, lowTrust).map(c => c.id), ['no-counter-needed']);
-  const highTrust = { ...createDayState(era), counters: { merchantTrust: 5 } };
-  assert.deepEqual(getValidCards(cards, era, {}, highTrust).map(c => c.id).sort(), ['no-counter-needed', 'trusted-only']);
+  assert.deepEqual(getValidCards(cards, era, {}, { ...createDayState(era), counters: { trust: 1 } }).map(c => c.id), ['always']);
+  assert.deepEqual(getValidCards(cards, era, {}, { ...createDayState(era), counters: { trust: 5 } }).map(c => c.id).sort(), ['always', 'trusted-only']);
 });
 
-test('a multi-card narrative thread only unlocks its follow-up after the intro flag is set', () => {
-  const intro = { id: 'thread-intro', timeSlots: ['morning'], conditions: { flagsExcluded: ['met-npc'] } };
-  const followUp = { id: 'thread-follow-up', timeSlots: ['morning'], conditions: { flagsRequired: ['met-npc'], flagsExcluded: ['thread-resolved'] } };
-  const resolution = { id: 'thread-resolution', timeSlots: ['morning'], conditions: { flagsRequired: ['helped-npc'], flagsExcluded: ['thread-resolved'] } };
-  const cards = [intro, followUp, resolution];
-
-  const dayStart = createDayState(era);
-  assert.deepEqual(getValidCards(cards, era, {}, dayStart).map(c => c.id), ['thread-intro']);
-
-  const afterIntro = { ...dayStart, flags: ['met-npc'] };
-  assert.deepEqual(getValidCards(cards, era, {}, afterIntro).map(c => c.id), ['thread-follow-up']);
-
-  const afterFollowUp = { ...dayStart, flags: ['met-npc', 'helped-npc'] };
-  assert.deepEqual(getValidCards(cards, era, {}, afterFollowUp).map(c => c.id).sort(), ['thread-follow-up', 'thread-resolution']);
-
-  const afterResolution = { ...dayStart, flags: ['met-npc', 'helped-npc', 'thread-resolved'] };
-  assert.deepEqual(getValidCards(cards, era, {}, afterResolution).map(c => c.id), []);
+test('a narrative thread only unlocks its follow-up once the intro flag is set', () => {
+  const cards = [
+    { id: 'intro', timeSlots: ['morning'], conditions: { flagsExcluded: ['met-npc'] } },
+    { id: 'follow-up', timeSlots: ['morning'], conditions: { flagsRequired: ['met-npc'], flagsExcluded: ['resolved'] } },
+    { id: 'resolution', timeSlots: ['morning'], conditions: { flagsRequired: ['helped-npc'], flagsExcluded: ['resolved'] } },
+  ];
+  const start = createDayState(era);
+  assert.deepEqual(getValidCards(cards, era, {}, start).map(c => c.id), ['intro']);
+  assert.deepEqual(getValidCards(cards, era, {}, { ...start, flags: ['met-npc'] }).map(c => c.id), ['follow-up']);
+  assert.deepEqual(getValidCards(cards, era, {}, { ...start, flags: ['met-npc', 'helped-npc'] }).map(c => c.id).sort(), ['follow-up', 'resolution']);
+  assert.deepEqual(getValidCards(cards, era, {}, { ...start, flags: ['met-npc', 'helped-npc', 'resolved'] }).map(c => c.id), []);
 });
 
-test('pickWeightedCard is deterministic for a given rng seed', () => {
-  const cards = [{ id: 'a', weight: 1 }, { id: 'b', weight: 1 }, { id: 'c', weight: 1 }];
-  assert.equal(pickWeightedCard(cards, mulberry32(7)).id, pickWeightedCard(cards, mulberry32(7)).id);
-});
-
-test('pickWeightedCard favors higher-weight cards over many draws', () => {
+test('pickWeightedCard is deterministic for a seed and favors higher weights', () => {
   const cards = [{ id: 'rare', weight: 1 }, { id: 'common', weight: 9 }];
+  assert.equal(pickWeightedCard(cards, mulberry32(7)).id, pickWeightedCard(cards, mulberry32(7)).id);
   const rng = mulberry32(99);
   const counts = { rare: 0, common: 0 };
   for (let i = 0; i < 2000; i++) counts[pickWeightedCard(cards, rng).id]++;
   assert.ok(counts.common > counts.rare * 3, `expected common >> rare, got ${JSON.stringify(counts)}`);
 });
 
-test('computeSuccessChance applies archetype bonus and clamps to [0.05, 0.95]', () => {
-  const archetype = { modifiers: { charm: 3 } };
-  assert.equal(computeSuccessChance({ base: 0.5, archetypeBonus: { modifier: 'charm', scale: 0.1 } }, archetype), 0.8);
-  assert.equal(computeSuccessChance({ base: 0.9, archetypeBonus: { modifier: 'charm', scale: 0.1 } }, archetype), 0.95);
-  assert.equal(computeSuccessChance({ base: 0 }, archetype), 0.05);
-});
-
-test('computeSuccessChance ignores missing modifiers and defaults to 1 with no spec', () => {
-  assert.equal(computeSuccessChance({ base: 0.5, archetypeBonus: { modifier: 'wits', scale: 0.1 } }, { modifiers: {} }), 0.5);
+test('computeSuccessChance defaults to certainty with no spec and honors a bare base', () => {
   assert.equal(computeSuccessChance(undefined, {}), 1);
+  assert.equal(computeSuccessChance({ base: 0.4 }, {}), 0.4);
 });
 
-test('resolveOption succeeds when the roll is below the success chance', () => {
+test('a resource bonus swings the odds by the full scale between empty and full', () => {
+  const spec = { base: 0.5, resourceBonus: { resource: 'energy', scale: 0.4 } };
+  const empty = computeSuccessChance(spec, { era, resourceState: { energy: 0 } });
+  const half = computeSuccessChance(spec, { era, resourceState: { energy: 50 } });
+  const full = computeSuccessChance(spec, { era, resourceState: { energy: 100 } });
+  assert.equal(half, 0.5, 'a half-full resource should leave the base untouched');
+  assert.ok(Math.abs(empty - 0.3) < 1e-9, `expected 0.3 on empty, got ${empty}`);
+  assert.ok(Math.abs(full - 0.7) < 1e-9, `expected 0.7 on full, got ${full}`);
+});
+
+test('a resource bonus is ignored when the era does not have that resource', () => {
+  const spec = { base: 0.5, resourceBonus: { resource: 'oxygen', scale: 0.4 } };
+  assert.equal(computeSuccessChance(spec, { era, resourceState: { energy: 100 } }), 0.5);
+});
+
+test('a trait bonus rewards choices already made today', () => {
+  const spec = { base: 0.4, traitBonus: { trait: 'bold', perPoint: 0.05 } };
+  assert.equal(computeSuccessChance(spec, { traits: {} }), 0.4);
+  assert.ok(Math.abs(computeSuccessChance(spec, { traits: { bold: 3 } }) - 0.55) < 1e-9);
+});
+
+test('a trait bonus is capped, so a one-note day cannot buy certainty', () => {
+  const spec = { base: 0.4, traitBonus: { trait: 'bold', perPoint: 0.05 } };
+  const atCap = computeSuccessChance(spec, { traits: { bold: TRAIT_BONUS_DEFAULT_CAP } });
+  const wayOverCap = computeSuccessChance(spec, { traits: { bold: 40 } });
+  assert.equal(wayOverCap, atCap);
+  const explicitCap = { base: 0.4, traitBonus: { trait: 'bold', perPoint: 0.05, cap: 2 } };
+  assert.ok(Math.abs(computeSuccessChance(explicitCap, { traits: { bold: 9 } }) - 0.5) < 1e-9);
+});
+
+test('a real roll is always clamped into [0.05, 0.95], however good or bad the inputs', () => {
+  const generous = { base: 0.9, resourceBonus: { resource: 'energy', scale: 0.4 } };
+  assert.equal(computeSuccessChance(generous, { era, resourceState: { energy: 100 } }), 0.95);
+  const punishing = { base: 0.1, resourceBonus: { resource: 'energy', scale: 0.4 } };
+  assert.equal(computeSuccessChance(punishing, { era, resourceState: { energy: 0 } }), 0.05);
+});
+
+test('resolveOption takes the success branch below the chance and failure at or above it', () => {
   const option = { successChance: { base: 0.5 }, success: { text: 'yes' }, failure: { text: 'no' } };
-  const result = resolveOption(option, {}, () => 0.3);
-  assert.equal(result.success, true);
-  assert.equal(result.outcome, option.success);
+  assert.equal(resolveOption(option, {}, () => 0.3).outcome, option.success);
+  assert.equal(resolveOption(option, {}, () => 0.7).outcome, option.failure);
 });
 
-test('resolveOption fails when the roll is at or above the success chance', () => {
-  const option = { successChance: { base: 0.5 }, success: { text: 'yes' }, failure: { text: 'no' } };
-  const result = resolveOption(option, {}, () => 0.7);
-  assert.equal(result.success, false);
-  assert.equal(result.outcome, option.failure);
-});
-
-test('resolveOption falls back to an empty outcome object when failure is undefined', () => {
-  const option = { successChance: { base: 0 }, success: { text: 'yes' } };
-  const result = resolveOption(option, {}, () => 0.99);
+test('resolveOption falls back to an empty outcome when there is no failure branch', () => {
+  const result = resolveOption({ successChance: { base: 0 }, success: { text: 'yes' } }, {}, () => 0.99);
   assert.equal(result.success, false);
   assert.deepEqual(result.outcome, { text: {}, resources: {} });
+});
+
+test('resolveOption reports the chance it actually rolled against', () => {
+  const option = { successChance: { base: 0.5, traitBonus: { trait: 'curious', perPoint: 0.1 } } };
+  assert.ok(Math.abs(resolveOption(option, { traits: { curious: 2 } }, () => 0.1).chance - 0.7) < 1e-9);
+});
+
+test('an option with no bonus at all is certain, not clamped down to 95%', () => {
+  // "Walk past, 0h" is not a roll; printing 95% odds on it would be a lie.
+  assert.equal(computeSuccessChance({ base: 1 }, {}), 1);
+  assert.equal(computeSuccessChance({ base: 1 }, { era, resourceState: { energy: 10 } }), 1);
+});
+
+test('once a bonus applies, the [0.05, 0.95] band applies too', () => {
+  const spec = { base: 1, traitBonus: { trait: 'bold', perPoint: 0.05 } };
+  assert.equal(computeSuccessChance(spec, { traits: { bold: 2 } }), 0.95);
 });

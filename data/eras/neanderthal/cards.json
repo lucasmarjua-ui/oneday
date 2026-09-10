@@ -5,8 +5,8 @@
     "timeSlots": ["dawn"],
     "weight": 5,
     "options": [
-      { "id": "tend-embers", "text": { "en": "Tend the fire and stretch", "es": "Aviva el fuego y estírate" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "The warmth loosens your muscles.", "es": "El calor relaja tus músculos." } } },
-      { "id": "sleep-in-embers", "text": { "en": "Sleep a little longer by the embers", "es": "Duerme un poco más junto a las brasas" }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 20, "health": 2 }, "text": { "en": "You wake rested, but the light is already climbing.", "es": "Despiertas descansado, pero la luz ya ha subido." } } }
+      { "id": "tend-embers", "text": { "en": "Tend the fire and stretch", "es": "Aviva el fuego y estírate" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "The warmth loosens your muscles.", "es": "El calor relaja tus músculos." } } },
+      { "id": "sleep-in-embers", "text": { "en": "Sleep a little longer by the embers", "es": "Duerme un poco más junto a las brasas" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 20, "health": 2 }, "text": { "en": "You wake rested, but the light is already climbing.", "es": "Despiertas descansado, pero la luz ya ha subido." } } }
     ]
   },
   {
@@ -15,8 +15,8 @@
     "timeSlots": ["dawn", "midday", "dusk"],
     "weight": 4,
     "options": [
-      { "id": "search-carefully", "text": { "en": "Search carefully", "es": "Busca con cuidado" }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 0.55, "archetypeBonus": { "modifier": "luck", "scale": 0.06 } }, "success": { "resources": { "survival": 20, "currency": 5 }, "text": { "en": "A good patch — enough to eat and enough to spare.", "es": "Un buen hallazgo: suficiente para comer y algo de sobra." } }, "failure": { "resources": { "energy": -5 }, "text": { "en": "Nothing but bitter roots not worth the trouble.", "es": "Nada más que raíces amargas que no valen el esfuerzo." } } },
-      { "id": "move-on-forage", "text": { "en": "Move on", "es": "Sigue adelante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You keep walking.", "es": "Sigues caminando." } } }
+      { "id": "search-carefully", "text": { "en": "Search carefully", "es": "Busca con cuidado" }, "traits": { "diligent": 1 }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 0.55, "traitBonus": { "trait": "curious", "perPoint": 0.03 } }, "success": { "resources": { "survival": 20, "currency": 5 }, "text": { "en": "A good patch — enough to eat and enough to spare.", "es": "Un buen hallazgo: suficiente para comer y algo de sobra." } }, "failure": { "resources": { "energy": -5 }, "text": { "en": "Nothing but bitter roots not worth the trouble.", "es": "Nada más que raíces amargas que no valen el esfuerzo." } } },
+      { "id": "move-on-forage", "text": { "en": "Move on", "es": "Sigue adelante" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You keep walking.", "es": "Sigues caminando." } } }
     ]
   },
   {
@@ -25,8 +25,8 @@
     "timeSlots": ["dawn", "midday", "dusk", "night"],
     "weight": 3,
     "options": [
-      { "id": "drink-rest", "text": { "en": "Drink and rest a moment", "es": "Bebe y descansa un momento" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "survival": 25 }, "text": { "en": "The cold water steadies you.", "es": "El agua fría te reconforta." } } },
-      { "id": "skip-water-source", "text": { "en": "Keep moving", "es": "Sigue tu camino" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You press on.", "es": "Continúas adelante." } } }
+      { "id": "drink-rest", "text": { "en": "Drink and rest a moment", "es": "Bebe y descansa un momento" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "survival": 25 }, "text": { "en": "The cold water steadies you.", "es": "El agua fría te reconforta." } } },
+      { "id": "skip-water-source", "text": { "en": "Keep moving", "es": "Sigue tu camino" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You press on.", "es": "Continúas adelante." } } }
     ]
   },
   {
@@ -39,8 +39,8 @@
     "repeatable": true,
     "conditions": { "flagsExcluded": ["beast-tracked", "great-hunt-won", "remembered-helped-thorn"] },
     "options": [
-      { "id": "investigate-tracks", "text": { "en": "Investigate the sighting", "es": "Investiga el avistamiento" }, "cost": { "time": 1 }, "successChance": { "base": 0.55, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "flagsSet": ["beast-tracked"], "countersAdd": { "thornRespect": 1 }, "text": { "en": "You spot the same fresh tracks Thorn found — if anything, you're gaining on him.", "es": "Encuentras las mismas huellas frescas que Espino: si acaso, le estás ganando terreno." } }, "failure": { "countersAdd": { "thornRespect": -1 }, "text": { "en": "The trail is already cold. Thorn's laughter carries across the camp.", "es": "El rastro ya está frío. La risa de Espino se oye por todo el campamento." } } },
-      { "id": "ignore-tracks", "text": { "en": "Not worth the risk", "es": "No merece el riesgo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You let Thorn's boasting pass.", "es": "Dejas pasar las fanfarronadas de Espino." } } }
+      { "id": "investigate-tracks", "text": { "en": "Investigate the sighting", "es": "Investiga el avistamiento" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.55, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "flagsSet": ["beast-tracked"], "countersAdd": { "thornRespect": 1 }, "text": { "en": "You spot the same fresh tracks Thorn found — if anything, you're gaining on him.", "es": "Encuentras las mismas huellas frescas que Espino: si acaso, le estás ganando terreno." } }, "failure": { "countersAdd": { "thornRespect": -1 }, "text": { "en": "The trail is already cold. Thorn's laughter carries across the camp.", "es": "El rastro ya está frío. La risa de Espino se oye por todo el campamento." } } },
+      { "id": "ignore-tracks", "text": { "en": "Not worth the risk", "es": "No merece el riesgo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You let Thorn's boasting pass.", "es": "Dejas pasar las fanfarronadas de Espino." } } }
     ]
   },
   {
@@ -52,8 +52,8 @@
     "weight": 3,
     "conditions": { "flagsRequired": ["beast-tracked"], "flagsExcluded": ["great-hunt-won"] },
     "options": [
-      { "id": "attempt-hunt", "text": { "en": "Attempt the hunt", "es": "Intenta la cacería" }, "cost": { "time": 3, "resources": { "energy": -25 } }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "might", "scale": 0.07 } }, "success": { "resources": { "currency": 40, "reputation": 8 }, "flagsSet": ["great-hunt-won", "bested-thorn"], "countersAdd": { "thornRespect": -3 }, "text": { "en": "The beast falls to your spear, not his. Thorn's face sours as the tribe cheers your name.", "es": "La bestia cae ante tu lanza, no la suya. El gesto de Espino se agria mientras la tribu vitorea tu nombre." } }, "failure": { "resources": { "health": -20 }, "countersAdd": { "thornRespect": 2 }, "text": { "en": "The beast turns on you before you can strike. Thorn hauls you clear, muttering that you owe him now.", "es": "La bestia se revuelve contra ti antes de que puedas atacar. Espino te saca de allí a rastras, murmurando que ahora se la debes." } } },
-      { "id": "decline-hunt", "text": { "en": "Not today, too dangerous", "es": "Hoy no, demasiado peligroso" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "countersAdd": { "thornRespect": 1 }, "text": { "en": "You hold back. Thorn's triumphant shout echoes from the ridge alone.", "es": "Te contienes. El grito triunfal de Espino resuena solo desde la cresta." } } }
+      { "id": "attempt-hunt", "text": { "en": "Attempt the hunt", "es": "Intenta la cacería" }, "traits": { "bold": 1 }, "cost": { "time": 3, "resources": { "energy": -25 } }, "successChance": { "base": 0.4, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 40, "reputation": 8 }, "flagsSet": ["great-hunt-won", "bested-thorn"], "countersAdd": { "thornRespect": -3 }, "text": { "en": "The beast falls to your spear, not his. Thorn's face sours as the tribe cheers your name.", "es": "La bestia cae ante tu lanza, no la suya. El gesto de Espino se agria mientras la tribu vitorea tu nombre." } }, "failure": { "resources": { "health": -20 }, "countersAdd": { "thornRespect": 2 }, "text": { "en": "The beast turns on you before you can strike. Thorn hauls you clear, muttering that you owe him now.", "es": "La bestia se revuelve contra ti antes de que puedas atacar. Espino te saca de allí a rastras, murmurando que ahora se la debes." } } },
+      { "id": "decline-hunt", "text": { "en": "Not today, too dangerous", "es": "Hoy no, demasiado peligroso" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "countersAdd": { "thornRespect": 1 }, "text": { "en": "You hold back. Thorn's triumphant shout echoes from the ridge alone.", "es": "Te contienes. El grito triunfal de Espino resuena solo desde la cresta." } } }
     ]
   },
   {
@@ -65,8 +65,8 @@
     "weight": 2,
     "conditions": { "flagsExcluded": ["met-kaia", "remembered-kaia-apprentice"] },
     "options": [
-      { "id": "join-ritual", "text": { "en": "Join the ritual", "es": "Únete al ritual" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": 2 }, "text": { "en": "You read the signs true, and Kaia takes notice.", "es": "Interpretas bien las señales, y Kaia se fija en ti." } }, "failure": { "resources": { "reputation": -1, "energy": -5 }, "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": -1 }, "text": { "en": "The smoke leaves you dizzy and confused. Kaia watches, unimpressed.", "es": "El humo te deja mareado y confundido. Kaia observa, poco impresionada." } } },
-      { "id": "skip-ritual", "text": { "en": "Watch from a distance", "es": "Observa desde la distancia" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kaia"], "text": { "en": "You keep your own counsel, and Kaia says nothing.", "es": "Guardas tus propias reflexiones, y Kaia no dice nada." } } }
+      { "id": "join-ritual", "text": { "en": "Join the ritual", "es": "Únete al ritual" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": 2 }, "text": { "en": "You read the signs true, and Kaia takes notice.", "es": "Interpretas bien las señales, y Kaia se fija en ti." } }, "failure": { "resources": { "reputation": -1, "energy": -5 }, "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": -1 }, "text": { "en": "The smoke leaves you dizzy and confused. Kaia watches, unimpressed.", "es": "El humo te deja mareado y confundido. Kaia observa, poco impresionada." } } },
+      { "id": "skip-ritual", "text": { "en": "Watch from a distance", "es": "Observa desde la distancia" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kaia"], "text": { "en": "You keep your own counsel, and Kaia says nothing.", "es": "Guardas tus propias reflexiones, y Kaia no dice nada." } } }
     ]
   },
   {
@@ -78,8 +78,8 @@
     "weight": 2,
     "conditions": { "flagsRequired": ["beast-tracked"], "flagsExcluded": ["thorn-aftermath-done"] },
     "options": [
-      { "id": "tend-wound", "text": { "en": "Tend his wound", "es": "Atiende su herida" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["helped-thorn", "thorn-aftermath-done", "remembered-helped-thorn"], "countersAdd": { "thornRespect": 4 }, "text": { "en": "The bleeding stops. Thorn meets your eyes, and for the first time, it isn't a challenge.", "es": "La hemorragia se detiene. Espino te mira a los ojos, y por primera vez no es un desafío." } }, "failure": { "flagsSet": ["thorn-aftermath-done"], "text": { "en": "You do what you can, but he needed more skill than you have.", "es": "Haces lo que puedes, pero él necesitaba más destreza de la que tienes." } } },
-      { "id": "ignore-injured", "text": { "en": "Not your concern", "es": "No es asunto tuyo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "flagsSet": ["thorn-aftermath-done"], "countersAdd": { "thornRespect": -2 }, "text": { "en": "Others notice you turn away. Thorn will remember this, too.", "es": "Otros notan que te apartas. Espino también recordará esto." } } }
+      { "id": "tend-wound", "text": { "en": "Tend his wound", "es": "Atiende su herida" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["helped-thorn", "thorn-aftermath-done", "remembered-helped-thorn"], "countersAdd": { "thornRespect": 4 }, "text": { "en": "The bleeding stops. Thorn meets your eyes, and for the first time, it isn't a challenge.", "es": "La hemorragia se detiene. Espino te mira a los ojos, y por primera vez no es un desafío." } }, "failure": { "flagsSet": ["thorn-aftermath-done"], "text": { "en": "You do what you can, but he needed more skill than you have.", "es": "Haces lo que puedes, pero él necesitaba más destreza de la que tienes." } } },
+      { "id": "ignore-injured", "text": { "en": "Not your concern", "es": "No es asunto tuyo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "flagsSet": ["thorn-aftermath-done"], "countersAdd": { "thornRespect": -2 }, "text": { "en": "Others notice you turn away. Thorn will remember this, too.", "es": "Otros notan que te apartas. Espino también recordará esto." } } }
     ]
   },
   {
@@ -88,8 +88,8 @@
     "timeSlots": ["dusk", "night"],
     "weight": 3,
     "options": [
-      { "id": "stand-ground", "text": { "en": "Stand your ground and scare it off", "es": "Mantente firme y ahuyéntalo" }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.06 } }, "success": { "resources": { "reputation": 4 }, "text": { "en": "You shout and throw stones. The shadow retreats.", "es": "Gritas y lanzas piedras. La sombra se retira." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "It lunges before you're ready. You fight your way free, bloodied.", "es": "Se abalanza antes de que estés listo. Logras escapar, malherido." } } },
-      { "id": "retreat-quietly", "text": { "en": "Retreat quietly", "es": "Retírate en silencio" }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "You back away slowly, and it loses interest.", "es": "Te alejas despacio, y pierde el interés." } } }
+      { "id": "stand-ground", "text": { "en": "Stand your ground and scare it off", "es": "Mantente firme y ahuyéntalo" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 4 }, "text": { "en": "You shout and throw stones. The shadow retreats.", "es": "Gritas y lanzas piedras. La sombra se retira." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "It lunges before you're ready. You fight your way free, bloodied.", "es": "Se abalanza antes de que estés listo. Logras escapar, malherido." } } },
+      { "id": "retreat-quietly", "text": { "en": "Retreat quietly", "es": "Retírate en silencio" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "You back away slowly, and it loses interest.", "es": "Te alejas despacio, y pierde el interés." } } }
     ]
   },
   {
@@ -98,8 +98,8 @@
     "timeSlots": ["night"],
     "weight": 4,
     "options": [
-      { "id": "feed-fire", "text": { "en": "Feed the fire carefully", "es": "Alimenta el fuego con cuidado" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "energy": 10 }, "flagsSet": ["kept-fire"], "text": { "en": "The flames catch. Warmth holds through the night.", "es": "Las llamas prenden. El calor se mantiene durante la noche." } }, "failure": { "resources": { "health": -10 }, "text": { "en": "The fire gutters out. The cold bites deep.", "es": "El fuego se apaga. El frío muerde profundo." } } },
-      { "id": "let-fire-die", "text": { "en": "Let it burn out and sleep anyway", "es": "Déjalo apagarse y duerme de todos modos" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "text": { "en": "You curl up and hope for the best.", "es": "Te acurrucas y esperas lo mejor." } } }
+      { "id": "feed-fire", "text": { "en": "Feed the fire carefully", "es": "Alimenta el fuego con cuidado" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "energy": 10 }, "flagsSet": ["kept-fire"], "text": { "en": "The flames catch. Warmth holds through the night.", "es": "Las llamas prenden. El calor se mantiene durante la noche." } }, "failure": { "resources": { "health": -10 }, "text": { "en": "The fire gutters out. The cold bites deep.", "es": "El fuego se apaga. El frío muerde profundo." } } },
+      { "id": "let-fire-die", "text": { "en": "Let it burn out and sleep anyway", "es": "Déjalo apagarse y duerme de todos modos" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "text": { "en": "You curl up and hope for the best.", "es": "Te acurrucas y esperas lo mejor." } } }
     ]
   },
   {
@@ -110,8 +110,8 @@
     "repeatable": true,
     "conditions": { "flagsExcluded": ["cave-rumor-heard", "found-cave"] },
     "options": [
-      { "id": "ask-elder", "text": { "en": "Ask for directions", "es": "Pídele indicaciones" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "flagsSet": ["cave-rumor-heard"], "text": { "en": "He points toward a rockslide past the twin trees.", "es": "Señala hacia un desprendimiento de rocas pasados los árboles gemelos." } }, "failure": { "text": { "en": "He waves you off, too tired to talk.", "es": "Te despacha con la mano, demasiado cansado para hablar." } } },
-      { "id": "ignore-elder", "text": { "en": "Probably just an old story", "es": "Probablemente solo sea un viejo cuento" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You let it go.", "es": "Lo dejas pasar." } } }
+      { "id": "ask-elder", "text": { "en": "Ask for directions", "es": "Pídele indicaciones" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "flagsSet": ["cave-rumor-heard"], "text": { "en": "He points toward a rockslide past the twin trees.", "es": "Señala hacia un desprendimiento de rocas pasados los árboles gemelos." } }, "failure": { "text": { "en": "He waves you off, too tired to talk.", "es": "Te despacha con la mano, demasiado cansado para hablar." } } },
+      { "id": "ignore-elder", "text": { "en": "Probably just an old story", "es": "Probablemente solo sea un viejo cuento" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You let it go.", "es": "Lo dejas pasar." } } }
     ]
   },
   {
@@ -121,8 +121,8 @@
     "weight": 3,
     "conditions": { "flagsRequired": ["cave-rumor-heard"], "flagsExcluded": ["found-cave"] },
     "options": [
-      { "id": "follow-cave-path", "text": { "en": "Squeeze through the opening", "es": "Cuélate por la abertura" }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "luck", "scale": 0.06 } }, "success": { "resources": { "reputation": 10, "survival": 20 }, "flagsSet": ["found-cave"], "text": { "en": "A dry, sheltered cave — a real find. The tribe will want to know.", "es": "Una cueva seca y protegida: un hallazgo de verdad. La tribu querrá saberlo." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "The rocks shift and you scrape through bruised, finding nothing.", "es": "Las rocas se mueven y sales magullado, sin encontrar nada." } } },
-      { "id": "not-today-cave", "text": { "en": "Not today, too risky", "es": "Hoy no, demasiado arriesgado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The opening will still be there.", "es": "La abertura seguirá ahí." } } }
+      { "id": "follow-cave-path", "text": { "en": "Squeeze through the opening", "es": "Cuélate por la abertura" }, "traits": { "bold": 1 }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.03 } }, "success": { "resources": { "reputation": 10, "survival": 20 }, "flagsSet": ["found-cave"], "text": { "en": "A dry, sheltered cave — a real find. The tribe will want to know.", "es": "Una cueva seca y protegida: un hallazgo de verdad. La tribu querrá saberlo." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "The rocks shift and you scrape through bruised, finding nothing.", "es": "Las rocas se mueven y sales magullado, sin encontrar nada." } } },
+      { "id": "not-today-cave", "text": { "en": "Not today, too risky", "es": "Hoy no, demasiado arriesgado" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The opening will still be there.", "es": "La abertura seguirá ahí." } } }
     ]
   },
   {
@@ -131,8 +131,8 @@
     "timeSlots": ["midday", "dusk"],
     "weight": 3,
     "options": [
-      { "id": "knap-tool", "text": { "en": "Knap a new tool", "es": "Talla una nueva herramienta" }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.05 } }, "success": { "resources": { "currency": 15 }, "text": { "en": "A clean edge — worth trading or keeping.", "es": "Un filo limpio: vale la pena guardarlo o intercambiarlo." } }, "failure": { "resources": { "health": -5 }, "text": { "en": "The stone shatters wrong and cuts your hand.", "es": "La piedra se rompe mal y te corta la mano." } } },
-      { "id": "leave-flint", "text": { "en": "Leave it be", "es": "Déjala estar" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not today.", "es": "Hoy no." } } }
+      { "id": "knap-tool", "text": { "en": "Knap a new tool", "es": "Talla una nueva herramienta" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 15 }, "text": { "en": "A clean edge — worth trading or keeping.", "es": "Un filo limpio: vale la pena guardarlo o intercambiarlo." } }, "failure": { "resources": { "health": -5 }, "text": { "en": "The stone shatters wrong and cuts your hand.", "es": "La piedra se rompe mal y te corta la mano." } } },
+      { "id": "leave-flint", "text": { "en": "Leave it be", "es": "Déjala estar" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Not today.", "es": "Hoy no." } } }
     ]
   },
   {
@@ -144,9 +144,9 @@
     "weight": 3,
     "conditions": { "resources": { "currency": { "min": 5 } }, "flagsExcluded": ["met-ember", "remembered-ember-favor"] },
     "options": [
-      { "id": "share-generously", "text": { "en": "Share generously", "es": "Comparte con generosidad" }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 3 }, "text": { "en": "The tribe eats well tonight, and Ember marks your generosity.", "es": "La tribu come bien esta noche, y Brasa toma nota de tu generosidad." } } },
-      { "id": "share-modestly", "text": { "en": "Share a modest portion", "es": "Comparte una porción modesta" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 1 }, "text": { "en": "A fair contribution. Ember nods, satisfied.", "es": "Una aportación justa. Brasa asiente, satisfecha." } } },
-      { "id": "keep-share", "text": { "en": "Keep your share for yourself", "es": "Guarda tu parte para ti" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": -2 }, "text": { "en": "Others notice, and say nothing — for now. Ember's eyes linger on you a moment too long.", "es": "Otros lo notan, y no dicen nada, por ahora. La mirada de Brasa se detiene en ti un instante de más." } } }
+      { "id": "share-generously", "text": { "en": "Share generously", "es": "Comparte con generosidad" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 3 }, "text": { "en": "The tribe eats well tonight, and Ember marks your generosity.", "es": "La tribu come bien esta noche, y Brasa toma nota de tu generosidad." } } },
+      { "id": "share-modestly", "text": { "en": "Share a modest portion", "es": "Comparte una porción modesta" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 1 }, "text": { "en": "A fair contribution. Ember nods, satisfied.", "es": "Una aportación justa. Brasa asiente, satisfecha." } } },
+      { "id": "keep-share", "text": { "en": "Keep your share for yourself", "es": "Guarda tu parte para ti" }, "traits": { "cunning": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": -2 }, "text": { "en": "Others notice, and say nothing — for now. Ember's eyes linger on you a moment too long.", "es": "Otros lo notan, y no dicen nada, por ahora. La mirada de Brasa se detiene en ti un instante de más." } } }
     ]
   },
   {
@@ -158,9 +158,9 @@
     "weight": 2,
     "conditions": { "flagsRequired": ["met-ember"], "counters": { "chiefFavor": { "min": 2 } }, "flagsExcluded": ["ember-counsel-done"] },
     "options": [
-      { "id": "advise-move-camp", "text": { "en": "Urge the tribe to move camp before the cold deepens", "es": "Insta a la tribu a trasladar el campamento antes de que arrecie el frío" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["advised-ember", "ember-counsel-done"], "countersAdd": { "chiefFavor": 3 }, "text": { "en": "The tribe breaks camp at dawn, and Ember credits your foresight.", "es": "La tribu levanta el campamento al amanecer, y Brasa reconoce tu previsión." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["ember-counsel-done"], "countersAdd": { "chiefFavor": -1 }, "text": { "en": "The tribe grumbles at the disruption, and Ember quietly reconsiders trusting your counsel.", "es": "La tribu protesta por la molestia, y Brasa reconsidera en silencio confiar en tu consejo." } } },
-      { "id": "advise-stay", "text": { "en": "Urge the tribe to hold their ground", "es": "Insta a la tribu a mantener su posición" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.06 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["advised-ember", "ember-counsel-done"], "countersAdd": { "chiefFavor": 3 }, "text": { "en": "The camp holds, stronger for staying together, and Ember is glad she asked.", "es": "El campamento resiste, más fuerte por permanecer unido, y Brasa se alegra de haberte preguntado." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["ember-counsel-done"], "countersAdd": { "chiefFavor": -1 }, "text": { "en": "The decision to stay costs the tribe dearly, and doubt creeps into Ember's trust.", "es": "La decisión de quedarse le cuesta caro a la tribu, y la duda se cuela en la confianza de Brasa." } } },
-      { "id": "defer-to-ember", "text": { "en": "Defer to her judgment", "es": "Confía en su juicio" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["ember-counsel-done"], "text": { "en": "You keep your counsel to yourself. Ember decides alone, as she always has.", "es": "Guardas tu opinión para ti. Brasa decide sola, como siempre ha hecho." } } }
+      { "id": "advise-move-camp", "text": { "en": "Urge the tribe to move camp before the cold deepens", "es": "Insta a la tribu a trasladar el campamento antes de que arrecie el frío" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["advised-ember", "ember-counsel-done"], "countersAdd": { "chiefFavor": 3 }, "text": { "en": "The tribe breaks camp at dawn, and Ember credits your foresight.", "es": "La tribu levanta el campamento al amanecer, y Brasa reconoce tu previsión." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["ember-counsel-done"], "countersAdd": { "chiefFavor": -1 }, "text": { "en": "The tribe grumbles at the disruption, and Ember quietly reconsiders trusting your counsel.", "es": "La tribu protesta por la molestia, y Brasa reconsidera en silencio confiar en tu consejo." } } },
+      { "id": "advise-stay", "text": { "en": "Urge the tribe to hold their ground", "es": "Insta a la tribu a mantener su posición" }, "traits": { "bold": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["advised-ember", "ember-counsel-done"], "countersAdd": { "chiefFavor": 3 }, "text": { "en": "The camp holds, stronger for staying together, and Ember is glad she asked.", "es": "El campamento resiste, más fuerte por permanecer unido, y Brasa se alegra de haberte preguntado." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["ember-counsel-done"], "countersAdd": { "chiefFavor": -1 }, "text": { "en": "The decision to stay costs the tribe dearly, and doubt creeps into Ember's trust.", "es": "La decisión de quedarse le cuesta caro a la tribu, y la duda se cuela en la confianza de Brasa." } } },
+      { "id": "defer-to-ember", "text": { "en": "Defer to her judgment", "es": "Confía en su juicio" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["ember-counsel-done"], "text": { "en": "You keep your counsel to yourself. Ember decides alone, as she always has.", "es": "Guardas tu opinión para ti. Brasa decide sola, como siempre ha hecho." } } }
     ]
   },
   {
@@ -172,8 +172,8 @@
     "weight": 1,
     "conditions": { "flagsRequired": ["advised-ember"], "flagsExcluded": ["ember-thread-resolved"] },
     "options": [
-      { "id": "accept-ember-mantle", "text": { "en": "Accept the responsibility", "es": "Acepta la responsabilidad" }, "cost": { "time": 1 }, "successChance": { "base": 0.7, "archetypeBonus": { "modifier": "might", "scale": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["ember-thread-resolved", "earned-ember-trust", "remembered-ember-favor"], "countersAdd": { "chiefFavor": 2 }, "text": { "en": "Ember places a hand on your shoulder before the whole tribe. You are kin in more than blood now.", "es": "Brasa te pone una mano en el hombro ante toda la tribu. Ahora eres familia en más que sangre." } }, "failure": { "flagsSet": ["ember-thread-resolved", "remembered-ember-favor"], "countersAdd": { "chiefFavor": -1 }, "text": { "en": "You stumble over the words, but Ember's trust in you doesn't waver.", "es": "Te trabas con las palabras, pero la confianza de Brasa en ti no flaquea." } } },
-      { "id": "stay-humble", "text": { "en": "Ask her to choose someone else", "es": "Pídele que elija a otra persona" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["ember-thread-resolved", "remembered-ember-favor"], "text": { "en": "You bow your head. Ember respects the honesty, and the offer stands for another day.", "es": "Bajas la cabeza. Brasa respeta la honestidad, y la oferta sigue en pie para otro día." } } }
+      { "id": "accept-ember-mantle", "text": { "en": "Accept the responsibility", "es": "Acepta la responsabilidad" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.7, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["ember-thread-resolved", "earned-ember-trust", "remembered-ember-favor"], "countersAdd": { "chiefFavor": 2 }, "text": { "en": "Ember places a hand on your shoulder before the whole tribe. You are kin in more than blood now.", "es": "Brasa te pone una mano en el hombro ante toda la tribu. Ahora eres familia en más que sangre." } }, "failure": { "flagsSet": ["ember-thread-resolved", "remembered-ember-favor"], "countersAdd": { "chiefFavor": -1 }, "text": { "en": "You stumble over the words, but Ember's trust in you doesn't waver.", "es": "Te trabas con las palabras, pero la confianza de Brasa en ti no flaquea." } } },
+      { "id": "stay-humble", "text": { "en": "Ask her to choose someone else", "es": "Pídele que elija a otra persona" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["ember-thread-resolved", "remembered-ember-favor"], "text": { "en": "You bow your head. Ember respects the honesty, and the offer stands for another day.", "es": "Bajas la cabeza. Brasa respeta la honestidad, y la oferta sigue en pie para otro día." } } }
     ]
   },
   {
@@ -185,8 +185,8 @@
     "weight": 4,
     "conditions": { "flagsRequired": ["remembered-ember-favor"], "flagsExcluded": ["met-ember"] },
     "options": [
-      { "id": "greet-ember", "text": { "en": "Greet her warmly", "es": "Salúdala con calidez" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 4 }, "text": { "en": "She waves you to sit beside her, a place usually kept for kin.", "es": "Te hace señas para que te sientes a su lado, un lugar reservado normalmente para la familia." } } },
-      { "id": "nod-and-go-ember", "text": { "en": "Nod and move on", "es": "Asiente y sigue adelante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 1 }, "text": { "en": "You nod respectfully and let her return to the tribe's business.", "es": "Asientes con respeto y la dejas volver a los asuntos de la tribu." } } }
+      { "id": "greet-ember", "text": { "en": "Greet her warmly", "es": "Salúdala con calidez" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 4 }, "text": { "en": "She waves you to sit beside her, a place usually kept for kin.", "es": "Te hace señas para que te sientes a su lado, un lugar reservado normalmente para la familia." } } },
+      { "id": "nod-and-go-ember", "text": { "en": "Nod and move on", "es": "Asiente y sigue adelante" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-ember"], "countersAdd": { "chiefFavor": 1 }, "text": { "en": "You nod respectfully and let her return to the tribe's business.", "es": "Asientes con respeto y la dejas volver a los asuntos de la tribu." } } }
     ]
   },
   {
@@ -195,8 +195,8 @@
     "timeSlots": ["midday"],
     "weight": 2,
     "options": [
-      { "id": "play-along", "text": { "en": "Play along", "es": "Sigue el juego" }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "Their laughter is worth the tired legs.", "es": "Su risa vale las piernas cansadas." } } },
-      { "id": "wave-off-children", "text": { "en": "Wave them off, too busy", "es": "Despídelos, estás ocupado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "They wander off, a little disappointed.", "es": "Se alejan, algo decepcionados." } } }
+      { "id": "play-along", "text": { "en": "Play along", "es": "Sigue el juego" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "Their laughter is worth the tired legs.", "es": "Su risa vale las piernas cansadas." } } },
+      { "id": "wave-off-children", "text": { "en": "Wave them off, too busy", "es": "Despídelos, estás ocupado" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "They wander off, a little disappointed.", "es": "Se alejan, algo decepcionados." } } }
     ]
   },
   {
@@ -205,8 +205,8 @@
     "timeSlots": ["dusk", "night"],
     "weight": 2,
     "options": [
-      { "id": "find-shelter", "text": { "en": "Find shelter quickly", "es": "Busca refugio rápido" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "luck", "scale": 0.06 } }, "success": { "resources": { "energy": -5 }, "text": { "en": "You find a rocky overhang just in time.", "es": "Encuentras un saliente rocoso justo a tiempo." } }, "failure": { "resources": { "health": -15, "survival": -10 }, "text": { "en": "The storm catches you in the open, soaked and shivering.", "es": "La tormenta te sorprende a la intemperie, empapado y temblando." } } },
-      { "id": "push-through-storm", "text": { "en": "Push on regardless", "es": "Sigue adelante de todos modos" }, "cost": { "time": 1, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "You grit your teeth and keep moving.", "es": "Aprietas los dientes y sigues adelante." } } }
+      { "id": "find-shelter", "text": { "en": "Find shelter quickly", "es": "Busca refugio rápido" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.03 } }, "success": { "resources": { "energy": -5 }, "text": { "en": "You find a rocky overhang just in time.", "es": "Encuentras un saliente rocoso justo a tiempo." } }, "failure": { "resources": { "health": -15, "survival": -10 }, "text": { "en": "The storm catches you in the open, soaked and shivering.", "es": "La tormenta te sorprende a la intemperie, empapado y temblando." } } },
+      { "id": "push-through-storm", "text": { "en": "Push on regardless", "es": "Sigue adelante de todos modos" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "You grit your teeth and keep moving.", "es": "Aprietas los dientes y sigues adelante." } } }
     ]
   },
   {
@@ -218,8 +218,8 @@
     "weight": 2,
     "conditions": { "resources": { "reputation": { "min": 15 } }, "flagsRequired": ["met-kaia"] },
     "options": [
-      { "id": "listen-elder", "text": { "en": "Listen and learn", "es": "Escucha y aprende" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["learned-from-kaia"], "countersAdd": { "kaiaTrust": 2 }, "text": { "en": "Her words carry the weight of many winters, and she nods, pleased.", "es": "Sus palabras llevan el peso de muchos inviernos, y ella asiente, complacida." } }, "failure": { "countersAdd": { "kaiaTrust": -1 }, "text": { "en": "Your mind wanders, and the moment passes.", "es": "Tu mente se distrae, y el momento pasa." } } },
-      { "id": "decline-elder", "text": { "en": "Politely decline", "es": "Declina educadamente" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Another time, perhaps.", "es": "Quizá en otro momento." } } }
+      { "id": "listen-elder", "text": { "en": "Listen and learn", "es": "Escucha y aprende" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["learned-from-kaia"], "countersAdd": { "kaiaTrust": 2 }, "text": { "en": "Her words carry the weight of many winters, and she nods, pleased.", "es": "Sus palabras llevan el peso de muchos inviernos, y ella asiente, complacida." } }, "failure": { "countersAdd": { "kaiaTrust": -1 }, "text": { "en": "Your mind wanders, and the moment passes.", "es": "Tu mente se distrae, y el momento pasa." } } },
+      { "id": "decline-elder", "text": { "en": "Politely decline", "es": "Declina educadamente" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Another time, perhaps.", "es": "Quizá en otro momento." } } }
     ]
   },
   {
@@ -231,8 +231,8 @@
     "weight": 1,
     "conditions": { "flagsRequired": ["learned-from-kaia"], "flagsExcluded": ["kaia-thread-resolved"] },
     "options": [
-      { "id": "accept-apprenticeship", "text": { "en": "Accept the apprenticeship", "es": "Acepta el aprendizaje" }, "cost": { "time": 2 }, "successChance": { "base": 0.7, "archetypeBonus": { "modifier": "wits", "scale": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["kaia-thread-resolved", "named-kaia-apprentice", "remembered-kaia-apprentice"], "countersAdd": { "kaiaTrust": 2 }, "text": { "en": "You become her apprentice before the whole tribe, a rare honor.", "es": "Te conviertes en su aprendiz ante toda la tribu, un honor poco frecuente." } }, "failure": { "flagsSet": ["kaia-thread-resolved", "remembered-kaia-apprentice"], "countersAdd": { "kaiaTrust": -1 }, "text": { "en": "You falter learning the old rites, but she keeps you close all the same.", "es": "Te cuesta aprender los antiguos ritos, pero ella te mantiene cerca de todos modos." } } },
-      { "id": "stay-a-hunter", "text": { "en": "Stay a hunter, not a shaman", "es": "Sigue siendo cazador, no chamán" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["kaia-thread-resolved", "remembered-kaia-apprentice"], "text": { "en": "You thank her, but your place is among the hunters, not the fire circle.", "es": "Le das las gracias, pero tu lugar está entre los cazadores, no junto al fuego." } } }
+      { "id": "accept-apprenticeship", "text": { "en": "Accept the apprenticeship", "es": "Acepta el aprendizaje" }, "traits": { "diligent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.7, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["kaia-thread-resolved", "named-kaia-apprentice", "remembered-kaia-apprentice"], "countersAdd": { "kaiaTrust": 2 }, "text": { "en": "You become her apprentice before the whole tribe, a rare honor.", "es": "Te conviertes en su aprendiz ante toda la tribu, un honor poco frecuente." } }, "failure": { "flagsSet": ["kaia-thread-resolved", "remembered-kaia-apprentice"], "countersAdd": { "kaiaTrust": -1 }, "text": { "en": "You falter learning the old rites, but she keeps you close all the same.", "es": "Te cuesta aprender los antiguos ritos, pero ella te mantiene cerca de todos modos." } } },
+      { "id": "stay-a-hunter", "text": { "en": "Stay a hunter, not a shaman", "es": "Sigue siendo cazador, no chamán" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["kaia-thread-resolved", "remembered-kaia-apprentice"], "text": { "en": "You thank her, but your place is among the hunters, not the fire circle.", "es": "Le das las gracias, pero tu lugar está entre los cazadores, no junto al fuego." } } }
     ]
   },
   {
@@ -244,8 +244,8 @@
     "weight": 4,
     "conditions": { "flagsRequired": ["remembered-kaia-apprentice"], "flagsExcluded": ["met-kaia"] },
     "options": [
-      { "id": "greet-kaia", "text": { "en": "Greet her warmly", "es": "Salúdala con calidez" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": 3 }, "text": { "en": "She presses a warm stone into your palm, an old comfort between kin.", "es": "Te pone una piedra tibia en la mano, un viejo consuelo entre familia." } } },
-      { "id": "nod-and-go-kaia", "text": { "en": "Nod and move on", "es": "Asiente y sigue adelante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": 1 }, "text": { "en": "You nod respectfully and let the morning carry you onward.", "es": "Asientes con respeto y dejas que la mañana te lleve consigo." } } }
+      { "id": "greet-kaia", "text": { "en": "Greet her warmly", "es": "Salúdala con calidez" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": 3 }, "text": { "en": "She presses a warm stone into your palm, an old comfort between kin.", "es": "Te pone una piedra tibia en la mano, un viejo consuelo entre familia." } } },
+      { "id": "nod-and-go-kaia", "text": { "en": "Nod and move on", "es": "Asiente y sigue adelante" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-kaia"], "countersAdd": { "kaiaTrust": 1 }, "text": { "en": "You nod respectfully and let the morning carry you onward.", "es": "Asientes con respeto y dejas que la mañana te lleve consigo." } } }
     ]
   },
   {
@@ -257,8 +257,187 @@
     "weight": 4,
     "conditions": { "flagsRequired": ["remembered-helped-thorn"], "flagsExcluded": ["beast-tracked"] },
     "options": [
-      { "id": "reconnect-thorn", "text": { "en": "Ask what he's found", "es": "Pregúntale qué ha encontrado" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["beast-tracked"], "countersAdd": { "thornRespect": 3 }, "text": { "en": "He tips his head toward the ridge. \"Tracks are already there. Same as last time — race you.\"", "es": "Señala hacia la cresta con la cabeza. \"Las huellas ya están ahí. Igual que la última vez: te reto a una carrera.\"" } } },
-      { "id": "nod-and-pass-thorn", "text": { "en": "Nod and let him lead", "es": "Asiente y déjale ir primero" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["beast-tracked"], "countersAdd": { "thornRespect": 1 }, "text": { "en": "He nods once, already scanning the ridge. Old rivalries settle into old habits.", "es": "Asiente una vez, ya escudriñando la cresta. Las viejas rivalidades se acomodan en viejas costumbres." } } }
+      { "id": "reconnect-thorn", "text": { "en": "Ask what he's found", "es": "Pregúntale qué ha encontrado" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["beast-tracked"], "countersAdd": { "thornRespect": 3 }, "text": { "en": "He tips his head toward the ridge. \"Tracks are already there. Same as last time — race you.\"", "es": "Señala hacia la cresta con la cabeza. \"Las huellas ya están ahí. Igual que la última vez: te reto a una carrera.\"" } } },
+      { "id": "nod-and-pass-thorn", "text": { "en": "Nod and let him lead", "es": "Asiente y déjale ir primero" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["beast-tracked"], "countersAdd": { "thornRespect": 1 }, "text": { "en": "He nods once, already scanning the ridge. Old rivalries settle into old habits.", "es": "Asiente una vez, ya escudriñando la cresta. Las viejas rivalidades se acomodan en viejas costumbres." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-honey-hive",
+    "text": { "en": "Bees stream from a hollow high in a dead oak. Where there are bees, there is honey.", "es": "Las abejas salen en tropel de un hueco en lo alto de un roble muerto. Donde hay abejas, hay miel." },
+    "timeSlots": ["midday"],
+    "weight": 3,
+    "conditions": { "resources": { "energy": { "min": 15 } } },
+    "options": [
+      { "id": "climb-smoke-hive", "text": { "en": "Climb with a smoking branch", "es": "Trepa con una rama humeante" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -15 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "survival": 25, "currency": 10 }, "text": { "en": "Comb drips gold down your arms. The tribe will eat sweet tonight.", "es": "El panal gotea oro por tus brazos. La tribu comerá dulce esta noche." } }, "failure": { "resources": { "health": -12 }, "text": { "en": "The smoke blows the wrong way. You come down swollen and empty-handed.", "es": "El humo sopla hacia el lado equivocado. Bajas hinchado y con las manos vacías." } } },
+      { "id": "wait-for-hunters", "text": { "en": "Mark the tree and come back with others", "es": "Marca el árbol y vuelve con otros" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "survival": 10 }, "text": { "en": "A shared climb, a shared comb. Less for you, no stings.", "es": "Trepada compartida, panal compartido. Menos para ti, sin picaduras." } } },
+      { "id": "leave-hive", "text": { "en": "Leave the bees to their work", "es": "Deja a las abejas con lo suyo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The humming fades behind you.", "es": "El zumbido se desvanece a tu espalda." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-river-strangers",
+    "text": { "en": "At the ford, a band of strangers waters their children — taller than your people, narrow-faced, watching you as hard as you watch them.", "es": "En el vado, un grupo de extraños da de beber a sus hijos: más altos que tu gente, de rostro estrecho, mirándote tan fijo como tú a ellos." },
+    "timeSlots": ["midday", "dusk"],
+    "weight": 2,
+    "options": [
+      { "id": "approach-open-hands", "text": { "en": "Approach with open hands and a gift of meat", "es": "Acércate con las manos abiertas y un obsequio de carne" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.5, "traitBonus": { "trait": "generous", "perPoint": 0.05 } }, "success": { "resources": { "currency": 15, "reputation": 4 }, "flagsSet": ["traded-with-strangers"], "text": { "en": "They answer with shells and a strange sharp blade. Nobody has words, but everybody has hands.", "es": "Responden con conchas y una extraña hoja afilada. Nadie tiene palabras, pero todos tienen manos." } }, "failure": { "resources": { "health": -8 }, "text": { "en": "A stone flies before you are close. You back off, bleeding from the brow.", "es": "Una piedra vuela antes de que te acerques. Retrocedes, sangrando por la ceja." } } },
+      { "id": "watch-from-reeds", "text": { "en": "Watch them from the reeds", "es": "Obsérvalos desde los juncos" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["watched-strangers"], "text": { "en": "You learn how they knap, how they carry their young, which way they go. The elders will want to hear it.", "es": "Aprendes cómo tallan, cómo cargan a sus crías, hacia dónde van. Los ancianos querrán oírlo." } } },
+      { "id": "retreat-from-strangers", "text": { "en": "Slip away before they decide anything", "es": "Escabúllete antes de que decidan nada" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The valley is wide enough for both, today.", "es": "El valle es lo bastante ancho para ambos, por hoy." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-lost-child",
+    "text": { "en": "A mother's cry cuts across the camp: her boy went to the stream at midday and has not come back.", "es": "El grito de una madre atraviesa el campamento: su niño fue al arroyo a mediodía y no ha vuelto." },
+    "timeSlots": ["dusk"],
+    "weight": 3,
+    "options": [
+      { "id": "search-ravine", "text": { "en": "Search the ravine before dark", "es": "Busca en el barranco antes de que anochezca" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -15 } }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["found-child"], "text": { "en": "You find him wedged in the rocks, scraped and furious. His mother will not let go of you.", "es": "Lo encuentras encajado entre las rocas, arañado y furioso. Su madre no te suelta." } }, "failure": { "resources": { "health": -10, "energy": -10 }, "text": { "en": "You fall in the dusk and crawl back. Others find him by torchlight.", "es": "Te caes en la penumbra y vuelves a rastras. Otros lo encuentran a la luz de las antorchas." } } },
+      { "id": "light-signal-fire", "text": { "en": "Build a signal fire on the ridge", "es": "Enciende una hoguera de señal en la cresta" }, "traits": { "diligent": 1 }, "cost": { "time": 1, "resources": { "survival": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "The boy sees the glow and walks home toward it. Nobody says your name, but the fire did the work.", "es": "El niño ve el resplandor y vuelve a casa guiándose por él. Nadie dice tu nombre, pero el fuego hizo el trabajo." } } },
+      { "id": "let-others-search", "text": { "en": "Let the hunters search", "es": "Deja que busquen los cazadores" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "They find him. They also noticed who stayed by the fire.", "es": "Lo encuentran. También se fijaron en quién se quedó junto al fuego." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-cave-painting",
+    "text": { "en": "By firelight, an elder grinds red ochre and presses a hand to the cave wall. There is room beside it.", "es": "A la luz del fuego, un anciano muele ocre rojo y apoya una mano en la pared de la cueva. Hay sitio al lado." },
+    "timeSlots": ["night"],
+    "weight": 2,
+    "options": [
+      { "id": "paint-the-hunt", "text": { "en": "Paint the day's hunt on the wall", "es": "Pinta la cacería del día en la pared" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["painted-cave"], "text": { "en": "Your beast runs across the stone. Children will trace it long after you.", "es": "Tu bestia corre sobre la piedra. Los niños seguirán su contorno mucho después de ti." } } },
+      { "id": "grind-ochre", "text": { "en": "Grind ochre for the painter", "es": "Muele ocre para el pintor" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 5, "reputation": 1 }, "text": { "en": "Red dust under your nails, and a share of dried meat for the help.", "es": "Polvo rojo bajo las uñas, y una parte de carne seca por la ayuda." } } },
+      { "id": "sleep-through-painting", "text": { "en": "Sleep while they paint", "es": "Duerme mientras pintan" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "The scraping of stone follows you into dreams.", "es": "El raspar de la piedra te sigue hasta los sueños." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-flint-wanderer",
+    "text": { "en": "A lone wanderer with a bad leg offers a bag of fine grey flint in exchange for meat.", "es": "Un caminante solitario con una pierna mala ofrece una bolsa de sílex gris de buena calidad a cambio de carne." },
+    "timeSlots": ["midday", "dusk"],
+    "weight": 2,
+    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "options": [
+      { "id": "trade-for-flint", "text": { "en": "Trade meat for the flint", "es": "Cambia carne por el sílex" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["has-good-flint"], "text": { "en": "Good stone. The tribe's knappers will thank you for it.", "es": "Buena piedra. Los talladores de la tribu te lo agradecerán." } } },
+      { "id": "haggle-wanderer", "text": { "en": "Haggle him down, he needs the meat more", "es": "Regatéale, él necesita más la carne" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "currency": -4 }, "flagsSet": ["has-good-flint"], "text": { "en": "He gives in, hungry. You get the flint for half.", "es": "Cede, hambriento. Consigues el sílex por la mitad." } }, "failure": { "resources": { "reputation": -1 }, "text": { "en": "He limps off toward the strangers at the ford instead.", "es": "Se aleja cojeando hacia los extraños del vado." } } },
+      { "id": "decline-flint", "text": { "en": "You have flint enough", "es": "Ya tienes sílex de sobra" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "He nods and moves on.", "es": "Asiente y sigue su camino." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-fever-herbs",
+    "text": { "en": "A hunter shivers under his furs with fever, and Kaia is away on the ridge.", "es": "Un cazador tiembla bajo sus pieles con fiebre, y Kaia está lejos, en la cresta." },
+    "timeSlots": ["dawn", "midday"],
+    "weight": 2,
+    "options": [
+      { "id": "gather-willow-bark", "text": { "en": "Gather willow bark by the stream", "es": "Recoge corteza de sauce junto al arroyo" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.55, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["healed-fever"], "text": { "en": "The bitter bark brings the fever down by dusk. Kaia will hear of it.", "es": "La corteza amarga baja la fiebre al anochecer. Kaia lo sabrá." } }, "failure": { "resources": { "energy": -5 }, "text": { "en": "You bring back the wrong bark, and the hunter sweats it out alone.", "es": "Traes la corteza equivocada, y el cazador suda la fiebre él solo." } } },
+      { "id": "cool-with-water", "text": { "en": "Stay and cool him with wet hides", "es": "Quédate y refréscalo con pieles mojadas" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "survival": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "He sleeps easier. You are hungrier for it.", "es": "Duerme mejor. Tú tienes más hambre por ello." } } },
+      { "id": "stay-clear-fever", "text": { "en": "Stay clear of the fever", "es": "Mantente lejos de la fiebre" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Fevers spread. So does word of who kept away.", "es": "Las fiebres se contagian. También la noticia de quién se mantuvo alejado." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-ice-crossing",
+    "text": { "en": "The stream has frozen overnight. Crossing the ice would save a long walk around the bend.", "es": "El arroyo se ha helado durante la noche. Cruzar el hielo ahorraría un largo rodeo por el recodo." },
+    "timeSlots": ["dawn"],
+    "weight": 2,
+    "options": [
+      { "id": "cross-the-ice", "text": { "en": "Cross the ice", "es": "Cruza el hielo" }, "traits": { "bold": 1 }, "cost": { "time": 0 }, "successChance": { "base": 0.55 }, "success": { "resources": { "energy": 5 }, "text": { "en": "It groans but holds. You are across before the sun is up.", "es": "Cruje, pero aguanta. Estás al otro lado antes de que salga el sol." } }, "failure": { "resources": { "health": -15, "survival": -10 }, "text": { "en": "The ice gives at the middle. You claw out soaked and shaking.", "es": "El hielo cede en el centro. Sales a rastras, empapado y tiritando." } } },
+      { "id": "walk-around-bend", "text": { "en": "Walk around by the bend", "es": "Rodea por el recodo" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "energy": -8 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "Slower, dry, alive.", "es": "Más lento, seco, vivo." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-deer-tracks",
+    "text": { "en": "Fresh deer tracks cut across the mud, so fresh the water is still seeping into them.", "es": "Huellas frescas de ciervo cruzan el barro, tan frescas que el agua todavía se filtra en ellas." },
+    "timeSlots": ["dawn", "midday"],
+    "weight": 3,
+    "conditions": { "resources": { "energy": { "min": 15 } } },
+    "options": [
+      { "id": "follow-deer", "text": { "en": "Follow the tracks", "es": "Sigue las huellas" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -15 } }, "successChance": { "base": 0.55, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 20, "survival": 15 }, "text": { "en": "A young buck, downwind, one clean throw. Meat for days.", "es": "Un joven macho, a sotavento, un lanzamiento limpio. Carne para días." } }, "failure": { "resources": { "energy": -10 }, "text": { "en": "It hears you a hundred paces out and is gone.", "es": "Te oye a cien pasos y desaparece." } } },
+      { "id": "set-snare", "text": { "en": "Set a snare on the trail and come back later", "es": "Coloca una trampa en el rastro y vuelve más tarde" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5 }, "success": { "resources": { "currency": 12 }, "flagsSet": ["snared-game"], "text": { "en": "A hare, not a deer, but it cost you nothing to catch.", "es": "Una liebre, no un ciervo, pero no te costó nada atraparla." } }, "failure": { "text": { "en": "The snare is sprung and empty when you return.", "es": "La trampa está saltada y vacía cuando vuelves." } } },
+      { "id": "ignore-tracks-deer", "text": { "en": "Let it run", "es": "Déjalo correr" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The tracks fill with water behind you.", "es": "Las huellas se llenan de agua a tu espalda." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-burial",
+    "text": { "en": "The oldest of the tribe died in the night. They are laying him in a shallow grave with flowers and a good blade.", "es": "El más anciano de la tribu murió durante la noche. Lo están tendiendo en una tumba poco profunda con flores y una buena hoja." },
+    "timeSlots": ["dusk"],
+    "weight": 2,
+    "options": [
+      { "id": "grave-offering", "text": { "en": "Add meat to the grave for his journey", "es": "Añade carne a la tumba para su viaje" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "text": { "en": "The tribe sees what you give up, and remembers.", "es": "La tribu ve lo que entregas, y lo recuerda." } } },
+      { "id": "sit-vigil", "text": { "en": "Sit the vigil until dark", "es": "Vela hasta que anochezca" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "You hum the old song with the others until the stars come out.", "es": "Tarareas la vieja canción con los demás hasta que salen las estrellas." } } },
+      { "id": "keep-foraging", "text": { "en": "Keep foraging, the living need to eat", "es": "Sigue recolectando, los vivos tienen que comer" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "survival": 10, "reputation": -2 }, "text": { "en": "Roots for you, silence from the others when you return.", "es": "Raíces para ti, silencio de los demás cuando vuelves." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-wolf-pup",
+    "text": { "en": "A wolf pup, ribs showing, whimpers at the edge of camp where its pack left it.", "es": "Un cachorro de lobo, con las costillas marcadas, gimotea al borde del campamento donde lo dejó su manada." },
+    "timeSlots": ["midday"],
+    "weight": 2,
+    "options": [
+      { "id": "feed-pup", "text": { "en": "Feed it and let it follow you", "es": "Aliméntalo y deja que te siga" }, "traits": { "curious": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["kept-wolf-pup"], "text": { "en": "It eats from your hand and sleeps against your leg. The children are enchanted; the elders are not sure.", "es": "Come de tu mano y duerme pegado a tu pierna. Los niños están encantados; los ancianos no lo tienen claro." } } },
+      { "id": "leave-pup", "text": { "en": "Leave it to the forest", "es": "Déjalo al bosque" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Wolves are wolves. Its whimpering follows you a long way.", "es": "Los lobos son lobos. Sus gemidos te siguen un buen trecho." } } },
+      { "id": "chase-pup", "text": { "en": "Drive it off with stones", "es": "Ahuyéntalo a pedradas" }, "traits": { "bold": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "It runs. A child watches you throw, and does not forget.", "es": "Huye. Un niño te ve lanzar, y no lo olvida." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-hide-scraping",
+    "text": { "en": "Yesterday's hides are stretched on frames, stiffening in the sun. They will rot if nobody scrapes them.", "es": "Las pieles de ayer están tensadas en bastidores, endureciéndose al sol. Se pudrirán si nadie las raspa." },
+    "timeSlots": ["midday", "dusk"],
+    "weight": 3,
+    "options": [
+      { "id": "scrape-hides", "text": { "en": "Scrape the hides until they're soft", "es": "Raspa las pieles hasta que queden suaves" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 12, "reputation": 1 }, "text": { "en": "Three good hides, ready for winter. Your arms ache pleasantly.", "es": "Tres buenas pieles, listas para el invierno. Te duelen los brazos, agradablemente." } } },
+      { "id": "scrape-one-hide", "text": { "en": "Do one hide, then move on", "es": "Haz una piel y sigue tu camino" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 5 }, "text": { "en": "One less to rot.", "es": "Una menos que se pudra." } } },
+      { "id": "skip-hides", "text": { "en": "Someone else's work", "es": "Es trabajo de otro" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The flies gather behind you.", "es": "Las moscas se juntan a tu espalda." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-night-omen",
+    "text": { "en": "A streak of fire crosses the night sky and the whole camp goes silent, then loud.", "es": "Un trazo de fuego cruza el cielo nocturno y todo el campamento enmudece, y luego estalla." },
+    "timeSlots": ["night"],
+    "weight": 2,
+    "options": [
+      { "id": "read-omen", "text": { "en": "Read the sign for the tribe", "es": "Interpreta la señal para la tribu" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["read-omen"], "text": { "en": "You call it a hunter's spear thrown for luck, and the camp breathes out.", "es": "Lo llamas la lanza de un cazador lanzada por suerte, y el campamento respira." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "You say the wrong thing, and a mother pulls her children away from you.", "es": "Dices lo que no debes, y una madre aparta a sus hijos de ti." } } },
+      { "id": "calm-camp", "text": { "en": "Go from fire to fire calming people", "es": "Ve de fuego en fuego calmando a la gente" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "text": { "en": "By the time you are done, the sky is only sky again.", "es": "Cuando terminas, el cielo vuelve a ser solo cielo." } } },
+      { "id": "sleep-through-omen", "text": { "en": "Roll over and sleep", "es": "Date la vuelta y duerme" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "Fire in the sky changes nothing about tomorrow's hunger.", "es": "El fuego en el cielo no cambia nada del hambre de mañana." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-boar-charge",
+    "text": { "en": "A boar bursts from the thicket, tusks low, straight at you.", "es": "Un jabalí irrumpe del matorral, con los colmillos bajos, directo hacia ti." },
+    "timeSlots": ["dusk"],
+    "weight": 2,
+    "options": [
+      { "id": "brace-spear", "text": { "en": "Brace your spear and take it", "es": "Afianza la lanza y recíbelo" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "energy": -15 } }, "successChance": { "base": 0.45, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 25, "survival": 10, "reputation": 3 }, "flagsSet": ["killed-boar"], "text": { "en": "The spear holds and the boar does not. You drag it back to camp to shouts.", "es": "La lanza aguanta y el jabalí no. Lo arrastras al campamento entre gritos." } }, "failure": { "resources": { "health": -20 }, "text": { "en": "It gets under the point. You wake on your back with a torn thigh.", "es": "Se cuela bajo la punta. Despiertas boca arriba con el muslo desgarrado." } } },
+      { "id": "climb-tree-boar", "text": { "en": "Get up a tree", "es": "Súbete a un árbol" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "text": { "en": "It roots at the trunk a while, then loses interest.", "es": "Hoza un rato junto al tronco, y luego pierde el interés." } } },
+      { "id": "drive-boar-to-hunters", "text": { "en": "Shout and drive it toward the hunters' line", "es": "Grita y guíalo hacia la línea de cazadores" }, "traits": { "cunning": 1 }, "cost": { "time": 1, "resources": { "energy": -8 } }, "successChance": { "base": 0.6 }, "success": { "resources": { "reputation": 2, "currency": 10 }, "text": { "en": "Three spears meet it. You get a share for the drive.", "es": "Tres lanzas lo reciben. Te llevas una parte por el acoso." } }, "failure": { "resources": { "health": -8 }, "text": { "en": "It turns on you instead. You get away with a gash.", "es": "Se vuelve contra ti. Escapas con un tajo." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-stranger-at-fire",
+    "text": { "en": "A lone stranger, half-frozen, stands at the edge of the firelight and asks with his hands for warmth.", "es": "Un extraño solitario, medio congelado, se detiene al borde de la luz del fuego y pide calor con las manos." },
+    "timeSlots": ["night"],
+    "weight": 2,
+    "options": [
+      { "id": "share-fire-food", "text": { "en": "Share fire and food", "es": "Comparte fuego y comida" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["shared-fire"], "text": { "en": "He eats, sleeps, and leaves at dawn with a carved bone pressed into your hand.", "es": "Come, duerme, y se marcha al amanecer dejándote un hueso tallado en la mano." } } },
+      { "id": "share-fire-only", "text": { "en": "Let him warm himself, keep your food", "es": "Deja que se caliente, guarda tu comida" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Warmth costs nothing. He does not ask for more.", "es": "El calor no cuesta nada. No pide más." } } },
+      { "id": "drive-stranger-off", "text": { "en": "Drive him off, strangers bring trouble", "es": "Échalo, los extraños traen problemas" }, "traits": { "bold": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -2 }, "text": { "en": "He goes back into the dark. The fire feels smaller.", "es": "Vuelve a la oscuridad. El fuego parece más pequeño." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-berry-hillside",
+    "text": { "en": "A whole hillside has ripened at once, heavy with dark berries.", "es": "Toda una ladera ha madurado de golpe, cargada de bayas oscuras." },
+    "timeSlots": ["midday"],
+    "weight": 3,
+    "options": [
+      { "id": "gather-all-berries", "text": { "en": "Gather everything you can carry", "es": "Recoge todo lo que puedas cargar" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "survival": 20, "currency": 10 }, "text": { "en": "Purple hands, full hides. The tribe eats well and there is some to dry.", "es": "Manos moradas, pieles llenas. La tribu come bien y sobra para secar." } } },
+      { "id": "eat-your-fill", "text": { "en": "Eat your fill and move on", "es": "Come hasta saciarte y sigue" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "survival": 25 }, "text": { "en": "Sweet, and gone by evening.", "es": "Dulces, y se acaban al anochecer." } } },
+      { "id": "bring-children-berries", "text": { "en": "Fetch the children to gather with you", "es": "Trae a los niños a recoger contigo" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3, "currency": 5, "survival": 10 }, "text": { "en": "They eat more than they gather, and it is the best part of their day.", "es": "Comen más de lo que recogen, y es la mejor parte de su día." } } }
+    ]
+  },
+  {
+    "id": "neanderthal-spear-contest",
+    "text": { "en": "The young hunters are throwing spears at a hide stretched on a frame, loudly ranking each other.", "es": "Los cazadores jóvenes lanzan lanzas contra una piel tensada en un bastidor, clasificándose a gritos." },
+    "timeSlots": ["midday"],
+    "weight": 2,
+    "conditions": { "resources": { "energy": { "min": 20 } } },
+    "options": [
+      { "id": "compete-throw", "text": { "en": "Take your turn", "es": "Pide tu turno" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "energy": -15 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["won-throw"], "text": { "en": "Dead center. The loud ones go quiet.", "es": "Justo en el centro. Los gritones se callan." } }, "failure": { "resources": { "reputation": -1, "energy": -5 }, "text": { "en": "Wide of the hide. The ranking has a new bottom.", "es": "Lejos de la piel. La clasificación tiene un nuevo último." } } },
+      { "id": "judge-throws", "text": { "en": "Judge the throws instead", "es": "Haz de juez de los lanzamientos" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Nobody argues with a fair eye.", "es": "Nadie discute con un ojo justo." } } },
+      { "id": "skip-contest", "text": { "en": "Leave them to it", "es": "Déjalos con lo suyo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Spears thud behind you.", "es": "Las lanzas resuenan a tu espalda." } } }
     ]
   }
 ]

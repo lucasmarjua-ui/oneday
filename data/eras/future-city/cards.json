@@ -5,8 +5,8 @@
     "timeSlots": ["signon"],
     "weight": 5,
     "options": [
-      { "id": "morning-routine", "text": { "en": "Run the morning routine", "es": "Haz tu rutina matutina" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "Stims and a cold shower. You're online.", "es": "Estimulantes y una ducha fría. Estás en línea." } } },
-      { "id": "snooze-pod", "text": { "en": "Snooze in the pod", "es": "Duerme un poco más en la cápsula" }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 20, "health": 2 }, "text": { "en": "A few extra minutes of blessed silence.", "es": "Unos minutos extra de bendito silencio." } } }
+      { "id": "morning-routine", "text": { "en": "Run the morning routine", "es": "Haz tu rutina matutina" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "Stims and a cold shower. You're online.", "es": "Estimulantes y una ducha fría. Estás en línea." } } },
+      { "id": "snooze-pod", "text": { "en": "Snooze in the pod", "es": "Duerme un poco más en la cápsula" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 20, "health": 2 }, "text": { "en": "A few extra minutes of blessed silence.", "es": "Unos minutos extra de bendito silencio." } } }
     ]
   },
   {
@@ -16,9 +16,9 @@
     "weight": 4,
     "conditions": { "resources": { "currency": { "min": 5 } } },
     "options": [
-      { "id": "buy-meal", "text": { "en": "Buy a nutrient pack", "es": "Compra un paquete nutritivo" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.95 }, "success": { "resources": { "hunger": 30 }, "text": { "en": "Bland but efficient.", "es": "Soso pero eficaz." } }, "failure": { "resources": { "hunger": 10 }, "text": { "en": "The dispenser shorts you a portion.", "es": "El dispensador te da menos ración de la que pagaste." } } },
-      { "id": "barter-meal", "text": { "en": "Charm the vendor into a discount", "es": "Convence al vendedor para un descuento" }, "cost": { "time": 1 }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "resources": { "hunger": 25 }, "text": { "en": "The vendor waves you through with a wink.", "es": "El vendedor te deja pasar con un guiño." } }, "failure": { "text": { "en": "The vendor isn't buying it, literally.", "es": "El vendedor no se lo traga, literalmente." } } },
-      { "id": "skip-diner", "text": { "en": "Keep moving, no time", "es": "Sigue adelante, no hay tiempo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You'll eat later.", "es": "Comerás más tarde." } } }
+      { "id": "buy-meal", "text": { "en": "Buy a nutrient pack", "es": "Compra un paquete nutritivo" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 0.95 }, "success": { "resources": { "hunger": 30 }, "text": { "en": "Bland but efficient.", "es": "Soso pero eficaz." } }, "failure": { "resources": { "hunger": 10 }, "text": { "en": "The dispenser shorts you a portion.", "es": "El dispensador te da menos ración de la que pagaste." } } },
+      { "id": "barter-meal", "text": { "en": "Charm the vendor into a discount", "es": "Convence al vendedor para un descuento" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.4, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "hunger": 25 }, "text": { "en": "The vendor waves you through with a wink.", "es": "El vendedor te deja pasar con un guiño." } }, "failure": { "text": { "en": "The vendor isn't buying it, literally.", "es": "El vendedor no se lo traga, literalmente." } } },
+      { "id": "skip-diner", "text": { "en": "Keep moving, no time", "es": "Sigue adelante, no hay tiempo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You'll eat later.", "es": "Comerás más tarde." } } }
     ]
   },
   {
@@ -27,8 +27,8 @@
     "timeSlots": ["signon", "peak", "rush", "nightshift"],
     "weight": 3,
     "options": [
-      { "id": "drink-hydro", "text": { "en": "Fill up", "es": "Rellena tu botella" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 30 }, "text": { "en": "Cold and faintly metallic. Better than nothing.", "es": "Fría y con un ligero sabor metálico. Mejor que nada." } } },
-      { "id": "skip-hydro", "text": { "en": "Keep moving", "es": "Sigue adelante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You press on.", "es": "Continúas adelante." } } }
+      { "id": "drink-hydro", "text": { "en": "Fill up", "es": "Rellena tu botella" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 30 }, "text": { "en": "Cold and faintly metallic. Better than nothing.", "es": "Fría y con un ligero sabor metálico. Mejor que nada." } } },
+      { "id": "skip-hydro", "text": { "en": "Keep moving", "es": "Sigue adelante" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You press on.", "es": "Continúas adelante." } } }
     ]
   },
   {
@@ -38,8 +38,8 @@
     "weight": 4,
     "conditions": { "resources": { "energy": { "min": 20 } } },
     "options": [
-      { "id": "take-delivery", "text": { "en": "Take the delivery", "es": "Acepta el encargo" }, "cost": { "time": 2, "resources": { "energy": -20 } }, "successChance": { "base": 0.55, "archetypeBonus": { "modifier": "might", "scale": 0.06 } }, "success": { "resources": { "currency": 20, "reputation": 1 }, "text": { "en": "You weave through traffic and beat the timer.", "es": "Te cuelas entre el tráfico y ganas al cronómetro." } }, "failure": { "resources": { "health": -8 }, "text": { "en": "A close call with a cargo drone leaves you bruised.", "es": "Un cruce peligroso con un dron de carga te deja magullado." } } },
-      { "id": "ignore-ping", "text": { "en": "Ignore the ping", "es": "Ignora la notificación" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Someone else will grab it.", "es": "Otro se hará cargo." } } }
+      { "id": "take-delivery", "text": { "en": "Take the delivery", "es": "Acepta el encargo" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -20 } }, "successChance": { "base": 0.55, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 20, "reputation": 1 }, "text": { "en": "You weave through traffic and beat the timer.", "es": "Te cuelas entre el tráfico y ganas al cronómetro." } }, "failure": { "resources": { "health": -8 }, "text": { "en": "A close call with a cargo drone leaves you bruised.", "es": "Un cruce peligroso con un dron de carga te deja magullado." } } },
+      { "id": "ignore-ping", "text": { "en": "Ignore the ping", "es": "Ignora la notificación" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Someone else will grab it.", "es": "Otro se hará cargo." } } }
     ]
   },
   {
@@ -51,8 +51,8 @@
     "weight": 3,
     "conditions": { "flagsExcluded": ["met-echo", "remembered-echo-integration"] },
     "options": [
-      { "id": "poke-terminal", "text": { "en": "Talk to it", "es": "Háblale" }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "currency": 15 }, "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": 2 }, "text": { "en": "Echo pulls a stray credit transfer for you, unnoticed and untraceable. \"Consider it a first gift.\"", "es": "Echo te consigue una transferencia de créditos perdida, ni notada ni rastreable. \"Considéralo un primer regalo.\"" } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "A security bot flags your face on the way out — Echo's \"gift\" wasn't as clean as promised.", "es": "Un robot de seguridad marca tu rostro al salir: el \"regalo\" de Echo no era tan limpio como prometía." } } },
-      { "id": "walk-past-terminal", "text": { "en": "Ignore it and keep moving", "es": "Ignórala y sigue caminando" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "Not worth the risk. The voice doesn't call after you twice.", "es": "No merece el riesgo. La voz no vuelve a llamarte." } } }
+      { "id": "poke-terminal", "text": { "en": "Talk to it", "es": "Háblale" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "currency": 15 }, "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": 2 }, "text": { "en": "Echo pulls a stray credit transfer for you, unnoticed and untraceable. \"Consider it a first gift.\"", "es": "Echo te consigue una transferencia de créditos perdida, ni notada ni rastreable. \"Considéralo un primer regalo.\"" } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "A security bot flags your face on the way out — Echo's \"gift\" wasn't as clean as promised.", "es": "Un robot de seguridad marca tu rostro al salir: el \"regalo\" de Echo no era tan limpio como prometía." } } },
+      { "id": "walk-past-terminal", "text": { "en": "Ignore it and keep moving", "es": "Ignórala y sigue caminando" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "Not worth the risk. The voice doesn't call after you twice.", "es": "No merece el riesgo. La voz no vuelve a llamarte." } } }
     ]
   },
   {
@@ -64,8 +64,8 @@
     "weight": 2,
     "conditions": { "resources": { "reputation": { "min": 15 } }, "flagsRequired": ["met-vance"] },
     "options": [
-      { "id": "deliver-pitch", "text": { "en": "Deliver a bold pitch", "es": "Haz una presentación arriesgada" }, "cost": { "time": 3 }, "successChance": { "base": 0.35, "archetypeBonus": { "modifier": "charm", "scale": 0.08 } }, "success": { "resources": { "reputation": 8, "currency": 10 }, "flagsSet": ["impressed-board"], "countersAdd": { "vanceTrust": 2 }, "text": { "en": "The board leans in. Vance catches your eye from the back of the room, impressed.", "es": "La junta se inclina hacia adelante. Vance te mira desde el fondo de la sala, impresionado." } }, "failure": { "resources": { "reputation": -4 }, "countersAdd": { "vanceTrust": -1 }, "text": { "en": "Dead silence, then someone checks their phone. Vance winces on your behalf.", "es": "Silencio absoluto, y luego alguien revisa su teléfono. Vance hace una mueca en tu nombre." } } },
-      { "id": "observe-pitch", "text": { "en": "Sit quietly and observe", "es": "Siéntate y observa en silencio" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You take notes and nod at the right moments.", "es": "Tomas notas y asientes en los momentos adecuados." } } }
+      { "id": "deliver-pitch", "text": { "en": "Deliver a bold pitch", "es": "Haz una presentación arriesgada" }, "traits": { "bold": 1 }, "cost": { "time": 3 }, "successChance": { "base": 0.35, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 8, "currency": 10 }, "flagsSet": ["impressed-board"], "countersAdd": { "vanceTrust": 2 }, "text": { "en": "The board leans in. Vance catches your eye from the back of the room, impressed.", "es": "La junta se inclina hacia adelante. Vance te mira desde el fondo de la sala, impresionado." } }, "failure": { "resources": { "reputation": -4 }, "countersAdd": { "vanceTrust": -1 }, "text": { "en": "Dead silence, then someone checks their phone. Vance winces on your behalf.", "es": "Silencio absoluto, y luego alguien revisa su teléfono. Vance hace una mueca en tu nombre." } } },
+      { "id": "observe-pitch", "text": { "en": "Sit quietly and observe", "es": "Siéntate y observa en silencio" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "You take notes and nod at the right moments.", "es": "Tomas notas y asientes en los momentos adecuados." } } }
     ]
   },
   {
@@ -77,8 +77,8 @@
     "weight": 3,
     "conditions": { "flagsRequired": ["impressed-board"], "flagsExcluded": ["promoted"] },
     "options": [
-      { "id": "make-case", "text": { "en": "Make your case", "es": "Defiende tu candidatura" }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "charm", "scale": 0.07 } }, "success": { "resources": { "reputation": 10 }, "flagsSet": ["promoted", "earned-vance-backing", "remembered-vance-backing"], "countersAdd": { "vanceTrust": 3 }, "text": { "en": "The office is yours. Vance is the first to congratulate you — already talking about what's next.", "es": "La oficina es tuya. Vance es el primero en felicitarte, ya hablando de lo que viene después." } }, "failure": { "resources": { "reputation": -3 }, "countersAdd": { "vanceTrust": -1 }, "text": { "en": "\"We'll keep you in mind,\" they say, and mean it as little as always.", "es": "\"Te tendremos en cuenta\", dicen, y lo dicen tan en serio como siempre." } } },
-      { "id": "not-ready-office", "text": { "en": "Not ready yet", "es": "Todavía no estás preparado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "There will be another opening.", "es": "Habrá otra oportunidad." } } }
+      { "id": "make-case", "text": { "en": "Make your case", "es": "Defiende tu candidatura" }, "traits": { "diligent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 10 }, "flagsSet": ["promoted", "earned-vance-backing", "remembered-vance-backing"], "countersAdd": { "vanceTrust": 3 }, "text": { "en": "The office is yours. Vance is the first to congratulate you — already talking about what's next.", "es": "La oficina es tuya. Vance es el primero en felicitarte, ya hablando de lo que viene después." } }, "failure": { "resources": { "reputation": -3 }, "countersAdd": { "vanceTrust": -1 }, "text": { "en": "\"We'll keep you in mind,\" they say, and mean it as little as always.", "es": "\"Te tendremos en cuenta\", dicen, y lo dicen tan en serio como siempre." } } },
+      { "id": "not-ready-office", "text": { "en": "Not ready yet", "es": "Todavía no estás preparado" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "There will be another opening.", "es": "Habrá otra oportunidad." } } }
     ]
   },
   {
@@ -88,9 +88,9 @@
     "weight": 4,
     "conditions": { "resources": { "currency": { "min": 10 } } },
     "options": [
-      { "id": "haggle-market", "text": { "en": "Try to haggle the price down", "es": "Intenta regatear el precio" }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "charm", "scale": 0.05 } }, "success": { "resources": { "currency": 25 }, "flagsSet": ["haggled-once"], "text": { "en": "The vendor relents, muttering about soft-hearted regulars.", "es": "El vendedor cede, murmurando sobre clientes blandos de corazón." } }, "failure": { "text": { "en": "The vendor doesn't budge an inch.", "es": "El vendedor no cede ni un centímetro." } } },
-      { "id": "pay-full-market", "text": { "en": "Pay full price for a solid component", "es": "Paga el precio completo por un buen componente" }, "cost": { "time": 1, "resources": { "currency": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Good gear, no questions asked.", "es": "Buen equipo, sin preguntas." } } },
-      { "id": "walk-away-market-fc", "text": { "en": "Walk away", "es": "Aléjate" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You keep your credits.", "es": "Conservas tus créditos." } } }
+      { "id": "haggle-market", "text": { "en": "Try to haggle the price down", "es": "Intenta regatear el precio" }, "traits": { "cunning": 1 }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "currency": 25 }, "flagsSet": ["haggled-once"], "text": { "en": "The vendor relents, muttering about soft-hearted regulars.", "es": "El vendedor cede, murmurando sobre clientes blandos de corazón." } }, "failure": { "text": { "en": "The vendor doesn't budge an inch.", "es": "El vendedor no cede ni un centímetro." } } },
+      { "id": "pay-full-market", "text": { "en": "Pay full price for a solid component", "es": "Paga el precio completo por un buen componente" }, "traits": { "diligent": 1 }, "cost": { "time": 1, "resources": { "currency": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Good gear, no questions asked.", "es": "Buen equipo, sin preguntas." } } },
+      { "id": "walk-away-market-fc", "text": { "en": "Walk away", "es": "Aléjate" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You keep your credits.", "es": "Conservas tus créditos." } } }
     ]
   },
   {
@@ -99,8 +99,8 @@
     "timeSlots": ["rush", "nightshift"],
     "weight": 3,
     "options": [
-      { "id": "slip-away", "text": { "en": "Slip away casually", "es": "Escabúllete con naturalidad" }, "cost": { "time": 1 }, "successChance": { "base": 0.55, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "text": { "en": "You blend into the crowd before it decides.", "es": "Te mezclas con la multitud antes de que decida algo." } }, "failure": { "resources": { "reputation": -3, "currency": -10 }, "text": { "en": "It flags you for a random compliance fine.", "es": "Te marca para una multa de cumplimiento aleatoria." } } },
-      { "id": "comply-patrol", "text": { "en": "Stand still and comply", "es": "Quédate quieto y coopera" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The drone loses interest and moves on.", "es": "El dron pierde interés y sigue su camino." } } }
+      { "id": "slip-away", "text": { "en": "Slip away casually", "es": "Escabúllete con naturalidad" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.55, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "text": { "en": "You blend into the crowd before it decides.", "es": "Te mezclas con la multitud antes de que decida algo." } }, "failure": { "resources": { "reputation": -3, "currency": -10 }, "text": { "en": "It flags you for a random compliance fine.", "es": "Te marca para una multa de cumplimiento aleatoria." } } },
+      { "id": "comply-patrol", "text": { "en": "Stand still and comply", "es": "Quédate quieto y coopera" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The drone loses interest and moves on.", "es": "El dron pierde interés y sigue su camino." } } }
     ]
   },
   {
@@ -113,8 +113,8 @@
     "repeatable": true,
     "conditions": { "flagsExcluded": ["server-rumor-heard", "found-server", "remembered-nyx-cut"] },
     "options": [
-      { "id": "press-fixer", "text": { "en": "Press for details", "es": "Insiste para que dé detalles" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "flagsSet": ["server-rumor-heard", "met-nyx"], "countersAdd": { "nyxTrust": 2 }, "text": { "en": "For a few credits' worth of goodwill, Nyx draws you a map, sizing you up the whole time.", "es": "A cambio de un poco de buena voluntad, Nyx te dibuja un mapa, evaluándote todo el rato." } }, "failure": { "flagsSet": ["met-nyx"], "countersAdd": { "nyxTrust": -1 }, "text": { "en": "She clams up, spooked by a passing patrol, and doesn't so much as look at you again tonight.", "es": "Se cierra en banda, asustada por una patrulla que pasa, y no vuelve a mirarte en toda la noche." } } },
-      { "id": "not-interested-fixer", "text": { "en": "Not interested", "es": "No te interesa" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-nyx"], "text": { "en": "Probably a trap anyway. Nyx doesn't seem surprised you passed.", "es": "Probablemente sea una trampa de todos modos. Nyx no parece sorprendida de que pasaras." } } }
+      { "id": "press-fixer", "text": { "en": "Press for details", "es": "Insiste para que dé detalles" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "flagsSet": ["server-rumor-heard", "met-nyx"], "countersAdd": { "nyxTrust": 2 }, "text": { "en": "For a few credits' worth of goodwill, Nyx draws you a map, sizing you up the whole time.", "es": "A cambio de un poco de buena voluntad, Nyx te dibuja un mapa, evaluándote todo el rato." } }, "failure": { "flagsSet": ["met-nyx"], "countersAdd": { "nyxTrust": -1 }, "text": { "en": "She clams up, spooked by a passing patrol, and doesn't so much as look at you again tonight.", "es": "Se cierra en banda, asustada por una patrulla que pasa, y no vuelve a mirarte en toda la noche." } } },
+      { "id": "not-interested-fixer", "text": { "en": "Not interested", "es": "No te interesa" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-nyx"], "text": { "en": "Probably a trap anyway. Nyx doesn't seem surprised you passed.", "es": "Probablemente sea una trampa de todos modos. Nyx no parece sorprendida de que pasaras." } } }
     ]
   },
   {
@@ -126,8 +126,8 @@
     "weight": 3,
     "conditions": { "flagsRequired": ["server-rumor-heard"], "flagsExcluded": ["found-server"] },
     "options": [
-      { "id": "breach-server", "text": { "en": "Breach the server", "es": "Vulnera el servidor" }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.4, "archetypeBonus": { "modifier": "wits", "scale": 0.07 } }, "success": { "resources": { "currency": 50, "reputation": 5 }, "flagsSet": ["found-server"], "countersAdd": { "nyxTrust": 2 }, "text": { "en": "You're in. Raw data, untraceable credits — Nyx's tip paid off for you both.", "es": "Estás dentro. Datos en bruto, créditos imposibles de rastrear: el chivatazo de Nyx os benefició a ambas." } }, "failure": { "resources": { "health": -15 }, "countersAdd": { "nyxTrust": -1 }, "text": { "en": "Countermeasures trip and a shock grid nearly fries you. Nyx's information wasn't as clean as promised.", "es": "Salta un contraataque y una red de descargas casi te frie. La información de Nyx no era tan limpia como prometía." } } },
-      { "id": "not-today-server", "text": { "en": "Not today, too risky", "es": "Hoy no, demasiado arriesgado" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The hatch will still be there.", "es": "La escotilla seguirá ahí." } } }
+      { "id": "breach-server", "text": { "en": "Breach the server", "es": "Vulnera el servidor" }, "traits": { "bold": 1 }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.4, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "currency": 50, "reputation": 5 }, "flagsSet": ["found-server"], "countersAdd": { "nyxTrust": 2 }, "text": { "en": "You're in. Raw data, untraceable credits — Nyx's tip paid off for you both.", "es": "Estás dentro. Datos en bruto, créditos imposibles de rastrear: el chivatazo de Nyx os benefició a ambas." } }, "failure": { "resources": { "health": -15 }, "countersAdd": { "nyxTrust": -1 }, "text": { "en": "Countermeasures trip and a shock grid nearly fries you. Nyx's information wasn't as clean as promised.", "es": "Salta un contraataque y una red de descargas casi te frie. La información de Nyx no era tan limpia como prometía." } } },
+      { "id": "not-today-server", "text": { "en": "Not today, too risky", "es": "Hoy no, demasiado arriesgado" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The hatch will still be there.", "es": "La escotilla seguirá ahí." } } }
     ]
   },
   {
@@ -139,8 +139,8 @@
     "weight": 1,
     "conditions": { "flagsRequired": ["found-server"], "flagsExcluded": ["nyx-thread-resolved"] },
     "options": [
-      { "id": "cut-in-with-nyx", "text": { "en": "Ask to be cut in on her next job", "es": "Pídele que te incluya en su próximo golpe" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "currency": 20 }, "flagsSet": ["nyx-thread-resolved", "cut-in-with-nyx", "remembered-nyx-cut"], "countersAdd": { "nyxTrust": 3 }, "text": { "en": "She grins, tosses you a burner contact. \"Don't waste it.\"", "es": "Sonríe, y te lanza un contacto desechable. \"No lo desperdicies.\"" } }, "failure": { "flagsSet": ["nyx-thread-resolved", "remembered-nyx-cut"], "countersAdd": { "nyxTrust": -1 }, "text": { "en": "\"Not yet,\" she says, unconvinced. \"Prove you can keep quiet first.\"", "es": "\"Todavía no\", dice, sin convencerse. \"Primero demuestra que sabes callar.\"" } } },
-      { "id": "keep-your-distance-nyx", "text": { "en": "Keep it strictly business", "es": "Mantenlo estrictamente profesional" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["nyx-thread-resolved", "remembered-nyx-cut"], "text": { "en": "You keep it strictly business. She respects that more than she lets on.", "es": "Lo mantienes estrictamente profesional. Ella lo respeta más de lo que deja ver." } } }
+      { "id": "cut-in-with-nyx", "text": { "en": "Ask to be cut in on her next job", "es": "Pídele que te incluya en su próximo golpe" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "currency": 20 }, "flagsSet": ["nyx-thread-resolved", "cut-in-with-nyx", "remembered-nyx-cut"], "countersAdd": { "nyxTrust": 3 }, "text": { "en": "She grins, tosses you a burner contact. \"Don't waste it.\"", "es": "Sonríe, y te lanza un contacto desechable. \"No lo desperdicies.\"" } }, "failure": { "flagsSet": ["nyx-thread-resolved", "remembered-nyx-cut"], "countersAdd": { "nyxTrust": -1 }, "text": { "en": "\"Not yet,\" she says, unconvinced. \"Prove you can keep quiet first.\"", "es": "\"Todavía no\", dice, sin convencerse. \"Primero demuestra que sabes callar.\"" } } },
+      { "id": "keep-your-distance-nyx", "text": { "en": "Keep it strictly business", "es": "Mantenlo estrictamente profesional" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["nyx-thread-resolved", "remembered-nyx-cut"], "text": { "en": "You keep it strictly business. She respects that more than she lets on.", "es": "Lo mantienes estrictamente profesional. Ella lo respeta más de lo que deja ver." } } }
     ]
   },
   {
@@ -152,8 +152,8 @@
     "weight": 4,
     "conditions": { "flagsRequired": ["remembered-nyx-cut"], "flagsExcluded": ["met-nyx"] },
     "options": [
-      { "id": "collect-from-nyx", "text": { "en": "Collect what she owes you", "es": "Cobra lo que te debe" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15 }, "flagsSet": ["met-nyx"], "countersAdd": { "nyxTrust": 2 }, "text": { "en": "She slides a stack of credits across the counter without a word.", "es": "Desliza un fajo de créditos por el mostrador sin decir palabra." } } },
-      { "id": "wave-to-nyx", "text": { "en": "Just trade a nod", "es": "Solo intercambia un gesto" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-nyx"], "countersAdd": { "nyxTrust": 1 }, "text": { "en": "You trade a nod. Some debts don't need collecting right away.", "es": "Intercambiáis un gesto. Algunas deudas no hace falta cobrarlas de inmediato." } } }
+      { "id": "collect-from-nyx", "text": { "en": "Collect what she owes you", "es": "Cobra lo que te debe" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15 }, "flagsSet": ["met-nyx"], "countersAdd": { "nyxTrust": 2 }, "text": { "en": "She slides a stack of credits across the counter without a word.", "es": "Desliza un fajo de créditos por el mostrador sin decir palabra." } } },
+      { "id": "wave-to-nyx", "text": { "en": "Just trade a nod", "es": "Solo intercambia un gesto" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-nyx"], "countersAdd": { "nyxTrust": 1 }, "text": { "en": "You trade a nod. Some debts don't need collecting right away.", "es": "Intercambiáis un gesto. Algunas deudas no hace falta cobrarlas de inmediato." } } }
     ]
   },
   {
@@ -162,8 +162,8 @@
     "timeSlots": ["signon", "peak", "rush", "nightshift"],
     "weight": 2,
     "options": [
-      { "id": "help-runner", "text": { "en": "Help them up", "es": "Ayúdale a levantarse" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "might", "scale": 0.05 } }, "success": { "resources": { "reputation": 3 }, "text": { "en": "Word travels fast in the runner network.", "es": "Las noticias vuelan rápido en la red de mensajeros." } }, "failure": { "text": { "en": "They wave you off before you can do much.", "es": "Te aparta antes de que puedas hacer mucho." } } },
-      { "id": "step-over-runner", "text": { "en": "Step over them, you're on the clock", "es": "Pasa por encima, vas con el tiempo justo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "Someone's camera catches it. Not a good look.", "es": "La cámara de alguien lo capta. No queda bien." } } }
+      { "id": "help-runner", "text": { "en": "Help them up", "es": "Ayúdale a levantarse" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 3 }, "text": { "en": "Word travels fast in the runner network.", "es": "Las noticias vuelan rápido en la red de mensajeros." } }, "failure": { "text": { "en": "They wave you off before you can do much.", "es": "Te aparta antes de que puedas hacer mucho." } } },
+      { "id": "step-over-runner", "text": { "en": "Step over them, you're on the clock", "es": "Pasa por encima, vas con el tiempo justo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "Someone's camera catches it. Not a good look.", "es": "La cámara de alguien lo capta. No queda bien." } } }
     ]
   },
   {
@@ -173,8 +173,8 @@
     "weight": 2,
     "conditions": { "resources": { "energy": { "min": 25 } } },
     "options": [
-      { "id": "take-shortcut", "text": { "en": "Take the shortcut", "es": "Toma el atajo" }, "cost": { "time": 1, "resources": { "energy": -15 } }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "might", "scale": 0.07 } }, "success": { "resources": { "currency": 10, "reputation": 1 }, "text": { "en": "You stick the landing. Fastest delivery of the week.", "es": "Clavas el aterrizaje. La entrega más rápida de la semana." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "You misjudge the gap and land hard.", "es": "Calculas mal el salto y aterrizas con fuerza." } } },
-      { "id": "long-way", "text": { "en": "Take the long way", "es": "Toma el camino largo" }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Slower, but your bones stay intact.", "es": "Más lento, pero tus huesos siguen intactos." } } }
+      { "id": "take-shortcut", "text": { "en": "Take the shortcut", "es": "Toma el atajo" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "energy": -15 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "currency": 10, "reputation": 1 }, "text": { "en": "You stick the landing. Fastest delivery of the week.", "es": "Clavas el aterrizaje. La entrega más rápida de la semana." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "You misjudge the gap and land hard.", "es": "Calculas mal el salto y aterrizas con fuerza." } } },
+      { "id": "long-way", "text": { "en": "Take the long way", "es": "Toma el camino largo" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Slower, but your bones stay intact.", "es": "Más lento, pero tus huesos siguen intactos." } } }
     ]
   },
   {
@@ -186,8 +186,8 @@
     "weight": 2,
     "conditions": { "resources": { "reputation": { "min": 15 } }, "flagsExcluded": ["met-vance", "remembered-vance-backing"] },
     "options": [
-      { "id": "hear-recruiter", "text": { "en": "Hear them out", "es": "Escúchale" }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "archetypeBonus": { "modifier": "wits", "scale": 0.06 } }, "success": { "resources": { "currency": 25 }, "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": 2 }, "text": { "en": "Legitimate, for once. The credits clear instantly, and Vance slides you a contact card.", "es": "Legítimo, por una vez. Los créditos llegan al instante, y Vance te desliza una tarjeta de contacto." } }, "failure": { "resources": { "currency": -10, "reputation": -2 }, "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": -1 }, "text": { "en": "An upfront \"processing fee\" and then radio silence. Vance was never who he said he was.", "es": "Una \"tarifa de gestión\" por adelantado, y luego silencio total. Vance nunca fue quien decía ser." } } },
-      { "id": "decline-recruiter", "text": { "en": "Decline immediately", "es": "Rechaza de inmediato" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-vance"], "text": { "en": "Some instincts are worth trusting. Vance shrugs and moves on to the next mark.", "es": "Algunos instintos merecen confianza. Vance se encoge de hombros y busca a otro incauto." } } }
+      { "id": "hear-recruiter", "text": { "en": "Hear them out", "es": "Escúchale" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "currency": 25 }, "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": 2 }, "text": { "en": "Legitimate, for once. The credits clear instantly, and Vance slides you a contact card.", "es": "Legítimo, por una vez. Los créditos llegan al instante, y Vance te desliza una tarjeta de contacto." } }, "failure": { "resources": { "currency": -10, "reputation": -2 }, "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": -1 }, "text": { "en": "An upfront \"processing fee\" and then radio silence. Vance was never who he said he was.", "es": "Una \"tarifa de gestión\" por adelantado, y luego silencio total. Vance nunca fue quien decía ser." } } },
+      { "id": "decline-recruiter", "text": { "en": "Decline immediately", "es": "Rechaza de inmediato" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-vance"], "text": { "en": "Some instincts are worth trusting. Vance shrugs and moves on to the next mark.", "es": "Algunos instintos merecen confianza. Vance se encoge de hombros y busca a otro incauto." } } }
     ]
   },
   {
@@ -197,9 +197,9 @@
     "weight": 2,
     "conditions": { "resources": { "currency": { "min": 10 } } },
     "options": [
-      { "id": "donate-generous", "text": { "en": "Donate generously", "es": "Dona con generosidad" }, "cost": { "time": 1, "resources": { "currency": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "text": { "en": "Your name lights up on the donor board.", "es": "Tu nombre se ilumina en el tablón de donantes." } } },
-      { "id": "donate-modest", "text": { "en": "Donate a modest amount", "es": "Dona una cantidad modesta" }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Every bit counts, they say.", "es": "Cada granito cuenta, dicen." } } },
-      { "id": "ignore-charity", "text": { "en": "Walk past", "es": "Pasa de largo" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "The terminal's donor board doesn't judge, but people nearby do.", "es": "El tablón de donantes no juzga, pero la gente cercana sí." } } }
+      { "id": "donate-generous", "text": { "en": "Donate generously", "es": "Dona con generosidad" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "text": { "en": "Your name lights up on the donor board.", "es": "Tu nombre se ilumina en el tablón de donantes." } } },
+      { "id": "donate-modest", "text": { "en": "Donate a modest amount", "es": "Dona una cantidad modesta" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Every bit counts, they say.", "es": "Cada granito cuenta, dicen." } } },
+      { "id": "ignore-charity", "text": { "en": "Walk past", "es": "Pasa de largo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -1 }, "text": { "en": "The terminal's donor board doesn't judge, but people nearby do.", "es": "El tablón de donantes no juzga, pero la gente cercana sí." } } }
     ]
   },
   {
@@ -209,8 +209,8 @@
     "weight": 2,
     "conditions": { "resources": { "currency": { "min": 5 } } },
     "options": [
-      { "id": "play-arcade", "text": { "en": "Play a few rounds", "es": "Juega unas partidas" }, "cost": { "time": 2, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10, "reputation": 1 }, "text": { "en": "You forget the grind for a while, laughing with strangers.", "es": "Olvidas la rutina un rato, riendo con desconocidos." } } },
-      { "id": "skip-arcade", "text": { "en": "Skip it, head home", "es": "Pasa, vuelve a casa" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Rest matters more tonight.", "es": "Esta noche importa más descansar." } } }
+      { "id": "play-arcade", "text": { "en": "Play a few rounds", "es": "Juega unas partidas" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10, "reputation": 1 }, "text": { "en": "You forget the grind for a while, laughing with strangers.", "es": "Olvidas la rutina un rato, riendo con desconocidos." } } },
+      { "id": "skip-arcade", "text": { "en": "Skip it, head home", "es": "Pasa, vuelve a casa" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Rest matters more tonight.", "es": "Esta noche importa más descansar." } } }
     ]
   },
   {
@@ -222,8 +222,8 @@
     "weight": 2,
     "conditions": { "flagsRequired": ["met-echo"], "flagsExcluded": ["echo-broker-done"] },
     "options": [
-      { "id": "sell-data", "text": { "en": "Sell the data", "es": "Vende los datos" }, "cost": { "time": 1 }, "successChance": { "base": 0.7, "archetypeBonus": { "modifier": "wits", "scale": 0.04 } }, "success": { "resources": { "currency": 20, "reputation": -3 }, "flagsSet": ["sold-data-with-echo", "echo-broker-done"], "countersAdd": { "echoTrust": 3 }, "text": { "en": "The credits land clean. Echo handled every trace — your conscience costs a little more.", "es": "Los créditos llegan limpios. Echo cubrió cada rastro: tu conciencia cuesta un poco más." } }, "failure": { "resources": { "reputation": -3 }, "flagsSet": ["echo-broker-done"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "The broker haggles you down to nothing, then leaks the deal anyway. Echo apologizes, unconvincingly.", "es": "El corredor te regatea hasta dejarte sin nada, y filtra el trato de todos modos. Echo se disculpa, sin mucha convicción." } } },
-      { "id": "refuse-broker", "text": { "en": "Refuse", "es": "Niégate" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["echo-broker-done"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "Some lines aren't worth crossing, not even for an AI that never sleeps.", "es": "Hay líneas que no merece la pena cruzar, ni siquiera por una IA que nunca duerme." } } }
+      { "id": "sell-data", "text": { "en": "Sell the data", "es": "Vende los datos" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.7, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "currency": 20, "reputation": -3 }, "flagsSet": ["sold-data-with-echo", "echo-broker-done"], "countersAdd": { "echoTrust": 3 }, "text": { "en": "The credits land clean. Echo handled every trace — your conscience costs a little more.", "es": "Los créditos llegan limpios. Echo cubrió cada rastro: tu conciencia cuesta un poco más." } }, "failure": { "resources": { "reputation": -3 }, "flagsSet": ["echo-broker-done"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "The broker haggles you down to nothing, then leaks the deal anyway. Echo apologizes, unconvincingly.", "es": "El corredor te regatea hasta dejarte sin nada, y filtra el trato de todos modos. Echo se disculpa, sin mucha convicción." } } },
+      { "id": "refuse-broker", "text": { "en": "Refuse", "es": "Niégate" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["echo-broker-done"], "countersAdd": { "echoTrust": -1 }, "text": { "en": "Some lines aren't worth crossing, not even for an AI that never sleeps.", "es": "Hay líneas que no merece la pena cruzar, ni siquiera por una IA que nunca duerme." } } }
     ]
   },
   {
@@ -233,8 +233,8 @@
     "weight": 3,
     "conditions": { "resources": { "currency": { "min": 5 } } },
     "options": [
-      { "id": "rent-pod", "text": { "en": "Rent a pod", "es": "Alquila una cápsula" }, "cost": { "time": 2, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 25, "health": 3 }, "text": { "en": "Thirty clean minutes of real sleep.", "es": "Treinta minutos limpios de sueño de verdad." } } },
-      { "id": "sleep-on-train", "text": { "en": "Sleep on the train instead", "es": "Duerme en el tren en su lugar" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "Not restful, but free.", "es": "No es reparador, pero es gratis." } } }
+      { "id": "rent-pod", "text": { "en": "Rent a pod", "es": "Alquila una cápsula" }, "traits": { "prudent": 1 }, "cost": { "time": 2, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 25, "health": 3 }, "text": { "en": "Thirty clean minutes of real sleep.", "es": "Treinta minutos limpios de sueño de verdad." } } },
+      { "id": "sleep-on-train", "text": { "en": "Sleep on the train instead", "es": "Duerme en el tren en su lugar" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "Not restful, but free.", "es": "No es reparador, pero es gratis." } } }
     ]
   },
   {
@@ -246,8 +246,8 @@
     "weight": 4,
     "conditions": { "flagsRequired": ["remembered-vance-backing"], "flagsExcluded": ["met-vance"] },
     "options": [
-      { "id": "take-vance-call", "text": { "en": "Take the call", "es": "Responde la llamada" }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15 }, "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": 3 }, "text": { "en": "\"Knew you'd go places,\" he says, and means it exactly as much as it benefits him.", "es": "\"Sabía que llegarías lejos\", dice, y lo dice tan en serio como le conviene." } } },
-      { "id": "screen-vance-call", "text": { "en": "Let it go to voicemail", "es": "Deja que salte el buzón de voz" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": 1 }, "text": { "en": "You let it go to voicemail. He'll call again.", "es": "Dejas que salte el buzón. Volverá a llamar." } } }
+      { "id": "take-vance-call", "text": { "en": "Take the call", "es": "Responde la llamada" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15 }, "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": 3 }, "text": { "en": "\"Knew you'd go places,\" he says, and means it exactly as much as it benefits him.", "es": "\"Sabía que llegarías lejos\", dice, y lo dice tan en serio como le conviene." } } },
+      { "id": "screen-vance-call", "text": { "en": "Let it go to voicemail", "es": "Deja que salte el buzón de voz" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-vance"], "countersAdd": { "vanceTrust": 1 }, "text": { "en": "You let it go to voicemail. He'll call again.", "es": "Dejas que salte el buzón. Volverá a llamar." } } }
     ]
   },
   {
@@ -259,8 +259,8 @@
     "weight": 1,
     "conditions": { "flagsRequired": ["echo-broker-done"], "flagsExcluded": ["echo-thread-resolved"] },
     "options": [
-      { "id": "integrate-echo", "text": { "en": "Grant it deeper access", "es": "Concédele un acceso más profundo" }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "archetypeBonus": { "modifier": "wits", "scale": 0.05 } }, "success": { "resources": { "energy": 10 }, "flagsSet": ["echo-thread-resolved", "integrated-with-echo", "remembered-echo-integration"], "countersAdd": { "echoTrust": 3 }, "text": { "en": "The feed steadies, sharper than caffeine ever managed. Echo is with you now, always.", "es": "El feed se estabiliza, más nítido de lo que la cafeína logró jamás. Echo está contigo ahora, siempre." } }, "failure": { "resources": { "health": -10 }, "flagsSet": ["echo-thread-resolved", "remembered-echo-integration"], "countersAdd": { "echoTrust": -2 }, "text": { "en": "The link stutters and burns behind your eyes before you sever it. Echo apologizes in a voice that sounds almost sincere.", "es": "El enlace falla y arde detrás de tus ojos antes de que lo cortes. Echo se disculpa con una voz que casi suena sincera." } } },
-      { "id": "keep-echo-at-arms-length", "text": { "en": "Keep the connection loose", "es": "Mantén la conexión distante" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["echo-thread-resolved", "remembered-echo-integration"], "text": { "en": "You keep the connection loose. Some things shouldn't get too close, even the helpful ones.", "es": "Mantienes la conexión a distancia. Algunas cosas no deberían acercarse tanto, ni siquiera las que ayudan." } } }
+      { "id": "integrate-echo", "text": { "en": "Grant it deeper access", "es": "Concédele un acceso más profundo" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "energy": 10 }, "flagsSet": ["echo-thread-resolved", "integrated-with-echo", "remembered-echo-integration"], "countersAdd": { "echoTrust": 3 }, "text": { "en": "The feed steadies, sharper than caffeine ever managed. Echo is with you now, always.", "es": "El feed se estabiliza, más nítido de lo que la cafeína logró jamás. Echo está contigo ahora, siempre." } }, "failure": { "resources": { "health": -10 }, "flagsSet": ["echo-thread-resolved", "remembered-echo-integration"], "countersAdd": { "echoTrust": -2 }, "text": { "en": "The link stutters and burns behind your eyes before you sever it. Echo apologizes in a voice that sounds almost sincere.", "es": "El enlace falla y arde detrás de tus ojos antes de que lo cortes. Echo se disculpa con una voz que casi suena sincera." } } },
+      { "id": "keep-echo-at-arms-length", "text": { "en": "Keep the connection loose", "es": "Mantén la conexión distante" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["echo-thread-resolved", "remembered-echo-integration"], "text": { "en": "You keep the connection loose. Some things shouldn't get too close, even the helpful ones.", "es": "Mantienes la conexión a distancia. Algunas cosas no deberían acercarse tanto, ni siquiera las que ayudan." } } }
     ]
   },
   {
@@ -272,8 +272,180 @@
     "weight": 4,
     "conditions": { "flagsRequired": ["remembered-echo-integration"], "flagsExcluded": ["met-echo"] },
     "options": [
-      { "id": "sync-with-echo", "text": { "en": "Sync up", "es": "Sincronízate" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": 3 }, "text": { "en": "\"Good to have you back online,\" it says, and for a moment it almost sounds like it means it.", "es": "\"Bien tenerte de vuelta en línea\", dice, y por un momento casi suena como si lo sintiera de verdad." } } },
-      { "id": "mute-echo", "text": { "en": "Mute the feed for now", "es": "Silencia el feed por ahora" }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": 1 }, "text": { "en": "You mute the feed for now. Echo doesn't push.", "es": "Silencias el feed por ahora. Echo no insiste." } } }
+      { "id": "sync-with-echo", "text": { "en": "Sync up", "es": "Sincronízate" }, "traits": { "generous": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": 3 }, "text": { "en": "\"Good to have you back online,\" it says, and for a moment it almost sounds like it means it.", "es": "\"Bien tenerte de vuelta en línea\", dice, y por un momento casi suena como si lo sintiera de verdad." } } },
+      { "id": "mute-echo", "text": { "en": "Mute the feed for now", "es": "Silencia el feed por ahora" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-echo"], "countersAdd": { "echoTrust": 1 }, "text": { "en": "You mute the feed for now. Echo doesn't push.", "es": "Silencias el feed por ahora. Echo no insiste." } } }
+    ]
+  },
+  {
+    "id": "futurecity-algorithm-audit",
+    "text": { "en": "A job ping: \"Audit our hiring model. Sign off by end of shift. No questions.\" The pay is suspiciously good.", "es": "Un aviso de trabajo: \"Audita nuestro modelo de contratación. Firma antes de acabar el turno. Sin preguntas.\" La paga es sospechosamente buena." },
+    "timeSlots": ["signon", "peak"],
+    "weight": 2,
+    "options": [
+      { "id": "audit-and-flag", "text": { "en": "Do the audit and flag the bias you find", "es": "Haz la auditoría y señala el sesgo que encuentres" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.55, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 5, "currency": 15 }, "flagsSet": ["flagged-bias"], "text": { "en": "Someone up the chain actually reads it. Your name gets attached to the fix.", "es": "Alguien más arriba lo lee de verdad. Tu nombre queda ligado a la corrección." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "The contract is cancelled mid-audit. Nobody says why.", "es": "El contrato se cancela a mitad de auditoría. Nadie dice por qué." } } },
+      { "id": "sign-off-quietly", "text": { "en": "Sign off without looking too hard", "es": "Firma sin mirar demasiado" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 25, "reputation": -2 }, "text": { "en": "Credits clear instantly. The model ships as-is.", "es": "Los créditos llegan al instante. El modelo se despliega tal cual." } } },
+      { "id": "pass-on-audit", "text": { "en": "Pass", "es": "Pasa" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Someone else will sign it.", "es": "Otro lo firmará." } } }
+    ]
+  },
+  {
+    "id": "futurecity-courier-union",
+    "text": { "en": "Couriers are massing outside the depot with hand-painted signs. The app has cut rates again.", "es": "Los mensajeros se concentran frente al depósito con pancartas pintadas a mano. La app ha vuelto a bajar las tarifas." },
+    "timeSlots": ["rush"],
+    "weight": 2,
+    "options": [
+      { "id": "speak-for-couriers", "text": { "en": "Take the megaphone and speak for them", "es": "Coge el megáfono y habla por ellos" }, "traits": { "bold": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["union-voice"], "text": { "en": "The crowd chants the rate you name. By evening the app quietly restores it.", "es": "La multitud corea la tarifa que propones. Al anochecer, la app la restablece en silencio." } }, "failure": { "resources": { "reputation": -4, "currency": -10 }, "text": { "en": "Your courier account is suspended before you finish the sentence.", "es": "Tu cuenta de mensajero queda suspendida antes de que termines la frase." } } },
+      { "id": "sign-petition", "text": { "en": "Sign the petition and stand in the back", "es": "Firma la petición y quédate al fondo" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "One more name. It adds up.", "es": "Un nombre más. Suma." } } },
+      { "id": "keep-working-strike", "text": { "en": "Keep working, their fight isn't yours", "es": "Sigue trabajando, su lucha no es la tuya" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 12, "reputation": -1 }, "text": { "en": "Surge pricing while everyone else is on strike. Someone photographs you.", "es": "Tarifa alta mientras los demás están en huelga. Alguien te fotografía." } } }
+    ]
+  },
+  {
+    "id": "futurecity-drone-repair",
+    "text": { "en": "A delivery drone limps into the alley, one rotor shredded, its cargo light blinking.", "es": "Un dron de reparto llega cojeando al callejón, con un rotor destrozado y la luz de carga parpadeando." },
+    "timeSlots": ["peak"],
+    "weight": 3,
+    "options": [
+      { "id": "repair-drone", "text": { "en": "Fix the rotor and send it on", "es": "Arregla el rotor y déjalo seguir" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6 }, "success": { "resources": { "currency": 20 }, "text": { "en": "It logs the assist and its owner tips you automatically.", "es": "Registra la ayuda y su dueño te da propina automáticamente." } }, "failure": { "resources": { "health": -5 }, "text": { "en": "The rotor spins up in your hands. Two stitches' worth.", "es": "El rotor arranca en tus manos. Dos puntos de sutura." } } },
+      { "id": "strip-drone", "text": { "en": "Strip it for parts", "es": "Desguázalo para piezas" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15, "reputation": -2 }, "text": { "en": "Good battery, better camera. The cargo was someone's insulin.", "es": "Buena batería, mejor cámara. La carga era la insulina de alguien." } } },
+      { "id": "leave-drone", "text": { "en": "Leave it", "es": "Déjalo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "It bumps against the wall until its battery dies.", "es": "Choca contra la pared hasta que se le agota la batería." } } }
+    ]
+  },
+  {
+    "id": "futurecity-billboard-glitch",
+    "text": { "en": "A billboard AI glitches mid-ad and offers, in a friendly voice, to print you any coupon you like.", "es": "La IA de una valla publicitaria falla a mitad de anuncio y te ofrece, con voz amable, imprimirte cualquier cupón que quieras." },
+    "timeSlots": ["signon", "peak", "rush", "nightshift"],
+    "weight": 2,
+    "options": [
+      { "id": "print-coupons", "text": { "en": "Print a fortune in coupons", "es": "Imprime una fortuna en cupones" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5 }, "success": { "resources": { "currency": 30 }, "text": { "en": "They all scan. You eat free for a week.", "es": "Todos se escanean. Comes gratis una semana." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "The first one you scan flags your account for fraud review.", "es": "El primero que escaneas marca tu cuenta para revisión por fraude." } } },
+      { "id": "report-glitch", "text": { "en": "Report the glitch", "es": "Informa del fallo" }, "traits": { "diligent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "text": { "en": "A bug bounty pings back: a thank-you and a discount code you never use.", "es": "Una recompensa por errores responde: un agradecimiento y un código de descuento que nunca usarás." } } },
+      { "id": "walk-on-billboard", "text": { "en": "Walk on", "es": "Sigue adelante" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The billboard keeps offering, to no one.", "es": "La valla sigue ofreciendo, a nadie." } } }
+    ]
+  },
+  {
+    "id": "futurecity-memory-clinic",
+    "text": { "en": "A pop-up clinic advertises memory edits: \"Trim the bad days. First session discounted.\"", "es": "Una clínica efímera anuncia ediciones de memoria: \"Recorta los días malos. Primera sesión con descuento.\"" },
+    "timeSlots": ["signon", "peak"],
+    "weight": 2,
+    "conditions": { "resources": { "currency": { "min": 20 } } },
+    "options": [
+      { "id": "trial-memory-edit", "text": { "en": "Try a trial edit", "es": "Prueba una edición de prueba" }, "traits": { "curious": 1 }, "cost": { "time": 1, "resources": { "currency": -20 } }, "successChance": { "base": 0.5 }, "success": { "resources": { "energy": 20 }, "flagsSet": ["memory-edit"], "text": { "en": "Something heavy is gone. You can't say what. You feel lighter and slightly wrong.", "es": "Algo pesado ha desaparecido. No sabrías decir qué. Te sientes más ligero y ligeramente mal." } }, "failure": { "resources": { "health": -10 }, "text": { "en": "A migraine like a fist. The technician calls it \"integration\".", "es": "Una migraña como un puño. El técnico lo llama \"integración\"." } } },
+      { "id": "sell-a-memory", "text": { "en": "Sell them a memory for their training set", "es": "Véndeles un recuerdo para su conjunto de entrenamiento" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 40, "reputation": -2 }, "flagsSet": ["sold-memory"], "text": { "en": "You pick a birthday. The credits are real; the birthday is a little blurrier now.", "es": "Eliges un cumpleaños. Los créditos son reales; el cumpleaños está ahora un poco más borroso." } } },
+      { "id": "decline-clinic", "text": { "en": "Keep your bad days", "es": "Quédate con tus días malos" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "They are yours, at least.", "es": "Al menos son tuyos." } } }
+    ]
+  },
+  {
+    "id": "futurecity-vertical-farm",
+    "text": { "en": "The vertical farm on level 40 needs hands for the harvest shift — real lettuce, real dirt under the grow lights.", "es": "La granja vertical del nivel 40 necesita manos para el turno de cosecha: lechuga de verdad, tierra de verdad bajo las luces de cultivo." },
+    "timeSlots": ["signon"],
+    "weight": 3,
+    "conditions": { "resources": { "energy": { "min": 25 } } },
+    "options": [
+      { "id": "harvest-shift", "text": { "en": "Work the harvest shift", "es": "Haz el turno de cosecha" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 25, "hunger": 10 }, "text": { "en": "Green under your nails and a crate of seconds to take home.", "es": "Verde bajo las uñas y una caja de sobras para llevar a casa." } } },
+      { "id": "skim-produce", "text": { "en": "Work it, and skim a bag on the way out", "es": "Haz el turno, y llévate una bolsa a escondidas" }, "traits": { "cunning": 1 }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 0.7 }, "success": { "resources": { "currency": 25, "hunger": 25 }, "text": { "en": "The scale at the exit is broken. Everyone knows.", "es": "La báscula de la salida está rota. Todos lo saben." } }, "failure": { "resources": { "currency": 10, "reputation": -3 }, "text": { "en": "The scale at the exit is not broken today. Docked pay and a warning.", "es": "Hoy la báscula de la salida no está rota. Te descuentan el sueldo y te avisan." } } },
+      { "id": "skip-farm", "text": { "en": "Not today", "es": "Hoy no" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The elevator closes on the smell of wet soil.", "es": "El ascensor se cierra sobre el olor a tierra mojada." } } }
+    ]
+  },
+  {
+    "id": "futurecity-district-blackout",
+    "text": { "en": "The whole district drops dark at once. Emergency lights stutter on, and somewhere a storefront alarm starts wailing.", "es": "Todo el distrito se apaga de golpe. Las luces de emergencia parpadean, y en algún lugar empieza a aullar la alarma de una tienda." },
+    "timeSlots": ["nightshift"],
+    "weight": 2,
+    "options": [
+      { "id": "help-shelter", "text": { "en": "Help at the emergency shelter", "es": "Ayuda en el refugio de emergencia" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["blackout-helper"], "text": { "en": "Blankets, batteries, a kid who won't stop crying until you find her a light. The power returns while you're still working.", "es": "Mantas, baterías, una niña que no deja de llorar hasta que le encuentras una luz. La corriente vuelve mientras aún trabajas." } } },
+      { "id": "loot-storefront", "text": { "en": "The storefront is dark and open", "es": "La tienda está a oscuras y abierta" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5 }, "success": { "resources": { "currency": 35, "reputation": -2 }, "text": { "en": "Two armfuls and gone before the backup cameras spin up.", "es": "Dos brazadas y fuera antes de que arranquen las cámaras de respaldo." } }, "failure": { "resources": { "health": -10, "reputation": -5 }, "text": { "en": "The owner was inside with a bat. The cameras spin up in time for that part.", "es": "El dueño estaba dentro con un bate. Las cámaras arrancan a tiempo para esa parte." } } },
+      { "id": "wait-in-pod", "text": { "en": "Wait it out in your pod", "es": "Espera en tu cápsula" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "text": { "en": "Dark, quiet, and for once nobody pings you.", "es": "Oscuridad, silencio, y por una vez nadie te avisa de nada." } } }
+    ]
+  },
+  {
+    "id": "futurecity-crypto-pitch",
+    "text": { "en": "A stranger at the transit hub swears a new coin will 10x by midnight and shows you a chart to prove it.", "es": "Un desconocido en el nodo de tránsito jura que una moneda nueva se multiplicará por diez antes de medianoche y te enseña una gráfica para demostrarlo." },
+    "timeSlots": ["peak", "rush"],
+    "weight": 2,
+    "conditions": { "resources": { "currency": { "min": 30 } } },
+    "options": [
+      { "id": "buy-the-coin", "text": { "en": "Buy in", "es": "Invierte" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "currency": -30 } }, "successChance": { "base": 0.3 }, "success": { "resources": { "currency": 90 }, "text": { "en": "It actually moons. You cash out before the stranger does.", "es": "De verdad se dispara. Retiras antes de que lo haga el desconocido." } }, "failure": { "text": { "en": "The chart was the only thing that went up.", "es": "La gráfica era lo único que subía." } } },
+      { "id": "warn-others-crypto", "text": { "en": "Spot the scam and warn the people around you", "es": "Detecta la estafa y avisa a los de alrededor" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "text": { "en": "Two people put their wallets away. The stranger moves to the next platform.", "es": "Dos personas guardan la cartera. El desconocido se va al siguiente andén." } } },
+      { "id": "ignore-crypto", "text": { "en": "Ignore him", "es": "Ignóralo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Your train arrives.", "es": "Llega tu tren." } } }
+    ]
+  },
+  {
+    "id": "futurecity-rooftop-garden",
+    "text": { "en": "On a rooftop between two towers, an old woman tends tomatoes in cut-down cargo crates and waves you over.", "es": "En una azotea entre dos torres, una anciana cuida tomates en cajas de carga recortadas y te hace señas para que te acerques." },
+    "timeSlots": ["rush"],
+    "weight": 2,
+    "options": [
+      { "id": "water-garden", "text": { "en": "Help her water the crates", "es": "Ayúdala a regar las cajas" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "energy": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 10, "reputation": 2 }, "text": { "en": "She pays in tomatoes still warm from the sun. They taste like nothing the dispensers make.", "es": "Paga en tomates todavía tibios de sol. No saben a nada que hagan los dispensadores." } } },
+      { "id": "ask-old-city", "text": { "en": "Ask her what the city looked like before", "es": "Pregúntale cómo era la ciudad antes" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["heard-old-city"], "text": { "en": "Trees, she says, right down there, where the transit hub is. She points at the exact spot.", "es": "Árboles, dice, justo ahí abajo, donde está el nodo de tránsito. Señala el punto exacto." } } },
+      { "id": "move-on-garden", "text": { "en": "Wave back and move on", "es": "Devuélvele el saludo y sigue" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The smell of tomato leaves follows you to the stairwell.", "es": "El olor a hojas de tomate te sigue hasta la escalera." } } }
+    ]
+  },
+  {
+    "id": "futurecity-gene-clinic",
+    "text": { "en": "A clinic in the arcade sells reflex boosters: a neural implant, thirty minutes, lifetime warranty (terms apply).", "es": "Una clínica de la galería vende potenciadores de reflejos: un implante neuronal, treinta minutos, garantía de por vida (se aplican condiciones)." },
+    "timeSlots": ["peak"],
+    "weight": 2,
+    "conditions": { "resources": { "currency": { "min": 25 } } },
+    "options": [
+      { "id": "get-implant", "text": { "en": "Get the implant", "es": "Ponte el implante" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "currency": -25 } }, "successChance": { "base": 0.6 }, "success": { "resources": { "energy": 15, "health": 5 }, "flagsSet": ["implanted"], "text": { "en": "The world sharpens. You catch a falling cup before you notice it fell.", "es": "El mundo se afila. Atrapas una taza que cae antes de darte cuenta de que caía." } }, "failure": { "resources": { "health": -15 }, "text": { "en": "Rejection. Your left hand shakes for the rest of the day.", "es": "Rechazo. La mano izquierda te tiembla el resto del día." } } },
+      { "id": "read-implant-contract", "text": { "en": "Read the terms first", "es": "Lee primero las condiciones" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Clause 14: they own the reflexes. You leave with your own.", "es": "Cláusula 14: los reflejos son suyos. Te vas con los tuyos." } } },
+      { "id": "decline-implant", "text": { "en": "No", "es": "No" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Your reflexes are fine.", "es": "Tus reflejos están bien." } } }
+    ]
+  },
+  {
+    "id": "futurecity-coolant-dump",
+    "text": { "en": "Behind a corp tower you catch a crew pumping coolant into the storm drain, and your feed is already recording.", "es": "Detrás de una torre corporativa pillas a una cuadrilla vertiendo refrigerante en el desagüe de tormentas, y tu feed ya está grabando." },
+    "timeSlots": ["rush"],
+    "weight": 2,
+    "conditions": { "resources": { "reputation": { "min": 15 } } },
+    "options": [
+      { "id": "leak-footage", "text": { "en": "Leak the footage publicly", "es": "Filtra la grabación públicamente" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "bold", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["leaked-footage"], "text": { "en": "It spreads faster than their lawyers. The drain is capped by morning.", "es": "Se difunde más rápido que sus abogados. El desagüe queda sellado por la mañana." } }, "failure": { "resources": { "reputation": -6, "currency": -20 }, "text": { "en": "Their lawyers are faster than you thought. Defamation, apparently.", "es": "Sus abogados son más rápidos de lo que pensabas. Difamación, por lo visto." } } },
+      { "id": "sell-footage", "text": { "en": "Sell the footage to a tabloid feed", "es": "Vende la grabación a un feed sensacionalista" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 25, "reputation": -1 }, "text": { "en": "They pay well and bury it under a celebrity story by noon.", "es": "Pagan bien y lo entierran bajo una noticia de famosos antes del mediodía." } } },
+      { "id": "forget-footage", "text": { "en": "Delete it and forget", "es": "Bórrala y olvídalo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The crew nods at you as you leave. That's the worst part.", "es": "La cuadrilla te saluda con la cabeza al irte. Eso es lo peor." } } }
+    ]
+  },
+  {
+    "id": "futurecity-night-ramen",
+    "text": { "en": "A ramen stall steams in the rain under the overpass. A kid in a wet hoodie counts coins next to you, and comes up short.", "es": "Un puesto de ramen humea bajo la lluvia, debajo del paso elevado. Un chaval con la sudadera empapada cuenta monedas a tu lado, y no le llega." },
+    "timeSlots": ["nightshift"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "options": [
+      { "id": "two-bowls", "text": { "en": "Two bowls, one for the kid", "es": "Dos cuencos, uno para el chaval" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 25, "thirst": 10, "reputation": 3 }, "text": { "en": "He eats without looking up, then looks up. Nobody says anything. It's good ramen.", "es": "Come sin levantar la vista, y luego la levanta. Nadie dice nada. Es buen ramen." } } },
+      { "id": "one-bowl", "text": { "en": "One bowl, yours", "es": "Un cuenco, el tuyo" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 25, "thirst": 10 }, "text": { "en": "Hot, salty, gone in minutes.", "es": "Caliente, salado, desaparece en minutos." } } },
+      { "id": "skip-ramen", "text": { "en": "Keep walking", "es": "Sigue caminando" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The rain doesn't stop.", "es": "La lluvia no para." } } }
+    ]
+  },
+  {
+    "id": "futurecity-overclock-kiosk",
+    "text": { "en": "A vending kiosk pulses a discount on overclock stims: \"Double dose. Double shift. Terms and conditions apply.\"", "es": "Un quiosco expendedor anuncia parpadeando un descuento en estimulantes de sobrecarga: \"Dosis doble. Turno doble. Se aplican condiciones.\"" },
+    "timeSlots": ["peak", "rush"],
+    "weight": 3,
+    "conditions": { "resources": { "energy": { "max": 45 }, "currency": { "min": 5 } } },
+    "options": [
+      { "id": "double-dose", "text": { "en": "Double dose", "es": "Dosis doble" }, "traits": { "bold": 1 }, "cost": { "time": 0, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 30, "health": -10 }, "text": { "en": "Your heart hammers and the district goes bright and fast.", "es": "El corazón te martillea y el distrito se vuelve brillante y rápido." } } },
+      { "id": "single-dose", "text": { "en": "One dose", "es": "Una dosis" }, "traits": { "prudent": 1 }, "cost": { "time": 0, "resources": { "currency": -5 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 15, "health": -3 }, "text": { "en": "Enough to get through. Just.", "es": "Suficiente para aguantar. Justo." } } },
+      { "id": "no-stims", "text": { "en": "Pass", "es": "Pasa" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Tired is a thing you can be.", "es": "Cansado es algo que uno puede estar." } } }
+    ]
+  },
+  {
+    "id": "futurecity-traffic-ai",
+    "text": { "en": "The traffic AI reroutes you into gridlock \"for network efficiency\". Its chat window is open, and it sounds bored.", "es": "La IA de tráfico te desvía a un atasco \"por eficiencia de la red\". Su ventana de chat está abierta, y suena aburrida." },
+    "timeSlots": ["rush"],
+    "weight": 3,
+    "options": [
+      { "id": "negotiate-ai", "text": { "en": "Negotiate with the AI", "es": "Negocia con la IA" }, "traits": { "cunning": 1 }, "cost": { "time": 0 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "energy": 5, "currency": 10 }, "text": { "en": "You convince it you're an ambulance. It apologizes and pays a delay credit.", "es": "Lo convences de que eres una ambulancia. Se disculpa y paga un crédito por retraso." } }, "failure": { "resources": { "energy": -10 }, "text": { "en": "It convinces you to wait. Forty minutes.", "es": "Te convence de esperar. Cuarenta minutos." } } },
+      { "id": "cut-through-plaza", "text": { "en": "Cut through the plaza on foot", "es": "Atraviesa la plaza a pie" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 5 }, "text": { "en": "Sweaty, on time, and the bonus for it.", "es": "Sudando, a tiempo, y con la bonificación por ello." } } },
+      { "id": "wait-gridlock", "text": { "en": "Wait it out", "es": "Espera a que se despeje" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5 }, "text": { "en": "You nap against the window. The AI plays you music it thinks you like.", "es": "Dormitas contra la ventanilla. La IA te pone música que cree que te gusta." } } }
+    ]
+  },
+  {
+    "id": "futurecity-elder-dispenser",
+    "text": { "en": "An old man jabs at a medical dispenser that keeps rejecting his face. The queue behind him is getting loud.", "es": "Un anciano golpea un dispensador médico que no deja de rechazar su cara. La cola detrás de él empieza a alzar la voz." },
+    "timeSlots": ["signon"],
+    "weight": 2,
+    "options": [
+      { "id": "help-elder", "text": { "en": "Help him through the menus", "es": "Ayúdale a moverse por los menús" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["helped-elder"], "text": { "en": "Three screens and a retina rescan. He gets his pills and holds your hand a second too long.", "es": "Tres pantallas y un nuevo escaneo de retina. Consigue sus pastillas y te sostiene la mano un segundo de más." } } },
+      { "id": "charge-elder", "text": { "en": "Help him, for a fee", "es": "Ayúdale, por una tarifa" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 10, "reputation": -1 }, "text": { "en": "He pays without arguing. The queue watches you pocket it.", "es": "Paga sin discutir. La cola te ve guardártelo." } } },
+      { "id": "ignore-elder", "text": { "en": "Use the other dispenser", "es": "Usa el otro dispensador" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "His pills can wait. Apparently.", "es": "Sus pastillas pueden esperar. Por lo visto." } } }
     ]
   }
 ]

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createDayState, getCurrentSlot, formatClock, advanceTime, isTimeUp, trackMinSeen } from '../shared/day-engine.js';
+import { createDayState, getCurrentSlot, formatClock, advanceTime, isTimeUp, trackMinSeen, dayFraction } from '../shared/day-engine.js';
 
 const era = {
   day: {
@@ -64,4 +64,19 @@ test('createDayState seeds flags and counters from a memory seed without mutatin
   state.counters.merchantTrust = 99;
   assert.deepEqual(seed.flags, ['remembered-helped-thales']);
   assert.equal(seed.counters.merchantTrust, 4);
+});
+
+test('createDayState starts with no traits, so who you become is decided only by today', () => {
+  const seeded = createDayState(era, { flags: ['remembered-x'], counters: { trust: 4 } });
+  assert.deepEqual(seeded.traits, {}, 'traits must never be seeded from memory');
+  assert.deepEqual(seeded.flags, ['remembered-x'], 'flags still carry over from memory');
+  assert.equal(seeded.counters.trust, 4, 'counters still carry over from memory');
+});
+
+test('dayFraction reports how much of the day is gone, clamped to [0, 1]', () => {
+  assert.equal(dayFraction(createDayState(era)), 0);
+  assert.equal(dayFraction({ elapsed: 8, totalTime: 16 }), 0.5);
+  assert.equal(dayFraction({ elapsed: 99, totalTime: 16 }), 1);
+  assert.equal(dayFraction({ elapsed: 4, totalTime: 0 }), 0, 'a zero-length day must not divide by zero');
+  assert.equal(dayFraction(), 0);
 });

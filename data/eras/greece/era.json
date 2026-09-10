@@ -1,148 +1,454 @@
 {
   "id": "greece",
-  "name": { "en": "Ancient Greece", "es": "Antigua Grecia" },
-  "tagline": { "en": "Rise from citizen to legend in one day in the agora.", "es": "Asciende de ciudadano a leyenda en un día en el ágora." },
-  "theme": {
-    "icon": "🏛️",
-    "colors": {
-      "bg": "#f1ead9",
-      "panel": "#faf6ec",
-      "accent": "#b1502a",
-      "accentDark": "#8a3d1e",
-      "accentSecondary": "#265d73",
-      "ink": "#2b1f16",
-      "inkSoft": "#6b5842",
-      "border": "#d9c9a8"
-    },
-    "fonts": {
-      "heading": "'Cinzel', 'Georgia', serif",
-      "body": "'Source Sans 3', 'Segoe UI', sans-serif"
-    },
-    "textureImage": "radial-gradient(circle at 15% 20%, rgba(255,255,255,0.5), transparent 35%), radial-gradient(circle at 85% 75%, color-mix(in srgb, var(--texture-tint, var(--accent)) 8%, transparent), transparent 45%), radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--texture-tint-secondary, var(--accent-secondary)) 5%, transparent), transparent 60%)",
-    "textureSize": "auto"
+  "name": {
+    "en": "Ancient Greece",
+    "es": "Antigua Grecia"
+  },
+  "tagline": {
+    "en": "Rise from citizen to legend in one day in the agora.",
+    "es": "Asciende de ciudadano a leyenda en un día en el ágora."
   },
   "day": {
     "totalTime": 16,
     "startLabel": "07:00",
     "endLabel": "23:00",
     "slots": [
-      { "id": "morning", "label": { "en": "Morning", "es": "Mañana" }, "from": 0, "to": 4 },
-      { "id": "midday", "label": { "en": "Midday", "es": "Mediodía" }, "from": 4, "to": 8 },
-      { "id": "afternoon", "label": { "en": "Afternoon", "es": "Tarde" }, "from": 8, "to": 12 },
-      { "id": "night", "label": { "en": "Night", "es": "Noche" }, "from": 12, "to": 16 }
+      {
+        "id": "morning",
+        "label": {
+          "en": "Morning",
+          "es": "Mañana"
+        },
+        "from": 0,
+        "to": 4
+      },
+      {
+        "id": "midday",
+        "label": {
+          "en": "Midday",
+          "es": "Mediodía"
+        },
+        "from": 4,
+        "to": 8
+      },
+      {
+        "id": "afternoon",
+        "label": {
+          "en": "Afternoon",
+          "es": "Tarde"
+        },
+        "from": 8,
+        "to": 12
+      },
+      {
+        "id": "night",
+        "label": {
+          "en": "Night",
+          "es": "Noche"
+        },
+        "from": 12,
+        "to": 16
+      }
     ]
   },
   "resources": {
-    "energy": { "label": { "en": "Energy", "es": "Energía" }, "icon": "⚡", "min": 0, "max": 100, "start": 80 },
-    "health": { "label": { "en": "Health", "es": "Salud" }, "icon": "❤️", "min": 0, "max": 100, "start": 100, "critical": true },
-    "hunger": { "label": { "en": "Hunger", "es": "Hambre" }, "icon": "🍞", "min": 0, "max": 100, "start": 70 },
-    "thirst": { "label": { "en": "Thirst", "es": "Sed" }, "icon": "💧", "min": 0, "max": 100, "start": 70 },
-    "currency": { "label": { "en": "Drachmas", "es": "Dracmas" }, "icon": "🪙", "min": 0, "max": 999999, "start": 20 },
-    "reputation": { "label": { "en": "Arete", "es": "Arete" }, "icon": "🏺", "min": 0, "max": 100, "start": 10 }
-  },
-  "modifiers": ["might", "wits", "charm"],
-  "archetypes": [
-    {
-      "id": "warrior",
-      "name": { "en": "Warrior", "es": "Guerrero" },
-      "description": { "en": "Trained for combat and physical endurance.", "es": "Entrenado para el combate y la resistencia física." },
-      "modifiers": { "might": 3, "wits": 0, "charm": 0 }
+    "energy": {
+      "label": {
+        "en": "Energy",
+        "es": "Energía"
+      },
+      "icon": "⚡",
+      "min": 0,
+      "max": 100,
+      "start": 80
     },
-    {
-      "id": "orator",
-      "name": { "en": "Orator", "es": "Orador" },
-      "description": { "en": "A persuasive voice in the agora and the assembly.", "es": "Una voz persuasiva en el ágora y la asamblea." },
-      "modifiers": { "might": 0, "wits": 0, "charm": 3 }
+    "health": {
+      "label": {
+        "en": "Health",
+        "es": "Salud"
+      },
+      "icon": "❤️",
+      "min": 0,
+      "max": 100,
+      "start": 100,
+      "critical": true
     },
-    {
-      "id": "philosopher",
-      "name": { "en": "Philosopher", "es": "Filósofo" },
-      "description": { "en": "Sharp-minded, favoring strategy over force.", "es": "Mente aguda, prefiere la estrategia a la fuerza." },
-      "modifiers": { "might": 0, "wits": 3, "charm": 0 }
+    "hunger": {
+      "label": {
+        "en": "Hunger",
+        "es": "Hambre"
+      },
+      "icon": "🍞",
+      "min": 0,
+      "max": 100,
+      "start": 70
+    },
+    "thirst": {
+      "label": {
+        "en": "Thirst",
+        "es": "Sed"
+      },
+      "icon": "💧",
+      "min": 0,
+      "max": 100,
+      "start": 70
+    },
+    "currency": {
+      "label": {
+        "en": "Drachmas",
+        "es": "Dracmas"
+      },
+      "icon": "🪙",
+      "min": 0,
+      "max": 999999,
+      "start": 20
+    },
+    "reputation": {
+      "label": {
+        "en": "Arete",
+        "es": "Arete"
+      },
+      "icon": "🏺",
+      "min": 0,
+      "max": 100,
+      "start": 10
     }
-  ],
-  "character": {
-    "bases": [
-      { "id": "base-light", "label": { "en": "Fair", "es": "Clara" }, "skinColor": "#e8b98a" },
-      { "id": "base-tan", "label": { "en": "Olive", "es": "Trigueña" }, "skinColor": "#c98a55" },
-      { "id": "base-deep", "label": { "en": "Deep", "es": "Oscura" }, "skinColor": "#8a5a35" }
-    ],
-    "slots": [
-      {
-        "id": "outfit",
-        "label": { "en": "Outfit", "es": "Vestimenta" },
-        "options": [
-          { "id": "tunic-plain", "label": { "en": "Plain Tunic", "es": "Túnica sencilla" }, "shape": "tunic-plain", "color": "#e8dcc0" },
-          { "id": "tunic-blue", "label": { "en": "Dyed Tunic", "es": "Túnica teñida" }, "shape": "tunic-plain", "color": "#4a6fa5" },
-          { "id": "tunic-fine", "label": { "en": "Fine Tunic", "es": "Túnica fina" }, "shape": "tunic-fine", "color": "#c9a24b" }
-        ]
-      },
-      {
-        "id": "headgear",
-        "label": { "en": "Headgear", "es": "Tocado" },
-        "options": [
-          { "id": "none", "label": { "en": "Bare-headed", "es": "Sin cubrir" }, "shape": "none", "color": "#000000" },
-          { "id": "petasos", "label": { "en": "Petasos Hat", "es": "Sombrero pétaso" }, "shape": "petasos", "color": "#8a5a35" },
-          { "id": "laurel", "label": { "en": "Laurel Wreath", "es": "Corona de laurel" }, "shape": "laurel", "color": "#5a7d3a" }
-        ]
-      },
-      {
-        "id": "accessory",
-        "label": { "en": "Accessory", "es": "Accesorio" },
-        "options": [
-          { "id": "none", "label": { "en": "Empty-handed", "es": "Con las manos vacías" }, "shape": "none", "color": "#000000" },
-          { "id": "staff", "label": { "en": "Walking Staff", "es": "Bastón" }, "shape": "staff", "color": "#6b4a2a" },
-          { "id": "lyre", "label": { "en": "Lyre", "es": "Lira" }, "shape": "lyre", "color": "#8a5a35" },
-          { "id": "shield", "label": { "en": "Bronze Shield", "es": "Escudo de bronce" }, "shape": "shield", "color": "#a9803d" }
-        ]
-      }
-    ]
   },
   "npcs": [
     {
       "id": "npc-thales",
-      "name": { "en": "Thales", "es": "Tales" },
-      "role": { "en": "Agora Merchant", "es": "Mercader del ágora" },
+      "name": {
+        "en": "Thales",
+        "es": "Tales"
+      },
+      "role": {
+        "en": "Agora Merchant",
+        "es": "Mercader del ágora"
+      },
       "portraitColor": "#b1502a",
       "attitudeCounter": "merchantTrust"
     },
     {
       "id": "npc-kleon",
-      "name": { "en": "Kleon", "es": "Cleón" },
-      "role": { "en": "Political Rival", "es": "Rival político" },
+      "name": {
+        "en": "Kleon",
+        "es": "Cleón"
+      },
+      "role": {
+        "en": "Political Rival",
+        "es": "Rival político"
+      },
       "portraitColor": "#265d73",
       "attitudeCounter": "kleonRespect"
     },
     {
       "id": "npc-sophia",
-      "name": { "en": "Sophia", "es": "Sofía" },
-      "role": { "en": "Philosophical Mentor", "es": "Mentora filosófica" },
+      "name": {
+        "en": "Sophia",
+        "es": "Sofía"
+      },
+      "role": {
+        "en": "Philosophical Mentor",
+        "es": "Mentora filosófica"
+      },
       "portraitColor": "#8a3d1e",
       "attitudeCounter": "sophiaRespect"
     }
   ],
+  "personas": [
+    {
+      "id": "hoplite",
+      "trait": "bold",
+      "name": {
+        "en": "The Hoplite",
+        "es": "El Hoplita"
+      },
+      "description": {
+        "en": "You met every challenge head-on, in the gymnasium, the assembly and the street alike. Athens remembers the ones who step forward.",
+        "es": "Afrontaste cada reto de frente, en el gimnasio, la asamblea y la calle por igual. Atenas recuerda a quienes dan un paso adelante."
+      }
+    },
+    {
+      "id": "stoic",
+      "trait": "prudent",
+      "name": {
+        "en": "The Stoic",
+        "es": "El Estoico"
+      },
+      "description": {
+        "en": "You let the loud moments pass and kept what mattered: your health, your coin, your composure.",
+        "es": "Dejaste pasar los momentos ruidosos y conservaste lo que importaba: tu salud, tu dinero, tu serenidad."
+      }
+    },
+    {
+      "id": "benefactor",
+      "trait": "generous",
+      "name": {
+        "en": "The Benefactor",
+        "es": "El Benefactor"
+      },
+      "description": {
+        "en": "Beggars, fishermen and neighbors all left your company a little better off. The city noticed.",
+        "es": "Mendigos, pescadores y vecinos salieron de tu compañía un poco mejor. La ciudad se dio cuenta."
+      }
+    },
+    {
+      "id": "sophist",
+      "trait": "cunning",
+      "name": {
+        "en": "The Sophist",
+        "es": "El Sofista"
+      },
+      "description": {
+        "en": "Every bargain bent your way and every rival ended a step behind. Whether the city admires you is another matter.",
+        "es": "Cada trato se inclinó a tu favor y cada rival acabó un paso por detrás. Que la ciudad te admire es otra cuestión."
+      }
+    },
+    {
+      "id": "craftsman",
+      "trait": "diligent",
+      "name": {
+        "en": "The Craftsman",
+        "es": "El Artesano"
+      },
+      "description": {
+        "en": "Nets, kilns, drills and long hours: you built your day with your hands and it held.",
+        "es": "Redes, hornos, ejercicios y largas horas: construiste tu día con las manos y aguantó."
+      }
+    },
+    {
+      "id": "philosopher",
+      "trait": "curious",
+      "name": {
+        "en": "The Philosopher",
+        "es": "El Filósofo"
+      },
+      "description": {
+        "en": "You listened more than you spoke, and asked more than you answered. Sophia would approve.",
+        "es": "Escuchaste más de lo que hablaste y preguntaste más de lo que respondiste. Sofía lo aprobaría."
+      }
+    },
+    {
+      "id": "idler",
+      "trait": null,
+      "name": {
+        "en": "The Idler",
+        "es": "El Ocioso"
+      },
+      "description": {
+        "en": "The day happened around you more than to you. Tomorrow, choose.",
+        "es": "El día ocurrió a tu alrededor más que a ti. Mañana, elige."
+      }
+    }
+  ],
   "objectivesPool": [
-    { "id": "wealthy", "description": { "en": "Reach 300 drachmas", "es": "Consigue 300 dracmas" }, "check": { "type": "resourceAtLeast", "resource": "currency", "value": 300 } },
-    { "id": "renowned", "description": { "en": "Reach 40 Arete", "es": "Consigue 40 de Arete" }, "check": { "type": "resourceAtLeast", "resource": "reputation", "value": 40 } },
-    { "id": "survive-health", "description": { "en": "Never drop below 30 health", "es": "No bajes de 30 de salud" }, "check": { "type": "resourceNeverBelow", "resource": "health", "value": 30 } },
-    { "id": "well-fed", "description": { "en": "Never drop below 40 hunger", "es": "No bajes de 40 de hambre" }, "check": { "type": "resourceNeverBelow", "resource": "hunger", "value": 40 } },
-    { "id": "hydrated", "description": { "en": "Never drop below 40 thirst", "es": "No bajes de 40 de sed" }, "check": { "type": "resourceNeverBelow", "resource": "thirst", "value": 40 } },
-    { "id": "energized", "description": { "en": "Never drop below 20 energy", "es": "No bajes de 20 de energía" }, "check": { "type": "resourceNeverBelow", "resource": "energy", "value": 20 } },
-    { "id": "secret-shrine", "description": { "en": "Discover the hidden shrine in the hills", "es": "Descubre el santuario oculto en las colinas" }, "check": { "type": "flagSet", "flag": "found-shrine" } },
-    { "id": "philosopher", "description": { "en": "Win a debate with a philosopher", "es": "Gana un debate con un filósofo" }, "check": { "type": "flagSet", "flag": "won-debate" } },
-    { "id": "athlete", "description": { "en": "Win an athletic contest", "es": "Gana un concurso atlético" }, "check": { "type": "flagSet", "flag": "won-games" } },
-    { "id": "merchant-ally", "description": { "en": "Earn Thales' trust", "es": "Gánate la confianza de Tales" }, "check": { "type": "flagSet", "flag": "helped-thales" } },
-    { "id": "bested-rival", "description": { "en": "Outmaneuver Kleon", "es": "Supera a Cleón" }, "check": { "type": "flagSet", "flag": "outmaneuvered-kleon" } },
-    { "id": "sophia-approval", "description": { "en": "Win Sophia's approval", "es": "Gánate la aprobación de Sofía" }, "check": { "type": "flagSet", "flag": "learned-from-sophia" } }
+    {
+      "id": "wealthy",
+      "description": {
+        "en": "Reach 300 drachmas",
+        "es": "Consigue 300 dracmas"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "currency",
+        "value": 300
+      }
+    },
+    {
+      "id": "renowned",
+      "description": {
+        "en": "Reach 40 Arete",
+        "es": "Consigue 40 de Arete"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "reputation",
+        "value": 40
+      }
+    },
+    {
+      "id": "survive-health",
+      "description": {
+        "en": "Never drop below 30 health",
+        "es": "No bajes de 30 de salud"
+      },
+      "check": {
+        "type": "resourceNeverBelow",
+        "resource": "health",
+        "value": 30
+      }
+    },
+    {
+      "id": "well-fed",
+      "description": {
+        "en": "Never drop below 40 hunger",
+        "es": "No bajes de 40 de hambre"
+      },
+      "check": {
+        "type": "resourceNeverBelow",
+        "resource": "hunger",
+        "value": 40
+      }
+    },
+    {
+      "id": "hydrated",
+      "description": {
+        "en": "Never drop below 40 thirst",
+        "es": "No bajes de 40 de sed"
+      },
+      "check": {
+        "type": "resourceNeverBelow",
+        "resource": "thirst",
+        "value": 40
+      }
+    },
+    {
+      "id": "energized",
+      "description": {
+        "en": "Never drop below 20 energy",
+        "es": "No bajes de 20 de energía"
+      },
+      "check": {
+        "type": "resourceNeverBelow",
+        "resource": "energy",
+        "value": 20
+      }
+    },
+    {
+      "id": "secret-shrine",
+      "description": {
+        "en": "Discover the hidden shrine in the hills",
+        "es": "Descubre el santuario oculto en las colinas"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "found-shrine"
+      }
+    },
+    {
+      "id": "philosopher",
+      "description": {
+        "en": "Win a debate with a philosopher",
+        "es": "Gana un debate con un filósofo"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "won-debate"
+      }
+    },
+    {
+      "id": "athlete",
+      "description": {
+        "en": "Win an athletic contest",
+        "es": "Gana un concurso atlético"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "won-games"
+      }
+    },
+    {
+      "id": "merchant-ally",
+      "description": {
+        "en": "Earn Thales' trust",
+        "es": "Gánate la confianza de Tales"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "helped-thales"
+      }
+    },
+    {
+      "id": "bested-rival",
+      "description": {
+        "en": "Outmaneuver Kleon",
+        "es": "Supera a Cleón"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "outmaneuvered-kleon"
+      }
+    },
+    {
+      "id": "sophia-approval",
+      "description": {
+        "en": "Win Sophia's approval",
+        "es": "Gánate la aprobación de Sofía"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "learned-from-sophia"
+      }
+    },
+    {
+      "id": "good-neighbor",
+      "description": {
+        "en": "Help your feverish neighbor",
+        "es": "Ayuda a tu vecino con fiebre"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "helped-neighbor"
+      }
+    },
+    {
+      "id": "chorus",
+      "description": {
+        "en": "Sing in the tragedy's chorus",
+        "es": "Canta en el coro de la tragedia"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "stage-chorus"
+      }
+    }
   ],
   "metaAchievements": [
-    { "id": "archon", "title": { "en": "Archon of Athens", "es": "Arconte de Atenas" }, "description": { "en": "Accumulate 500 lifetime Arete across playthroughs.", "es": "Acumula 500 de Arete a lo largo de varias partidas." }, "accumulates": "reputation", "threshold": 500 },
-    { "id": "merchant-prince", "title": { "en": "Merchant Prince", "es": "Príncipe Mercader" }, "description": { "en": "Accumulate 2000 lifetime drachmas earned across playthroughs.", "es": "Acumula 2000 dracmas ganados a lo largo de varias partidas." }, "accumulates": "currency", "threshold": 2000 }
+    {
+      "id": "archon",
+      "title": {
+        "en": "Archon of Athens",
+        "es": "Arconte de Atenas"
+      },
+      "description": {
+        "en": "Accumulate 500 lifetime Arete across playthroughs.",
+        "es": "Acumula 500 de Arete a lo largo de varias partidas."
+      },
+      "accumulates": "reputation",
+      "threshold": 500
+    },
+    {
+      "id": "merchant-prince",
+      "title": {
+        "en": "Merchant Prince",
+        "es": "Príncipe Mercader"
+      },
+      "description": {
+        "en": "Accumulate 2000 lifetime drachmas earned across playthroughs.",
+        "es": "Acumula 2000 dracmas ganados a lo largo de varias partidas."
+      },
+      "accumulates": "currency",
+      "threshold": 2000
+    }
   ],
   "memories": {
-    "flags": ["remembered-helped-thales", "remembered-bested-kleon", "remembered-sophia-favor"],
-    "counters": ["merchantTrust", "kleonRespect", "sophiaRespect"]
+    "flags": [
+      "remembered-helped-thales",
+      "remembered-bested-kleon",
+      "remembered-sophia-favor"
+    ],
+    "counters": [
+      "merchantTrust",
+      "kleonRespect",
+      "sophiaRespect"
+    ]
   },
-  "goodEnding": { "en": "The sun sets over the Acropolis. Your day in Athens is complete.", "es": "El sol se pone sobre la Acrópolis. Tu día en Atenas ha terminado." },
-  "badEnding": { "en": "Your strength fails you in the streets of Athens. By morning, word of your fall reaches the agora.", "es": "Tus fuerzas te abandonan en las calles de Atenas. Al amanecer, la noticia de tu caída llega al ágora." }
+  "goodEnding": {
+    "en": "The sun sets over the Acropolis. Your day in Athens is complete.",
+    "es": "El sol se pone sobre la Acrópolis. Tu día en Atenas ha terminado."
+  },
+  "badEnding": {
+    "en": "Your strength fails you in the streets of Athens. By morning, word of your fall reaches the agora.",
+    "es": "Tus fuerzas te abandonan en las calles de Atenas. Al amanecer, la noticia de tu caída llega al ágora."
+  }
 }

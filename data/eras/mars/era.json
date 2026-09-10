@@ -1,0 +1,63 @@
+{
+  "id": "mars",
+  "name": { "en": "Mars Colony", "es": "Colonia de Marte" },
+  "tagline": { "en": "One sol in Ares Station, where every choice costs oxygen.", "es": "Un sol en la Estación Ares, donde cada decisión cuesta oxígeno." },
+  "day": {
+    "totalTime": 16,
+    "startLabel": "06:00",
+    "endLabel": "22:00",
+    "slots": [
+      { "id": "wake", "label": { "en": "Wake Cycle", "es": "Ciclo de despertar" }, "from": 0, "to": 4 },
+      { "id": "work", "label": { "en": "Work Cycle", "es": "Ciclo de trabajo" }, "from": 4, "to": 8 },
+      { "id": "dust", "label": { "en": "Dust Hours", "es": "Horas de polvo" }, "from": 8, "to": 12 },
+      { "id": "dark", "label": { "en": "Dark Cycle", "es": "Ciclo oscuro" }, "from": 12, "to": 16 }
+    ]
+  },
+  "resources": {
+    "energy": { "label": { "en": "Stamina", "es": "Resistencia" }, "icon": "⚡", "min": 0, "max": 100, "start": 80 },
+    "health": { "label": { "en": "Vitals", "es": "Constantes" }, "icon": "❤️", "min": 0, "max": 100, "start": 100, "critical": true },
+    "oxygen": { "label": { "en": "Oxygen", "es": "Oxígeno" }, "icon": "🫁", "min": 0, "max": 100, "start": 75, "critical": true },
+    "hunger": { "label": { "en": "Rations", "es": "Raciones" }, "icon": "🥫", "min": 0, "max": 100, "start": 70 },
+    "currency": { "label": { "en": "Credits", "es": "Créditos" }, "icon": "🔷", "min": 0, "max": 999999, "start": 30 },
+    "reputation": { "label": { "en": "Standing", "es": "Prestigio" }, "icon": "🛰️", "min": 0, "max": 100, "start": 10 }
+  },
+  "npcs": [
+    { "id": "npc-okonkwo", "name": { "en": "Dr. Okonkwo", "es": "Dra. Okonkwo" }, "role": { "en": "Colony Physician", "es": "Médica de la colonia" }, "portraitColor": "#3f9c7a", "attitudeCounter": "okonkwoTrust" },
+    { "id": "npc-rask", "name": { "en": "Rask", "es": "Rask" }, "role": { "en": "Life Support Chief", "es": "Jefe de soporte vital" }, "portraitColor": "#c4593a", "attitudeCounter": "raskRespect" },
+    { "id": "npc-piper", "name": { "en": "Piper", "es": "Piper" }, "role": { "en": "Surface Scout", "es": "Exploradora de superficie" }, "portraitColor": "#8a6fd6", "attitudeCounter": "piperBond" }
+  ],
+  "personas": [
+    { "id": "pioneer", "trait": "bold", "name": { "en": "The Pioneer", "es": "La Pionera" }, "description": { "en": "Airlocks, dust storms, unmapped ground: you went out every time. Ares Station is built by people who go out.", "es": "Esclusas, tormentas de polvo, terreno sin cartografiar: saliste cada vez. La Estación Ares la construye la gente que sale." } },
+    { "id": "quartermaster", "trait": "prudent", "name": { "en": "The Quartermaster", "es": "El Intendente" }, "description": { "en": "You never spent air you didn't have to and never took a risk the station hadn't already survived. That is how a colony reaches its second decade.", "es": "Nunca gastaste aire que no tuvieras que gastar ni corriste un riesgo que la estación no hubiera sobrevivido ya. Así llega una colonia a su segunda década." } },
+    { "id": "medic", "trait": "generous", "name": { "en": "The Medic", "es": "El Sanitario" }, "description": { "en": "You gave away rations, air and hours you couldn't spare. Everyone in the hab knows your name and what it means.", "es": "Regalaste raciones, aire y horas que no te sobraban. Todos en el hábitat conocen tu nombre y lo que significa." } },
+    { "id": "operator", "trait": "cunning", "name": { "en": "The Operator", "es": "El Operador" }, "description": { "en": "Every allocation, every quota, every audit bent your way. Nothing you did was against regulation. Exactly nothing.", "es": "Cada asignación, cada cuota, cada auditoría se torció a tu favor. Nada de lo que hiciste iba contra el reglamento. Exactamente nada." } },
+    { "id": "engineer", "trait": "diligent", "name": { "en": "The Engineer", "es": "La Ingeniera" }, "description": { "en": "Seals, scrubbers, panels, pumps. Nothing you touched today failed tonight. That is the whole job and it never ends.", "es": "Sellos, depuradores, paneles, bombas. Nada de lo que tocaste hoy ha fallado esta noche. Ese es todo el trabajo y no se acaba nunca." } },
+    { "id": "surveyor", "trait": "curious", "name": { "en": "The Surveyor", "es": "La Cartógrafa" }, "description": { "en": "Core samples, old transmissions, ice under the regolith. You spent the sol asking the planet questions.", "es": "Muestras de sondeo, transmisiones antiguas, hielo bajo el regolito. Pasaste el sol haciéndole preguntas al planeta." } },
+    { "id": "passenger", "trait": null, "name": { "en": "The Passenger", "es": "El Pasajero" }, "description": { "en": "The station kept you breathing and you did not give it much back. There are only two hundred of you up here. Tomorrow, be one of them.", "es": "La estación te mantuvo respirando y tú no le devolviste gran cosa. Solo sois doscientos aquí arriba. Mañana, sé uno de ellos." } }
+  ],
+  "objectivesPool": [
+    { "id": "well-supplied", "description": { "en": "Reach 200 credits", "es": "Consigue 200 créditos" }, "check": { "type": "resourceAtLeast", "resource": "currency", "value": 200 } },
+    { "id": "respected", "description": { "en": "Reach 40 Standing", "es": "Consigue 40 de Prestigio" }, "check": { "type": "resourceAtLeast", "resource": "reputation", "value": 40 } },
+    { "id": "never-hypoxic", "description": { "en": "Never drop below 30 oxygen", "es": "No bajes de 30 de oxígeno" }, "check": { "type": "resourceNeverBelow", "resource": "oxygen", "value": 30 } },
+    { "id": "vitals-stable", "description": { "en": "Never drop below 40 vitals", "es": "No bajes de 40 de constantes" }, "check": { "type": "resourceNeverBelow", "resource": "health", "value": 40 } },
+    { "id": "rationed", "description": { "en": "Never drop below 40 rations", "es": "No bajes de 40 de raciones" }, "check": { "type": "resourceNeverBelow", "resource": "hunger", "value": 40 } },
+    { "id": "rested", "description": { "en": "Never drop below 20 stamina", "es": "No bajes de 20 de resistencia" }, "check": { "type": "resourceNeverBelow", "resource": "energy", "value": 20 } },
+    { "id": "scrubber-fixed", "description": { "en": "Repair the failing CO2 scrubber", "es": "Repara el depurador de CO2 averiado" }, "check": { "type": "flagSet", "flag": "scrubber-fixed" } },
+    { "id": "ice-found", "description": { "en": "Confirm the subsurface ice deposit", "es": "Confirma el depósito de hielo subterráneo" }, "check": { "type": "flagSet", "flag": "found-ice" } },
+    { "id": "signal-decoded", "description": { "en": "Decode the derelict probe's signal", "es": "Descifra la señal de la sonda abandonada" }, "check": { "type": "flagSet", "flag": "decoded-signal" } },
+    { "id": "storm-survived", "description": { "en": "Bring everyone in before the dust storm", "es": "Mete a todos dentro antes de la tormenta de polvo" }, "check": { "type": "flagSet", "flag": "storm-secured" } },
+    { "id": "rask-ally", "description": { "en": "Earn Rask's respect", "es": "Gánate el respeto de Rask" }, "check": { "type": "flagSet", "flag": "earned-rask-respect" } },
+    { "id": "piper-partner", "description": { "en": "Become Piper's surface partner", "es": "Conviértete en compañero de superficie de Piper" }, "check": { "type": "flagSet", "flag": "piper-partnered" } },
+    { "id": "clinic-shift", "description": { "en": "Work a full shift in the clinic", "es": "Cubre un turno completo en la clínica" }, "check": { "type": "flagSet", "flag": "clinic-shift-done" } }
+  ],
+  "metaAchievements": [
+    { "id": "station-founder", "title": { "en": "Founder of Ares", "es": "Fundador de Ares" }, "description": { "en": "Accumulate 500 lifetime Standing across playthroughs.", "es": "Acumula 500 de Prestigio a lo largo de varias partidas." }, "accumulates": "reputation", "threshold": 500 },
+    { "id": "air-baron", "title": { "en": "Air Baron", "es": "Barón del Aire" }, "description": { "en": "Accumulate 1500 lifetime credits earned across playthroughs.", "es": "Acumula 1500 créditos ganados a lo largo de varias partidas." }, "accumulates": "currency", "threshold": 1500 }
+  ],
+  "memories": {
+    "flags": ["remembered-rask-trust", "remembered-piper-partner", "remembered-okonkwo-debt"],
+    "counters": ["raskRespect", "piperBond", "okonkwoTrust"]
+  },
+  "goodEnding": { "en": "The habitat lights dim to night cycle and the pressure holds at 101 kilopascals. One more sol on Mars, survived.", "es": "Las luces del hábitat bajan al ciclo nocturno y la presión aguanta en 101 kilopascales. Un sol más en Marte, sobrevivido." },
+  "badEnding": { "en": "Your suit alarm goes to a steady tone. Ares Station logs the loss, reallocates your air, and keeps breathing without you.", "es": "La alarma de tu traje pasa a tono continuo. La Estación Ares registra la pérdida, reasigna tu aire, y sigue respirando sin ti." }
+}

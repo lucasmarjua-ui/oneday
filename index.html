@@ -3,138 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="OneDay: pick an era, build a character, and live one decisive day.">
+  <meta name="description" content="OneDay: pick an era, live one day of decisions, and find out who they turn you into.">
   <meta property="og:type" content="website">
   <meta property="og:title" content="OneDay">
-  <meta property="og:description" content="Pick an era, build a character, and live one decisive day of data-driven decision cards.">
+  <meta property="og:description" content="Pick an era, live one day of decisions, and find out who they turn you into.">
   <meta property="og:image" content="https://lucasmarjua-ui.github.io/oneday/assets/social-preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://lucasmarjua-ui.github.io/oneday/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="OneDay">
-  <meta name="twitter:description" content="Pick an era, build a character, and live one decisive day of data-driven decision cards.">
+  <meta name="twitter:description" content="Pick an era, live one day of decisions, and find out who they turn you into.">
   <meta name="twitter:image" content="https://lucasmarjua-ui.github.io/oneday/assets/social-preview.png">
   <title>OneDay</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap">
   <link rel="stylesheet" href="./shared/theme.css">
 </head>
 <body>
-  <section class="hero" id="home-hero">
-    <div class="hero-bg-layer" data-era-bg="greece" style="background-image: url('./assets/era-bg-greece.jpg')"></div>
-    <div class="hero-bg-layer" data-era-bg="neanderthal" style="background-image: url('./assets/era-bg-neanderthal.jpg')"></div>
-    <div class="hero-bg-layer" data-era-bg="future-city" style="background-image: url('./assets/era-bg-future-city.jpg')"></div>
-    <div class="hero-scrim"></div>
-    <img class="hero-window-frame" src="./assets/window-frame.png" alt="" aria-hidden="true">
-    <svg class="hero-floating-icon animate-fade-rise" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-      <path d="M6 2h12M6 22h12M6 2c0 6 4 6 4 10s-4 4-4 10M18 2c0 6-4 6-4 10s4 4 4 10"/>
-    </svg>
-
-    <header class="site-nav">
-      <nav class="nav-inner">
-        <span class="nav-logo">OneDay</span>
-        <div class="nav-links">
-          <a href="#" class="nav-link active" data-i18n="nav.home"></a>
-          <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
-          <a href="#daily-picker" class="nav-link" data-i18n="nav.dailyChallenge"></a>
-          <button id="profile-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.profile"></button>
-        </div>
-        <div class="nav-actions">
-          <button id="lang-en" class="lang-btn" type="button">EN</button>
-          <button id="lang-es" class="lang-btn" type="button">ES</button>
-          <span id="player-name" class="nav-player" hidden></span>
-          <button id="login-open" class="nav-link nav-link-btn" type="button" data-i18n="nav.login"></button>
-          <button id="logout" class="nav-link nav-link-btn" type="button" hidden data-i18n="nav.logout"></button>
-          <button id="hero-cta-nav" class="btn-solid" type="button" data-i18n="home.playNow"></button>
-          <button id="nav-mobile-toggle" class="nav-mobile-toggle liquid-glass" type="button" aria-label="Menu" aria-expanded="false">
-            <svg class="icon-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-            <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="6" y1="18" x2="18" y2="6"/></svg>
-          </button>
-        </div>
-        <div class="nav-mobile-menu liquid-glass" id="nav-mobile-menu">
-          <a href="#" class="nav-link active" data-i18n="nav.home"></a>
-          <a href="#how-it-works" class="nav-link" data-i18n="nav.howItWorks"></a>
-          <a href="#daily-picker" class="nav-link" data-i18n="nav.dailyChallenge"></a>
-          <button class="nav-link nav-link-btn" type="button" data-i18n="nav.profile" id="profile-open-mobile"></button>
-        </div>
+  <header class="site-head">
+    <div class="wrap site-head-inner">
+      <a class="wordmark" href="./index.html">OneDay</a>
+      <nav class="head-nav">
+        <a class="head-link" href="#eras" data-i18n="nav.eras"></a>
+        <a class="head-link" href="#how" data-i18n="nav.howItWorks"></a>
+        <button class="head-link" type="button" id="profile-open" data-i18n="nav.profile"></button>
+        <span class="player-name" id="player-name" hidden></span>
+        <button class="head-link" type="button" id="login-open" data-i18n="nav.login"></button>
+        <button class="head-link" type="button" id="logout" hidden data-i18n="nav.logout"></button>
+        <span class="lang-switch">
+          <button type="button" id="lang-en">EN</button>
+          <button type="button" id="lang-es">ES</button>
+        </span>
       </nav>
-    </header>
-
-    <div class="hero-content">
-      <span class="hero-badge liquid-glass animate-fade-rise" data-i18n="home.heroBadge"></span>
-      <h1 class="hero-title animate-fade-rise" id="hero-title"></h1>
-      <p class="hero-subtitle animate-fade-rise-delay" data-i18n="home.heroSubtitle"></p>
-      <button id="hero-cta" class="btn-solid hero-cta animate-fade-rise-delay-2" type="button" data-i18n="home.playNow"></button>
-      <div class="era-switcher animate-fade-rise-delay-2" id="era-switcher"></div>
-      <div class="hero-stats animate-fade-rise-delay-2">
-        <div class="hero-stat"><div class="value">3</div><div class="label" data-i18n="home.statsEras"></div></div>
-        <div class="hero-stat"><div class="value">2</div><div class="label" data-i18n="home.statsLanguages"></div></div>
-        <div class="hero-stat"><div class="value">126</div><div class="label" data-i18n="home.statsTests"></div></div>
-      </div>
     </div>
-  </section>
+  </header>
 
   <main>
-    <section id="era-screen">
-      <section class="daily-picker-section" id="daily-picker">
-        <h2 data-i18n="daily.chooseEraHeading"></h2>
-        <div class="daily-picker-row" id="daily-picker-row"></div>
-      </section>
-
-      <section class="how-it-works" id="how-it-works">
-        <h2 data-i18n="home.howHeading"></h2>
-        <div class="how-steps">
-          <div class="how-step">
-            <div class="how-icon"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="34" fill="none" stroke="currentColor" stroke-width="7"/><path d="M50 28 L59 50 L50 72 L41 50 Z"/></svg></div>
-            <h3 data-i18n="home.step1Title"></h3>
-            <p data-i18n="home.step1Desc"></p>
-          </div>
-          <div class="how-step">
-            <div class="how-icon"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="22"/><g stroke="currentColor" stroke-width="7" stroke-linecap="round"><line x1="50" y1="6" x2="50" y2="18"/><line x1="50" y1="82" x2="50" y2="94"/><line x1="6" y1="50" x2="18" y2="50"/><line x1="82" y1="50" x2="94" y2="50"/><line x1="18" y1="18" x2="26" y2="26"/><line x1="74" y1="74" x2="82" y2="82"/><line x1="18" y1="82" x2="26" y2="74"/><line x1="74" y1="26" x2="82" y2="18"/></g></svg></div>
-            <h3 data-i18n="home.step2Title"></h3>
-            <p data-i18n="home.step2Desc"></p>
-          </div>
-          <div class="how-step">
-            <div class="how-icon"><svg viewBox="0 0 100 100" aria-hidden="true"><rect x="26" y="10" width="7" height="82" rx="3"/><path d="M33 14 L78 26 L33 44 Z"/></svg></div>
-            <h3 data-i18n="home.step3Title"></h3>
-            <p data-i18n="home.step3Desc"></p>
-          </div>
-        </div>
-      </section>
-    </section>
-
-    <section id="archetype-screen" class="panel" hidden>
-      <h2 id="archetype-heading"></h2>
-      <div class="archetype-grid" id="archetype-grid"></div>
-      <div class="actions-row">
-        <button id="archetype-back" class="btn btn-ghost" type="button" data-i18n="archetype.back"></button>
-        <button id="archetype-next" class="btn" type="button" data-i18n="archetype.next"></button>
+    <section class="wrap masthead">
+      <div class="masthead-kicker"><span class="mono" data-i18n="home.kicker"></span></div>
+      <h1 id="hero-title"></h1>
+      <p class="masthead-lede" data-i18n="home.lede"></p>
+      <div class="masthead-stats">
+        <div class="stat"><div class="stat-value" id="stat-eras">–</div><div class="stat-label" data-i18n="home.statsEras"></div></div>
+        <div class="stat"><div class="stat-value" id="stat-cards">211</div><div class="stat-label" data-i18n="home.statsCards"></div></div>
+        <div class="stat"><div class="stat-value" id="stat-tests">187</div><div class="stat-label" data-i18n="home.statsTests"></div></div>
       </div>
     </section>
 
-    <section id="appearance-screen" class="panel" hidden>
-      <h2 id="appearance-heading"></h2>
-      <div class="character-layout">
-        <div class="character-preview" id="character-preview"></div>
-        <div>
-          <div id="base-options" class="option-row"></div>
-          <div id="slot-options"></div>
-        </div>
+    <section class="wrap" id="eras">
+      <div class="index-head">
+        <h2 class="mono" data-i18n="home.indexHeading"></h2>
+        <span class="mono" data-i18n="home.indexHint"></span>
       </div>
-      <div class="actions-row">
-        <button id="appearance-back" class="btn btn-ghost" type="button" data-i18n="appearance.back"></button>
-        <button id="appearance-begin" class="btn" type="button" data-i18n="appearance.begin"></button>
+      <ul class="era-index" id="era-index"></ul>
+    </section>
+
+    <section class="wrap how" id="how">
+      <div class="index-head">
+        <h2 class="mono" data-i18n="home.howHeading"></h2>
+      </div>
+      <div class="how-grid">
+        <div class="how-step">
+          <div class="how-step-n">01</div>
+          <h3 data-i18n="home.step1Title"></h3>
+          <p data-i18n="home.step1Desc"></p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-n">02</div>
+          <h3 data-i18n="home.step2Title"></h3>
+          <p data-i18n="home.step2Desc"></p>
+        </div>
+        <div class="how-step">
+          <div class="how-step-n">03</div>
+          <h3 data-i18n="home.step3Title"></h3>
+          <p data-i18n="home.step3Desc"></p>
+        </div>
       </div>
     </section>
   </main>
 
+  <footer class="wrap site-foot">
+    <span class="mono">OneDay</span>
+    <span class="mono" data-i18n="home.footer"></span>
+  </footer>
+
   <div id="login-modal" class="modal-backdrop" hidden>
-    <div class="modal panel">
+    <div class="modal">
       <h2 data-i18n="login.heading"></h2>
-      <p class="app-subtitle" data-i18n="login.description"></p>
+      <p class="muted small" data-i18n="login.description"></p>
       <div class="field">
         <label for="login-username" data-i18n="login.username"></label>
         <input id="login-username" type="text" autocomplete="username" maxlength="16">
@@ -145,19 +104,19 @@
       </div>
       <p class="form-error" id="login-error"></p>
       <div class="modal-actions">
-        <button id="login-close" class="btn btn-ghost" type="button" data-i18n="login.cancel"></button>
-        <button id="login-register" class="btn btn-ghost" type="button" data-i18n="login.register"></button>
-        <button id="login-submit" class="btn" type="button" data-i18n="login.submit"></button>
+        <button id="login-close" class="btn btn-quiet" type="button" data-i18n="login.cancel"></button>
+        <button id="login-register" class="btn" type="button" data-i18n="login.register"></button>
+        <button id="login-submit" class="btn btn-solid" type="button" data-i18n="login.submit"></button>
       </div>
     </div>
   </div>
 
   <div id="profile-modal" class="modal-backdrop" hidden>
-    <div class="modal panel">
+    <div class="modal">
       <h2 data-i18n="profile.heading"></h2>
       <div id="profile-body"></div>
       <div class="modal-actions">
-        <button id="profile-close" class="btn btn-ghost" type="button" data-i18n="profile.close"></button>
+        <button id="profile-close" class="btn btn-quiet" type="button" data-i18n="profile.close"></button>
       </div>
     </div>
   </div>
@@ -165,248 +124,71 @@
   <script type="module">
     import { ERAS, loadEra } from './shared/era-registry.js';
     import { getCurrentUser, onUserChange, registerUser, loginUser, logoutUser } from './shared/auth.js';
-    import { createDefaultCharacter, setArchetype, setBase, setSlotOption, renderCharacterSVG, saveCharacter, loadCharacter, findArchetype } from './shared/character.js';
     import { getEraProgress } from './shared/achievements.js';
     import { getEraStats } from './shared/stats.js';
     import { getStreak } from './shared/streaks.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
-    import { mountAtmosphereBackground } from './shared/atmosphere-bg.js';
-    import { getCardGradient, renderCardOrnamentSVG } from './shared/card-art.js';
 
-    mountAtmosphereBackground();
+    const availableEras = ERAS.filter(era => era.available);
+    const eraIndex = document.querySelector('#era-index');
 
-    const heroSection = document.querySelector('.hero');
-    const eraScreen = document.querySelector('#era-screen');
-    const archetypeScreen = document.querySelector('#archetype-screen');
-    const archetypeHeading = document.querySelector('#archetype-heading');
-    const archetypeGrid = document.querySelector('#archetype-grid');
-    const appearanceScreen = document.querySelector('#appearance-screen');
-    const appearanceHeading = document.querySelector('#appearance-heading');
-    const characterPreview = document.querySelector('#character-preview');
-    const baseOptions = document.querySelector('#base-options');
-    const slotOptions = document.querySelector('#slot-options');
-
-    let currentEra = null;
-    let currentCharacter = null;
-    let currentPhase = 'era';
-    let currentMode = 'free';
-    let activeSwitcherEraId = null;
-    let switcherCooldown = false;
-
-    // Fire immediately, not gated behind the async i18n fetch below: era
-    // names/tags come from each era's own bilingual data (localize()), never
-    // from the UI-string bundle loadStrings() fetches, so there's no reason
-    // the hero's background photo should sit at opacity 0 (a black hero)
-    // for however long that network request takes. This is what actually
-    // was causing the visible black-screen flash on load.
-    renderEraSwitcher();
-    document.querySelectorAll('.hero-bg-layer').forEach(layer => {
-      layer.classList.toggle('active', layer.dataset.eraBg === activeSwitcherEraId);
-    });
+    // The era count is read from the registry rather than typed in, so the
+    // number on the page can never drift from the number of eras that exist.
+    document.querySelector('#stat-eras').textContent = availableEras.length;
 
     function applyStaticI18n() {
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
-      document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'lang-btn active' : 'lang-btn';
-      document.querySelector('#lang-es').className = getLanguage() === 'es' ? 'lang-btn active' : 'lang-btn';
-      document.querySelector('#hero-title').innerHTML = `${t('home.heroTitlePart1')} <em class="hero-title-em">${t('home.heroTitlePart2')}</em>`;
+      document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'active' : '';
+      document.querySelector('#lang-es').className = getLanguage() === 'es' ? 'active' : '';
+      document.querySelector('#hero-title').innerHTML = `${t('home.heroTitlePart1')} <em>${t('home.heroTitlePart2')}</em>`;
     }
 
-    // The photo hero now covers "pick an era and play free" on its own, so
-    // this is just what's left: a compact, liquid-glass way to reach Today's
-    // Challenge per era, since the hero's own "Play Now" only ever starts
-    // free play.
-    function renderDailyPicker() {
+    function play(eraId, daily = false) {
+      window.location.href = `./game.html?era=${eraId}${daily ? '&daily=1' : ''}`;
+    }
+
+    function renderEraIndex() {
       const today = todayDateKey();
-      const row = document.querySelector('#daily-picker-row');
-      row.innerHTML = ERAS.filter(era => era.available).map(era => {
+      eraIndex.innerHTML = availableEras.map(era => {
         const playedToday = hasPlayedToday(getLocalDailyResult(era.id), today);
-        return `<button class="btn${playedToday ? ' daily-played' : ''}" type="button" data-era="${era.id}">${playedToday ? '✓ ' : ''}${localize(era.name)}</button>`;
+        return `
+          <li>
+            <button class="era-row" type="button" data-era="${era.id}" style="--row-h:${era.accent}">
+              <span class="era-row-year">${localize(era.year)}</span>
+              <span>
+                <span class="era-row-name">${localize(era.name)}</span>
+                <p class="era-row-tagline">${localize(era.tagline)}</p>
+              </span>
+              <span class="era-row-go">
+                <span class="era-row-daily${playedToday ? ' played' : ''}" data-daily="${era.id}" role="button" tabindex="0">${playedToday ? '✓ ' : ''}${t('era.daily')}</span>
+                <span>${t('era.live')} →</span>
+              </span>
+            </button>
+          </li>
+        `;
       }).join('');
-      row.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', () => selectDailyChallenge(btn.dataset.era));
+
+      eraIndex.querySelectorAll('.era-row').forEach(row => {
+        row.addEventListener('click', event => {
+          const daily = event.target.closest('[data-daily]');
+          if (daily) { event.stopPropagation(); play(daily.dataset.daily, true); return; }
+          play(row.dataset.era);
+        });
       });
-    }
-
-    async function selectEra(eraId) {
-      const { era } = await loadEra(eraId);
-      currentEra = era;
-      document.body.dataset.era = eraId;
-      currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
-      currentMode = 'free';
-      currentPhase = 'archetype';
-      heroSection.hidden = true;
-      eraScreen.hidden = true;
-      archetypeScreen.hidden = false;
-      renderArchetypeScreen();
-    }
-
-    async function selectDailyChallenge(eraId) {
-      if (hasPlayedToday(getLocalDailyResult(eraId), todayDateKey())) {
-        window.location.href = `./game.html?era=${eraId}&daily=1`;
-        return;
-      }
-      const { era } = await loadEra(eraId);
-      currentEra = era;
-      document.body.dataset.era = eraId;
-      currentCharacter = loadCharacter(eraId) || createDefaultCharacter(era);
-      currentMode = 'daily';
-      currentPhase = 'archetype';
-      heroSection.hidden = true;
-      eraScreen.hidden = true;
-      archetypeScreen.hidden = false;
-      renderArchetypeScreen();
-    }
-
-    function modeBadgeHtml() {
-      return currentMode === 'daily' ? `<span class="daily-badge">${t('daily.badge')}</span><br>` : '';
-    }
-
-    function renderArchetypeScreen() {
-      archetypeHeading.innerHTML = `${modeBadgeHtml()}${t('archetype.heading')} — ${localize(currentEra.name)}`;
-      archetypeGrid.style.setProperty('--card-count', Math.min(currentEra.archetypes.length, 4));
-      archetypeGrid.innerHTML = currentEra.archetypes.map((archetype, index) => `
-        <button class="archetype-card${currentCharacter.archetypeId === archetype.id ? ' selected' : ''}" type="button" data-archetype="${archetype.id}" style="--card-gradient: ${getCardGradient(currentEra.id, index)}">
-          ${renderCardOrnamentSVG(archetype.id)}
-          <h3>${localize(archetype.name)}</h3>
-          <p>${localize(archetype.description)}</p>
-        </button>
-      `).join('');
-      archetypeGrid.querySelectorAll('.archetype-card').forEach(card => {
-        card.addEventListener('click', () => {
-          currentCharacter = setArchetype(currentCharacter, card.dataset.archetype);
-          renderArchetypeScreen();
+      eraIndex.querySelectorAll('[data-daily]').forEach(chip => {
+        chip.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); play(chip.dataset.daily, true); }
         });
       });
     }
 
-    document.querySelector('#archetype-back').addEventListener('click', () => {
-      currentPhase = 'era';
-      archetypeScreen.hidden = true;
-      heroSection.hidden = false;
-      eraScreen.hidden = false;
-    });
+    renderEraIndex();
 
-    document.querySelector('#archetype-next').addEventListener('click', () => {
-      currentPhase = 'appearance';
-      archetypeScreen.hidden = true;
-      appearanceScreen.hidden = false;
-      renderAppearanceScreen();
-    });
-
-    function renderAppearanceScreen() {
-      appearanceHeading.innerHTML = `${modeBadgeHtml()}${t('appearance.heading')} — ${localize(currentEra.name)}`;
-      characterPreview.innerHTML = renderCharacterSVG(currentEra, currentCharacter);
-
-      baseOptions.innerHTML = `<h4>${t('appearance.baseLabel')}</h4><div class="swatch-row" id="base-swatches"></div>`;
-      const baseSwatches = baseOptions.querySelector('#base-swatches');
-      currentEra.character.bases.forEach(base => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'swatch-btn' + (currentCharacter.base === base.id ? ' selected' : '');
-        btn.textContent = localize(base.label);
-        btn.addEventListener('click', () => { currentCharacter = setBase(currentCharacter, base.id); renderAppearanceScreen(); });
-        baseSwatches.appendChild(btn);
-      });
-
-      slotOptions.innerHTML = '';
-      currentEra.character.slots.forEach(slot => {
-        const row = document.createElement('div');
-        row.className = 'option-row';
-        row.innerHTML = `<h4>${localize(slot.label)}</h4><div class="swatch-row"></div>`;
-        const swatchRow = row.querySelector('.swatch-row');
-        slot.options.forEach(option => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'swatch-btn' + (currentCharacter.slots[slot.id] === option.id ? ' selected' : '');
-          btn.textContent = localize(option.label);
-          btn.addEventListener('click', () => { currentCharacter = setSlotOption(currentCharacter, slot.id, option.id); renderAppearanceScreen(); });
-          swatchRow.appendChild(btn);
-        });
-        slotOptions.appendChild(row);
-      });
-    }
-
-    document.querySelector('#appearance-back').addEventListener('click', () => {
-      currentPhase = 'archetype';
-      appearanceScreen.hidden = true;
-      archetypeScreen.hidden = false;
-      renderArchetypeScreen();
-    });
-
-    document.querySelector('#appearance-begin').addEventListener('click', () => {
-      saveCharacter(currentEra.id, currentCharacter);
-      const dailyParam = currentMode === 'daily' ? '&daily=1' : '';
-      window.location.href = `./game.html?era=${currentEra.id}${dailyParam}`;
-    });
-
-    // Home hero era switcher: a row of tabs, one per playable era, each
-    // backed by its own background-photo layer already sitting in the DOM --
-    // switching only ever toggles opacity, never swaps the image src, so
-    // there's no reload/flicker on click.
-    function renderEraSwitcher() {
-      const availableEras = ERAS.filter(era => era.available);
-      if (!activeSwitcherEraId) activeSwitcherEraId = availableEras[0]?.id || null;
-      const switcherEl = document.querySelector('#era-switcher');
-      switcherEl.innerHTML = availableEras.map(era => `
-        <button class="era-switcher-btn${era.id === activeSwitcherEraId ? ' active' : ''}" type="button" data-era-bg="${era.id}">${localize(era.name)}</button>
-      `).join('');
-      switcherEl.querySelectorAll('.era-switcher-btn').forEach(btn => {
-        btn.addEventListener('click', () => setActiveSwitcherEra(btn.dataset.eraBg));
-      });
-    }
-
-    function setActiveSwitcherEra(eraId) {
-      if (eraId === activeSwitcherEraId || switcherCooldown) return;
-      activeSwitcherEraId = eraId;
-      switcherCooldown = true;
-      setTimeout(() => { switcherCooldown = false; }, 1000);
-
-      document.querySelectorAll('.era-switcher-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.dataset.eraBg === eraId);
-      });
-      document.querySelectorAll('.hero-bg-layer').forEach(layer => {
-        layer.classList.toggle('active', layer.dataset.eraBg === eraId);
-      });
-    }
-
-    // The hero's own CTAs start the era currently showing in the switcher
-    // directly -- the hero *is* the era picker now, not just a
-    // scroll-past banner in front of one. The full era grid further down
-    // stays in place for Today's Challenge and browsing full descriptions.
-    document.querySelector('#hero-cta').addEventListener('click', () => { if (activeSwitcherEraId) selectEra(activeSwitcherEraId); });
-    document.querySelector('#hero-cta-nav').addEventListener('click', () => { if (activeSwitcherEraId) selectEra(activeSwitcherEraId); });
-    document.querySelectorAll('.nav-link.active').forEach(link => {
-      link.addEventListener('click', event => { event.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); closeMobileMenu(); });
-    });
-
-    // Mobile nav menu
-    const mobileToggle = document.querySelector('#nav-mobile-toggle');
-    const mobileMenu = document.querySelector('#nav-mobile-menu');
-    function closeMobileMenu() {
-      mobileToggle.classList.remove('open');
-      mobileToggle.setAttribute('aria-expanded', 'false');
-      mobileMenu.classList.remove('open');
-    }
-    mobileToggle.addEventListener('click', () => {
-      const open = mobileToggle.classList.toggle('open');
-      mobileToggle.setAttribute('aria-expanded', String(open));
-      mobileMenu.classList.toggle('open', open);
-    });
-    mobileMenu.querySelectorAll('a.nav-link').forEach(link => link.addEventListener('click', closeMobileMenu));
-    document.querySelector('#profile-open-mobile').addEventListener('click', () => { closeMobileMenu(); document.querySelector('#profile-open').click(); });
-
-    // Language selector
     document.querySelector('#lang-en').addEventListener('click', () => setLanguage('en'));
     document.querySelector('#lang-es').addEventListener('click', () => setLanguage('es'));
-    onLanguageChange(() => {
-      applyStaticI18n();
-      if (currentPhase === 'era') { renderDailyPicker(); renderEraSwitcher(); }
-      else if (currentPhase === 'archetype') renderArchetypeScreen();
-      else if (currentPhase === 'appearance') renderAppearanceScreen();
-    });
+    onLanguageChange(() => { applyStaticI18n(); renderEraIndex(); });
 
-    // Login modal
     const loginModal = document.querySelector('#login-modal');
     const loginError = document.querySelector('#login-error');
     document.querySelector('#login-open').addEventListener('click', () => { loginError.textContent = ''; loginModal.hidden = false; });
@@ -434,42 +216,40 @@
       document.querySelector('#logout').hidden = !user;
     });
 
-    // Profile modal
     const profileModal = document.querySelector('#profile-modal');
     const profileBody = document.querySelector('#profile-body');
     document.querySelector('#profile-open').addEventListener('click', async () => {
-      profileBody.innerHTML = '<p>…</p>';
+      profileBody.innerHTML = `<p class="muted small">…</p>`;
       profileModal.hidden = false;
       const streak = getStreak();
       const streakHtml = streak.currentStreak > 0
-        ? `<p class="streak-banner">${t('profile.streak', { count: streak.currentStreak, best: streak.longestStreak })}</p>`
-        : `<p class="app-subtitle">${t('profile.streakNone')}</p>`;
-      const availableEras = ERAS.filter(era => era.available);
+        ? `<p class="streak-line">${t('profile.streak', { count: streak.currentStreak, best: streak.longestStreak })}</p>`
+        : `<p class="muted small">${t('profile.streakNone')}</p>`;
       const sections = await Promise.all(availableEras.map(async meta => {
         const { era } = await loadEra(meta.id);
         const progress = getEraProgress(meta.id);
         const stats = getEraStats(meta.id);
-        const achievementsHtml = (era.metaAchievements || []).map(achievement => {
+        const achievements = (era.metaAchievements || []).map(achievement => {
           const unlocked = progress.achievementsUnlocked.includes(achievement.id);
           const total = progress.accumulated[achievement.accumulates] || 0;
-          return `<li class="${unlocked ? 'complete' : ''}"><span class="objective-mark">${unlocked ? '✓' : '•'}</span> ${localize(achievement.title)} — ${Math.min(total, achievement.threshold)}/${achievement.threshold}</li>`;
+          return `<li class="${unlocked ? 'done' : ''}"><span class="mark">${unlocked ? '✓' : '·'}</span> ${localize(achievement.title)}<span class="val">${Math.min(total, achievement.threshold)}/${achievement.threshold}</span></li>`;
         }).join('');
         return `
-          <div class="option-row">
+          <div class="profile-era">
             <h4>${localize(era.name)}</h4>
-            <p class="app-subtitle">${t('profile.daysPlayed', { count: stats.daysPlayed, objectives: stats.objectivesCompleted })}</p>
-            <ul class="objective-list">${achievementsHtml || `<li>${t('profile.noAchievements')}</li>`}</ul>
+            <p class="muted small">${t('profile.daysPlayed', { count: stats.daysPlayed, objectives: stats.objectivesCompleted })}</p>
+            <ul class="line-list">${achievements}</ul>
           </div>
         `;
       }));
-      profileBody.innerHTML = streakHtml + (sections.join('') || `<p>${t('profile.noEras')}</p>`);
+      profileBody.innerHTML = streakHtml + sections.join('');
     });
     document.querySelector('#profile-close').addEventListener('click', () => { profileModal.hidden = true; });
 
     (async function init() {
       await loadStrings();
       applyStaticI18n();
-      renderDailyPicker();
+      renderEraIndex();
     })();
   </script>
 </body>

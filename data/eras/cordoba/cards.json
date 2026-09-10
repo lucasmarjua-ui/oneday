@@ -1,0 +1,322 @@
+[
+  {
+    "id": "cordoba-wake-courtyard",
+    "text": { "en": "First light. Your courtyard is cool, the orange tree is dropping blossom into the basin, and the city is already at work.", "es": "Primera luz. Tu patio está fresco, el naranjo suelta azahar en la pila, y la ciudad ya está trabajando." },
+    "timeSlots": ["fajr"],
+    "weight": 5,
+    "options": [
+      { "id": "wash-and-pray", "text": { "en": "Wash at the basin and begin properly", "es": "Lávate en la pila y empieza como es debido" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 12, "thirst": 10, "reputation": 1 }, "text": { "en": "Cold water, clean linen, an unhurried start. The whole day sits better on it.", "es": "Agua fría, lino limpio, un comienzo sin prisa. El día entero se asienta mejor sobre eso." } } },
+      { "id": "sleep-in-cordoba", "text": { "en": "Sleep until the sun is on the wall", "es": "Duerme hasta que el sol dé en la pared" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 22, "health": 2 }, "text": { "en": "You wake to full heat and the smell of someone else's bread.", "es": "Despiertas con el calor pleno y el olor del pan de otro." } } }
+    ]
+  },
+  {
+    "id": "cordoba-bread-oven",
+    "text": { "en": "The quarter's communal oven is drawing out the morning bread, and the baker's boy is calling names down the lane.", "es": "El horno comunal del barrio saca el pan de la mañana, y el chico del panadero canta los nombres por el callejón." },
+    "timeSlots": ["fajr", "midday"],
+    "weight": 4,
+    "conditions": { "resources": { "currency": { "min": 4 } } },
+    "options": [
+      { "id": "buy-bread-cordoba", "text": { "en": "Buy bread and oil", "es": "Compra pan y aceite" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -6 } }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 30 }, "text": { "en": "Hot flatbread, green oil, salt. Nothing in the caliph's kitchens is better than this.", "es": "Pan plano caliente, aceite verde, sal. Nada en las cocinas del califa es mejor que esto." } } },
+      { "id": "bread-for-students", "text": { "en": "Buy the loaves for the students on the step", "es": "Compra los panes para los estudiantes del escalón" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -16 } }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 25, "reputation": 5 }, "text": { "en": "Four boys who came from Toledo to study and are down to one loaf between them. They ask your name.", "es": "Cuatro chicos que vinieron de Toledo a estudiar y les queda un pan entre todos. Preguntan tu nombre." } } },
+      { "id": "skip-bread-cordoba", "text": { "en": "Walk on", "es": "Sigue adelante" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The smell follows you two streets.", "es": "El olor te sigue dos calles." } } }
+    ]
+  },
+  {
+    "id": "cordoba-water-carrier",
+    "text": { "en": "A water carrier is working the lane with a full skin, and his back is not what it was.", "es": "Un aguador trabaja el callejón con un odre lleno, y su espalda ya no es la que era." },
+    "timeSlots": ["fajr", "midday", "asr", "night"],
+    "weight": 3,
+    "options": [
+      { "id": "buy-water-cordoba", "text": { "en": "Buy a cup", "es": "Compra un vaso" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -2 } }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 30 }, "text": { "en": "Cool, faintly of leather, exactly what you needed.", "es": "Fresca, con un leve sabor a cuero, exactamente lo que necesitabas." } } },
+      { "id": "carry-his-skin", "text": { "en": "Carry the skin for him to the end of the lane", "es": "Llévale el odre hasta el final del callejón" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "energy": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 25, "reputation": 3 }, "text": { "en": "He will not take payment for the water afterward, and half the lane saw the whole thing.", "es": "Después no acepta cobro por el agua, y medio callejón lo vio todo." } } }
+    ]
+  },
+  {
+    "id": "cordoba-souk-yusuf",
+    "text": { "en": "In the souk, Yusuf is unrolling Baghdad silk and arguing about the price with three people at once. He waves you over.", "es": "En el zoco, Yusuf desenrolla seda de Bagdad y discute el precio con tres personas a la vez. Te llama con la mano." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 4,
+    "npcId": "npc-yusuf",
+    "threadId": "yusuf-thread",
+    "conditions": { "flagsExcluded": ["met-yusuf", "remembered-yusuf-partner"] },
+    "options": [
+      { "id": "help-yusuf-sell", "text": { "en": "Step in and help him work the crowd", "es": "Métete y ayúdale a trabajar a la gente" }, "traits": { "cunning": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.55, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "currency": 25, "reputation": 3 }, "flagsSet": ["met-yusuf"], "countersAdd": { "yusufTrust": 3 }, "text": { "en": "Two bolts sold at the price he wanted, to a buyer who thinks he won. Yusuf pays you a cut on the spot.", "es": "Dos piezas vendidas al precio que quería, a un comprador que cree haber ganado. Yusuf te paga tu parte en el acto." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-yusuf"], "countersAdd": { "yusufTrust": -1 }, "text": { "en": "You undercut his own opening price by accident. He takes the loss and looks at you differently.", "es": "Rebajas su propio precio de salida sin querer. Asume la pérdida y te mira de otra manera." } } },
+      { "id": "buy-from-yusuf", "text": { "en": "Buy a length of silk yourself", "es": "Cómprale tú una pieza de seda" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -25 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["met-yusuf", "has-silk"], "countersAdd": { "yusufTrust": 2 }, "text": { "en": "Good weight, honest price, and you did not haggle him down in front of a crowd. He notices that.", "es": "Buen peso, precio honrado, y no lo regateaste delante de la gente. Eso lo nota." } } },
+      { "id": "pass-yusuf", "text": { "en": "Wave back and keep walking", "es": "Devuélvele el saludo y sigue" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-yusuf"], "text": { "en": "The souk closes over him again.", "es": "El zoco se cierra sobre él otra vez." } } }
+    ]
+  },
+  {
+    "id": "cordoba-yusuf-caravan",
+    "text": { "en": "Yusuf is putting together shares in a caravan to Almería and has left one open, deliberately, next to yours.", "es": "Yusuf está reuniendo participaciones para una caravana a Almería y ha dejado una libre, a propósito, junto a la tuya." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 3,
+    "npcId": "npc-yusuf",
+    "threadId": "yusuf-thread",
+    "conditions": { "resources": { "currency": { "min": 40 } }, "flagsRequired": ["met-yusuf"], "flagsExcluded": ["caravan-done"] },
+    "options": [
+      { "id": "invest-caravan", "text": { "en": "Take the share", "es": "Toma la participación" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "currency": -50 } }, "successChance": { "base": 0.5, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "currency": 140 }, "flagsSet": ["caravan-invested", "caravan-done"], "countersAdd": { "yusufTrust": 3 }, "text": { "en": "Word comes back before dark: the road was clear and the Almería price held. You have made more today than in a month.", "es": "La noticia llega antes de anochecer: el camino estaba despejado y el precio de Almería aguantó. Has ganado hoy más que en un mes." } }, "failure": { "flagsSet": ["caravan-invested", "caravan-done"], "countersAdd": { "yusufTrust": 1 }, "text": { "en": "The caravan is held at the mountain pass. Your money is not lost, exactly, but it is not here either.", "es": "La caravana queda retenida en el paso de montaña. Tu dinero no está perdido, exactamente, pero aquí no está." } } },
+      { "id": "check-caravan-terms", "text": { "en": "Ask hard questions about the route first", "es": "Pregunta a fondo por la ruta antes" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.65, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "currency": 30 }, "flagsSet": ["caravan-done"], "countersAdd": { "yusufTrust": 2 }, "text": { "en": "You find a bad clause about spoilage and have it rewritten. Yusuf pays you a finder's fee for the catch.", "es": "Encuentras una mala cláusula sobre las mermas y la haces reescribir. Yusuf te paga una comisión por el hallazgo." } }, "failure": { "flagsSet": ["caravan-done"], "text": { "en": "The terms are exactly as he described. You have insulted a friend for nothing.", "es": "Las condiciones son exactamente como las describió. Has ofendido a un amigo para nada." } } },
+      { "id": "decline-caravan", "text": { "en": "Keep your dirhams where you can see them", "es": "Guarda tus dírhams donde puedas verlos" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["caravan-done"], "text": { "en": "\"Sensible,\" he says, and means it as only half a compliment.", "es": "\"Sensato\", dice, y lo dice como solo medio cumplido." } } }
+    ]
+  },
+  {
+    "id": "cordoba-yusuf-resolution",
+    "text": { "en": "Yusuf offers you a standing partnership: your name beside his on the stall, and a share of everything through it.", "es": "Yusuf te ofrece una sociedad permanente: tu nombre junto al suyo en el puesto, y una parte de todo lo que pase por él." },
+    "timeSlots": ["asr", "night"],
+    "weight": 2,
+    "npcId": "npc-yusuf",
+    "threadId": "yusuf-thread",
+    "conditions": { "flagsRequired": ["caravan-invested"], "flagsExcluded": ["yusuf-thread-resolved"] },
+    "options": [
+      { "id": "accept-yusuf-partnership", "text": { "en": "Accept the partnership", "es": "Acepta la sociedad" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 30, "reputation": 6 }, "flagsSet": ["yusuf-partnered", "yusuf-thread-resolved", "remembered-yusuf-partner"], "countersAdd": { "yusufTrust": 4 }, "text": { "en": "He writes both names on the same line, in front of the whole row of stalls, so nobody can say later that he didn't.", "es": "Escribe ambos nombres en la misma línea, delante de toda la hilera de puestos, para que nadie pueda decir después que no lo hizo." } } },
+      { "id": "stay-independent-yusuf", "text": { "en": "Stay independent, but shake on the next venture", "es": "Sigue por libre, pero cierra la próxima empresa con un apretón" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 20, "reputation": 3 }, "flagsSet": ["yusuf-thread-resolved", "remembered-yusuf-partner"], "countersAdd": { "yusufTrust": 2 }, "text": { "en": "\"You'll come around,\" he says. \"Everyone does, eventually, or leaves the souk.\"", "es": "\"Acabarás cediendo\", dice. \"Todos ceden, tarde o temprano, o dejan el zoco.\"" } } }
+    ]
+  },
+  {
+    "id": "cordoba-yusuf-remembers",
+    "text": { "en": "Yusuf spots you the moment you enter the row and has already poured two glasses of tea before you reach the stall.", "es": "Yusuf te ve nada más entrar en la hilera y ya ha servido dos vasos de té antes de que llegues al puesto." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 4,
+    "npcId": "npc-yusuf",
+    "threadId": "yusuf-thread",
+    "conditions": { "flagsRequired": ["remembered-yusuf-partner"], "flagsExcluded": ["met-yusuf"] },
+    "options": [
+      { "id": "sit-with-yusuf", "text": { "en": "Sit, drink, and hear what the road brought", "es": "Siéntate, bebe, y escucha qué ha traído el camino" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 25, "currency": 20, "reputation": 3 }, "flagsSet": ["met-yusuf"], "countersAdd": { "yusufTrust": 3 }, "text": { "en": "Prices in Almería, a war two kingdoms away, and your share from the last venture, counted out without being asked.", "es": "Precios en Almería, una guerra a dos reinos de distancia, y tu parte de la última empresa, contada sin que la pidas." } } },
+      { "id": "work-stall-yusuf", "text": { "en": "Take the other side of the stall without asking", "es": "Ponte al otro lado del puesto sin preguntar" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 30 }, "flagsSet": ["met-yusuf"], "countersAdd": { "yusufTrust": 2 }, "text": { "en": "You know his prices by heart now. He lets you sell and does not check the box once.", "es": "Ya te sabes sus precios de memoria. Te deja vender y no revisa la caja ni una vez." } } }
+    ]
+  },
+  {
+    "id": "cordoba-library-gate",
+    "text": { "en": "At the gate of the caliph's library, a copyist called Lubna is turning away everyone who cannot say what they want to read.", "es": "En la puerta de la biblioteca del califa, una copista llamada Lubna rechaza a todo el que no sepa decir qué quiere leer." },
+    "timeSlots": ["fajr", "midday", "asr"],
+    "weight": 4,
+    "npcId": "npc-lubna",
+    "threadId": "lubna-thread",
+    "conditions": { "flagsExcluded": ["met-lubna", "remembered-lubna-desk"] },
+    "options": [
+      { "id": "name-a-book", "text": { "en": "Name a specific book and why", "es": "Nombra un libro concreto y por qué" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.06 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["read-in-library", "met-lubna"], "countersAdd": { "lubnaTrust": 3 }, "text": { "en": "She takes you to the shelf herself and stays to see what you make of it. Four hundred thousand volumes, and one of them is open in front of you.", "es": "Te lleva ella misma al estante y se queda a ver qué sacas de ello. Cuatrocientos mil volúmenes, y uno de ellos abierto ante ti." } }, "failure": { "resources": { "reputation": -2 }, "flagsSet": ["met-lubna"], "countersAdd": { "lubnaTrust": -1 }, "text": { "en": "You name a title you have only heard about. She asks one follow-up question and the conversation ends.", "es": "Nombras un título del que solo has oído hablar. Hace una pregunta más y la conversación se acaba." } } },
+      { "id": "carry-books-lubna", "text": { "en": "Offer to carry the returns crate instead", "es": "Ofrécete a llevar la caja de devoluciones" }, "traits": { "diligent": 1 }, "cost": { "time": 1, "resources": { "energy": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 8, "reputation": 2 }, "flagsSet": ["met-lubna"], "countersAdd": { "lubnaTrust": 2 }, "text": { "en": "Forty volumes up two flights. She pays you and, more usefully, remembers you.", "es": "Cuarenta volúmenes por dos tramos de escalera. Te paga y, más útil aún, te recuerda." } } },
+      { "id": "leave-library", "text": { "en": "Leave the library to the scholars", "es": "Deja la biblioteca para los sabios" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-lubna"], "text": { "en": "The gate closes behind the next person in line.", "es": "La puerta se cierra tras la siguiente persona de la cola." } } }
+    ]
+  },
+  {
+    "id": "cordoba-lubna-translation",
+    "text": { "en": "Lubna has a Greek medical text and a deadline, and the man who was translating it has taken a post in Toledo.", "es": "Lubna tiene un texto médico griego y un plazo, y el hombre que lo traducía ha aceptado un puesto en Toledo." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 3,
+    "npcId": "npc-lubna",
+    "threadId": "lubna-thread",
+    "conditions": { "flagsRequired": ["met-lubna"], "flagsExcluded": ["lubna-translation-done"] },
+    "options": [
+      { "id": "take-translation", "text": { "en": "Take the work and finish it today", "es": "Coge el trabajo y termínalo hoy" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -15 } }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.06 } }, "success": { "resources": { "reputation": 9, "currency": 30 }, "flagsSet": ["finished-translation", "lubna-translation-done"], "countersAdd": { "lubnaTrust": 4 }, "text": { "en": "Nine folios by lamplight. Your Arabic for the Greek word for 'fever' will outlive you by six hundred years.", "es": "Nueve folios a la luz de la lámpara. Tu árabe para la palabra griega de 'fiebre' te sobrevivirá seiscientos años." } }, "failure": { "resources": { "energy": -10 }, "flagsSet": ["lubna-translation-done"], "countersAdd": { "lubnaTrust": -1 }, "text": { "en": "You get four folios in and the syntax defeats you. She finishes it herself after you leave.", "es": "Llegas a cuatro folios y la sintaxis te vence. Ella lo termina sola después de que te vayas." } } },
+      { "id": "find-translator", "text": { "en": "Find her a translator in the souk instead", "es": "Búscale un traductor en el zoco" }, "traits": { "cunning": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.7, "traitBonus": { "trait": "cunning", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 4, "currency": 10 }, "flagsSet": ["lubna-translation-done"], "countersAdd": { "lubnaTrust": 2 }, "text": { "en": "A Byzantine wool merchant who reads better than he sells. Everyone is paid and the deadline holds.", "es": "Un mercader bizantino de lana que lee mejor de lo que vende. Todos cobran y el plazo se cumple." } }, "failure": { "flagsSet": ["lubna-translation-done"], "text": { "en": "Nobody in the souk reads Greek for less than she can pay.", "es": "Nadie en el zoco lee griego por menos de lo que ella puede pagar." } } },
+      { "id": "decline-translation", "text": { "en": "It is beyond you and you say so", "es": "Te queda grande y lo dices" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["lubna-translation-done"], "countersAdd": { "lubnaTrust": 1 }, "text": { "en": "\"Good,\" she says. \"Half the men who come through that gate would have said yes.\"", "es": "\"Bien\", dice. \"La mitad de los hombres que cruzan esa puerta habrían dicho que sí.\"" } } }
+    ]
+  },
+  {
+    "id": "cordoba-lubna-resolution",
+    "text": { "en": "Lubna offers you a desk in the copyists' hall: modest pay, permanent access, and every book in Córdoba within reach.", "es": "Lubna te ofrece un pupitre en la sala de copistas: paga modesta, acceso permanente, y todos los libros de Córdoba al alcance." },
+    "timeSlots": ["asr", "night"],
+    "weight": 2,
+    "npcId": "npc-lubna",
+    "threadId": "lubna-thread",
+    "conditions": { "flagsRequired": ["finished-translation"], "flagsExcluded": ["lubna-thread-resolved"] },
+    "options": [
+      { "id": "take-the-desk", "text": { "en": "Take the desk", "es": "Acepta el pupitre" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 8, "currency": 10 }, "flagsSet": ["lubna-thread-resolved", "remembered-lubna-desk"], "countersAdd": { "lubnaTrust": 4 }, "text": { "en": "Third row, by the window, with a lamp of your own. She says the last person to sit there died famous.", "es": "Tercera fila, junto a la ventana, con lámpara propia. Dice que la última persona que se sentó ahí murió famosa." } } },
+      { "id": "decline-the-desk", "text": { "en": "Decline — but ask to come back and read", "es": "Rechaza, pero pide poder volver a leer" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["lubna-thread-resolved", "remembered-lubna-desk"], "countersAdd": { "lubnaTrust": 3 }, "text": { "en": "\"The gate is open to you now,\" she says. \"That is rarer than the desk.\"", "es": "\"La puerta está abierta para ti ahora\", dice. \"Eso es más raro que el pupitre.\"" } } }
+    ]
+  },
+  {
+    "id": "cordoba-lubna-remembers",
+    "text": { "en": "The library gate opens for you without a word, and there is a book already waiting on your old desk.", "es": "La puerta de la biblioteca se abre para ti sin una palabra, y ya hay un libro esperando en tu antiguo pupitre." },
+    "timeSlots": ["fajr", "midday"],
+    "weight": 4,
+    "npcId": "npc-lubna",
+    "threadId": "lubna-thread",
+    "conditions": { "flagsRequired": ["remembered-lubna-desk"], "flagsExcluded": ["met-lubna"] },
+    "options": [
+      { "id": "read-waiting-book", "text": { "en": "Sit down and read what she chose for you", "es": "Siéntate y lee lo que ella eligió para ti" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5, "energy": 5 }, "flagsSet": ["met-lubna", "read-in-library"], "countersAdd": { "lubnaTrust": 3 }, "text": { "en": "An astronomy treatise with her own marginal notes, which is not a thing she does for people.", "es": "Un tratado de astronomía con sus propias notas al margen, cosa que no hace por cualquiera." } } },
+      { "id": "greet-lubna-brief", "text": { "en": "Greet her and promise to come back tonight", "es": "Salúdala y promete volver esta noche" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-lubna"], "countersAdd": { "lubnaTrust": 1 }, "text": { "en": "She marks the page and leaves it exactly where it is.", "es": "Marca la página y lo deja exactamente donde está." } } }
+    ]
+  },
+  {
+    "id": "cordoba-marwan-clinic",
+    "text": { "en": "Outside the hospital, Marwan the court physician is choosing which of forty waiting patients he can see before dark.", "es": "Frente al hospital, Marwan el médico de la corte elige a cuáles de cuarenta pacientes en espera puede atender antes de anochecer." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 4,
+    "npcId": "npc-marwan",
+    "threadId": "marwan-thread",
+    "conditions": { "flagsExcluded": ["met-marwan", "remembered-marwan-student"] },
+    "options": [
+      { "id": "help-marwan-triage", "text": { "en": "Help him work the line", "es": "Ayúdale a atender la fila" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["met-marwan"], "countersAdd": { "marwanFavor": 3 }, "text": { "en": "You hold hands, fetch water, and keep forty frightened people in order. He gets through thirty-one instead of nineteen.", "es": "Sostienes manos, traes agua, y mantienes en orden a cuarenta personas asustadas. Él atiende a treinta y uno en vez de a diecinueve." } } },
+      { "id": "pay-for-patients", "text": { "en": "Pay the medicine costs for the poorest in the line", "es": "Paga las medicinas de los más pobres de la fila" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -35 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 7 }, "flagsSet": ["met-marwan", "paid-medicines"], "countersAdd": { "marwanFavor": 3 }, "text": { "en": "Six prescriptions filled that would not have been. Marwan asks your name and writes it down.", "es": "Seis recetas surtidas que no lo habrían sido. Marwan pregunta tu nombre y lo anota." } } },
+      { "id": "avoid-hospital", "text": { "en": "Cross the square and avoid the line", "es": "Cruza la plaza y evita la fila" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-marwan"], "text": { "en": "Forty people, one physician, and one fewer pair of hands.", "es": "Cuarenta personas, un médico, y un par de manos menos." } } }
+    ]
+  },
+  {
+    "id": "cordoba-marwan-surgery",
+    "text": { "en": "Marwan has a cataract to couch and no assistant steady enough. He looks at your hands, not your face.", "es": "Marwan tiene que operar una catarata y no tiene un ayudante con pulso firme. Te mira las manos, no la cara." },
+    "timeSlots": ["asr", "night"],
+    "weight": 3,
+    "npcId": "npc-marwan",
+    "threadId": "marwan-thread",
+    "conditions": { "flagsRequired": ["met-marwan"], "flagsExcluded": ["marwan-surgery-done"] },
+    "options": [
+      { "id": "assist-surgery", "text": { "en": "Assist him through it", "es": "Asístele durante la operación" }, "traits": { "bold": 1 }, "cost": { "time": 3, "resources": { "energy": -15 } }, "successChance": { "base": 0.55, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 10, "currency": 25 }, "flagsSet": ["assisted-surgery", "marwan-surgery-done"], "countersAdd": { "marwanFavor": 4 }, "text": { "en": "Two hours holding a head absolutely still. When the bandage comes off in three days, the old man will see his grandchildren.", "es": "Dos horas sosteniendo una cabeza absolutamente inmóvil. Cuando le quiten la venda en tres días, el anciano verá a sus nietos." } }, "failure": { "resources": { "reputation": -3, "energy": -10 }, "flagsSet": ["marwan-surgery-done"], "countersAdd": { "marwanFavor": -1 }, "text": { "en": "Your hand shakes at the wrong moment and he has to stop. He is kind about it, which is worse.", "es": "Te tiembla la mano en el momento equivocado y tiene que parar. Es amable al respecto, lo que es peor." } } },
+      { "id": "fetch-instruments", "text": { "en": "Fetch and boil his instruments instead", "es": "Ve a por sus instrumentos y hiérvelos" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["marwan-surgery-done"], "countersAdd": { "marwanFavor": 2 }, "text": { "en": "Clean steel, ready when he needs it. He finds another assistant and mentions you did not pretend.", "es": "Acero limpio, listo cuando lo necesita. Encuentra otro ayudante y comenta que no fingiste saber." } } },
+      { "id": "decline-surgery", "text": { "en": "Refuse — this is not for untrained hands", "es": "Niégate: esto no es para manos sin formación" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["marwan-surgery-done"], "countersAdd": { "marwanFavor": 1 }, "text": { "en": "\"Correct,\" he says, and does it with a student instead.", "es": "\"Correcto\", dice, y lo hace con un estudiante." } } }
+    ]
+  },
+  {
+    "id": "cordoba-marwan-resolution",
+    "text": { "en": "Marwan offers to take you on as a student: seven years, no pay, and the whole of medicine at the end of it.", "es": "Marwan se ofrece a tomarte como estudiante: siete años, sin paga, y toda la medicina al final." },
+    "timeSlots": ["night"],
+    "weight": 2,
+    "npcId": "npc-marwan",
+    "threadId": "marwan-thread",
+    "conditions": { "flagsRequired": ["assisted-surgery"], "flagsExcluded": ["marwan-thread-resolved"] },
+    "options": [
+      { "id": "accept-studentship", "text": { "en": "Accept the seven years", "es": "Acepta los siete años" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 9 }, "flagsSet": ["marwan-thread-resolved", "remembered-marwan-student"], "countersAdd": { "marwanFavor": 4 }, "text": { "en": "He writes your name in the register under his own. Seven years from tonight, people will call you doctor.", "es": "Escribe tu nombre en el registro bajo el suyo. Dentro de siete años a partir de esta noche, te llamarán médico." } } },
+      { "id": "decline-studentship", "text": { "en": "Decline, but ask to keep assisting", "es": "Rechaza, pero pide seguir asistiendo" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5, "currency": 15 }, "flagsSet": ["marwan-thread-resolved", "remembered-marwan-student"], "countersAdd": { "marwanFavor": 2 }, "text": { "en": "\"Come when I send for you, then,\" he says. \"I will send for you.\"", "es": "\"Ven cuando te mande llamar, entonces\", dice. \"Te mandaré llamar.\"" } } }
+    ]
+  },
+  {
+    "id": "cordoba-marwan-remembers",
+    "text": { "en": "A boy from the hospital finds you in the street: Marwan sent for you, and there is a case waiting.", "es": "Un chico del hospital te encuentra en la calle: Marwan ha mandado llamarte, y hay un caso esperando." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 4,
+    "npcId": "npc-marwan",
+    "threadId": "marwan-thread",
+    "conditions": { "flagsRequired": ["remembered-marwan-student"], "flagsExcluded": ["met-marwan"] },
+    "options": [
+      { "id": "answer-summons", "text": { "en": "Go at once", "es": "Ve de inmediato" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 6, "currency": 20 }, "flagsSet": ["met-marwan", "assisted-surgery"], "countersAdd": { "marwanFavor": 3 }, "text": { "en": "He hands you the instruments without explaining which is which, because he knows he doesn't have to.", "es": "Te pasa los instrumentos sin explicar cuál es cuál, porque sabe que no hace falta." } } },
+      { "id": "send-word-later", "text": { "en": "Send word that you'll come at lamplight", "es": "Manda recado de que irás a la hora de las lámparas" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-marwan"], "countersAdd": { "marwanFavor": 1 }, "text": { "en": "The boy runs back with the message. The case will still be there; they always are.", "es": "El chico vuelve corriendo con el recado. El caso seguirá ahí; siempre siguen ahí." } } }
+    ]
+  },
+  {
+    "id": "cordoba-astrolabe-maker",
+    "text": { "en": "In the street of the instrument makers, a craftsman is scribing degree marks onto a brass astrolabe plate.", "es": "En la calle de los fabricantes de instrumentos, un artesano graba las marcas de grados en una lámina de latón de astrolabio." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 3,
+    "options": [
+      { "id": "learn-astrolabe", "text": { "en": "Ask him to teach you to read it", "es": "Pídele que te enseñe a leerlo" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["learned-astrolabe"], "text": { "en": "Altitude, latitude, the hour, the direction of Mecca and the height of the minaret across the street. One disc of brass does all of it.", "es": "Altura, latitud, la hora, la dirección de La Meca y la altura del alminar de enfrente. Un disco de latón hace todo eso." } }, "failure": { "text": { "en": "The mathematics runs away from you at the third step. He is patient; you are not.", "es": "Las matemáticas se te escapan al tercer paso. Él es paciente; tú no." } } },
+      { "id": "work-the-brass", "text": { "en": "Offer to help scribe the plates", "es": "Ofrécete a ayudar a grabar las láminas" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.7 }, "success": { "resources": { "currency": 22 }, "text": { "en": "Three hundred and sixty marks, each one exactly where it must be. He pays for accuracy, not speed.", "es": "Trescientas sesenta marcas, cada una exactamente donde debe. Paga por precisión, no por velocidad." } }, "failure": { "resources": { "currency": -8 }, "text": { "en": "Two marks drift by a hair and the whole plate is scrap. You pay for the brass.", "es": "Dos marcas se desvían un pelo y toda la lámina es chatarra. Pagas el latón." } } },
+      { "id": "just-watch-astrolabe", "text": { "en": "Watch a while and move on", "es": "Mira un rato y sigue" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The scribing tool makes a sound like a very small bell.", "es": "El buril suena como una campana muy pequeña." } } }
+    ]
+  },
+  {
+    "id": "cordoba-tannery-work",
+    "text": { "en": "The tanneries by the river are short of hands and the smell explains why the pay is good.", "es": "Las tenerías junto al río andan cortas de manos y el olor explica por qué la paga es buena." },
+    "timeSlots": ["fajr", "midday"],
+    "weight": 3,
+    "conditions": { "resources": { "energy": { "min": 20 } } },
+    "options": [
+      { "id": "work-tannery", "text": { "en": "Work a shift in the pits", "es": "Haz un turno en las pilas" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 30 }, "text": { "en": "Lime, dung, bark liquor and your hands raw. Córdoba leather is famous across three continents for a reason.", "es": "Cal, estiércol, licor de corteza y las manos en carne viva. El cuero de Córdoba es famoso en tres continentes por algo." } } },
+      { "id": "broker-hides", "text": { "en": "Broker a load of hides instead of working them", "es": "Intermedia un cargamento de pieles en vez de trabajarlas" }, "traits": { "cunning": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "currency": 45 }, "text": { "en": "You never touch a hide and make more than the men in the pits. Everyone knows exactly what that is.", "es": "No tocas ni una piel y ganas más que los hombres de las pilas. Todos saben exactamente qué es eso." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "The buyer goes direct to the master tanner and cuts you out entirely.", "es": "El comprador va directo al maestro curtidor y te deja fuera por completo." } } },
+      { "id": "skip-tannery", "text": { "en": "Not for that smell", "es": "No por ese olor" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Nobody blames you. Everybody who works there would leave too.", "es": "Nadie te lo reprocha. Todos los que trabajan allí también se irían." } } }
+    ]
+  },
+  {
+    "id": "cordoba-river-flood",
+    "text": { "en": "The Guadalquivir is running high and brown, and the mill weir below the bridge is starting to give.", "es": "El Guadalquivir baja alto y pardo, y la presa del molino bajo el puente empieza a ceder." },
+    "timeSlots": ["asr", "night"],
+    "weight": 3,
+    "options": [
+      { "id": "hold-riverbank", "text": { "en": "Join the men shoring the bank", "es": "Únete a los hombres que apuntalan la orilla" }, "traits": { "bold": 1 }, "cost": { "time": 3, "resources": { "energy": -22 } }, "successChance": { "base": 0.6, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 10 }, "flagsSet": ["held-riverbank"], "text": { "en": "Sandbags, timber and eleven hours of river. The mills survive and so does the lower quarter.", "es": "Sacos de arena, madera y once horas de río. Los molinos sobreviven y el barrio bajo también." } }, "failure": { "resources": { "health": -18, "reputation": 4 }, "text": { "en": "The weir goes anyway and takes you into the water with it. They fish you out downstream, alive.", "es": "La presa cede igual y te lleva al agua con ella. Te sacan río abajo, vivo." } } },
+      { "id": "warn-lower-quarter", "text": { "en": "Run ahead and empty the lower houses", "es": "Adelántate y vacía las casas bajas" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 0.8 }, "success": { "resources": { "reputation": 8 }, "flagsSet": ["held-riverbank", "warned-quarter"], "text": { "en": "Thirty families and their goats up the hill before the water. Two houses are lost and nobody is.", "es": "Treinta familias y sus cabras cuesta arriba antes que el agua. Se pierden dos casas y ninguna persona." } }, "failure": { "resources": { "reputation": 3, "health": -8 }, "text": { "en": "You get most of them out. The water is at your knees for the last two doors.", "es": "Sacas a casi todos. El agua te llega a las rodillas en las dos últimas puertas." } } },
+      { "id": "watch-flood", "text": { "en": "Watch from the bridge with everyone else", "es": "Mira desde el puente con todos los demás" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -3 }, "text": { "en": "It is an extraordinary thing to see. It is also being seen that you only watched.", "es": "Es algo extraordinario de ver. También se ve que solo miraste." } } }
+    ]
+  },
+  {
+    "id": "cordoba-poetry-contest",
+    "text": { "en": "In a courtyard hung with lamps, a poetry contest is running and the prize purse is real money.", "es": "En un patio colgado de lámparas, se celebra un certamen de poesía y la bolsa del premio es dinero de verdad." },
+    "timeSlots": ["night"],
+    "weight": 3,
+    "options": [
+      { "id": "recite-cordoba", "text": { "en": "Put your name down and recite", "es": "Apúntate y recita" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.45, "traitBonus": { "trait": "bold", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 8, "currency": 30 }, "flagsSet": ["won-poetry"], "text": { "en": "Twelve lines about a river and a debt. The courtyard is silent, then very much not.", "es": "Doce versos sobre un río y una deuda. El patio queda en silencio, y luego todo lo contrario." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "You lose the meter in the fourth line and a wit in the back finishes it for you, badly, to laughter.", "es": "Pierdes el metro en el cuarto verso y un gracioso del fondo lo termina por ti, mal, entre risas." } } },
+      { "id": "judge-poetry", "text": { "en": "Sit with the judges and listen properly", "es": "Siéntate con los jueces y escucha en serio" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3, "energy": 5 }, "text": { "en": "Nine poets, two good ones, one that will be copied and sung for a century. You hear it first.", "es": "Nueve poetas, dos buenos, uno que se copiará y cantará durante un siglo. Tú lo oyes el primero." } } },
+      { "id": "leave-poetry", "text": { "en": "Go home before the lamps burn down", "es": "Vete a casa antes de que se consuman las lámparas" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "text": { "en": "The verses follow you down the lane in pieces.", "es": "Los versos te siguen por el callejón a trozos." } } }
+    ]
+  },
+  {
+    "id": "cordoba-orphan-beggar",
+    "text": { "en": "A girl of nine is selling one wilted bunch of mint at the corner and has been there since first light.", "es": "Una niña de nueve años vende un manojo mustio de hierbabuena en la esquina y lleva ahí desde el amanecer." },
+    "timeSlots": ["fajr", "midday", "asr", "night"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "options": [
+      { "id": "buy-all-mint", "text": { "en": "Buy the mint at ten times what it's worth", "es": "Compra la hierbabuena a diez veces su valor" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "thirst": 10, "reputation": 4 }, "text": { "en": "She runs before you can change your mind. The mint is genuinely good in water.", "es": "Sale corriendo antes de que cambies de idea. La hierbabuena está realmente buena en el agua." } } },
+      { "id": "find-her-work", "text": { "en": "Take her to Yusuf and ask him to find her work", "es": "Llévala con Yusuf y pídele que le busque trabajo" }, "traits": { "generous": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.65, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 7 }, "flagsSet": ["placed-orphan"], "text": { "en": "Sweeping and running errands in the souk, fed twice a day. It is not much. It is a completely different life.", "es": "Barrer y hacer recados en el zoco, comida dos veces al día. No es mucho. Es una vida completamente distinta." } }, "failure": { "resources": { "reputation": 1 }, "text": { "en": "Nobody has room for another mouth today. You buy the mint instead.", "es": "Hoy nadie tiene sitio para otra boca. Le compras la hierbabuena." } } },
+      { "id": "walk-past-girl", "text": { "en": "Walk past", "es": "Pasa de largo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -2 }, "text": { "en": "She is still there when you come back the other way.", "es": "Sigue ahí cuando vuelves por el otro lado." } } }
+    ]
+  },
+  {
+    "id": "cordoba-mosque-court",
+    "text": { "en": "In the courtyard of the great mosque, a legal scholar is hearing disputes under the orange trees, and the queue is long.", "es": "En el patio de la gran mezquita, un jurista escucha disputas bajo los naranjos, y la cola es larga." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 3,
+    "options": [
+      { "id": "witness-for-neighbor", "text": { "en": "Stand as witness for a neighbor in a boundary case", "es": "Sé testigo de un vecino en un pleito de lindes" }, "traits": { "generous": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.7 }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["witnessed-case"], "text": { "en": "Your word settles two feet of wall and forty years of argument. The neighbor weeps, embarrassingly.", "es": "Tu palabra zanja dos pies de muro y cuarenta años de discusión. El vecino llora, incómodamente." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "The other side produces a document. You were honest and wrong.", "es": "La otra parte presenta un documento. Fuiste honesto y te equivocaste." } } },
+      { "id": "study-the-rulings", "text": { "en": "Sit and follow the rulings all afternoon", "es": "Siéntate y sigue las sentencias toda la tarde" }, "traits": { "curious": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["studied-law"], "text": { "en": "Water rights, inheritance, a disputed camel. The reasoning is more interesting than any of the cases.", "es": "Derechos de agua, herencias, un camello en disputa. El razonamiento es más interesante que cualquiera de los casos." } } },
+      { "id": "leave-mosque-court", "text": { "en": "Leave the law to the lawyers", "es": "Deja la ley a los juristas" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The queue does not get shorter behind you.", "es": "La cola no se acorta a tu espalda." } } }
+    ]
+  },
+  {
+    "id": "cordoba-night-thief",
+    "text": { "en": "In an unlit lane, someone cuts your purse strap and is already three steps away when you feel it.", "es": "En un callejón sin luz, alguien te corta la correa de la bolsa y ya está a tres pasos cuando lo notas." },
+    "timeSlots": ["night"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 15 } } },
+    "options": [
+      { "id": "chase-thief-cordoba", "text": { "en": "Chase him through the lanes", "es": "Persíguelo por los callejones" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "energy": -12 } }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "energy", "scale": 0.3 } }, "success": { "resources": { "reputation": 3 }, "text": { "en": "You corner him at a dead end. He is fourteen and terrified. You take your purse and let him run.", "es": "Lo acorralas en un callejón sin salida. Tiene catorce años y está aterrado. Recuperas tu bolsa y lo dejas correr." } }, "failure": { "resources": { "currency": -25, "health": -8 }, "text": { "en": "He knows the lanes and you do not. You go down on the cobbles for nothing.", "es": "Él conoce los callejones y tú no. Acabas en el suelo para nada." } } },
+      { "id": "shout-for-watch", "text": { "en": "Shout for the night watch", "es": "Llama a gritos a la ronda nocturna" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6 }, "success": { "resources": { "currency": -5 }, "text": { "en": "They catch him at the corner. You get most of it back and do not press charges.", "es": "Lo atrapan en la esquina. Recuperas casi todo y no presentas cargos." } }, "failure": { "resources": { "currency": -20 }, "text": { "en": "The watch arrives at a walk, some minutes later, and takes your statement carefully.", "es": "La ronda llega andando, unos minutos después, y toma tu declaración con mucho cuidado." } } },
+      { "id": "let-purse-go", "text": { "en": "Let it go", "es": "Déjalo ir" }, "traits": { "generous": 1 }, "cost": { "time": 0, "resources": { "currency": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Twenty dirhams. You have eaten today, which is more than he has.", "es": "Veinte dírhams. Tú has comido hoy, que es más de lo que ha comido él." } } }
+    ]
+  },
+  {
+    "id": "cordoba-bathhouse-cordoba",
+    "text": { "en": "The hammam is at its best hour: hot room nearly empty, cold room quiet, and the attendant knows your feet hurt.", "es": "El hamam está en su mejor hora: sala caliente casi vacía, sala fría en silencio, y el encargado sabe que te duelen los pies." },
+    "timeSlots": ["asr", "night"],
+    "weight": 4,
+    "conditions": { "resources": { "currency": { "min": 5 } } },
+    "options": [
+      { "id": "full-bath", "text": { "en": "Take the full bath", "es": "Date el baño completo" }, "traits": { "prudent": 1 }, "cost": { "time": 2, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 25, "health": 8, "thirst": -5 }, "text": { "en": "Steam, cold water, and a scrub that removes a layer of the day. Everything hurts less.", "es": "Vapor, agua fría, y un frotado que se lleva una capa del día. Todo duele menos." } } },
+      { "id": "bath-and-talk", "text": { "en": "Bathe and hear what the city is saying", "es": "Báñate y escucha lo que dice la ciudad" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 18, "reputation": 3 }, "flagsSet": ["hammam-news"], "text": { "en": "A grain shortage coming, a marriage collapsing, and which qadi takes gifts. Currency of another kind.", "es": "Una escasez de grano en camino, un matrimonio hundiéndose, y qué cadí acepta regalos. Moneda de otro tipo." } } },
+      { "id": "skip-hammam", "text": { "en": "Go home unwashed", "es": "Vete a casa sin lavarte" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The steam is visible from the street and you keep walking anyway.", "es": "El vapor se ve desde la calle y sigues caminando igualmente." } } }
+    ]
+  },
+  {
+    "id": "cordoba-caliph-procession",
+    "text": { "en": "The caliph's retinue is passing on the road from Medina Azahara and the whole street has stopped to look.", "es": "La comitiva del califa pasa por el camino de Medina Azahara y la calle entera se ha parado a mirar." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 2,
+    "options": [
+      { "id": "petition-the-caliph", "text": { "en": "Push forward and shout a petition", "es": "Adelántate y grita una petición" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.35, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 10, "currency": 25 }, "flagsSet": ["petitioned-caliph"], "text": { "en": "A secretary actually writes it down. Whether anything comes of it, half of Córdoba saw you dare.", "es": "Un secretario lo anota de verdad. Salga lo que salga, media Córdoba te vio atreverte." } }, "failure": { "resources": { "health": -10, "reputation": -3 }, "text": { "en": "A guardsman puts you back into the crowd with the flat of a spear.", "es": "Un guardia te devuelve a la multitud con el plano de una lanza." } } },
+      { "id": "watch-procession-cordoba", "text": { "en": "Watch from where you are", "es": "Mira desde donde estás" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "flagsSet": ["saw-caliph"], "text": { "en": "Silk, silver harness, and a man in the middle of it looking tired. You will describe it for years.", "es": "Seda, arreos de plata, y un hombre en medio con cara de cansado. Lo describirás durante años." } } },
+      { "id": "work-through-procession", "text": { "en": "Use the empty souk to get your errands done", "es": "Aprovecha el zoco vacío para hacer tus recados" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 15, "energy": -5 }, "text": { "en": "Every stall unattended, every price negotiable, every queue gone. Best hour of the day to trade.", "es": "Cada puesto desatendido, cada precio negociable, cada cola desaparecida. La mejor hora del día para comerciar." } } }
+    ]
+  },
+  {
+    "id": "cordoba-lamp-oil",
+    "text": { "en": "The lamp seller has one flask of good olive oil left and two customers, and you are one of them.", "es": "El vendedor de lámparas tiene un frasco de buen aceite de oliva y dos clientes, y tú eres uno." },
+    "timeSlots": ["night"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 8 } } },
+    "options": [
+      { "id": "outbid-for-oil", "text": { "en": "Outbid the other buyer", "es": "Puja más alto que el otro comprador" }, "traits": { "cunning": 1 }, "cost": { "time": 1, "resources": { "currency": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10 }, "flagsSet": ["has-lamp-oil"], "text": { "en": "Light to read by until midnight. The other buyer was a student, which you try not to think about.", "es": "Luz para leer hasta medianoche. El otro comprador era un estudiante, cosa en la que intentas no pensar." } } },
+      { "id": "split-the-oil", "text": { "en": "Propose splitting the flask", "es": "Propón repartir el frasco" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5, "reputation": 3 }, "flagsSet": ["has-lamp-oil"], "text": { "en": "Half each, half the price. The student thanks you twice and means it both times.", "es": "Mitad cada uno, mitad de precio. El estudiante te da las gracias dos veces y las dos van en serio." } } },
+      { "id": "sit-in-dark", "text": { "en": "Let him have it and sit in the dark", "es": "Déjaselo y siéntate a oscuras" }, "traits": { "generous": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2, "energy": 5 }, "text": { "en": "The courtyard at night without a lamp is not a punishment. There are stars over the orange tree.", "es": "El patio de noche sin lámpara no es un castigo. Hay estrellas sobre el naranjo." } } }
+    ]
+  },
+  {
+    "id": "cordoba-silk-workshop",
+    "text": { "en": "A silk workshop needs someone to work the loom's treadles for the afternoon while the master finishes a commission.", "es": "Un taller de seda necesita a alguien que accione los pedales del telar toda la tarde mientras el maestro termina un encargo." },
+    "timeSlots": ["midday", "asr"],
+    "weight": 3,
+    "options": [
+      { "id": "work-loom", "text": { "en": "Work the treadles", "es": "Acciona los pedales" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -18 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 26 }, "text": { "en": "Four hours, one rhythm, no thinking. The cloth that comes off is worth more than a house in Toledo.", "es": "Cuatro horas, un ritmo, sin pensar. La tela que sale vale más que una casa en Toledo." } } },
+      { "id": "learn-the-pattern", "text": { "en": "Ask how the pattern is programmed into the loom", "es": "Pregunta cómo se programa el dibujo en el telar" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "energy": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 10, "reputation": 3 }, "flagsSet": ["learned-loom"], "text": { "en": "Cords, counted threads, a plan written on a board. It is a machine that reads instructions, eight centuries early.", "es": "Cuerdas, hilos contados, un plan escrito en una tabla. Es una máquina que lee instrucciones, ocho siglos antes de tiempo." } } },
+      { "id": "decline-loom", "text": { "en": "Decline the work", "es": "Rechaza el trabajo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The treadles keep clacking behind you.", "es": "Los pedales siguen chasqueando a tu espalda." } } }
+    ]
+  }
+]

@@ -1,0 +1,342 @@
+[
+  {
+    "id": "mars-wake-bunk",
+    "text": { "en": "Your bunk light comes up to sunrise-orange at 06:00 station time. Outside the porthole it is still dark and pink.", "es": "La luz de tu litera sube a naranja amanecer a las 06:00 hora de estación. Fuera del ojo de buey todavía está oscuro y rosado." },
+    "timeSlots": ["wake"],
+    "weight": 5,
+    "options": [
+      { "id": "morning-checks", "text": { "en": "Run your suit and vitals checks first thing", "es": "Haz las comprobaciones de traje y constantes lo primero" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10, "reputation": 1 }, "text": { "en": "Seals green, filters green, heart rate boring. A good way to start a sol.", "es": "Sellos en verde, filtros en verde, pulso aburrido. Buena forma de empezar un sol." } } },
+      { "id": "sleep-in-bunk", "text": { "en": "Stay in the bunk another cycle", "es": "Quédate en la litera otro ciclo" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 22, "health": 2, "oxygen": -3 }, "text": { "en": "Two hundred people share this air. You breathe some of it lying down.", "es": "Doscientas personas comparten este aire. Tú respiras un poco tumbado." } } }
+    ]
+  },
+  {
+    "id": "mars-ration-line",
+    "text": { "en": "The mess dispenses the morning ration: printed protein, a hydration pack, and today, unexpectedly, real coffee.", "es": "El comedor reparte la ración matutina: proteína impresa, un pack de hidratación y hoy, inesperadamente, café de verdad." },
+    "timeSlots": ["wake", "work"],
+    "weight": 4,
+    "options": [
+      { "id": "take-full-ration", "text": { "en": "Take your full ration", "es": "Coge tu ración completa" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 30, "energy": 8 }, "text": { "en": "Beige, warm, adequate. The coffee is the whole point.", "es": "Beis, caliente, suficiente. El café es lo único que importa." } } },
+      { "id": "give-ration-away", "text": { "en": "Give your coffee to the night-shift crew", "es": "Da tu café al turno de noche" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 22, "reputation": 5 }, "text": { "en": "Four people who have been awake for eighteen hours will remember this specific cup for months.", "es": "Cuatro personas que llevan dieciocho horas despiertas recordarán esta taza concreta durante meses." } } },
+      { "id": "trade-ration", "text": { "en": "Trade the coffee for credits on the hab market", "es": "Cambia el café por créditos en el mercado del hábitat" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": 20, "currency": 20, "reputation": -1 }, "text": { "en": "Real coffee goes for absurd money up here, and everyone hates that you know it.", "es": "El café de verdad se paga a precios absurdos aquí arriba, y todos odian que lo sepas." } } }
+    ]
+  },
+  {
+    "id": "mars-scrubber-alarm",
+    "text": { "en": "A CO2 scrubber in Hab Three is throwing intermittent faults. Rask, the life support chief, is already swearing at it.", "es": "Un depurador de CO2 en el Hábitat Tres da fallos intermitentes. Rask, el jefe de soporte vital, ya le está gritando." },
+    "timeSlots": ["wake", "work"],
+    "weight": 4,
+    "npcId": "npc-rask",
+    "threadId": "rask-thread",
+    "conditions": { "flagsExcluded": ["met-rask", "remembered-rask-trust"] },
+    "options": [
+      { "id": "fix-scrubber", "text": { "en": "Get in the crawlspace and fix it", "es": "Métete en el conducto y arréglalo" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -18, "oxygen": -5 } }, "successChance": { "base": 0.55, "traitBonus": { "trait": "diligent", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 8, "currency": 15 }, "flagsSet": ["scrubber-fixed", "met-rask"], "countersAdd": { "raskRespect": 3 }, "text": { "en": "A cracked sensor housing, replaced in a space too small for shoulders. Rask says \"huh\" — the highest praise available.", "es": "Una carcasa de sensor agrietada, reemplazada en un hueco demasiado pequeño para hombros. Rask dice \"ajá\", el mayor elogio disponible." } }, "failure": { "resources": { "health": -8, "oxygen": -8 }, "flagsSet": ["met-rask"], "countersAdd": { "raskRespect": -1 }, "text": { "en": "You vent a line into your own face and come out coughing. Rask finishes it himself in ten minutes.", "es": "Purgas una línea contra tu propia cara y sales tosiendo. Rask lo termina él solo en diez minutos." } } },
+      { "id": "hand-tools-rask", "text": { "en": "Hand him tools and stay out of the way", "es": "Pásale herramientas y no estorbes" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["scrubber-fixed", "met-rask"], "countersAdd": { "raskRespect": 1 }, "text": { "en": "Two hours of holding a light steady. He notices you never once talked while he worked.", "es": "Dos horas sosteniendo una luz firme. Se fija en que no hablaste ni una vez mientras trabajaba." } } },
+      { "id": "log-and-leave", "text": { "en": "Log the fault and let maintenance handle it", "es": "Registra el fallo y deja que lo lleve mantenimiento" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-rask"], "countersAdd": { "raskRespect": -2 }, "text": { "en": "It is in the system now. Rask watches you walk away and says nothing at all.", "es": "Ya está en el sistema. Rask te ve marchar y no dice absolutamente nada." } } }
+    ]
+  },
+  {
+    "id": "mars-rask-audit",
+    "text": { "en": "Rask corners you with a tablet: someone has been drawing unlogged oxygen from Hab Two, and he wants a second pair of eyes.", "es": "Rask te acorrala con una tableta: alguien ha estado sacando oxígeno sin registrar del Hábitat Dos, y quiere un segundo par de ojos." },
+    "timeSlots": ["work", "dust"],
+    "weight": 3,
+    "npcId": "npc-rask",
+    "threadId": "rask-thread",
+    "conditions": { "flagsRequired": ["met-rask"], "flagsExcluded": ["rask-audit-done"] },
+    "options": [
+      { "id": "trace-leak", "text": { "en": "Trace the draw properly", "es": "Rastrea el consumo como es debido" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.6, "traitBonus": { "trait": "curious", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 6 }, "flagsSet": ["rask-audit-done", "solved-oxygen-draw"], "countersAdd": { "raskRespect": 3 }, "text": { "en": "Not theft: a botanist keeping an unauthorized second greenhouse alive. Rask lets it stand, and logs it as approved.", "es": "No es robo: una botánica manteniendo vivo un segundo invernadero no autorizado. Rask lo deja estar, y lo registra como aprobado." } }, "failure": { "flagsSet": ["rask-audit-done"], "countersAdd": { "raskRespect": -1 }, "text": { "en": "The numbers refuse to resolve. Somewhere, air is still going missing.", "es": "Los números se niegan a cuadrar. En algún sitio, sigue faltando aire." } } },
+      { "id": "blame-quickly", "text": { "en": "Point at the obvious suspect and close it", "es": "Señala al sospechoso obvio y ciérralo" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.5 }, "success": { "resources": { "currency": 20, "reputation": -3 }, "flagsSet": ["rask-audit-done"], "countersAdd": { "raskRespect": -2 }, "text": { "en": "Case closed, bonus paid, wrong person restricted. Rask reads the report twice and files it slowly.", "es": "Caso cerrado, bonificación pagada, persona equivocada sancionada. Rask lee el informe dos veces y lo archiva despacio." } }, "failure": { "resources": { "reputation": -5 }, "flagsSet": ["rask-audit-done"], "countersAdd": { "raskRespect": -3 }, "text": { "en": "Your suspect was on the surface all cycle, with witnesses. Everyone hears about it.", "es": "Tu sospechoso estuvo en la superficie todo el ciclo, con testigos. Todos se enteran." } } },
+      { "id": "decline-audit", "text": { "en": "Tell him it's above your pay grade", "es": "Dile que te queda grande" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["rask-audit-done"], "countersAdd": { "raskRespect": -1 }, "text": { "en": "\"Everything up here is above everyone's pay grade,\" he says, and takes the tablet back.", "es": "\"Aquí arriba todo le queda grande a todo el mundo\", dice, y recupera la tableta." } } }
+    ]
+  },
+  {
+    "id": "mars-rask-resolution",
+    "text": { "en": "Rask finds you in the dark cycle with two bulbs of something distilled and an offer he clearly rehearsed.", "es": "Rask te encuentra en el ciclo oscuro con dos bulbos de algo destilado y una oferta que claramente ha ensayado." },
+    "timeSlots": ["dark"],
+    "weight": 2,
+    "npcId": "npc-rask",
+    "threadId": "rask-thread",
+    "conditions": { "flagsRequired": ["solved-oxygen-draw"], "flagsExcluded": ["rask-thread-resolved"] },
+    "options": [
+      { "id": "accept-life-support", "text": { "en": "Accept a permanent slot on life support", "es": "Acepta un puesto permanente en soporte vital" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 8, "currency": 20 }, "flagsSet": ["rask-thread-resolved", "earned-rask-respect", "remembered-rask-trust"], "countersAdd": { "raskRespect": 4 }, "text": { "en": "\"Two hundred people breathe what we sign off on,\" he says. \"Sleep badly. It helps.\"", "es": "\"Doscientas personas respiran lo que nosotros firmamos\", dice. \"Duerme mal. Ayuda.\"" } } },
+      { "id": "stay-independent-rask", "text": { "en": "Stay independent, but keep the standing offer", "es": "Sigue por libre, pero acepta la oferta abierta" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["rask-thread-resolved", "earned-rask-respect", "remembered-rask-trust"], "countersAdd": { "raskRespect": 2 }, "text": { "en": "He nods. \"Offer doesn't expire. Neither does the scrubber problem.\"", "es": "Asiente. \"La oferta no caduca. El problema del depurador tampoco.\"" } } }
+    ]
+  },
+  {
+    "id": "mars-rask-remembers",
+    "text": { "en": "Rask has already left a toolkit on your bunk with your name taped to it, in his handwriting.", "es": "Rask ya ha dejado una caja de herramientas en tu litera con tu nombre pegado con cinta, escrito de su puño y letra." },
+    "timeSlots": ["wake", "work"],
+    "weight": 4,
+    "npcId": "npc-rask",
+    "threadId": "rask-thread",
+    "conditions": { "flagsRequired": ["remembered-rask-trust"], "flagsExcluded": ["met-rask"] },
+    "options": [
+      { "id": "take-toolkit", "text": { "en": "Take it and go find him", "es": "Cógela y ve a buscarlo" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4, "currency": 10 }, "flagsSet": ["met-rask", "scrubber-fixed"], "countersAdd": { "raskRespect": 3 }, "text": { "en": "Hab Three's scrubber, again. Between you it takes forty minutes instead of three hours.", "es": "El depurador del Hábitat Tres, otra vez. Entre los dos son cuarenta minutos en vez de tres horas." } } },
+      { "id": "leave-toolkit", "text": { "en": "Leave it on the bunk for now", "es": "Déjala en la litera por ahora" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-rask"], "countersAdd": { "raskRespect": 1 }, "text": { "en": "It will still be there tonight. He knows it will.", "es": "Seguirá ahí esta noche. Él sabe que seguirá." } } }
+    ]
+  },
+  {
+    "id": "mars-clinic-shift",
+    "text": { "en": "Dr. Okonkwo's clinic has three cases of dust-lung and one physician. She looks up when you pass the door.", "es": "La clínica de la Dra. Okonkwo tiene tres casos de pulmón de polvo y una sola médica. Levanta la vista cuando pasas por la puerta." },
+    "timeSlots": ["work", "dust"],
+    "weight": 4,
+    "npcId": "npc-okonkwo",
+    "threadId": "okonkwo-thread",
+    "conditions": { "flagsExcluded": ["met-okonkwo", "remembered-okonkwo-debt"] },
+    "options": [
+      { "id": "work-clinic", "text": { "en": "Work the shift with her", "es": "Cubre el turno con ella" }, "traits": { "generous": 1 }, "cost": { "time": 3, "resources": { "energy": -15 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 7, "currency": 12 }, "flagsSet": ["clinic-shift-done", "met-okonkwo"], "countersAdd": { "okonkwoTrust": 3 }, "text": { "en": "Nebulizers, charts, one very frightened teenager. She talks you through all of it and never once condescends.", "es": "Nebulizadores, gráficas, una adolescente muy asustada. Te lo explica todo y ni una sola vez te trata con condescendencia." } } },
+      { "id": "donate-filters", "text": { "en": "Donate your spare suit filters to the clinic", "es": "Dona tus filtros de traje de repuesto a la clínica" }, "traits": { "generous": 1 }, "cost": { "time": 1, "resources": { "currency": -25 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["met-okonkwo"], "countersAdd": { "okonkwoTrust": 2 }, "text": { "en": "Three filters, three patients who can breathe tonight. She writes your name in the supply log, twice.", "es": "Tres filtros, tres pacientes que pueden respirar esta noche. Escribe tu nombre en el registro de suministros, dos veces." } } },
+      { "id": "walk-past-clinic", "text": { "en": "Keep walking, you have your own cycle", "es": "Sigue tu camino, tienes tu propio ciclo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-okonkwo"], "text": { "en": "She looks back down at her charts before you're past the door.", "es": "Vuelve a mirar sus gráficas antes de que hayas pasado la puerta." } } }
+    ]
+  },
+  {
+    "id": "mars-okonkwo-triage",
+    "text": { "en": "Okonkwo pulls you aside: she has one dose of the good antifungal and two patients who need it.", "es": "Okonkwo te lleva aparte: tiene una dosis del antifúngico bueno y dos pacientes que lo necesitan." },
+    "timeSlots": ["dust", "dark"],
+    "weight": 3,
+    "npcId": "npc-okonkwo",
+    "threadId": "okonkwo-thread",
+    "conditions": { "flagsRequired": ["met-okonkwo"], "flagsExcluded": ["okonkwo-triage-done"] },
+    "options": [
+      { "id": "buy-second-dose", "text": { "en": "Buy a second dose off the supply market", "es": "Compra una segunda dosis en el mercado de suministros" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "currency": -45 } }, "successChance": { "base": 0.8 }, "success": { "resources": { "reputation": 8 }, "flagsSet": ["okonkwo-triage-done", "saved-both-patients"], "countersAdd": { "okonkwoTrust": 4 }, "text": { "en": "Absurd money for one vial. Both patients walk out of the clinic in four sols.", "es": "Un dineral por un vial. Ambos pacientes salen de la clínica en cuatro soles." } }, "failure": { "resources": { "currency": -20 }, "flagsSet": ["okonkwo-triage-done"], "countersAdd": { "okonkwoTrust": 1 }, "text": { "en": "The market has none at any price. She uses the dose on the worse case and thanks you for trying.", "es": "El mercado no tiene ninguno a ningún precio. Usa la dosis en el caso más grave y te agradece el intento." } } },
+      { "id": "help-her-choose", "text": { "en": "Help her make the call", "es": "Ayúdala a tomar la decisión" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["okonkwo-triage-done"], "countersAdd": { "okonkwoTrust": 3 }, "text": { "en": "Two charts, one dose, twenty minutes. She makes the call; you make sure she isn't alone when she does.", "es": "Dos gráficas, una dosis, veinte minutos. Ella decide; tú te aseguras de que no esté sola al hacerlo." } } },
+      { "id": "avoid-triage", "text": { "en": "Say you can't help with that", "es": "Dile que no puedes ayudar con eso" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["okonkwo-triage-done"], "countersAdd": { "okonkwoTrust": -1 }, "text": { "en": "\"No,\" she agrees. \"Nobody can.\" She goes back in alone.", "es": "\"No\", coincide. \"Nadie puede.\" Vuelve a entrar sola." } } }
+    ]
+  },
+  {
+    "id": "mars-okonkwo-resolution",
+    "text": { "en": "Okonkwo asks you to sign on as her permanent second — no medical training required, she says, just this.", "es": "Okonkwo te pide que te apuntes como su segunda permanente: no hace falta formación médica, dice, solo esto." },
+    "timeSlots": ["dark"],
+    "weight": 2,
+    "npcId": "npc-okonkwo",
+    "threadId": "okonkwo-thread",
+    "conditions": { "flagsRequired": ["saved-both-patients"], "flagsExcluded": ["okonkwo-thread-resolved"] },
+    "options": [
+      { "id": "accept-clinic-post", "text": { "en": "Accept", "es": "Acepta" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 8, "health": 5 }, "flagsSet": ["okonkwo-thread-resolved", "remembered-okonkwo-debt"], "countersAdd": { "okonkwoTrust": 4 }, "text": { "en": "\"Good,\" she says. \"Next time there's one dose and two patients, there will be two of us deciding.\"", "es": "\"Bien\", dice. \"La próxima vez que haya una dosis y dos pacientes, seremos dos decidiendo.\"" } } },
+      { "id": "decline-clinic-post", "text": { "en": "Decline, but promise to come when called", "es": "Rechaza, pero promete acudir cuando te llame" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4 }, "flagsSet": ["okonkwo-thread-resolved", "remembered-okonkwo-debt"], "countersAdd": { "okonkwoTrust": 2 }, "text": { "en": "\"That's most of it anyway,\" she says. \"Showing up.\"", "es": "\"Eso ya es casi todo\", dice. \"Aparecer.\"" } } }
+    ]
+  },
+  {
+    "id": "mars-okonkwo-remembers",
+    "text": { "en": "Okonkwo has already put your name on the clinic roster for this cycle without asking. There is coffee waiting.", "es": "Okonkwo ya ha puesto tu nombre en el turno de la clínica de este ciclo sin preguntar. Hay café esperando." },
+    "timeSlots": ["wake", "work"],
+    "weight": 4,
+    "npcId": "npc-okonkwo",
+    "threadId": "okonkwo-thread",
+    "conditions": { "flagsRequired": ["remembered-okonkwo-debt"], "flagsExcluded": ["met-okonkwo"] },
+    "options": [
+      { "id": "take-the-roster", "text": { "en": "Drink the coffee and start rounds", "es": "Bébete el café y empieza la ronda" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5, "currency": 10 }, "flagsSet": ["met-okonkwo", "clinic-shift-done"], "countersAdd": { "okonkwoTrust": 3 }, "text": { "en": "You know where the nebulizers live now. Rounds take half as long with two.", "es": "Ya sabes dónde están los nebulizadores. La ronda cuesta la mitad entre dos." } } },
+      { "id": "beg-off-roster", "text": { "en": "Beg off — you have surface work today", "es": "Excúsate: hoy tienes trabajo en superficie" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-okonkwo"], "countersAdd": { "okonkwoTrust": 1 }, "text": { "en": "\"Then drink the coffee at least,\" she says. \"It's already made.\"", "es": "\"Pues bébete el café al menos\", dice. \"Ya está hecho.\"" } } }
+    ]
+  },
+  {
+    "id": "mars-piper-eva",
+    "text": { "en": "Piper is suiting up for a solo EVA to the northern ridge and her partner just called in sick.", "es": "Piper se está poniendo el traje para una EVA en solitario a la cresta norte y su compañero acaba de darse de baja." },
+    "timeSlots": ["work", "dust"],
+    "weight": 4,
+    "npcId": "npc-piper",
+    "threadId": "piper-thread",
+    "conditions": { "resources": { "oxygen": { "min": 30 } }, "flagsExcluded": ["met-piper", "remembered-piper-partner"] },
+    "options": [
+      { "id": "join-eva", "text": { "en": "Suit up and go with her", "es": "Ponte el traje y ve con ella" }, "traits": { "bold": 1 }, "cost": { "time": 3, "resources": { "oxygen": -20, "energy": -15 } }, "successChance": { "base": 0.6, "traitBonus": { "trait": "bold", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 7, "currency": 20 }, "flagsSet": ["met-piper", "eva-completed"], "countersAdd": { "piperBond": 3 }, "text": { "en": "Six kilometers of rust-colored nothing and a horizon that curves wrong. She talks the whole way and you're glad.", "es": "Seis kilómetros de nada color óxido y un horizonte que se curva mal. Habla todo el camino y te alegras." } }, "failure": { "resources": { "health": -12, "oxygen": -10 }, "flagsSet": ["met-piper"], "countersAdd": { "piperBond": 1 }, "text": { "en": "A suit seal weeps at the wrist for the last kilometer. You both walk back fast and say little.", "es": "Un sello del traje pierde por la muñeca el último kilómetro. Volvéis rápido y habláis poco." } } },
+      { "id": "prep-her-suit", "text": { "en": "Check her suit thoroughly and see her off", "es": "Revisa su traje a fondo y despídela" }, "traits": { "diligent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["met-piper"], "countersAdd": { "piperBond": 2 }, "text": { "en": "You catch a scuffed elbow seal she'd have missed. She goes out safer and knows why.", "es": "Detectas un sello de codo rozado que a ella se le habría pasado. Sale más segura y sabe por qué." } } },
+      { "id": "report-solo-eva", "text": { "en": "Report the solo EVA to safety and stop it", "es": "Informa de la EVA en solitario a seguridad y deténla" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 2 }, "flagsSet": ["met-piper"], "countersAdd": { "piperBond": -3 }, "text": { "en": "Regulations are regulations, and she is grounded for the cycle. She does not speak to you at dinner.", "es": "El reglamento es el reglamento, y ella queda en tierra el ciclo entero. No te habla en la cena." } } }
+    ]
+  },
+  {
+    "id": "mars-ice-survey",
+    "text": { "en": "Ground-penetrating radar from the last survey shows something dense and bright under the northern ridge. Ice, maybe.", "es": "El radar de penetración terrestre del último sondeo muestra algo denso y brillante bajo la cresta norte. Hielo, quizá." },
+    "timeSlots": ["work", "dust"],
+    "weight": 3,
+    "npcId": "npc-piper",
+    "threadId": "piper-thread",
+    "conditions": { "resources": { "oxygen": { "min": 35 } }, "flagsRequired": ["eva-completed"], "flagsExcluded": ["found-ice"] },
+    "options": [
+      { "id": "drill-core", "text": { "en": "Take the drill out and pull a core", "es": "Saca la perforadora y extrae un testigo" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "oxygen": -25, "energy": -20 } }, "successChance": { "base": 0.5, "traitBonus": { "trait": "diligent", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 12, "currency": 40 }, "flagsSet": ["found-ice"], "countersAdd": { "piperBond": 3 }, "text": { "en": "Four meters down, the core comes up white. Ares Station's water problem just got a decade shorter.", "es": "A cuatro metros, el testigo sale blanco. El problema de agua de la Estación Ares acaba de acortarse una década." } }, "failure": { "resources": { "health": -10, "oxygen": -15 }, "text": { "en": "The drill binds at two meters on solid basalt. Whatever is down there stays down there today.", "es": "La perforadora se atasca a dos metros en basalto macizo. Lo que haya ahí abajo se queda ahí abajo hoy." } } },
+      { "id": "survey-only", "text": { "en": "Run a second radar pass instead of drilling", "es": "Haz una segunda pasada de radar en vez de perforar" }, "traits": { "curious": 1 }, "cost": { "time": 2, "resources": { "oxygen": -12 } }, "successChance": { "base": 0.75, "traitBonus": { "trait": "curious", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["ice-mapped"], "countersAdd": { "piperBond": 2 }, "text": { "en": "You map the deposit's edges without touching it. Whoever drills next will know exactly where.", "es": "Cartografías los bordes del depósito sin tocarlo. Quien perfore después sabrá exactamente dónde." } }, "failure": { "text": { "en": "The return is noise. The ridge keeps its secret one more sol.", "es": "El retorno es puro ruido. La cresta guarda su secreto un sol más." } } },
+      { "id": "skip-ice", "text": { "en": "Not with this much oxygen left", "es": "No con este oxígeno" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The ridge will still be there. It has been for four billion years.", "es": "La cresta seguirá ahí. Lleva cuatro mil millones de años." } } }
+    ]
+  },
+  {
+    "id": "mars-piper-resolution",
+    "text": { "en": "Piper asks you to sign on as her permanent EVA partner — the paperwork is already half filled in with your name.", "es": "Piper te pide que te apuntes como su compañero permanente de EVA: el papeleo ya está medio relleno con tu nombre." },
+    "timeSlots": ["dark"],
+    "weight": 2,
+    "npcId": "npc-piper",
+    "threadId": "piper-thread",
+    "conditions": { "flagsRequired": ["found-ice"], "flagsExcluded": ["piper-thread-resolved"] },
+    "options": [
+      { "id": "sign-partnership", "text": { "en": "Sign it", "es": "Fírmalo" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 8 }, "flagsSet": ["piper-partnered", "piper-thread-resolved", "remembered-piper-partner"], "countersAdd": { "piperBond": 4 }, "text": { "en": "\"Rule one,\" she says. \"Neither of us ever goes out alone again.\" You both sign under that.", "es": "\"Regla uno\", dice. \"Ninguno de los dos vuelve a salir solo.\" Los dos firmáis debajo de eso." } } },
+      { "id": "conditional-partnership", "text": { "en": "Sign, but insist on doubled safety margins", "es": "Firma, pero insiste en duplicar los márgenes de seguridad" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 6, "oxygen": 10 }, "flagsSet": ["piper-partnered", "piper-thread-resolved", "remembered-piper-partner"], "countersAdd": { "piperBond": 3 }, "text": { "en": "She argues for ten minutes, then agrees, then admits she is relieved.", "es": "Discute diez minutos, luego acepta, luego admite que está aliviada." } } }
+    ]
+  },
+  {
+    "id": "mars-piper-remembers",
+    "text": { "en": "Piper is at the airlock with two checked suits and your name already on the EVA manifest.", "es": "Piper está en la esclusa con dos trajes revisados y tu nombre ya en el manifiesto de EVA." },
+    "timeSlots": ["wake", "work"],
+    "weight": 4,
+    "npcId": "npc-piper",
+    "threadId": "piper-thread",
+    "conditions": { "flagsRequired": ["remembered-piper-partner"], "flagsExcluded": ["met-piper"] },
+    "options": [
+      { "id": "go-out-together", "text": { "en": "Cycle the lock and go", "es": "Purga la esclusa y salid" }, "traits": { "bold": 1 }, "cost": { "time": 2, "resources": { "oxygen": -15, "energy": -10 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5, "currency": 20 }, "flagsSet": ["met-piper", "eva-completed"], "countersAdd": { "piperBond": 3 }, "text": { "en": "Two suits, one route, no surprises. It is the easiest EVA either of you has had in months.", "es": "Dos trajes, una ruta, ninguna sorpresa. Es la EVA más fácil que habéis tenido en meses." } } },
+      { "id": "delay-eva", "text": { "en": "Push it to the next cycle", "es": "Déjalo para el siguiente ciclo" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "flagsSet": ["met-piper"], "countersAdd": { "piperBond": 1 }, "text": { "en": "\"Fine,\" she says, and racks both suits. She does not go out alone.", "es": "\"Vale\", dice, y guarda ambos trajes. No sale sola." } } }
+    ]
+  },
+  {
+    "id": "mars-dust-storm-warning",
+    "text": { "en": "Meteorology flags a regional dust front, four hours out. Six people are still on the surface.", "es": "Meteorología señala un frente de polvo regional a cuatro horas. Seis personas siguen en la superficie." },
+    "timeSlots": ["dust"],
+    "weight": 4,
+    "options": [
+      { "id": "call-everyone-in", "text": { "en": "Run the recall and count them all in", "es": "Lanza la llamada de regreso y cuéntalos a todos al entrar" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 0.7, "traitBonus": { "trait": "diligent", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 10 }, "flagsSet": ["storm-secured"], "text": { "en": "Six out, six back, airlock sealed with ninety minutes to spare. Nobody thanks you. Everybody notices.", "es": "Seis fuera, seis dentro, esclusa sellada con noventa minutos de margen. Nadie te da las gracias. Todos se dan cuenta." } }, "failure": { "resources": { "reputation": 3, "energy": -10 }, "text": { "en": "Five back easily; the sixth comes in during the first gusts, and it is not because of you.", "es": "Cinco vuelven sin problema; el sexto entra con las primeras rachas, y no es gracias a ti." } } },
+      { "id": "secure-panels", "text": { "en": "Secure the solar array before it's stripped", "es": "Asegura el campo solar antes de que quede pelado" }, "traits": { "prudent": 1 }, "cost": { "time": 2, "resources": { "energy": -15, "oxygen": -8 } }, "successChance": { "base": 0.8 }, "success": { "resources": { "reputation": 5, "currency": 15 }, "flagsSet": ["array-secured"], "text": { "en": "Forty panels feathered and locked. The station keeps its power through three days of red sky.", "es": "Cuarenta paneles abatidos y bloqueados. La estación conserva su energía durante tres días de cielo rojo." } }, "failure": { "resources": { "health": -10 }, "text": { "en": "The front arrives early. You lock the last row by feel, in the dark, coughing.", "es": "El frente llega antes. Bloqueas la última fila al tacto, a oscuras, tosiendo." } } },
+      { "id": "shelter-now", "text": { "en": "Get inside and seal up", "es": "Métete dentro y séllate" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 5, "reputation": -2 }, "text": { "en": "You are the first one in and the last one anyone wants to see about it.", "es": "Eres el primero en entrar y el último al que nadie quiere ver por ello." } } }
+    ]
+  },
+  {
+    "id": "mars-derelict-signal",
+    "text": { "en": "Comms is picking up a repeating twelve-second pulse from an old orbital probe nobody has logs for.", "es": "Comunicaciones capta un pulso repetitivo de doce segundos de una vieja sonda orbital de la que nadie tiene registros." },
+    "timeSlots": ["dark"],
+    "weight": 3,
+    "options": [
+      { "id": "decode-signal", "text": { "en": "Spend the dark cycle decoding it", "es": "Pasa el ciclo oscuro descifrándola" }, "traits": { "curious": 1 }, "cost": { "time": 3, "resources": { "energy": -15 } }, "successChance": { "base": 0.5, "traitBonus": { "trait": "curious", "perPoint": 0.06 } }, "success": { "resources": { "reputation": 10, "currency": 25 }, "flagsSet": ["decoded-signal"], "text": { "en": "A forty-year-old survey packet: soil chemistry from a lander everyone assumed was lost. It is still good data.", "es": "Un paquete de sondeo de hace cuarenta años: química del suelo de un módulo que todos daban por perdido. Los datos siguen siendo válidos." } }, "failure": { "resources": { "energy": -10 }, "text": { "en": "Six hours and it is still just twelve seconds of noise.", "es": "Seis horas y siguen siendo doce segundos de ruido." } } },
+      { "id": "report-signal", "text": { "en": "Log it for the day crew and go to bed", "es": "Regístralo para el turno de día y vete a dormir" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 12, "reputation": 1 }, "text": { "en": "Somebody with a proper antenna will get to it. Probably.", "es": "Alguien con una antena decente se ocupará. Probablemente." } } },
+      { "id": "sell-signal", "text": { "en": "Sell the raw capture to an orbital research feed", "es": "Vende la captura en bruto a un feed de investigación orbital" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 35, "reputation": -2 }, "text": { "en": "They pay on receipt and publish under their own name within the sol.", "es": "Pagan al recibirlo y lo publican con su propio nombre antes de acabar el sol." } } }
+    ]
+  },
+  {
+    "id": "mars-greenhouse",
+    "text": { "en": "The hydroponics bay needs hands: the tomato racks are fruiting and half the station has never seen a red thing grow.", "es": "El invernadero hidropónico necesita manos: los estantes de tomates están dando fruto y media estación nunca ha visto crecer algo rojo." },
+    "timeSlots": ["work", "dust"],
+    "weight": 4,
+    "options": [
+      { "id": "work-greenhouse", "text": { "en": "Work a harvest shift", "es": "Haz un turno de cosecha" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 18, "hunger": 20, "oxygen": 5 }, "text": { "en": "Warm, wet, green air, and a tomato eaten standing up over the rack. Best twenty minutes of the sol.", "es": "Aire cálido, húmedo, verde, y un tomate comido de pie junto al estante. Los mejores veinte minutos del sol." } } },
+      { "id": "teach-kids-greenhouse", "text": { "en": "Bring the hab's kids in to see it", "es": "Trae a los niños del hábitat a verlo" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 6, "oxygen": 5 }, "flagsSet": ["greenhouse-visit"], "text": { "en": "Nine children, born here, meeting a tomato plant. One of them will not let go of a leaf.", "es": "Nueve niños, nacidos aquí, conociendo una tomatera. Uno de ellos no quiere soltar una hoja." } } },
+      { "id": "skip-greenhouse", "text": { "en": "Not today", "es": "Hoy no" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The bay hums on without you.", "es": "El invernadero zumba sin ti." } } }
+    ]
+  },
+  {
+    "id": "mars-oxygen-market",
+    "text": { "en": "The unofficial hab market has oxygen bottles going for well under the official allocation price. No questions attached.", "es": "El mercado no oficial del hábitat tiene botellas de oxígeno muy por debajo del precio de asignación oficial. Sin preguntas." },
+    "timeSlots": ["work", "dust", "dark"],
+    "weight": 3,
+    "conditions": { "resources": { "currency": { "min": 15 } } },
+    "options": [
+      { "id": "buy-oxygen", "text": { "en": "Buy two bottles", "es": "Compra dos botellas" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "currency": -30 } }, "successChance": { "base": 0.85 }, "success": { "resources": { "oxygen": 30 }, "text": { "en": "Full bottles, clean seals, nobody's name on them.", "es": "Botellas llenas, sellos limpios, sin el nombre de nadie." } }, "failure": { "resources": { "oxygen": 8 }, "text": { "en": "One bottle reads full and is two thirds. That is why it was cheap.", "es": "Una botella marca llena y está a dos tercios. Por eso era barata." } } },
+      { "id": "report-oxygen-market", "text": { "en": "Report the market to life support", "es": "Denuncia el mercado a soporte vital" }, "traits": { "bold": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 4, "currency": 10 }, "flagsSet": ["reported-market"], "text": { "en": "Rask shuts it down within the hour. Four people stop speaking to you, and two hundred keep breathing metered air.", "es": "Rask lo cierra en menos de una hora. Cuatro personas dejan de hablarte, y doscientas siguen respirando aire medido." } } },
+      { "id": "resell-oxygen", "text": { "en": "Buy cheap and resell in Hab Four", "es": "Compra barato y revende en el Hábitat Cuatro" }, "traits": { "cunning": 1 }, "cost": { "time": 2, "resources": { "currency": -30 } }, "successChance": { "base": 0.6, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "currency": 70, "reputation": -3 }, "text": { "en": "Hab Four's allocation ran out two sols ago. They pay whatever you ask.", "es": "La asignación del Hábitat Cuatro se acabó hace dos soles. Pagan lo que pidas." }}, "failure": { "resources": { "reputation": -5 }, "text": { "en": "Somebody recognizes the bottles and asks, loudly, where you got them.", "es": "Alguien reconoce las botellas y pregunta, a gritos, de dónde las has sacado." } } }
+    ]
+  },
+  {
+    "id": "mars-hull-microfracture",
+    "text": { "en": "A pressure sensor in the corridor to Hab Two is reading a slow, tiny loss. Everyone else is asleep.", "es": "Un sensor de presión en el pasillo al Hábitat Dos marca una pérdida lenta y mínima. Todos los demás duermen." },
+    "timeSlots": ["dark"],
+    "weight": 3,
+    "options": [
+      { "id": "patch-fracture", "text": { "en": "Find it and patch it yourself", "es": "Encuéntrala y párchala tú mismo" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 0.6, "traitBonus": { "trait": "diligent", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 7, "currency": 15 }, "flagsSet": ["patched-hull"], "text": { "en": "A hairline crack behind a conduit, sealed in twenty minutes. Nobody will ever know it was there.", "es": "Una fisura capilar tras un conducto, sellada en veinte minutos. Nadie sabrá nunca que estuvo ahí." } }, "failure": { "resources": { "oxygen": -12, "health": -5 }, "text": { "en": "You find it by feeling the cold. The patch holds, eventually, after it costs you a bottle of air.", "es": "La encuentras notando el frío. El parche aguanta, al final, después de costarte una botella de aire." } } },
+      { "id": "wake-rask", "text": { "en": "Wake Rask for it", "es": "Despierta a Rask para esto" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "flagsSet": ["patched-hull"], "text": { "en": "He is furious for ninety seconds and grateful for the rest of the cycle.", "es": "Está furioso noventa segundos y agradecido el resto del ciclo." } } },
+      { "id": "ignore-fracture", "text": { "en": "It's within tolerance. Go back to bed.", "es": "Está dentro de tolerancia. Vuelve a la cama." }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 10, "oxygen": -8 }, "text": { "en": "It is within tolerance. It is also still leaking in the morning.", "es": "Está dentro de tolerancia. También sigue perdiendo por la mañana." } } }
+    ]
+  },
+  {
+    "id": "mars-new-arrival",
+    "text": { "en": "The transfer shuttle has dropped four new colonists, and one of them is standing in the corridor looking at the floor.", "es": "La lanzadera de transferencia ha dejado cuatro colonos nuevos, y uno de ellos está parado en el pasillo mirando al suelo." },
+    "timeSlots": ["work", "dust"],
+    "weight": 3,
+    "options": [
+      { "id": "show-them-around", "text": { "en": "Show them around the hab", "es": "Enséñale el hábitat" }, "traits": { "generous": 1 }, "cost": { "time": 2, "resources": { "energy": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5 }, "flagsSet": ["welcomed-newcomer"], "text": { "en": "Mess, clinic, airlock protocol, where the good coffee actually is. She stops looking at the floor.", "es": "Comedor, clínica, protocolo de esclusa, dónde está el café bueno de verdad. Deja de mirar al suelo." } } },
+      { "id": "sell-them-gear", "text": { "en": "Sell them your old suit liner at a markup", "es": "Véndele tu forro de traje viejo con sobreprecio" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 25, "reputation": -2 }, "text": { "en": "They do not know what a liner costs yet. They will by tomorrow.", "es": "Todavía no sabe lo que cuesta un forro. Lo sabrá mañana." } } },
+      { "id": "ignore-newcomer", "text": { "en": "Let orientation handle it", "es": "Deja que se ocupe orientación" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "Orientation is a forty-minute video from six years ago.", "es": "Orientación es un vídeo de cuarenta minutos de hace seis años." } } }
+    ]
+  },
+  {
+    "id": "mars-earth-call",
+    "text": { "en": "Your comms window with Earth opens: eleven minutes of lag each way, twenty minutes of bandwidth, one queue.", "es": "Se abre tu ventana de comunicación con la Tierra: once minutos de retardo por trayecto, veinte minutos de ancho de banda, una cola." },
+    "timeSlots": ["dust", "dark"],
+    "weight": 3,
+    "options": [
+      { "id": "call-family", "text": { "en": "Use it on your family", "es": "Úsala con tu familia" }, "traits": { "generous": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 15, "health": 5 }, "flagsSet": ["called-home"], "text": { "en": "Two questions and two answers in twenty minutes. Worth every second of the lag.", "es": "Dos preguntas y dos respuestas en veinte minutos. Vale cada segundo de retardo." } } },
+      { "id": "give-window-away", "text": { "en": "Give your window to the new arrival", "es": "Cede tu ventana al recién llegado" }, "traits": { "generous": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 6 }, "text": { "en": "First sol on Mars, and someone gave them their call home. They will do the same for someone in a year.", "es": "Primer sol en Marte, y alguien le ha cedido su llamada a casa. Hará lo mismo por otro dentro de un año." } } },
+      { "id": "trade-window", "text": { "en": "Sell the slot to a homesick engineer", "es": "Vende el hueco a un ingeniero con morriña" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 30, "reputation": -1 }, "text": { "en": "He pays without hesitating, which tells you what he thinks it's worth.", "es": "Paga sin dudar, lo que te dice lo que cree que vale." } } }
+    ]
+  },
+  {
+    "id": "mars-suit-rip",
+    "text": { "en": "Halfway back from the array, your glove catches on a strut and the outer layer opens two centimeters.", "es": "A medio camino de vuelta del campo solar, tu guante se engancha en un montante y la capa exterior se abre dos centímetros." },
+    "timeSlots": ["work", "dust"],
+    "weight": 2,
+    "conditions": { "resources": { "oxygen": { "min": 20 } } },
+    "options": [
+      { "id": "tape-and-continue", "text": { "en": "Tape it and finish the job", "es": "Ponle cinta y termina el trabajo" }, "traits": { "bold": 1 }, "cost": { "time": 1, "resources": { "oxygen": -10 } }, "successChance": { "base": 0.55 }, "success": { "resources": { "currency": 20, "reputation": 4 }, "text": { "en": "The tape holds. The job gets done. Your hand is cold for six hours.", "es": "La cinta aguanta. El trabajo se termina. Tu mano queda fría seis horas." } }, "failure": { "resources": { "health": -18, "oxygen": -15 }, "text": { "en": "The tear runs. You get back through the lock with frost inside the glove and no feeling in two fingers.", "es": "El desgarro se extiende. Cruzas la esclusa con escarcha dentro del guante y sin sensibilidad en dos dedos." } } },
+      { "id": "abort-and-return", "text": { "en": "Abort and walk straight back", "es": "Aborta y vuelve directo" }, "traits": { "prudent": 1 }, "cost": { "time": 1, "resources": { "oxygen": -8 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Rask replaces the glove without a word and marks the strut for grinding.", "es": "Rask cambia el guante sin decir palabra y marca el montante para limarlo." } } }
+    ]
+  },
+  {
+    "id": "mars-council-vote",
+    "text": { "en": "The colony council is voting on whether to spend the reserve on a second drill or a third scrubber. It is close.", "es": "El consejo de la colonia vota si gastar la reserva en una segunda perforadora o en un tercer depurador. Está reñido." },
+    "timeSlots": ["dust", "dark"],
+    "weight": 3,
+    "conditions": { "resources": { "reputation": { "min": 15 } } },
+    "options": [
+      { "id": "argue-for-drill", "text": { "en": "Argue for the drill and the water it finds", "es": "Defiende la perforadora y el agua que encontrará" }, "traits": { "bold": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.5, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 7 }, "flagsSet": ["council-won-drill"], "text": { "en": "You win it by three votes. In four years, that drill will be the reason this place still exists.", "es": "Lo ganas por tres votos. Dentro de cuatro años, esa perforadora será la razón de que este sitio siga existiendo." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "You are out-argued by someone with better numbers than yours.", "es": "Te gana en el debate alguien con mejores números que los tuyos." } } },
+      { "id": "argue-for-scrubber", "text": { "en": "Argue for the scrubber and the air we breathe now", "es": "Defiende el depurador y el aire que respiramos ahora" }, "traits": { "prudent": 1 }, "cost": { "time": 2 }, "successChance": { "base": 0.55, "resourceBonus": { "resource": "reputation", "scale": 0.3 } }, "success": { "resources": { "reputation": 6, "oxygen": 10 }, "flagsSet": ["council-won-scrubber"], "text": { "en": "Boring, unglamorous, and correct. The margin on hab air goes up eight percent this sol.", "es": "Aburrido, sin glamour, y correcto. El margen de aire del hábitat sube un ocho por ciento este sol." } }, "failure": { "resources": { "reputation": -2 }, "text": { "en": "\"We can't drill our way out of suffocating,\" you say, and lose anyway.", "es": "\"No podemos perforar para dejar de asfixiarnos\", dices, y pierdes igualmente." } } },
+      { "id": "abstain-council", "text": { "en": "Abstain", "es": "Abstente" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "text": { "en": "The vote goes ahead without you, by one.", "es": "La votación sale adelante sin ti, por uno." } } }
+    ]
+  },
+  {
+    "id": "mars-quota-shortfall",
+    "text": { "en": "Your work quota is going to come up short this cycle, and the allocation algorithm does not care why.", "es": "Tu cuota de trabajo va a quedarse corta este ciclo, y al algoritmo de asignación no le importa por qué." },
+    "timeSlots": ["dust", "dark"],
+    "weight": 3,
+    "options": [
+      { "id": "work-extra-shift", "text": { "en": "Take an extra maintenance shift to close it", "es": "Coge un turno extra de mantenimiento para cerrarla" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -20 } }, "successChance": { "base": 1 }, "success": { "resources": { "currency": 25, "reputation": 3 }, "text": { "en": "Filters, filters, filters. Quota met, back straining, allocation safe.", "es": "Filtros, filtros, filtros. Cuota cumplida, espalda destrozada, asignación a salvo." } } },
+      { "id": "reclassify-hours", "text": { "en": "Reclassify your clinic hours as maintenance", "es": "Reclasifica tus horas de clínica como mantenimiento" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.65, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "currency": 15 }, "text": { "en": "Technically defensible. The algorithm accepts it without blinking, because it cannot blink.", "es": "Técnicamente defendible. El algoritmo lo acepta sin pestañear, porque no puede pestañear." } }, "failure": { "resources": { "reputation": -5, "currency": -15 }, "text": { "en": "It gets flagged for review. Rask reviews it.", "es": "Queda marcado para revisión. Lo revisa Rask." } } },
+      { "id": "take-the-cut", "text": { "en": "Take the allocation cut", "es": "Acepta el recorte de asignación" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "hunger": -15, "oxygen": -8 }, "text": { "en": "Smaller rations, tighter air margin, no lies told. It is a real cost and you pay it.", "es": "Raciones más pequeñas, margen de aire más ajustado, ninguna mentira dicha. Es un coste real y lo pagas." } } }
+    ]
+  },
+  {
+    "id": "mars-observation-deck",
+    "text": { "en": "The observation deck is empty and Phobos is coming up over the crater rim, fast enough to watch it move.", "es": "La cúpula de observación está vacía y Fobos asoma sobre el borde del cráter, tan rápido que se ve moverse." },
+    "timeSlots": ["dark"],
+    "weight": 3,
+    "options": [
+      { "id": "watch-phobos", "text": { "en": "Sit and watch it cross", "es": "Siéntate y míralo cruzar" }, "traits": { "curious": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "energy": 15, "health": 4 }, "flagsSet": ["watched-phobos"], "text": { "en": "Four minutes and twenty seconds, horizon to horizon. Nothing on Earth moves like that.", "es": "Cuatro minutos y veinte segundos, de horizonte a horizonte. Nada en la Tierra se mueve así." } } },
+      { "id": "bring-someone-deck", "text": { "en": "Go get someone who has never seen it", "es": "Ve a buscar a alguien que no lo haya visto nunca" }, "traits": { "generous": 1 }, "cost": { "time": 2 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5, "energy": 8 }, "text": { "en": "The new arrival makes a sound you will think about for a long time.", "es": "El recién llegado hace un sonido en el que pensarás durante mucho tiempo." } } },
+      { "id": "skip-deck", "text": { "en": "You've seen it a hundred times", "es": "Ya lo has visto cien veces" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "You have. It is still doing it without you.", "es": "Es cierto. Sigue haciéndolo sin ti." } } }
+    ]
+  },
+  {
+    "id": "mars-water-recycler",
+    "text": { "en": "The greywater recycler in Hab One is running at sixty percent and the queue for showers is now measured in sols.", "es": "El reciclador de aguas grises del Hábitat Uno funciona al sesenta por ciento y la cola para las duchas ya se mide en soles." },
+    "timeSlots": ["work", "dust"],
+    "weight": 3,
+    "options": [
+      { "id": "strip-recycler", "text": { "en": "Strip and clean the membrane stack", "es": "Desmonta y limpia la pila de membranas" }, "traits": { "diligent": 1 }, "cost": { "time": 3, "resources": { "energy": -18 } }, "successChance": { "base": 0.7, "traitBonus": { "trait": "diligent", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 6, "currency": 18, "health": 4 }, "flagsSet": ["recycler-fixed"], "text": { "en": "Ninety-four percent by evening, and the shower queue collapses. You are briefly the most popular person in Hab One.", "es": "Noventa y cuatro por ciento al anochecer, y la cola de duchas se desploma. Eres brevemente la persona más popular del Hábitat Uno." } }, "failure": { "resources": { "energy": -10, "health": -5 }, "text": { "en": "You get it back to sixty-eight and covered in something you would rather not identify.", "es": "Lo dejas al sesenta y ocho y cubierto de algo que preferirías no identificar." } } },
+      { "id": "ration-showers", "text": { "en": "Post a fair shower rota instead", "es": "Publica un turno de duchas justo en su lugar" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 3 }, "text": { "en": "Nobody likes it. Everybody follows it. That is what a rota is.", "es": "A nadie le gusta. Todos lo siguen. Para eso está un turno." } } },
+      { "id": "skip-recycler", "text": { "en": "Someone else's system", "es": "Es el sistema de otro" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "text": { "en": "It will be at fifty percent by tomorrow.", "es": "Mañana estará al cincuenta por ciento." } } }
+    ]
+  },
+  {
+    "id": "mars-lost-rover",
+    "text": { "en": "A supply rover has stopped responding eleven kilometers out, with a full load and a driver who is not answering either.", "es": "Un rover de suministros ha dejado de responder a once kilómetros, con la carga completa y un conductor que tampoco contesta." },
+    "timeSlots": ["dust"],
+    "weight": 2,
+    "conditions": { "resources": { "oxygen": { "min": 40 } } },
+    "options": [
+      { "id": "go-after-rover", "text": { "en": "Take the second rover and go after them", "es": "Coge el segundo rover y ve a por ellos" }, "traits": { "bold": 1 }, "cost": { "time": 3, "resources": { "oxygen": -25, "energy": -18 } }, "successChance": { "base": 0.6, "traitBonus": { "trait": "bold", "perPoint": 0.05 } }, "success": { "resources": { "reputation": 12 }, "flagsSet": ["rescued-driver"], "text": { "en": "A dead battery bank and a driver on his last hour of suit air. He is alive because you did not wait.", "es": "Un banco de baterías muerto y un conductor en su última hora de aire de traje. Está vivo porque no esperaste." } }, "failure": { "resources": { "health": -15, "oxygen": -20, "reputation": 5 }, "text": { "en": "You find them, tow them, and burn most of your own margin doing it. Everyone gets back. Barely.", "es": "Los encuentras, los remolcas, y te gastas casi todo tu margen en ello. Todos vuelven. Por poco." } } },
+      { "id": "coordinate-rescue", "text": { "en": "Coordinate the rescue from comms", "es": "Coordina el rescate desde comunicaciones" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -10 } }, "successChance": { "base": 0.75, "traitBonus": { "trait": "diligent", "perPoint": 0.04 } }, "success": { "resources": { "reputation": 7 }, "flagsSet": ["rescued-driver"], "text": { "en": "Two rovers, one route, no second casualty. Coordination is not glamorous and it is the reason it worked.", "es": "Dos rovers, una ruta, ninguna segunda baja. La coordinación no es glamurosa y es la razón de que funcionara." } }, "failure": { "resources": { "reputation": -3 }, "text": { "en": "The rescue team finds them without your help, twenty minutes later than they should have.", "es": "El equipo de rescate los encuentra sin tu ayuda, veinte minutos más tarde de lo que debería." } } },
+      { "id": "wait-for-protocol", "text": { "en": "Wait for the storm window to close first", "es": "Espera primero a que se cierre la ventana de tormenta" }, "traits": { "prudent": 1 }, "cost": { "time": 1 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": -4 }, "text": { "en": "Protocol says wait. Protocol was written by people who were not eleven kilometers out.", "es": "El protocolo dice esperar. El protocolo lo escribió gente que no estaba a once kilómetros." } } }
+    ]
+  },
+  {
+    "id": "mars-night-inventory",
+    "text": { "en": "Dark cycle, nobody around, and the supply manifest is open on an unattended terminal.", "es": "Ciclo oscuro, nadie alrededor, y el manifiesto de suministros abierto en una terminal desatendida." },
+    "timeSlots": ["dark"],
+    "weight": 3,
+    "options": [
+      { "id": "audit-inventory", "text": { "en": "Do a proper count against the manifest", "es": "Haz un recuento en condiciones contra el manifiesto" }, "traits": { "diligent": 1 }, "cost": { "time": 2, "resources": { "energy": -12 } }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 5, "currency": 12 }, "flagsSet": ["inventory-audited"], "text": { "en": "Three discrepancies, all clerical, all fixed. Boring work that stops a crisis in nine months.", "es": "Tres discrepancias, todas administrativas, todas corregidas. Trabajo aburrido que evita una crisis dentro de nueve meses." } } },
+      { "id": "adjust-your-line", "text": { "en": "Adjust your own allocation line by a little", "es": "Ajusta un poco tu propia línea de asignación" }, "traits": { "cunning": 1 }, "cost": { "time": 1 }, "successChance": { "base": 0.6, "traitBonus": { "trait": "cunning", "perPoint": 0.05 } }, "success": { "resources": { "currency": 30, "oxygen": 12, "reputation": -2 }, "text": { "en": "Two percent. Nobody will ever notice two percent. You will, every time you look at the number.", "es": "Un dos por ciento. Nadie notará nunca un dos por ciento. Tú sí, cada vez que mires la cifra." } }, "failure": { "resources": { "reputation": -8 }, "text": { "en": "The terminal logs the edit and the session and the timestamp, because of course it does.", "es": "La terminal registra la edición, la sesión y la marca de tiempo, porque por supuesto que lo hace." } } },
+      { "id": "lock-terminal", "text": { "en": "Lock the terminal and walk away", "es": "Bloquea la terminal y márchate" }, "traits": { "prudent": 1 }, "cost": { "time": 0 }, "successChance": { "base": 1 }, "success": { "resources": { "reputation": 1 }, "text": { "en": "Somebody's careless. Not your problem to exploit or fix.", "es": "Alguien ha sido descuidado. No es tu problema ni para aprovecharlo ni para arreglarlo." } } }
+    ]
+  }
+]

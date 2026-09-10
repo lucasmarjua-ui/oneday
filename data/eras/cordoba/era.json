@@ -1,0 +1,63 @@
+{
+  "id": "cordoba",
+  "name": { "en": "Córdoba, 961", "es": "Córdoba, 961" },
+  "tagline": { "en": "One day in the greatest city in Europe, between the library and the tanneries.", "es": "Un día en la mayor ciudad de Europa, entre la biblioteca y las tenerías." },
+  "day": {
+    "totalTime": 16,
+    "startLabel": "06:00",
+    "endLabel": "22:00",
+    "slots": [
+      { "id": "fajr", "label": { "en": "First Light", "es": "Primera luz" }, "from": 0, "to": 4 },
+      { "id": "midday", "label": { "en": "Midday", "es": "Mediodía" }, "from": 4, "to": 8 },
+      { "id": "asr", "label": { "en": "Afternoon", "es": "Tarde" }, "from": 8, "to": 12 },
+      { "id": "night", "label": { "en": "Lamplight", "es": "Luz de lámpara" }, "from": 12, "to": 16 }
+    ]
+  },
+  "resources": {
+    "energy": { "label": { "en": "Energy", "es": "Energía" }, "icon": "⚡", "min": 0, "max": 100, "start": 80 },
+    "health": { "label": { "en": "Health", "es": "Salud" }, "icon": "❤️", "min": 0, "max": 100, "start": 100, "critical": true },
+    "hunger": { "label": { "en": "Hunger", "es": "Hambre" }, "icon": "🫒", "min": 0, "max": 100, "start": 70 },
+    "thirst": { "label": { "en": "Thirst", "es": "Sed" }, "icon": "🍋", "min": 0, "max": 100, "start": 70 },
+    "currency": { "label": { "en": "Dirhams", "es": "Dírhams" }, "icon": "🪙", "min": 0, "max": 999999, "start": 30 },
+    "reputation": { "label": { "en": "Renown", "es": "Renombre" }, "icon": "📜", "min": 0, "max": 100, "start": 10 }
+  },
+  "npcs": [
+    { "id": "npc-lubna", "name": { "en": "Lubna", "es": "Lubna" }, "role": { "en": "Palace Copyist", "es": "Copista del palacio" }, "portraitColor": "#3f7a6a", "attitudeCounter": "lubnaTrust" },
+    { "id": "npc-yusuf", "name": { "en": "Yusuf", "es": "Yusuf" }, "role": { "en": "Souk Merchant", "es": "Mercader del zoco" }, "portraitColor": "#c8862a", "attitudeCounter": "yusufTrust" },
+    { "id": "npc-marwan", "name": { "en": "Marwan", "es": "Marwan" }, "role": { "en": "Court Physician", "es": "Médico de la corte" }, "portraitColor": "#7a4a8a", "attitudeCounter": "marwanFavor" }
+  ],
+  "personas": [
+    { "id": "champion", "trait": "bold", "name": { "en": "The Champion", "es": "El Campeón" }, "description": { "en": "Floods, thieves, arguments with men twice your rank: you walked into all of them. Córdoba is loud about people like you.", "es": "Riadas, ladrones, discusiones con hombres del doble de tu rango: entraste en todas. Córdoba habla alto de gente como tú." } },
+    { "id": "householder", "trait": "prudent", "name": { "en": "The Householder", "es": "El Hombre de Casa" }, "description": { "en": "You kept your purse, your health and your name intact, which in this city is a genuine achievement.", "es": "Conservaste tu bolsa, tu salud y tu nombre intactos, lo que en esta ciudad es un logro auténtico." } },
+    { "id": "almsgiver", "trait": "generous", "name": { "en": "The Almsgiver", "es": "El Limosnero" }, "description": { "en": "Water carriers, students, orphans, the sick: what you had, you handed over. The quarter says your name kindly.", "es": "Aguadores, estudiantes, huérfanos, enfermos: lo que tenías, lo entregaste. El barrio dice tu nombre con cariño." } },
+    { "id": "merchant", "trait": "cunning", "name": { "en": "The Merchant of the Souk", "es": "El Mercader del Zoco" }, "description": { "en": "Every price bent, every rumor arrived early, every scale weighed your way. Yusuf would take you as a partner tomorrow.", "es": "Cada precio cedió, cada rumor llegó pronto, cada balanza se inclinó a tu favor. Yusuf te haría socio mañana." } },
+    { "id": "artisan", "trait": "diligent", "name": { "en": "The Artisan", "es": "El Artesano" }, "description": { "en": "Leather, ink, stone, silk. Córdoba is the greatest city in Europe because of hands like yours, and it rarely says so.", "es": "Cuero, tinta, piedra, seda. Córdoba es la mayor ciudad de Europa gracias a manos como las tuyas, y rara vez lo dice." } },
+    { "id": "scholar", "trait": "curious", "name": { "en": "The Scholar", "es": "El Sabio" }, "description": { "en": "Astrolabes, translations, four hundred thousand volumes and you tried to read a piece of all of it. Lubna would find you a desk.", "es": "Astrolabios, traducciones, cuatrocientos mil volúmenes y trataste de leer un trozo de todo ello. Lubna te buscaría un pupitre." } },
+    { "id": "stranger", "trait": null, "name": { "en": "The Stranger", "es": "El Forastero" }, "description": { "en": "You crossed the greatest city in the world and left no mark on it. Tomorrow, leave one.", "es": "Cruzaste la mayor ciudad del mundo y no dejaste huella en ella. Mañana, deja una." } }
+  ],
+  "objectivesPool": [
+    { "id": "renowned", "description": { "en": "Reach 40 Renown", "es": "Consigue 40 de Renombre" }, "check": { "type": "resourceAtLeast", "resource": "reputation", "value": 40 } },
+    { "id": "wealthy", "description": { "en": "Reach 250 dirhams", "es": "Consigue 250 dírhams" }, "check": { "type": "resourceAtLeast", "resource": "currency", "value": 250 } },
+    { "id": "survive-health", "description": { "en": "Never drop below 30 health", "es": "No bajes de 30 de salud" }, "check": { "type": "resourceNeverBelow", "resource": "health", "value": 30 } },
+    { "id": "well-fed", "description": { "en": "Never drop below 40 hunger", "es": "No bajes de 40 de hambre" }, "check": { "type": "resourceNeverBelow", "resource": "hunger", "value": 40 } },
+    { "id": "hydrated", "description": { "en": "Never drop below 40 thirst", "es": "No bajes de 40 de sed" }, "check": { "type": "resourceNeverBelow", "resource": "thirst", "value": 40 } },
+    { "id": "energized", "description": { "en": "Never drop below 20 energy", "es": "No bajes de 20 de energía" }, "check": { "type": "resourceNeverBelow", "resource": "energy", "value": 20 } },
+    { "id": "library", "description": { "en": "Read in the caliph's library", "es": "Lee en la biblioteca del califa" }, "check": { "type": "flagSet", "flag": "read-in-library" } },
+    { "id": "astrolabe", "description": { "en": "Learn to read an astrolabe", "es": "Aprende a leer un astrolabio" }, "check": { "type": "flagSet", "flag": "learned-astrolabe" } },
+    { "id": "translation", "description": { "en": "Finish a translation for the library", "es": "Termina una traducción para la biblioteca" }, "check": { "type": "flagSet", "flag": "finished-translation" } },
+    { "id": "flood", "description": { "en": "Hold the riverbank against the flood", "es": "Aguanta la orilla contra la riada" }, "check": { "type": "flagSet", "flag": "held-riverbank" } },
+    { "id": "yusuf-partner", "description": { "en": "Become Yusuf's partner in the souk", "es": "Hazte socio de Yusuf en el zoco" }, "check": { "type": "flagSet", "flag": "yusuf-partnered" } },
+    { "id": "marwan-surgery", "description": { "en": "Assist Marwan through a surgery", "es": "Asiste a Marwan en una operación" }, "check": { "type": "flagSet", "flag": "assisted-surgery" } },
+    { "id": "caravan", "description": { "en": "Invest in the Almería caravan", "es": "Invierte en la caravana de Almería" }, "check": { "type": "flagSet", "flag": "caravan-invested" } }
+  ],
+  "metaAchievements": [
+    { "id": "vizier", "title": { "en": "Voice at Court", "es": "Voz en la Corte" }, "description": { "en": "Accumulate 500 lifetime Renown across playthroughs.", "es": "Acumula 500 de Renombre a lo largo de varias partidas." }, "accumulates": "reputation", "threshold": 500 },
+    { "id": "souk-master", "title": { "en": "Master of the Souk", "es": "Amo del Zoco" }, "description": { "en": "Accumulate 2000 lifetime dirhams earned across playthroughs.", "es": "Acumula 2000 dírhams ganados a lo largo de varias partidas." }, "accumulates": "currency", "threshold": 2000 }
+  ],
+  "memories": {
+    "flags": ["remembered-lubna-desk", "remembered-yusuf-partner", "remembered-marwan-student"],
+    "counters": ["lubnaTrust", "yusufTrust", "marwanFavor"]
+  },
+  "goodEnding": { "en": "The last call to prayer crosses the Guadalquivir and the lamps of the great mosque go out row by row. Your day in Córdoba is complete.", "es": "La última llamada a la oración cruza el Guadalquivir y las lámparas de la gran mezquita se apagan fila a fila. Tu día en Córdoba ha terminado." },
+  "badEnding": { "en": "You collapse in a lane off the souk. The water carrier who finds you knows your face but not your name.", "es": "Te desplomas en un callejón junto al zoco. El aguador que te encuentra conoce tu cara pero no tu nombre." }
+}

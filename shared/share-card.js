@@ -1,31 +1,29 @@
-// Renders a shareable Daily Challenge result card in OneDay's single global
-// visual identity (navy/glass/serif) -- no per-era palette anymore. What
-// still varies by era is content only: its icon and name, same as every
-// other screen now.
+// The Daily Challenge result card, drawn in the same almanac identity as the
+// rest of the game: paper ground, ink type, hairline rules, and the era's own
+// accent hue as the single spot color. What varies per era is content only --
+// its name, the persona the day produced, and its ending line.
 const WIDTH = 1080;
-const HEIGHT = 1150;
+const HEIGHT = 1350;
 
-const PALETTE = {
-  background: 'hsl(201 100% 13%)',
-  panel: 'hsl(0 0% 10%)',
-  foreground: 'hsl(0 0% 100%)',
-  mutedForeground: 'hsl(240 4% 66%)',
-  glassBorder: 'hsla(0, 0%, 100%, 0.28)',
-};
-const FONT_DISPLAY = "'Instrument Serif', serif";
+const PAPER = '#f7f2e8';
+const INK = '#221d18';
+const INK_SOFT = '#6f675e';
+const RULE = '#d9d1c4';
+const FONT_DISPLAY = "'Fraunces', Georgia, serif";
+const FONT_MONO = "'IBM Plex Mono', monospace";
 const FONT_BODY = "'Inter', sans-serif";
 
 function wrapLines(ctx, text, maxWidth) {
-  const words = text.split(' ');
+  const words = String(text).split(' ');
   const lines = [];
   let line = '';
   words.forEach(word => {
-    const test = line ? `${line} ${word}` : word;
-    if (line && ctx.measureText(test).width > maxWidth) {
+    const candidate = line ? `${line} ${word}` : word;
+    if (line && ctx.measureText(candidate).width > maxWidth) {
       lines.push(line);
       line = word;
     } else {
-      line = test;
+      line = candidate;
     }
   });
   if (line) lines.push(line);
@@ -34,83 +32,106 @@ function wrapLines(ctx, text, maxWidth) {
 
 function drawWrapped(ctx, text, x, y, maxWidth, lineHeight) {
   const lines = wrapLines(ctx, text, maxWidth);
-  lines.forEach((line, i) => ctx.fillText(line, x, y + i * lineHeight));
+  lines.forEach((line, index) => ctx.fillText(line, x, y + index * lineHeight));
   return y + lines.length * lineHeight;
 }
 
-// `era` supplies only its icon and name now; everything else is
-// pre-localized, plain data -- this module has no i18n or game-model
-// knowledge of its own.
-export async function renderShareCardCanvas(canvas, { era, eraName, endingText, dateLabel, score, objectives, streak, appLabel }) {
+function rule(ctx, x1, y, x2, color = RULE, width = 1) {
+  ctx.strokeStyle = color;
+  ctx.lineWidth = width;
+  ctx.beginPath();
+  ctx.moveTo(x1, y + 0.5);
+  ctx.lineTo(x2, y + 0.5);
+  ctx.stroke();
+}
+
+export async function renderShareCardCanvas(canvas, { eraName, accentHue = 28, personaName, endingText, dateLabel, score, objectives, streak, appLabel }) {
   if (document.fonts?.ready) { try { await document.fonts.ready; } catch { /* draw with whatever is loaded */ } }
 
   canvas.width = WIDTH;
   canvas.height = HEIGHT;
   const ctx = canvas.getContext('2d');
+  const accent = `hsl(${accentHue} 58% 40%)`;
+  const M = 96;
+  const inner = WIDTH - M * 2;
 
-  const gradient = ctx.createLinearGradient(0, 0, 0, HEIGHT);
-  gradient.addColorStop(0, PALETTE.background);
-  gradient.addColorStop(1, PALETTE.panel);
-  ctx.fillStyle = gradient;
+  ctx.fillStyle = PAPER;
   ctx.fillRect(0, 0, WIDTH, HEIGHT);
+  ctx.fillStyle = `hsl(${accentHue} 58% 40% / 0.06)`;
+  ctx.fillRect(0, 0, WIDTH, 260);
 
-  // A thin, soft-edged border stands in for the liquid-glass highlight ring
-  // used everywhere else -- a flat canvas has no real backdrop to blur.
-  ctx.strokeStyle = PALETTE.glassBorder;
-  ctx.lineWidth = 1.5;
-  ctx.strokeRect(24, 24, WIDTH - 48, HEIGHT - 48);
+  ctx.textAlign = 'left';
+  ctx.textBaseline = 'alphabetic';
 
-  ctx.textAlign = 'center';
-  ctx.font = `120px ${FONT_BODY}`;
-  ctx.fillStyle = PALETTE.foreground;
-  ctx.fillText(era.theme?.icon || '', WIDTH / 2, 200);
+  ctx.font = `500 24px ${FONT_MONO}`;
+  ctx.fillStyle = INK_SOFT;
+  ctx.fillText((appLabel || 'ONEDAY').toUpperCase(), M, 116);
+  ctx.textAlign = 'right';
+  ctx.fillText(String(dateLabel || ''), WIDTH - M, 116);
+  ctx.textAlign = 'left';
+  rule(ctx, M, 148, WIDTH - M, INK, 2);
 
-  ctx.font = `56px ${FONT_DISPLAY}`;
-  ctx.fillStyle = PALETTE.foreground;
-  ctx.fillText(eraName, WIDTH / 2, 300);
+  ctx.font = `28px ${FONT_MONO}`;
+  ctx.fillStyle = accent;
+  ctx.fillText(String(eraName || '').toUpperCase(), M, 210);
 
-  ctx.font = `32px ${FONT_DISPLAY}`;
-  ctx.fillStyle = PALETTE.mutedForeground;
-  let y = drawWrapped(ctx, endingText, WIDTH / 2, 370, WIDTH - 200, 44);
-  ctx.textAlign = 'center';
+  ctx.font = `400 94px ${FONT_DISPLAY}`;
+  ctx.fillStyle = INK;
+  let y = drawWrapped(ctx, personaName || '', M, 316, inner, 104);
 
-  ctx.font = `24px ${FONT_BODY}`;
-  ctx.fillStyle = PALETTE.mutedForeground;
+  ctx.font = `italic 32px ${FONT_DISPLAY}`;
+  ctx.fillStyle = INK_SOFT;
+  y = drawWrapped(ctx, endingText || '', M, y + 46, inner, 46);
+
   y += 40;
-  ctx.fillText(dateLabel, WIDTH / 2, y);
+  rule(ctx, M, y, WIDTH - M);
 
   if (score) {
-    y += 100;
-    ctx.font = `bold 110px ${FONT_DISPLAY}`;
-    ctx.fillStyle = PALETTE.foreground;
-    ctx.fillText(String(score.total), WIDTH / 2, y);
-    y += 40;
-    ctx.font = `500 22px ${FONT_BODY}`;
-    ctx.fillStyle = PALETTE.mutedForeground;
-    ctx.fillText('SCORE', WIDTH / 2, y);
+    y += 74;
+    ctx.font = `400 110px ${FONT_DISPLAY}`;
+    ctx.fillStyle = accent;
+    ctx.fillText(String(score.total), M, y);
+    ctx.font = `500 22px ${FONT_MONO}`;
+    ctx.fillStyle = INK_SOFT;
+    ctx.fillText('SCORE', M + ctx.measureText(String(score.total)).width + 220, y - 8);
+    y += 34;
+    rule(ctx, M, y, WIDTH - M);
   }
 
-  y += 70;
-  ctx.textAlign = 'left';
-  ctx.font = `30px ${FONT_BODY}`;
+  y += 62;
+  ctx.font = `500 22px ${FONT_MONO}`;
+  ctx.fillStyle = INK_SOFT;
+  ctx.fillText('OBJECTIVES', M, y);
+  y += 30;
+
   (objectives || []).forEach(entry => {
-    ctx.fillStyle = entry.complete ? PALETTE.foreground : PALETTE.mutedForeground;
-    ctx.fillText(entry.complete ? '✓' : '✗', 130, y);
-    ctx.fillStyle = PALETTE.foreground;
-    y = drawWrapped(ctx, entry.description, 175, y, WIDTH - 130 - 175, 38) + 20;
+    rule(ctx, M, y, WIDTH - M);
+    y += 44;
+    ctx.font = `26px ${FONT_MONO}`;
+    ctx.fillStyle = entry.complete ? accent : INK_SOFT;
+    ctx.fillText(entry.complete ? '✓' : '✗', M, y);
+    ctx.font = `28px ${FONT_BODY}`;
+    ctx.fillStyle = entry.complete ? INK : INK_SOFT;
+    y = drawWrapped(ctx, entry.description, M + 52, y, inner - 52, 38) + 18;
   });
 
+  rule(ctx, M, y, WIDTH - M);
+
   if (streak && streak.currentStreak > 1) {
-    ctx.textAlign = 'center';
-    ctx.font = `500 34px ${FONT_BODY}`;
-    ctx.fillStyle = PALETTE.foreground;
-    ctx.fillText(`🔥 ${streak.currentStreak}`, WIDTH / 2, y + 60);
+    y += 62;
+    ctx.font = `500 26px ${FONT_MONO}`;
+    ctx.fillStyle = accent;
+    ctx.fillText(`${streak.currentStreak} DAY STREAK`, M, y);
   }
 
-  ctx.textAlign = 'center';
-  ctx.font = `40px ${FONT_DISPLAY}`;
-  ctx.fillStyle = PALETTE.mutedForeground;
-  ctx.fillText(appLabel || 'OneDay', WIDTH / 2, HEIGHT - 55);
+  rule(ctx, M, HEIGHT - 132, WIDTH - M, INK, 2);
+  ctx.font = `400 40px ${FONT_DISPLAY}`;
+  ctx.fillStyle = INK;
+  ctx.fillText(appLabel || 'OneDay', M, HEIGHT - 80);
+  ctx.textAlign = 'right';
+  ctx.font = `22px ${FONT_MONO}`;
+  ctx.fillStyle = INK_SOFT;
+  ctx.fillText('ONE DAY. ONE ERA. YOUR CHOICES.', WIDTH - M, HEIGHT - 82);
 
   return canvas;
 }

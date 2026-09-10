@@ -1,0 +1,64 @@
+{
+  "id": "edo",
+  "name": { "en": "Edo, 1750", "es": "Edo, 1750" },
+  "tagline": { "en": "One day in the shogun's capital, from the temple bell to the fire watch.", "es": "Un día en la capital del shogun, de la campana del templo a la guardia de incendios." },
+  "day": {
+    "totalTime": 16,
+    "startLabel": "06:00",
+    "endLabel": "22:00",
+    "slots": [
+      { "id": "dawn", "label": { "en": "Hour of the Hare", "es": "Hora de la Liebre" }, "from": 0, "to": 4 },
+      { "id": "morning", "label": { "en": "Morning", "es": "Mañana" }, "from": 4, "to": 8 },
+      { "id": "afternoon", "label": { "en": "Afternoon", "es": "Tarde" }, "from": 8, "to": 12 },
+      { "id": "evening", "label": { "en": "Lantern Hours", "es": "Horas de Farol" }, "from": 12, "to": 16 }
+    ]
+  },
+  "resources": {
+    "energy": { "label": { "en": "Energy", "es": "Energía" }, "icon": "⚡", "min": 0, "max": 100, "start": 80 },
+    "health": { "label": { "en": "Health", "es": "Salud" }, "icon": "❤️", "min": 0, "max": 100, "start": 100, "critical": true },
+    "hunger": { "label": { "en": "Hunger", "es": "Hambre" }, "icon": "🍚", "min": 0, "max": 100, "start": 70 },
+    "thirst": { "label": { "en": "Thirst", "es": "Sed" }, "icon": "🍵", "min": 0, "max": 100, "start": 70 },
+    "currency": { "label": { "en": "Mon", "es": "Mon" }, "icon": "🪙", "min": 0, "max": 999999, "start": 40 },
+    "reputation": { "label": { "en": "Honor", "es": "Honor" }, "icon": "🎎", "min": 0, "max": 100, "start": 10 }
+  },
+  "npcs": [
+    { "id": "npc-hana", "name": { "en": "Hana", "es": "Hana" }, "role": { "en": "Tea-house Mistress", "es": "Dueña de la casa de té" }, "portraitColor": "#d9536a", "attitudeCounter": "hanaTrust" },
+    { "id": "npc-saburo", "name": { "en": "Saburo", "es": "Saburo" }, "role": { "en": "Masterless Samurai", "es": "Samurái sin señor" }, "portraitColor": "#4a6a8a", "attitudeCounter": "saburoRespect" },
+    { "id": "npc-tetsuo", "name": { "en": "Tetsuo", "es": "Tetsuo" }, "role": { "en": "Temple Monk", "es": "Monje del templo" }, "portraitColor": "#c8922a", "attitudeCounter": "tetsuoFavor" }
+  ],
+  "personas": [
+    { "id": "ronin", "trait": "bold", "name": { "en": "The Ronin", "es": "El Ronin" }, "description": { "en": "Duels, fires, processions: you stepped into every one of them with your chin up. Edo has a hundred stories about people like you, and not all of them end well.", "es": "Duelos, incendios, procesiones: entraste en todos con la barbilla alta. Edo tiene cien historias sobre gente como tú, y no todas acaban bien." } },
+    { "id": "retainer", "trait": "prudent", "name": { "en": "The Retainer", "es": "El Vasallo" }, "description": { "en": "You bowed when bowing was wise, paid what was owed, and slept in your own bed. The shogunate is built on people like you.", "es": "Te inclinaste cuando era prudente, pagaste lo debido y dormiste en tu propia cama. El shogunato se sostiene sobre gente como tú." } },
+    { "id": "almsgiver", "trait": "generous", "name": { "en": "The Almsgiver", "es": "El Limosnero" }, "description": { "en": "Monks, debtors and beggars all ate today because you were passing. Your purse is lighter and the ward is kinder.", "es": "Monjes, deudores y mendigos comieron hoy porque pasabas por allí. Tu bolsa pesa menos y el barrio es más amable." } },
+    { "id": "broker", "trait": "cunning", "name": { "en": "The Broker of Nihonbashi", "es": "El Corredor de Nihonbashi" }, "description": { "en": "Every levy shrank, every price bent, every purse found its way to you. The merchants of the bridge would hire you tomorrow.", "es": "Cada tributo menguó, cada precio cedió, cada bolsa acabó en tus manos. Los mercaderes del puente te contratarían mañana." } },
+    { "id": "artisan", "trait": "diligent", "name": { "en": "The Artisan", "es": "El Artesano" }, "description": { "en": "Paper glued, beams raised, bells rung, fish hauled. Edo's floating world floats on work like yours.", "es": "Papel encolado, vigas alzadas, campanas tañidas, pescado cargado. El mundo flotante de Edo flota sobre trabajo como el tuyo." } },
+    { "id": "pilgrim", "trait": "curious", "name": { "en": "The Pilgrim", "es": "El Peregrino" }, "description": { "en": "Shrines, gardens, gossip and old tales: you spent the day looking closely. Tetsuo would say you were already halfway to enlightenment.", "es": "Santuarios, jardines, chismes y viejos relatos: pasaste el día mirando de cerca. Tetsuo diría que ya ibas a medio camino de la iluminación." } },
+    { "id": "wanderer", "trait": null, "name": { "en": "The Wanderer", "es": "El Vagabundo" }, "description": { "en": "You drifted through Edo like smoke from a bathhouse chimney. Tomorrow, leave a footprint.", "es": "Vagaste por Edo como el humo de la chimenea de un baño público. Mañana, deja una huella." } }
+  ],
+  "objectivesPool": [
+    { "id": "honorable", "description": { "en": "Reach 40 Honor", "es": "Consigue 40 de Honor" }, "check": { "type": "resourceAtLeast", "resource": "reputation", "value": 40 } },
+    { "id": "wealthy", "description": { "en": "Reach 250 mon", "es": "Consigue 250 mon" }, "check": { "type": "resourceAtLeast", "resource": "currency", "value": 250 } },
+    { "id": "survive-health", "description": { "en": "Never drop below 30 health", "es": "No bajes de 30 de salud" }, "check": { "type": "resourceNeverBelow", "resource": "health", "value": 30 } },
+    { "id": "well-fed", "description": { "en": "Never drop below 40 hunger", "es": "No bajes de 40 de hambre" }, "check": { "type": "resourceNeverBelow", "resource": "hunger", "value": 40 } },
+    { "id": "hydrated", "description": { "en": "Never drop below 40 thirst", "es": "No bajes de 40 de sed" }, "check": { "type": "resourceNeverBelow", "resource": "thirst", "value": 40 } },
+    { "id": "energized", "description": { "en": "Never drop below 20 energy", "es": "No bajes de 20 de energía" }, "check": { "type": "resourceNeverBelow", "resource": "energy", "value": 20 } },
+    { "id": "fire-watch", "description": { "en": "Stand the fire watch", "es": "Cumple la guardia de incendios" }, "check": { "type": "flagSet", "flag": "stood-fire-watch" } },
+    { "id": "temple-bell", "description": { "en": "Ring the great temple bell", "es": "Tañe la gran campana del templo" }, "check": { "type": "flagSet", "flag": "rang-temple-bell" } },
+    { "id": "duel-averted", "description": { "en": "Talk Saburo out of his duel", "es": "Convence a Saburo de no batirse en duelo" }, "check": { "type": "flagSet", "flag": "duel-averted" } },
+    { "id": "lanterns", "description": { "en": "Light the river lanterns with Hana", "es": "Enciende los faroles del río con Hana" }, "check": { "type": "flagSet", "flag": "hana-lanterns-lit" } },
+    { "id": "kabuki", "description": { "en": "See the kabuki", "es": "Ve al kabuki" }, "check": { "type": "flagSet", "flag": "saw-kabuki" } },
+    { "id": "sumo", "description": { "en": "Win a street sumo bout", "es": "Gana un combate de sumo callejero" }, "check": { "type": "flagSet", "flag": "won-sumo-bout" } },
+    { "id": "hidden-garden", "description": { "en": "Find the hidden garden behind the shrine", "es": "Encuentra el jardín oculto tras el santuario" }, "check": { "type": "flagSet", "flag": "found-garden" } },
+    { "id": "bucket-line", "description": { "en": "Fight a fire in the bucket line", "es": "Combate un incendio en la cadena de cubos" }, "check": { "type": "flagSet", "flag": "fought-fire" } }
+  ],
+  "metaAchievements": [
+    { "id": "magistrate", "title": { "en": "Magistrate of Edo", "es": "Magistrado de Edo" }, "description": { "en": "Accumulate 500 lifetime Honor across playthroughs.", "es": "Acumula 500 de Honor a lo largo de varias partidas." }, "accumulates": "reputation", "threshold": 500 },
+    { "id": "nihonbashi-merchant", "title": { "en": "Merchant of Nihonbashi", "es": "Mercader de Nihonbashi" }, "description": { "en": "Accumulate 2000 lifetime mon earned across playthroughs.", "es": "Acumula 2000 mon ganados a lo largo de varias partidas." }, "accumulates": "currency", "threshold": 2000 }
+  ],
+  "memories": {
+    "flags": ["remembered-hana-partner", "remembered-saburo-bond", "remembered-tetsuo-blessing"],
+    "counters": ["hanaTrust", "saburoRespect", "tetsuoFavor"]
+  },
+  "goodEnding": { "en": "The night bell of Sensoji rolls over the rooftops and the lanterns go out one by one. Your day in Edo is done.", "es": "La campana nocturna de Sensoji rueda sobre los tejados y los faroles se apagan uno a uno. Tu día en Edo ha terminado." },
+  "badEnding": { "en": "You fall in a lantern-lit alley of Edo. By morning the fire watch finds you, and the city carries on.", "es": "Caes en un callejón de Edo iluminado por faroles. Al amanecer te encuentra la guardia de incendios, y la ciudad sigue adelante." }
+}
