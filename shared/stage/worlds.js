@@ -441,41 +441,44 @@ const SCENES = {
   },
   giza: {
     house: {
+      // A worker's house in the town south of the pyramids, modelled in
+      // Blender (tools/blender/giza.py): mud brick, palm-log beams, a bench.
+      set: true,
       build(k) {
-        // Reed mats, a sleeping gang-mate, jars, a niche with an oil lamp.
-        k.box(-1.6, 0, -1.4, 2.2, 0.12, 1.2, '#c8a45c');
-        k.box(1.4, 0, -1.8, 2.2, 0.12, 1.2, '#bf9a52');
-        k.box(1.4, 0.12, -1.8, 1.6, 0.25, 0.6, '#efe7d2');
-        [[2.6, 1.6], [2.9, 0.9], [2.3, 1]].forEach(([x, z], i) => k.cyl(x, 0, z, 0.3 - i * 0.04, 0.8 - i * 0.1, i % 2 ? '#b5643a' : '#c27a48', { rTop: 0.18 }));
-        k.box(-3.3, 1.4, 1.2, 0.3, 0.6, 0.8, '#a8824f');
-        k.lamp(-3.1, 1.75, 1.2, '#ffb347', { always: true, strength: 3 });
-        // A window full of dawn, and the horn that wakes the town.
-        k.screen(0.6, 1.6, -2.95, 1.2, 0.8, '#ffb36b');
-        k.box(-1.2, 2.1, -2.85, 0.9, 0.2, 0.2, '#e9dcc0', { rotY: 0.2 });
-        k.alarm(0.6, 2.3, -2.7, '#ffcf70');
-        k.box(-2.6, 0, 1.8, 0.8, 0.5, 0.8, '#8a6a45');
+        k.model('house_interior', 0, 0, 0, { solid: false });
+        k.blocker({ type: 'rect', x: 0.6, z: -2.35, w: 3.6, d: 0.9 });
+        k.blocker({ type: 'circle', x: -1.6, z: -0.3, r: 0.45 });
+        k.blocker({ type: 'rect', x: -2.6, z: 1.4, w: 0.7, d: 0.4 });
+        k.blocker({ type: 'circle', x: -2.0, z: 2.2, r: 0.32 });
+        k.blocker({ type: 'rect', x: 2.9, z: -1.2, w: 0.5, d: 1.7 });
+        // Embers in the hearth, the oil lamp in its niche, dawn in the window,
+        // and the ram's horn that wakes the town.
+        k.fire(-1.6, -0.3, { y: 0.05, scale: 0.45 });
+        k.lamp(-3.15, 1.55, -1.2, '#ffb347', { always: true, strength: 3 });
+        k.box(0.6, 2.1, -2.84, 0.8, 0.38, 0.04, '#ffb36b', { emissive: '#ff9a4a', cast: false, solid: false });
+        k.alarm(0.6, 2.6, -2.7, '#ffcf70');
       },
     },
     village: {
       build(k) {
-        // Rows of mud-brick houses with flat roofs.
-        [[-5, -3], [-3, -5], [-6, 0], [4, -5], [6, -3]].forEach(([x, z], i) => {
-          k.box(x, 0, z, 2.2, 1.6 + (i % 2) * 0.3, 2, '#cfa77a');
-          k.box(x, 1.6 + (i % 2) * 0.3, z, 2.4, 0.15, 2.2, '#a8824f');
-          k.box(x + 0.6, 0, z + 1.01, 0.5, 1, 0.05, '#4a3424');
-        });
-        // The bakery: domed ovens, bell-shaped moulds, beer jars.
+        // Mud-brick houses with palm-log roofs, a granary, and the great
+        // limestone Wall of the Crow closing the town to the north.
+        [[-5, -3, 0], [-3, -5.2, 0.1], [-6.2, 0.2, -0.1], [4, -5, 0.05], [6, -2.6, -0.1]].forEach(([x, z, r]) => k.model('mud_house', x, 0, z, { rotY: r }));
+        k.model('granary', -1.2, 0, -6.4, { rotY: 0.1 });
+        k.model('wall_crow', 1.5, 0, -8.2, { solid: false });
+        k.blocker({ type: 'rect', x: 1.5, z: -8.2, w: 8, d: 1.2 });
+        // The bakery: bread baking in bell-shaped moulds over embers.
         const [bx, bz] = k.pos('bakery');
-        k.box(bx + 0.5, 0, bz - 2.2, 3, 1.4, 1.6, '#c99a66');
-        [0, 1].forEach(i => { k.cone(bx - 0.3 + i * 1.6, 1.4, bz - 2.2, 0.6, 0.8, '#9c6b3e', { seg: 8 }); k.fire(bx - 0.3 + i * 1.6, bz - 1.2, { scale: 0.7 }); });
-        for (let i = 0; i < 5; i++) k.cone(bx + 2 + (i % 3) * 0.4, 0, bz - 0.6 + Math.floor(i / 3) * 0.4, 0.18, 0.4, '#b5643a', { seg: 6 });
+        k.model('bakery', bx + 0.3, 0, bz - 2.1);
+        k.fire(bx - 0.1, bz - 2.5, { scale: 0.5 });
+        k.fire(bx + 1.3, bz - 2.7, { y: 0.2, scale: 0.4 });
         [[bx - 1.8, bz + 0.6], [bx - 1.4, bz + 1.1]].forEach(([x, z]) => k.model('water_jar', x, 0, z, { scale: 0.9 }));
-        for (let i = 0; i < 4; i++) k.cyl(bx - 1.8, 0, bz - 1 + i * 0.5, 0.2, 0.7, '#d9a36b', { rTop: 0.12 });
         // Tia's courtyard: mats under an awning, herbs drying.
         const [hx, hz] = k.pos('healer');
         k.box(hx - 1, 0, hz - 1, 2.4, 0.08, 1.6, '#c8a45c');
         [[-2.2, -2], [0.2, -2]].forEach(([dx, dz]) => k.box(hx + dx, 0, hz + dz, 0.12, 1.8, 0.12, '#7a5a38'));
         k.box(hx - 1, 1.8, hz - 2, 2.6, 0.08, 1, '#efe2c2');
+        for (let i = 0; i < 5; i++) k.box(hx - 2 + i * 0.45, 1.5, hz - 2, 0.08, 0.3, 0.08, i % 2 ? '#7aa84a' : '#9c8a55', { solid: false });
         k.tree(hx + 2.5, hz + 2, 'palm');
         k.tree(5, 4, 'palm');
         k.tree(-6, 5, 'palm');
@@ -486,17 +489,16 @@ const SCENES = {
     harbour: {
       before(k) { k.water(3.5, -3, 6, 4); },
       build(k, { burst }) {
-        // Stone quay, a barge with the granite beam, sailing boats, reeds.
+        // Stone quay, the cargo barge with the granite beam from Aswan,
+        // sailing boats, papyrus along the water's edge.
         k.box(-1, 0, -0.4, 6, 0.3, 1.2, '#b8a07a');
-        const barge = k.box(2, -0.2, -2.4, 4.2, 0.5, 1.4, '#7a4a26');
-        const beam = k.box(2, 0.3, -2.4, 3.4, 0.6, 0.7, '#b48e8c');
+        const barge = k.model('cargo_barge', 2.2, -0.3, -2.6, { scale: 0.8 });
         const boats = [[5.5, -5.2, 0.3], [1, -6.4, -0.2]].map(([x, z, r]) => k.model('nile_boat', x, -0.25, z, { rotY: r, scale: 0.75 }));
         k.animate((dt, t) => {
-          barge.position.y = 0.05 + Math.sin(t * 1.2) * 0.04;
-          beam.position.y = 0.6 + Math.sin(t * 1.2) * 0.04;
+          if (barge) barge.position.y = -0.3 + Math.sin(t * 1.2) * 0.04;
           boats.forEach((boat, i) => { if (boat) boat.position.y = -0.25 + Math.sin(t * 1.4 + i) * 0.06; });
         });
-        for (let i = 0; i < 10; i++) k.box(-3 + (i % 5) * 0.4, 0, -2.6 + Math.floor(i / 5) * 0.5, 0.08, 0.9 + (i % 3) * 0.2, 0.08, '#6f8f3a');
+        [[-3, -2.6], [-2.2, -3.1], [-0.4, -3.4], [6.5, -0.8], [7.6, -2.5]].forEach(([x, z], i) => k.model('papyrus', x, -0.1, z, { rotY: i, scale: 0.9 + (i % 2) * 0.3, solid: false }));
         // Limestone blocks waiting on the quay.
         [[-3.5, 1.5], [-2.3, 1.5], [-3, 2.6]].forEach(([x, z]) => k.box(x, 0, z, 1, 0.8, 0.8, '#efe7d2'));
         k.tree(-6, -1, 'palm');
@@ -508,28 +510,24 @@ const SCENES = {
     quarry: {
       ground: 'limestone',
       build(k) {
-        // Stepped terraces cut into the rock, blocks half-freed, tools.
-        for (let i = 0; i < 3; i++) k.box(-1 - i * 0.2, 0, -3.5 - i * 1.2, 7 - i * 1.5, 1 + i, 1.4, '#ddd2b8');
-        [[-2, -1.6], [-0.6, -1.6], [0.8, -1.6]].forEach(([x, z], i) => k.box(x, 0, z, 1.1, 0.9, 0.9, i === 1 ? '#e6dcc4' : '#d6c9ab'));
+        // Terraces cut into the rock, blocks being freed by trenches, and
+        // the tools: copper chisels, a mallet, dolerite pounders, a basket.
+        k.model('quarry_face', -0.5, 0, -2.2);
+        k.model('quarry_tools', -3, 0, 1.5, { rotY: 0.4, solid: false });
         k.box(2.6, 0, 1.6, 1.2, 0.9, 1, '#e6dcc4');
         k.box(2.6, 0.9, 1.6, 1, 0.9, 0.9, '#ddd2b8');
-        for (let i = 0; i < 3; i++) k.box(-3 + i * 0.4, 0, 2, 0.1, 0.1, 0.7, '#b87333');
-        k.box(-4, 0, 0.5, 1.2, 0.08, 0.6, '#8a6a45');
+        k.model('sledge', 4.2, 0, -0.2, { rotY: 0.3, scale: 0.8 });
         k.lamp(3.6, 1.6, -1, '#ffcf70');
       },
     },
     pyramid: {
       build(k) {
-        // The pyramid, five courses high and unfinished, with the granite
-        // beams of the King's Chamber on its flat top.
+        // The pyramid, modelled in Blender: five courses of its core, casing
+        // stones being laid, the granite beams of the King's Chamber on top.
         const summit = k.place('summit');
         const [cx, cz] = summit.pos;
         const top = summit.y || 5.5;
-        for (let i = 0; i < 5; i++) {
-          const s = 9 - i * 1.5;
-          k.box(cx, i * (top / 5), cz, s, top / 5, s, i % 2 ? '#e3cf9e' : '#d9c28c');
-        }
-        [-1.25, -0.8].forEach(dz => k.box(cx, top, cz + dz, 2.6, 0.3, 0.4, '#b48e8c'));
+        k.model('pyramid_unfinished', cx, 0, cz);
         // A straight ramp of mud brick from its foot to the summit: the path
         // the character climbs, so its height matches the walk exactly.
         const [vx, vz] = summit.via || k.pos('ramp-foot');
@@ -537,11 +535,13 @@ const SCENES = {
         for (let i = 0; i < steps; i++) {
           const t = (i + 0.5) / steps;
           k.box(vx + (cx - vx) * t, 0, vz + (cz - vz) * t, 1.6, Math.max(0.1, top * t), 1.6, i % 2 ? '#c9a77a' : '#bf9c6e');
+          if (i % 3 === 1) k.box(vx + (cx - vx) * t, Math.max(0.1, top * t), vz + (cz - vz) * t, 1.7, 0.06, 0.14, '#7a5a38', { rotY: Math.atan2(cx - vx, cz - vz), solid: false, cast: false });
         }
         const [fx, fz] = k.pos('ramp-foot');
         // The sledge with its beam, ropes, water jars; palms and the harbour canal.
         k.model('sledge', fx - 1.6, 0, fz - 0.6);
         for (let i = 0; i < 3; i++) k.model('water_jar', fx + 1.2, 0, fz + 1 + i * 0.5, { scale: 0.8, rotY: i });
+        k.model('quarry_tools', fx + 2.2, 0, fz + 0.4, { rotY: 1.2, solid: false });
         k.tree(-8, -2, 'palm');
         k.tree(-6, 8, 'palm');
         k.tree(8, 7, 'palm');

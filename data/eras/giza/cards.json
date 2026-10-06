@@ -2296,5 +2296,216 @@
         }
       }
     ]
+  },
+  {
+    "id": "giza-quarry-tools",
+    "text": {
+      "en": "At the quarry the toolsmith is shouting: half the copper chisels came back blunt and bent. Without them, no block leaves the rock today.",
+      "es": "En la cantera el herrero grita: la mitad de los cinceles de cobre han vuelto romos y doblados. Sin ellos, hoy no sale ni un bloque de la roca."
+    },
+    "timeSlots": [
+      "morning",
+      "midday"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "The builders cut limestone with copper chisels, which blunted quickly and had to be resharpened constantly; the copper came from mines in Sinai. Harder stones such as granite were worked by pounding with balls of dolerite.",
+      "es": "Los constructores cortaban la caliza con cinceles de cobre, que se desafilaban rápido y había que reafilar sin parar; el cobre venía de las minas del Sinaí. Las piedras más duras, como el granito, se trabajaban golpeando con bolas de dolerita."
+    },
+    "options": [
+      {
+        "id": "resharpen",
+        "text": {
+          "en": "Wait while he resharpens them",
+          "es": "Espera mientras los vuelve a afilar"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 2
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 10
+          },
+          "text": {
+            "en": "Hammer, anvil stone, water. Slow, but the edges come back.",
+            "es": "Martillo, piedra de yunque, agua. Despacio, pero el filo vuelve."
+          }
+        }
+      },
+      {
+        "id": "pounders",
+        "text": {
+          "en": "Switch to dolerite pounders for the trench",
+          "es": "Pasa a los percutores de dolerita para la zanja"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "work",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": -10,
+            "reputation": 5
+          },
+          "text": {
+            "en": "Thud, thud, thud. Round black stones bruise the limestone away, flake by flake.",
+            "es": "Pum, pum, pum. Piedras negras y redondas van machacando la caliza, lasca a lasca."
+          }
+        }
+      },
+      {
+        "id": "trade-copper",
+        "text": {
+          "en": "Trade beer for a basket of new chisels",
+          "es": "Cambia cerveza por una cesta de cinceles nuevos"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "currency": -5
+          }
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 8
+          },
+          "text": {
+            "en": "Bright new copper from the mines in Sinai. The gang cheers.",
+            "es": "Cobre nuevo y brillante de las minas del Sinaí. La cuadrilla lo celebra."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-flood",
+    "npcId": "npc-merer",
+    "threadId": "merer-thread",
+    "text": {
+      "en": "Merer points at the water lapping the harbour steps. \"The river is high. While the flood lasts, my boats can sail almost to the foot of the pyramid.\"",
+      "es": "Merer señala el agua que lame los escalones del puerto. \"El río está alto. Mientras dure la crecida, mis barcos pueden llegar casi al pie de la pirámide\"."
+    },
+    "timeSlots": [
+      "dawn",
+      "morning"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "The Nile flooded every summer. Canals and a harbour basin near Giza let boats bring stone almost to the building site while the water was high; Merer's diary records trips carrying limestone from Tura during this season.",
+      "es": "El Nilo se desbordaba cada verano. Canales y una dársena cerca de Giza permitían a los barcos llevar la piedra casi hasta la obra mientras el agua estaba alta; el diario de Merer registra viajes con caliza de Tura en esa época."
+    },
+    "options": [
+      {
+        "id": "ask-season",
+        "text": {
+          "en": "Ask how long the flood will last",
+          "es": "Pregúntale cuánto durará la crecida"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "countersAdd": {
+            "mererTrust": 1
+          },
+          "text": {
+            "en": "\"Until the fields drink it all. Then we go back to carrying by land.\"",
+            "es": "\"Hasta que los campos se la beban toda. Luego volvemos a cargar por tierra\"."
+          }
+        }
+      },
+      {
+        "id": "rush-loads",
+        "text": {
+          "en": "Ask him to bring two loads today, not one",
+          "es": "Pídele que traiga dos cargas hoy en vez de una"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "point",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5,
+            "morale": -3
+          },
+          "countersAdd": {
+            "mererTrust": 1
+          },
+          "text": {
+            "en": "He laughs, then agrees. His crew will row until dark.",
+            "es": "Se ríe y luego acepta. Su tripulación remará hasta que oscurezca."
+          }
+        }
+      },
+      {
+        "id": "thank-crew",
+        "text": {
+          "en": "Send bread to his tired crew",
+          "es": "Manda pan a su tripulación cansada"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "currency": -3
+          }
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 3
+          },
+          "countersAdd": {
+            "mererTrust": 2
+          },
+          "text": {
+            "en": "Boatmen remember who fed them.",
+            "es": "Los barqueros recuerdan quién les dio de comer."
+          }
+        }
+      }
+    ]
   }
 ]
