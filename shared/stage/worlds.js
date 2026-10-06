@@ -661,24 +661,16 @@ SCENES.tenochtitlan = {
 
 SCENES['d-day'] = {
   hold: {
+    // A troopship's hold, modelled in Blender (tools/blender/dday.py): bunks
+    // five high, kit bags, rifles, the ladder to the hatch.
+    set: true,
     build(k) {
-      // The troop hold: bunks five high on steel pipes, kit everywhere,
-      // a red battle lamp and the alarm klaxon.
-      [[-2.6, -2.2], [-1, -2.2], [0.6, -2.2]].forEach(([x, z]) => {
-        [-0.45, 0.45].forEach(dz => [-0.6, 0.6].forEach(dx => k.box(x + dx, 0, z + dz, 0.08, 3.2, 0.08, '#55595f')));
-        for (let i = 0; i < 4; i++) {
-          k.box(x, 0.3 + i * 0.75, z, 1.2, 0.08, 0.9, '#8a8f97');
-          k.box(x, 0.38 + i * 0.75, z, 1.1, 0.12, 0.8, i % 2 ? '#7a7556' : '#6b6648');
-        }
-      });
-      k.box(-3.2, 0.5, 0.5, 0.3, 1.6, 0.9, '#55595f');
-      for (let i = 0; i < 4; i++) k.box(2.4, 0, 0.2 + i * 0.5, 0.6, 0.35, 0.4, '#6b6648');
-      k.box(2.6, 0, -2.2, 0.8, 1.6, 0.6, '#6b7078');
-      k.cyl(2.4, 0.35, 0.2, 0.18, 0.15, '#4f5638', { rTop: 0.24 });
-      k.box(0, 2.9, -1, 7, 0.12, 0.12, '#55595f');
-      k.box(-2, 2.9, 0, 0.12, 0.12, 6, '#55595f');
+      k.model('hold_interior', 0, 0, 0, { solid: false });
+      [-2.4, -0.9, 0.6].forEach(x => k.blocker({ type: 'rect', x, z: -2.25, w: 1.45, d: 1.0 }));
+      k.blocker({ type: 'rect', x: 2.65, z: -0.87, w: 1.0, d: 1.7 });
+      k.blocker({ type: 'rect', x: 2.45, z: -2.65, w: 0.7, d: 0.4 });
       k.lamp(-0.5, 2.6, 0.5, '#ffd7a0', { strength: 3 });
-      k.alarm(1.6, 2.5, -2.8, '#ff3b3b');
+      k.alarm(1.6, 2.6, -2.62, '#ff3b3b');
     },
   },
   boat: {
@@ -722,23 +714,21 @@ SCENES['d-day'] = {
         }
       }
       k.model('bunker', -4.6, 3.8, -4.6, { rotY: Math.PI / 4, scale: 0.8 });
-      // The seawall and the shingle bank in front of it.
-      for (let j = -6; j <= 6; j++) {
-        const x = j - 1.3;
-        const z = -j - 1.3;
-        if (Math.hypot(x, z) < 10.5) k.box(x, 0, z, 1.1, 0.6, 0.4, '#a09a8e', { rotY: Math.PI / 4 });
-      }
-      for (let i = 0; i < 26; i++) {
-        const j = -7 + (i * 0.55);
-        const off = ((i * 37) % 7) / 10;
-        k.box(j / 1 - 0.6 + off, 0, -j - 0.6 - off, 0.3, 0.18, 0.3, ['#8f8a7c', '#a59c86', '#77736a'][i % 3], { rotY: i });
-      }
-      // Obstacles: steel hedgehogs and mined wooden stakes.
-      [[1, 4.5], [4, 1.2], [3.2, -0.3], [-0.5, 5.2], [5.5, -1.5], [0.8, 2.2]].forEach(([x, z], i) => k.model('hedgehog', x, 0, z, { rotY: i * 0.9, scale: 0.85, footprint: 0.7 }));
-      [[2.2, 4.8], [4.8, 2.6], [-1.6, 6.4], [6.4, -0.6]].forEach(([x, z]) => {
-        const stake = k.box(x, 0, z, 0.15, 1.4, 0.15, '#6e5236');
-        stake.rotation.z = 0.4;
-        k.cyl(x + 0.25, 1.2, z, 0.15, 0.1, '#4f5638');
+      // The seawall and the shingle bank in front of it, wire beyond: the
+      // only cover on the beach.
+      [-5.2, -2.4, 0.4, 3.2].forEach(t => {
+        k.model('seawall', t, 0, -2.7 - t, { rotY: Math.PI / 4 });
+        k.model('shingle_bank', t - 0.55, 0, -1.55 - t - 0.55, { rotY: Math.PI / 4, solid: false });
+        k.model('barbed_wire', t - 0.6, 0, -3.6 - t - 0.6, { rotY: Math.PI / 4, solid: false });
+      });
+      // Rommel's obstacles: Belgian gates, steel hedgehogs, log stakes with mines.
+      [[1, 4.5], [4, 1.2], [3.2, -0.3], [-0.5, 5.2], [0.8, 2.2]].forEach(([x, z], i) => k.model('hedgehog', x, 0, z, { rotY: i * 0.9, scale: 0.85, footprint: 0.7 }));
+      [[5.5, -1.8, 0.8], [-1.8, 6.8, 0.8]].forEach(([x, z, r]) => k.model('belgian_gate', x, 0, z, { rotY: r, scale: 0.8 }));
+      [[2.2, 4.8], [4.8, 2.6], [-1.6, 6.4], [6.4, -0.6], [2.8, 6.0]].forEach(([x, z], i) => k.model('stake_mine', x, 0, z, { rotY: Math.PI / 4 + (i % 2) * 0.3, footprint: 0.6 }));
+      // Barrage balloons over the beach, against low-flying aircraft.
+      [[-7, 6, 1.5], [1.5, 6.5, -7], [8, 7, -4]].forEach(([x, y, z], i) => {
+        const balloon = k.model('barrage_balloon', x, y, z, { rotY: 0.8 + i * 0.2, solid: false, cast: false });
+        k.animate((dt, t) => { if (balloon) balloon.position.y = y + Math.sin(t * 0.5 + i) * 0.15; });
       });
       // A burning landing craft at the waterline, a wrecked tank, a destroyer offshore.
       k.model('lcvp', 5.6, -0.35, 2.6, { rotY: 2.2, scale: 0.85 });
@@ -751,26 +741,19 @@ SCENES['d-day'] = {
   bluff: {
     ground: 'grass',
     build(k) {
-      // Hedgerows: banks of earth crowned with bushes.
-      [[-6, -2, 0], [-1, -6, Math.PI / 2], [5, -3, 0.2], [4, 5, Math.PI / 2]].forEach(([x, z, r]) => {
-        k.box(x, 0, z, 6, 0.8, 1, '#6e5236', { rotY: r });
-        k.box(x, 0.8, z, 6, 0.9, 1.2, '#4f6e30', { rotY: r });
-      });
+      // Hedgerows: banks of earth crowned with bushes and trees.
+      [[-6, -2, 0], [-1, -6, Math.PI / 2], [5, -3, 0.2], [4, 5, Math.PI / 2]].forEach(([x, z, r]) => k.model('hedgerow', x, 0, z, { rotY: r }));
       // A wrecked German bunker.
       k.model('bunker', 3.5, 0, 0.5, { rotY: -0.3 });
       k.model('rock', 2.2, 0, 2.2, { scale: 0.8 });
-      // The battalion aid station: a tent with a red cross, stretchers.
+      // The battalion aid station: a tent with red crosses, stretchers, a jeep ambulance.
       const [ax, az] = k.pos('aid');
-      k.box(ax - 0.4, 0, az - 1.2, 2.2, 1.4, 1.6, '#7a7556');
-      k.cone(ax - 0.4, 1.4, az - 1.2, 1.6, 0.8, '#6b6648', { seg: 4 });
-      k.box(ax - 0.4, 0.7, az - 0.38, 0.5, 0.15, 0.02, '#e03a3a', { cast: false });
-      k.box(ax - 0.4, 0.7, az - 0.38, 0.15, 0.5, 0.02, '#e03a3a', { cast: false });
-      [0, 1].forEach(i => k.box(ax + 1.2 + i * 0.8, 0, az + 0.6, 0.5, 0.2, 1.6, '#c9c2a8'));
-      // Vierville: a Norman stone house and a church steeple.
-      k.box(-5, 0, 4.5, 2.4, 1.6, 2, '#b8ae98');
-      k.box(-5, 1.6, 4.5, 2.6, 0.7, 2.2, '#5a5048', { rotY: 0 });
-      k.box(-7, 0, 0.5, 1.2, 3.2, 1.2, '#b8ae98');
-      k.cone(-7, 3.2, 0.5, 0.95, 1.4, '#5a5048');
+      k.model('aid_tent', ax - 0.4, 0, az - 1.4);
+      [0, 1].forEach(i => k.model('stretcher', ax + 1.2 + i * 0.8, 0, az + 0.6, { solid: false }));
+      k.model('jeep_ambulance', ax + 2.6, 0, az - 1.4, { rotY: 0.5 });
+      // Vierville: a Norman stone house and the church steeple.
+      k.model('norman_house', -5, 0, 4.5, { rotY: 0.2 });
+      k.model('church_steeple', -7, 0, 0.5, { rotY: 0.4, scale: 0.9 });
       // Shell craters, foxholes, the Channel full of ships below.
       [[1.5, -3], [-2, 2.5]].forEach(([x, z]) => k.box(x, -0.04, z, 1.2, 0.06, 1.2, '#6e5236', { cast: false }));
       k.tree(6, 2, 'round', { leaf: '#4f6e30', leaf2: '#5f8a3a' });
