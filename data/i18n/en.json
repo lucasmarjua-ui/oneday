@@ -69,5 +69,8 @@
   "daily.leaderboardLoginToAppear": "Log in to appear on the leaderboard.",
   "daily.leaderboardLoading": "Loading…",
   "daily.recapUnavailable": "Full recap only available on the device where you played.",
-  "daily.streakLabel": "{count}-day streak"
+  "daily.streakLabel": "{count}-day streak",
+  "game.keysHint": "1–4 to choose · Enter to skip",
+  "game.until": "day ends",
+  "game.soundToggle": "Sound on or off"
 }

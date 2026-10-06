@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="OneDay: pick an era, live one day of decisions, and find out who they turn you into.">
+  <meta name="theme-color" content="#14111c">
   <meta property="og:type" content="website">
   <meta property="og:title" content="OneDay">
   <meta property="og:description" content="Pick an era, live one day of decisions, and find out who they turn you into.">
@@ -19,79 +20,87 @@
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500&display=swap">
-  <link rel="stylesheet" href="./shared/theme.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600&family=Silkscreen:wght@400;700&display=swap">
+  <link rel="stylesheet" href="./shared/game.css">
 </head>
 <body>
-  <header class="site-head">
-    <div class="wrap site-head-inner">
-      <a class="wordmark" href="./index.html">OneDay</a>
-      <nav class="head-nav">
-        <a class="head-link" href="#eras" data-i18n="nav.eras"></a>
-        <a class="head-link" href="#how" data-i18n="nav.howItWorks"></a>
-        <button class="head-link" type="button" id="profile-open" data-i18n="nav.profile"></button>
-        <span class="player-name" id="player-name" hidden></span>
-        <button class="head-link" type="button" id="login-open" data-i18n="nav.login"></button>
-        <button class="head-link" type="button" id="logout" hidden data-i18n="nav.logout"></button>
-        <span class="lang-switch">
-          <button type="button" id="lang-en">EN</button>
-          <button type="button" id="lang-es">ES</button>
-        </span>
-      </nav>
+  <div class="stage" id="stage" aria-hidden="true"></div>
+  <div class="vignette"></div>
+
+  <header class="topbar">
+    <span class="chip panel label" data-i18n="home.kicker"></span>
+    <div class="chip-row">
+      <button class="chip panel" type="button" id="how-open" data-i18n="nav.howItWorks"></button>
+      <button class="chip panel" type="button" id="profile-open" data-i18n="nav.profile"></button>
+      <span class="chip panel player-name" id="player-name" hidden></span>
+      <button class="chip panel" type="button" id="login-open" data-i18n="nav.login"></button>
+      <button class="chip panel" type="button" id="logout" hidden data-i18n="nav.logout"></button>
+      <span class="chip panel lang-switch">
+        <button type="button" id="lang-en">EN</button>
+        <button type="button" id="lang-es">ES</button>
+      </span>
     </div>
   </header>
 
-  <main>
-    <section class="wrap masthead">
-      <div class="masthead-kicker"><span class="mono" data-i18n="home.kicker"></span></div>
-      <h1 id="hero-title"></h1>
-      <p class="masthead-lede" data-i18n="home.lede"></p>
-      <div class="masthead-stats">
-        <div class="stat"><div class="stat-value" id="stat-eras">–</div><div class="stat-label" data-i18n="home.statsEras"></div></div>
-        <div class="stat"><div class="stat-value" id="stat-cards">211</div><div class="stat-label" data-i18n="home.statsCards"></div></div>
-        <div class="stat"><div class="stat-value" id="stat-tests">187</div><div class="stat-label" data-i18n="home.statsTests"></div></div>
-      </div>
-    </section>
+  <main class="title-screen">
+    <div class="logo-block">
+      <h1 class="logo">OneDay</h1>
+      <p class="logo-sub" id="hero-title"></p>
+    </div>
 
-    <section class="wrap" id="eras">
-      <div class="index-head">
-        <h2 class="mono" data-i18n="home.indexHeading"></h2>
-        <span class="mono" data-i18n="home.indexHint"></span>
-      </div>
-      <ul class="era-index" id="era-index"></ul>
-    </section>
-
-    <section class="wrap how" id="how">
-      <div class="index-head">
-        <h2 class="mono" data-i18n="home.howHeading"></h2>
-      </div>
-      <div class="how-grid">
-        <div class="how-step">
-          <div class="how-step-n">01</div>
-          <h3 data-i18n="home.step1Title"></h3>
-          <p data-i18n="home.step1Desc"></p>
+    <section class="picker panel" id="eras" aria-labelledby="picker-heading">
+      <h2 class="sr-only" id="picker-heading" data-i18n="home.indexHeading"></h2>
+      <div class="picker-row">
+        <button class="btn arrow" type="button" id="prev-era" aria-label="Previous era">◂</button>
+        <div class="picker-era" aria-live="polite">
+          <span class="label picker-year" id="picker-year"></span>
+          <h3 class="picker-name" id="picker-name"></h3>
+          <p class="picker-tagline" id="picker-tagline"></p>
         </div>
-        <div class="how-step">
-          <div class="how-step-n">02</div>
-          <h3 data-i18n="home.step2Title"></h3>
-          <p data-i18n="home.step2Desc"></p>
-        </div>
-        <div class="how-step">
-          <div class="how-step-n">03</div>
-          <h3 data-i18n="home.step3Title"></h3>
-          <p data-i18n="home.step3Desc"></p>
-        </div>
+        <button class="btn arrow" type="button" id="next-era" aria-label="Next era">▸</button>
       </div>
+      <div class="dots" id="era-dots" role="tablist" aria-label="Eras"></div>
+      <div class="menu">
+        <button class="btn btn-primary" type="button" id="play-era">▶ <span data-i18n="era.live"></span></button>
+        <button class="btn" type="button" id="play-daily">★ <span id="daily-label" data-i18n="era.daily"></span></button>
+      </div>
+      <p class="stats-line">
+        <b id="stat-eras">–</b> <span data-i18n="home.statsEras"></span> ·
+        <b id="stat-cards">211</b> <span data-i18n="home.statsCards"></span> ·
+        <b id="stat-tests">203</b> <span data-i18n="home.statsTests"></span> ·
+        <span data-i18n="home.indexHint"></span>
+      </p>
     </section>
   </main>
 
-  <footer class="wrap site-foot">
-    <span class="mono">OneDay</span>
-    <span class="mono" data-i18n="home.footer"></span>
-  </footer>
+  <div id="how-modal" class="modal-backdrop" hidden>
+    <div class="modal panel" role="dialog" aria-modal="true" aria-labelledby="how-heading">
+      <h2 id="how-heading" data-i18n="home.howHeading"></h2>
+      <p class="muted" data-i18n="home.lede"></p>
+      <div class="how-step">
+        <div class="how-step-n">01</div>
+        <h3 data-i18n="home.step1Title"></h3>
+        <p data-i18n="home.step1Desc"></p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-n">02</div>
+        <h3 data-i18n="home.step2Title"></h3>
+        <p data-i18n="home.step2Desc"></p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-n">03</div>
+        <h3 data-i18n="home.step3Title"></h3>
+        <p data-i18n="home.step3Desc"></p>
+      </div>
+      <p class="muted small" data-i18n="home.footer"></p>
+      <div class="modal-actions">
+        <button id="how-close" class="btn" type="button" data-i18n="profile.close"></button>
+      </div>
+    </div>
+  </div>
 
   <div id="login-modal" class="modal-backdrop" hidden>
-    <div class="modal">
+    <div class="modal panel" role="dialog" aria-modal="true">
       <h2 data-i18n="login.heading"></h2>
       <p class="muted small" data-i18n="login.description"></p>
       <div class="field">
@@ -106,17 +115,17 @@
       <div class="modal-actions">
         <button id="login-close" class="btn btn-quiet" type="button" data-i18n="login.cancel"></button>
         <button id="login-register" class="btn" type="button" data-i18n="login.register"></button>
-        <button id="login-submit" class="btn btn-solid" type="button" data-i18n="login.submit"></button>
+        <button id="login-submit" class="btn btn-primary" type="button" data-i18n="login.submit"></button>
       </div>
     </div>
   </div>
 
   <div id="profile-modal" class="modal-backdrop" hidden>
-    <div class="modal">
+    <div class="modal panel" role="dialog" aria-modal="true">
       <h2 data-i18n="profile.heading"></h2>
       <div id="profile-body"></div>
       <div class="modal-actions">
-        <button id="profile-close" class="btn btn-quiet" type="button" data-i18n="profile.close"></button>
+        <button id="profile-close" class="btn" type="button" data-i18n="profile.close"></button>
       </div>
     </div>
   </div>
@@ -129,13 +138,22 @@
     import { getStreak } from './shared/streaks.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
+    import { sfx } from './shared/stage/sfx.js';
 
     const availableEras = ERAS.filter(era => era.available);
-    const eraIndex = document.querySelector('#era-index');
+    const SELECTED_KEY = 'oneday.selectedEra';
 
     // The era count is read from the registry rather than typed in, so the
     // number on the page can never drift from the number of eras that exist.
     document.querySelector('#stat-eras').textContent = availableEras.length;
+
+    let selected = 0;
+    try {
+      const saved = availableEras.findIndex(era => era.id === localStorage.getItem(SELECTED_KEY));
+      if (saved >= 0) selected = saved;
+    } catch {
+      // No storage: start on the first era.
+    }
 
     function applyStaticI18n() {
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
@@ -145,49 +163,74 @@
     }
 
     function play(eraId, daily = false) {
+      sfx.select();
       window.location.href = `./game.html?era=${eraId}${daily ? '&daily=1' : ''}`;
     }
 
-    function renderEraIndex() {
-      const today = todayDateKey();
-      eraIndex.innerHTML = availableEras.map(era => {
-        const playedToday = hasPlayedToday(getLocalDailyResult(era.id), today);
-        return `
-          <li>
-            <button class="era-row" type="button" data-era="${era.id}" style="--row-h:${era.accent}">
-              <span class="era-row-year">${localize(era.year)}</span>
-              <span>
-                <span class="era-row-name">${localize(era.name)}</span>
-                <p class="era-row-tagline">${localize(era.tagline)}</p>
-              </span>
-              <span class="era-row-go">
-                <span class="era-row-daily${playedToday ? ' played' : ''}" data-daily="${era.id}" role="button" tabindex="0">${playedToday ? '✓ ' : ''}${t('era.daily')}</span>
-                <span>${t('era.live')} →</span>
-              </span>
-            </button>
-          </li>
-        `;
-      }).join('');
+    // --- The diorama behind the menu: one live 3D island per era ---
+    let stage = null;
+    let stageEra = null;
+    let createStage = null;
+    let stageQueue = Promise.resolve();
 
-      eraIndex.querySelectorAll('.era-row').forEach(row => {
-        row.addEventListener('click', event => {
-          const daily = event.target.closest('[data-daily]');
-          if (daily) { event.stopPropagation(); play(daily.dataset.daily, true); return; }
-          play(row.dataset.era);
-        });
-      });
-      eraIndex.querySelectorAll('[data-daily]').forEach(chip => {
-        chip.addEventListener('keydown', event => {
-          if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); event.stopPropagation(); play(chip.dataset.daily, true); }
-        });
+    function showStage(eraId) {
+      stageQueue = stageQueue.then(async () => {
+        if (stageEra === eraId || !createStage) return;
+        stageEra = eraId;
+        const host = document.querySelector('#stage');
+        const previous = stage;
+        stage = await createStage(host, { eraId, mode: 'showcase' });
+        previous?.dispose();
+      }).catch(error => {
+        console.warn('OneDay: 3D stage unavailable', error);
+        document.body.classList.add('no-stage');
       });
     }
 
-    renderEraIndex();
+    function renderPicker() {
+      const era = availableEras[selected];
+      document.body.dataset.era = era.id;
+      document.querySelector('#picker-year').textContent = localize(era.year);
+      document.querySelector('#picker-name').textContent = localize(era.name);
+      document.querySelector('#picker-tagline').textContent = localize(era.tagline);
+      const playedToday = hasPlayedToday(getLocalDailyResult(era.id), todayDateKey());
+      document.querySelector('#play-daily').classList.toggle('played', playedToday);
+      document.querySelector('#era-dots').innerHTML = availableEras.map((entry, index) => `
+        <button type="button" role="tab" aria-selected="${index === selected}" class="${index === selected ? 'active' : ''}" data-index="${index}" aria-label="${localize(entry.name)}"></button>
+      `).join('');
+      try { localStorage.setItem(SELECTED_KEY, era.id); } catch { /* not remembered */ }
+      showStage(era.id);
+    }
+
+    function select(index) {
+      selected = (index + availableEras.length) % availableEras.length;
+      sfx.move();
+      renderPicker();
+    }
+
+    document.querySelector('#prev-era').addEventListener('click', () => select(selected - 1));
+    document.querySelector('#next-era').addEventListener('click', () => select(selected + 1));
+    document.querySelector('#era-dots').addEventListener('click', event => {
+      const dot = event.target.closest('[data-index]');
+      if (dot) select(Number(dot.dataset.index));
+    });
+    document.querySelector('#play-era').addEventListener('click', () => play(availableEras[selected].id));
+    document.querySelector('#play-daily').addEventListener('click', () => play(availableEras[selected].id, true));
+
+    document.addEventListener('keydown', event => {
+      if (event.target.closest('input') || document.querySelector('.modal-backdrop:not([hidden])')) return;
+      if (event.key === 'ArrowLeft') select(selected - 1);
+      else if (event.key === 'ArrowRight') select(selected + 1);
+      else if (event.key === 'Enter' && event.target === document.body) play(availableEras[selected].id);
+    });
 
     document.querySelector('#lang-en').addEventListener('click', () => setLanguage('en'));
     document.querySelector('#lang-es').addEventListener('click', () => setLanguage('es'));
-    onLanguageChange(() => { applyStaticI18n(); renderEraIndex(); });
+    onLanguageChange(() => { applyStaticI18n(); renderPicker(); });
+
+    const howModal = document.querySelector('#how-modal');
+    document.querySelector('#how-open').addEventListener('click', () => { howModal.hidden = false; });
+    document.querySelector('#how-close').addEventListener('click', () => { howModal.hidden = true; });
 
     const loginModal = document.querySelector('#login-modal');
     const loginError = document.querySelector('#login-error');
@@ -246,10 +289,23 @@
     });
     document.querySelector('#profile-close').addEventListener('click', () => { profileModal.hidden = true; });
 
+    document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+      backdrop.addEventListener('click', event => { if (event.target === backdrop) backdrop.hidden = true; });
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape') document.querySelectorAll('.modal-backdrop').forEach(backdrop => { backdrop.hidden = true; });
+    });
+
     (async function init() {
       await loadStrings();
       applyStaticI18n();
-      renderEraIndex();
+      try {
+        ({ createStage } = await import('./shared/stage/stage.js'));
+      } catch (error) {
+        console.warn('OneDay: 3D stage unavailable', error);
+        document.body.classList.add('no-stage');
+      }
+      renderPicker();
     })();
   </script>
 </body>

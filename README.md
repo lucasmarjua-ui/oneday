@@ -4,11 +4,11 @@
 [![Deploy to GitHub Pages](https://github.com/lucasmarjua-ui/oneday/actions/workflows/deploy.yaml/badge.svg)](https://github.com/lucasmarjua-ui/oneday/actions/workflows/deploy.yaml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://lucasmarjua-ui.github.io/oneday/)
-![No dependencies](https://img.shields.io/badge/dependencies-zero-orange)
+![Build step: none](https://img.shields.io/badge/build_step-none-orange)
 
-OneDay is a data-driven decision game. Pick one of six eras, live a single day inside it one decision card at a time, and find out who that day turned you into. Every option costs hours and resources; the day ends when time runs out or a critical resource hits zero. There is no character creation and no class: **the person you end up being is read backwards from the choices you actually made.**
+OneDay is a data-driven decision game played on a **3D pixel-art stage**. Pick one of six eras, live a single day inside it one decision card at a time, and watch your character walk to the agora, the temple or the airlock, act out every choice and react to how it went, while the sun crosses the sky. At nightfall the game tells you who that day turned you into. Every option costs hours and resources; the day ends when time runs out or a critical resource hits zero. There is no character creation and no class: **the person you end up being is read backwards from the choices you actually made.**
 
-Built with HTML, CSS and vanilla JavaScript. No frameworks, no build step, no dependencies, fully bilingual (English/Spanish).
+Built with HTML, CSS and vanilla JavaScript plus [three.js](https://threejs.org) (vendored, no CDN). No frameworks, no build step, fully bilingual (English/Spanish).
 
 **[▶ Play now](https://lucasmarjua-ui.github.io/oneday/)**
 
@@ -16,14 +16,14 @@ Built with HTML, CSS and vanilla JavaScript. No frameworks, no build step, no de
 
 <table>
   <tr>
-    <td width="33%"><img src="screenshots/home.png" alt="The era index"></td>
-    <td width="33%"><img src="screenshots/decision-cordoba.png" alt="A decision in Córdoba, 961"></td>
-    <td width="33%"><img src="screenshots/summary-edo.png" alt="The end of a day in Edo, 1750"></td>
+    <td width="33%"><img src="screenshots/home.png" alt="The title screen: Ancient Greece as a floating pixel-art island"></td>
+    <td width="33%"><img src="screenshots/decision-cordoba.png" alt="A decision with Yusuf in the souk of Córdoba, 961"></td>
+    <td width="33%"><img src="screenshots/summary-edo.png" alt="The end of a day in Edo, 1750, at night"></td>
   </tr>
   <tr>
-    <td><sub>The home page is an index of the six eras; each row fills with that era's accent hue.</sub></td>
-    <td><sub>A decision card: monospaced costs and odds, and a live "leaning" readout in the HUD.</sub></td>
-    <td><sub>The end of a day: the day names you before it shows you anything else.</sub></td>
+    <td><sub>The title screen: each era is a living diorama you flip through with ◂ ▸.</sub></td>
+    <td><sub>Meeting Yusuf in the souk. Costs and odds on every choice, resource changes float over your head.</sub></td>
+    <td><sub>Lantern hours in Edo: the day names you while the camera circles your character.</sub></td>
   </tr>
 </table>
 
@@ -34,7 +34,7 @@ Built with HTML, CSS and vanilla JavaScript. No frameworks, no build step, no de
 - [Who you become: traits and personas](#who-you-become-traits-and-personas)
 - [The decision engine](#the-decision-engine)
 - [Eras](#eras)
-- [Visual identity: the almanac](#visual-identity-the-almanac)
+- [The stage: a 3D pixel-art diorama](#the-stage-a-3d-pixel-art-diorama)
 - [Architecture](#architecture)
 - [Testing](#testing)
 - [Daily Challenge](#daily-challenge)
@@ -54,8 +54,8 @@ Then visit `http://localhost:8000`. (`package.json` exists only to mark the code
 
 ## How to play
 
-1. Pick an era from the index on the home page. That is the entire setup — you are in the day on the next click.
-2. Each decision card offers 2-4 options. Every option shows what it costs in hours and resources, and its odds when it is a real gamble.
+1. Flip through the eras on the title screen (◂ ▸ or the arrow keys) and press **Live this day**. That is the entire setup.
+2. Your character walks to where the card happens and the dialog box types it out (Enter skips). Each card offers 2-4 options, picked with a click or the keys **1-4**. Every option shows what it costs in hours and resources, and its odds when it is a real gamble.
 3. Your odds are shaped by the day itself: how much energy or standing you have left, and how consistently you have been making a certain *kind* of choice today.
 4. The day ends when the clock runs out (a normal ending) or a critical resource bottoms out (a bad one, with era-specific narration).
 5. The summary screen names you: **The Hoplite**, **The Almsgiver**, **The Fixer**, **The Sign-Reader**… whichever of the six traits your choices leaned into most. It also scores the three objectives that were drawn for that playthrough, lists where your resources ended, and recaps what happened.
@@ -133,27 +133,23 @@ Mars is the clearest proof the schema generalizes: it declares `oxygen` as a *se
 
 Each era has three recurring NPCs with their own multi-card threads and attitude counters, and declares which flags/counters are **memorable**, so a signed-in player's relationships carry into their next playthrough of that era (`shared/memories-logic.js`).
 
-## Visual identity: the almanac
+## The stage: a 3D pixel-art diorama
 
-The previous design was a dark navy, glass-and-photography interface built around a full-screen cinematic hero. This redesign replaces it completely with something quieter and more editorial — **a printed almanac**:
+Every era is a floating island built from voxel tiles, with its landmarks modelled from boxes, cylinders and cones: the Parthenon and the agora's striped stalls, the Great Mosque's red-and-white arches and a turning waterwheel, Sensoji's pagoda and a torii gate, a cave and a grazing mammoth, a neon tower with flying cars, habitat domes and a greenhouse on Mars. It is rendered by three.js at roughly 300 pixel rows and scaled up with hard edges, so the 3D scene reads as pixel art, with crisp one-pixel shadows.
 
-- **Warm paper ground** (`hsl(40 36% 96%)`) with ink-dark type and a faint drawn grain, instead of dark glass panels.
-- **Hairline rules and spacing carry the structure.** There are no cards-as-surfaces, no blur, no shadows except on modals. A decision's options are cells in a ruled grid.
-- **Fraunces** for display, **IBM Plex Mono** for every number, label and cost readout, **Inter** for body copy. Numbers being monospaced is the whole reason the HUD reads like an instrument panel.
-- **One accent hue per era**, declared in `shared/era-registry.js` and set as `--accent-h` on `<body data-era>`. It tints the wordmark dot, the era's name, the leaning indicator, card top-rules and the summary's verdict — so each world feels distinct without a second design system.
-- **The home page is an index, not a hero.** Six ruled rows, each a year, a name and a tagline, filling with that era's own hue on hover. It is the table of contents of a book, and it is also the only navigation the game needs now that there is no character creation.
+- **The character is a pixel-art sprite** (16x24) assembled from text grids in `shared/stage/sprites.js`: a head, a torso, an arm pose and a leg pose, dressed by an era palette (a chiton in Athens, a spacesuit on Mars). NPCs reuse the body in their own portrait colour, and a few villagers wander between landmarks.
+- **Cards happen somewhere.** `shared/stage/places.js` gives each era 5-7 landmarks; a card goes to the one its id names (`temple`, `souk`, `canal`), or where its NPC lives, or, failing both, to a landmark picked by a stable hash. The character walks there along the island's paths and the NPC is waiting.
+- **Choices are acted out.** `shared/stage/direction.js` maps the option's trait to body language: bold dashes, prudent sits down, generous gives (hearts), cunning crouches out of sight, diligent works (sparks), curious inspects (a question mark). A real gamble then gets a cheer and confetti or a stumble and a dust cloud; a sure thing gets a nod. Resource changes float up over the character's head.
+- **The day passes on screen.** The sun travels across the sky with the clock and the light warms, fades and turns blue; lamps, lanterns and windows switch on as night falls. Low health desaturates the world and pulses a red vignette.
+- **It is a game, not a page.** A pixel HUD, a typewriter dialog box with portraits, keyboard play, chiptune sound effects synthesised with WebAudio (`shared/stage/sfx.js`, mutable), and a finale where the camera circles the character while the results panel names them.
 
-### Where the imagery went
-
-There is no photography in the interface chrome any more. Each era gets a thin **horizon band** under the play screen's masthead instead of a full-page backdrop: for the three eras that ship a photograph (`assets/era-bg-*.jpg`) it is that photo, luminosity-blended and faded into the paper; for the three new eras `shared/atmosphere-bg.js` draws a generated horizon from the era's own accent hue — a low disc and two slowly drifting bands. Both paths render the same component, so a photo-backed era and a generated one sit side by side without looking like two different products.
-
-**If you want photographs for Córdoba, Edo and Mars**, generate three images the same way as the existing ones and drop them in as `assets/era-bg-{cordoba,edo,mars}.jpg` — wiring them up is one line in `atmosphere-bg.js` (`PHOTO_ERAS`).
+The rules never wait on the stage: every stage call has a timeout, and if WebGL or the module is unavailable the game falls back to the same HUD and dialog over a plain backdrop. Reduced-motion players get instant moves and no particles.
 
 ## Architecture
 
 ```text
-index.html                     The era index, login and profile
-game.html                      The day loop: HUD, decisions, outcomes, summary
+index.html                     Title screen: era picker over a live diorama, login, profile
+game.html                      The day loop: stage, HUD, dialog, outcomes, results
 shared/
   era-registry.js              The six eras: ids, names, years, accent hues, file paths
   persona.js                   Traits, trait ranking, and which persona a day resolves to
@@ -172,12 +168,18 @@ shared/
   daily-challenge.js           Daily Challenge cache + Firestore leaderboard
   resource-bar.js              Pure resource-bar math
   streaks-logic.js / streaks.js  Daily Challenge streak rules and storage
-  atmosphere-bg.js             The per-era horizon band (photo or generated)
   share-card.js                The downloadable result card, drawn on <canvas>
   rng.js                       Seeded PRNG (mulberry32) + random/date-based seeds
   i18n.js                      Loads /data/i18n, tracks language, t()/localize()
   auth.js                      Username/password auth + localStorage <-> Firestore sync
-  theme.css                    The whole almanac design system
+  game.css                     The game interface: pixel panels, HUD, dialog, title screen
+  stage/stage.js               three.js stage: pixel rendering, camera, day cycle, actors, effects
+  stage/worlds.js              The six era dioramas
+  stage/sprites.js             Pixel-art character frames and palettes (pure)
+  stage/places.js              Each era's landmarks and which card plays where (pure)
+  stage/direction.js           Trait -> action, outcome -> reaction, sky colours by time (pure)
+  stage/sfx.js                 WebAudio chiptune sound effects
+vendor/three/                  three.js r169, MIT
 data/
   i18n/en.json, es.json        Interface strings
   eras/<id>/era.json           Resources, day structure, NPCs, personas, objectives, endings
@@ -187,7 +189,7 @@ tests/*.test.js                Node's built-in test runner, no test framework
 
 ## Testing
 
-**187 tests**, zero test-framework dependencies, using Node's built-in test runner.
+**203 tests**, zero test-framework dependencies, using Node's built-in test runner.
 
 ```bash
 npm test
@@ -197,9 +199,11 @@ The engine's rules are covered directly (card filtering, weighted draw, both bon
 
 `tests/era-data.test.js` is the one that scales: it reads `shared/era-registry.js` and runs the **same twelve checks against every era**, so a new era inherits them by existing. Per era it asserts that every player-facing field is bilingual, that personas cover all six traits plus a fallback, that every option declares a valid trait, that every trait is actually reachable through that era's cards, that success bonuses only reference resources and traits that exist, that NPC/thread references resolve and chain, that every flag-based objective is reachable by some card, that declared memories are really produced, and that a simulated day terminates and stays deterministic across 60 seeds. It also checks globally that card ids are unique *across* eras and that eras use genuinely different resource sets rather than being reskins.
 
+`tests/stage.test.js` covers the stage's pure layer for every era: every sprite pose is a full frame with a colour for every pixel in every palette, every card and every NPC lands on a real landmark (and always the same one), every option maps to a known action, and the day cycle ends in night with the lamps on.
+
 `tests/i18n.test.js` enforces the bilingual contract mechanically: both bundles must declare the same keys, no string may be empty, placeholders must match between languages, every `data-i18n` attribute and every `t()` lookup in both pages must resolve, and no key may be dead.
 
-Firestore-touching code and `<canvas>` rendering are verified in a real browser rather than unit tested, as before.
+Firestore-touching code, `<canvas>` rendering and the WebGL stage are verified in a real browser rather than unit tested.
 
 ## Daily Challenge
 
@@ -207,7 +211,7 @@ Each era's "Today's Challenge" plays the same engine seeded from `dailySeed(eraI
 
 Scoring: 100 points per completed objective, plus a 0-10 tiebreak from final health and currency — capped well below one objective on purpose, so it can only rank players who completed the same number of objectives.
 
-Finishing a challenge while signed in keeps one global **streak** alive across all eras, and offers a **downloadable result card**: a PNG drawn on `<canvas>` in the same almanac identity, headlined with the persona that day produced.
+Finishing a challenge while signed in keeps one global **streak** alive across all eras, and offers a **downloadable result card**: a PNG drawn on `<canvas>`, headlined with the persona that day produced.
 
 ## Accounts and progress (Firebase)
 
@@ -221,20 +225,21 @@ The Firebase SDK is loaded from Google's CDN with a dynamic `import()` (see `sha
 
 ## Technical decisions
 
-**No build step, no frameworks, no dependencies.** GitHub Pages serves the repository as-is.
+**No build step, no frameworks.** GitHub Pages serves the repository as-is. The one library, three.js, is vendored as a single ES module in `vendor/three/`, so the game never depends on a CDN being up.
+
+**Pixel art without an art pipeline.** Characters, icons and portraits are text grids coloured by palettes; the worlds are built from primitives in code. There are no image or model files to load, and the sprite and place data are unit-tested like the rules.
 
 **Data-driven content, engine-agnostic of era.** The engine only knows generic concepts — resources, traits, time slots, flags, counters — so a new era is content, not code. Mars adding a second critical resource required no engine change at all.
 
 **Seeded RNG as a first-class dependency.** Every random draw takes an explicit `rng` argument; nothing calls `Math.random()`. That is what makes the Daily Challenge and the determinism tests possible.
 
-**No art assets in the chrome.** The interface is type, rules and one accent hue. The only imagery is the per-era horizon band, and half of those are drawn in SVG from a hue.
-
-**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (211 decision cards across six eras, 187 tests).
+**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (211 decision cards across six eras, 203 tests).
 
 ## Known gaps
 
 - **Email/Password sign-in is not enabled yet in the live Firebase project**, so on the live site every account-gated feature silently behaves like guest mode.
-- **Three of the six eras have no background photograph** (Córdoba, Edo, Mars) and use the generated horizon band instead. See [Where the imagery went](#where-the-imagery-went).
+- **Walks are straight lines.** Characters follow the paths between landmarks but do not pathfind around props, so on rare cards they brush through a stall.
+- **The downloadable result card still uses the previous print design**, not the pixel style.
 - **No global all-time leaderboard for free play** — only the Daily Challenge has one.
 - **No achievements showcase.** Meta-achievement progress is tracked and unlockable but there is no gallery view.
 
