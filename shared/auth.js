@@ -1,17 +1,18 @@
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js';
-import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js';
-import { firebaseApp } from './firebase-config.js';
+import { loadFirebase } from './firebase-config.js';
 import { mergeMemories } from './memories-logic.js';
 import { mergeStreak } from './streaks-logic.js';
 
-const auth = getAuth(firebaseApp);
-const db = getFirestore(firebaseApp);
 const DATA_KEYS = ['oneday.character', 'oneday.progress', 'oneday.stats', 'oneday.achievements', 'oneday.memories', 'oneday.streak'];
 const USERNAME_PATTERN = /^[a-zA-Z0-9_]{3,16}$/;
 let currentUser = null;
 let listeners = [];
 let syncing = false;
 
+async function requireFirebase() {
+  const firebase = await loadFirebase();
+  if (!firebase) { const error = new Error('Accounts are unavailable'); error.code = 'auth/unavailable'; throw error; }
+  return firebase;
+}
 function isValidUsername(username) {
   return typeof username === 'string' && USERNAME_PATTERN.test(username.trim());
 }
@@ -59,6 +60,7 @@ function mergeData(local, cloud) {
   };
 }
 async function loadUserData(user) {
+  const { db, firestoreApi: { doc, getDoc, setDoc } } = await requireFirebase();
   const local = readLocal();
   const hasLocalProgress = Object.keys(local).length > 0;
   const snapshot = await getDoc(doc(db, 'users', user.uid));
@@ -73,21 +75,31 @@ async function loadUserData(user) {
 async function saveUserData(user = currentUser) {
   if (!user || syncing) return;
   syncing = true;
-  try { await setDoc(doc(db, 'users', user.uid), { data: readLocal(), username: user.displayName, updatedAt: Date.now() }, { merge: true }); }
-  catch (error) { console.warn('OneDay: cloud sync failed', error); }
-  finally { syncing = false; }
+  try {
+    const { db, firestoreApi: { doc, setDoc } } = await requireFirebase();
+    await setDoc(doc(db, 'users', user.uid), { data: readLocal(), username: user.displayName, updatedAt: Date.now() }, { merge: true });
+  } catch (error) {
+    console.warn('OneDay: cloud sync failed', error);
+  } finally {
+    syncing = false;
+  }
 }
 export async function registerUser(username, password) {
   if (!isValidUsername(username)) { const error = new Error('Invalid username'); error.code = 'auth/invalid-username'; throw error; }
+  const { auth, authApi: { createUserWithEmailAndPassword, updateProfile } } = await requireFirebase();
   const credential = await createUserWithEmailAndPassword(auth, usernameToEmail(username), password);
   await updateProfile(credential.user, { displayName: username.trim() });
   return credential;
 }
 export async function loginUser(username, password) {
   if (!isValidUsername(username)) { const error = new Error('Invalid username'); error.code = 'auth/invalid-username'; throw error; }
+  const { auth, authApi: { signInWithEmailAndPassword } } = await requireFirebase();
   return signInWithEmailAndPassword(auth, usernameToEmail(username), password);
 }
-export async function logoutUser() { return signOut(auth); }
+export async function logoutUser() {
+  const { auth, authApi: { signOut } } = await requireFirebase();
+  return signOut(auth);
+}
 export function getCurrentUser() { return currentUser; }
 export function onUserChange(listener) { listeners.push(listener); listener(currentUser); return () => { listeners = listeners.filter(item => item !== listener); }; }
 export function syncCurrentUser() { return saveUserData(); }
@@ -97,8 +109,11 @@ window.addEventListener('statschange', () => saveUserData());
 window.addEventListener('achievementchange', () => saveUserData());
 window.addEventListener('memorieschange', () => saveUserData());
 window.addEventListener('streakchange', () => saveUserData());
-onAuthStateChanged(auth, async user => {
-  currentUser = user;
-  if (user) { try { await loadUserData(user); } catch (error) { console.warn('OneDay: failed to load progress', error); } }
-  listeners.forEach(listener => listener(currentUser));
+loadFirebase().then(firebase => {
+  if (!firebase) return;
+  firebase.authApi.onAuthStateChanged(firebase.auth, async user => {
+    currentUser = user;
+    if (user) { try { await loadUserData(user); } catch (error) { console.warn('OneDay: failed to load progress', error); } }
+    listeners.forEach(listener => listener(currentUser));
+  });
 });

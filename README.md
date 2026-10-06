@@ -12,6 +12,36 @@ Built with HTML, CSS and vanilla JavaScript. No frameworks, no build step, no de
 
 **[▶ Play now](https://lucasmarjua-ui.github.io/oneday/)**
 
+## Screenshots
+
+<table>
+  <tr>
+    <td width="33%"><img src="screenshots/home.png" alt="The era index"></td>
+    <td width="33%"><img src="screenshots/decision-cordoba.png" alt="A decision in Córdoba, 961"></td>
+    <td width="33%"><img src="screenshots/summary-edo.png" alt="The end of a day in Edo, 1750"></td>
+  </tr>
+  <tr>
+    <td><sub>The home page is an index of the six eras; each row fills with that era's accent hue.</sub></td>
+    <td><sub>A decision card: monospaced costs and odds, and a live "leaning" readout in the HUD.</sub></td>
+    <td><sub>The end of a day: the day names you before it shows you anything else.</sub></td>
+  </tr>
+</table>
+
+## Contents
+
+- [Play locally](#play-locally)
+- [How to play](#how-to-play)
+- [Who you become: traits and personas](#who-you-become-traits-and-personas)
+- [The decision engine](#the-decision-engine)
+- [Eras](#eras)
+- [Visual identity: the almanac](#visual-identity-the-almanac)
+- [Architecture](#architecture)
+- [Testing](#testing)
+- [Daily Challenge](#daily-challenge)
+- [Accounts and progress (Firebase)](#accounts-and-progress-firebase)
+- [Technical decisions](#technical-decisions)
+- [Known gaps](#known-gaps)
+
 ## Play locally
 
 Nothing to install. The game uses native ES modules, so it needs to be served over `http://` rather than opened as a `file://` path:
@@ -183,6 +213,8 @@ Finishing a challenge while signed in keeps one global **streak** alive across a
 
 The game is fully playable as a guest; progress lives in `localStorage`. Logging in uses a **username and password** (mapped internally to `username@oneday.local`; a real email is never requested), merges local progress into a `users/{uid}` Firestore document, and keeps it in sync. Account-gated features are cross-playthrough NPC memory, the streak, and leaderboard participation.
 
+The Firebase SDK is loaded from Google's CDN with a dynamic `import()` (see `shared/firebase-config.js`), never a static one. If the CDN is blocked by an ad blocker, a corporate proxy or a lost connection, the game still loads and plays as a guest; only accounts, cloud sync and leaderboards are switched off.
+
 ### One manual console step
 
 **Authentication → Sign-in method → Email/Password → Enable**, then add `lucasmarjua-ui.github.io` to **Authorized domains**. Guest play — the whole game minus accounts and the leaderboard — works without it.
@@ -209,14 +241,3 @@ The game is fully playable as a guest; progress lives in `localStorage`. Logging
 ## License
 
 MIT. Copyright Lucas Martinez, 2026. See [LICENSE](LICENSE).
-
-## Screenshots
-
-![The era index](screenshots/home.png)
-The home page is an index of the six eras, not a hero banner. Each row fills with that era's own accent hue.
-
-![A decision in Córdoba](screenshots/decision-cordoba.png)
-A decision card in Córdoba, 961: paper, hairline rules, monospaced costs and odds, and a live "leaning" readout in the HUD.
-
-![The end of a day in Edo](screenshots/summary-edo.png)
-The end of a day in Edo, 1750: the day names you before it shows you anything else.

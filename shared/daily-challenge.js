@@ -1,10 +1,8 @@
-import { getFirestore, doc, getDoc, setDoc, collection, query, orderBy, limit, getDocs } from 'https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js';
-import { firebaseApp } from './firebase-config.js';
+import { loadFirebase } from './firebase-config.js';
 import { getCurrentUser } from './auth.js';
 import { dateKey } from './rng.js';
 import { hasPlayedToday } from './daily-challenge-logic.js';
 
-const db = getFirestore(firebaseApp);
 const LOCAL_KEY = 'oneday.dailyChallenge';
 
 export const todayDateKey = dateKey;
@@ -51,6 +49,9 @@ function withTimeout(promise, fallback) {
 export async function checkRemoteDailyEntry(eraId, todayKey) {
   const user = getCurrentUser();
   if (!user) return null;
+  const firebase = await loadFirebase();
+  if (!firebase) return null;
+  const { db, firestoreApi: { doc, getDoc } } = firebase;
   const ref = doc(db, 'dailyLeaderboards', leaderboardId(eraId, todayKey), 'entries', user.uid);
   try {
     const snapshot = await withTimeout(getDoc(ref), null);
@@ -64,6 +65,9 @@ export async function checkRemoteDailyEntry(eraId, todayKey) {
 export async function submitDailyScore(eraId, todayKey, scoreData) {
   const user = getCurrentUser();
   if (!user) return false;
+  const firebase = await loadFirebase();
+  if (!firebase) return false;
+  const { db, firestoreApi: { doc, setDoc } } = firebase;
   const ref = doc(db, 'dailyLeaderboards', leaderboardId(eraId, todayKey), 'entries', user.uid);
   try {
     const result = await withTimeout(
@@ -78,6 +82,9 @@ export async function submitDailyScore(eraId, todayKey, scoreData) {
 }
 
 export async function getDailyLeaderboard(eraId, todayKey, topN = 10) {
+  const firebase = await loadFirebase();
+  if (!firebase) return [];
+  const { db, firestoreApi: { collection, query, orderBy, limit, getDocs } } = firebase;
   const entriesRef = collection(db, 'dailyLeaderboards', leaderboardId(eraId, todayKey), 'entries');
   const rankedQuery = query(entriesRef, orderBy('score', 'desc'), limit(topN));
   try {
