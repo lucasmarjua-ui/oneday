@@ -53,7 +53,7 @@ export const PLACES = {
     { id: 'house', scene: 'house', label: { en: 'Your house, workers\' town', es: 'Tu casa, poblado de obreros' }, pos: [-1, -1], keywords: ['wake'] },
     { id: 'bakery', scene: 'village', label: { en: 'The bakery', es: 'La panadería' }, pos: [1, -1], keywords: ['bread', 'grumble', 'orders', 'scribe'] },
     { id: 'healer', scene: 'village', label: { en: 'Tia\'s courtyard', es: 'El patio de Tia' }, pos: [-2.5, 1.5], keywords: ['tia'] },
-    { id: 'harbour', scene: 'harbour', label: { en: 'The harbour basin', es: 'La dársena del puerto' }, pos: [0, 1], keywords: ['harbour', 'merer', 'casing'] },
+    { id: 'harbour', scene: 'harbour', label: { en: 'The harbour basin', es: 'La dársena del puerto' }, pos: [0, 1], keywords: ['harbour', 'merer', 'casing', 'flood'] },
     { id: 'quarry', scene: 'quarry', label: { en: 'The quarry', es: 'La cantera' }, pos: [0, 1], keywords: ['quarry', 'cubit'] },
     { id: 'ramp-foot', scene: 'pyramid', label: { en: 'Foot of the ramp', es: 'Pie de la rampa' }, pos: [-3, 4], keywords: ['sledge', 'ramp', 'heat', 'north', 'boat-pit', 'accident'] },
     { id: 'summit', scene: 'pyramid', label: { en: 'Above the King\'s Chamber', es: 'Sobre la Cámara del Rey' }, pos: [2, -2], y: 5.5, via: [-2.4, 3.3], keywords: ['crack', 'set', 'graffiti', 'tomb', 'sunset'] },

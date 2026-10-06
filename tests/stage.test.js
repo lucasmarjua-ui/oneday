@@ -184,7 +184,7 @@ test('everybody is dressed with accessories the model actually has', () => {
 });
 
 test('every prop the scenes place was modelled in Blender', () => {
-  const names = new Set([...props.nodes, ...readGlb('assets/models/apollo-11.glb').nodes].map(node => node.name));
+  const names = new Set([...props.nodes, ...readGlb('assets/models/apollo-11.glb').nodes, ...readGlb('assets/models/giza.glb').nodes].map(node => node.name));
   const worlds = readFileSync(join(here, '..', 'shared/stage/worlds.js'), 'utf8');
   const used = [...worlds.matchAll(/model\('([a-z_]+)'/g)].map(match => match[1]);
   assert.ok(used.length >= 10, 'scenes should use the Blender props');
