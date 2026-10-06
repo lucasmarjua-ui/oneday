@@ -26,18 +26,23 @@ const ICON_PPU = 16; // speech-bubble icons keep their own, chunkier pixel size
 const VIEW = { play: { island: 6, room: 5.4 }, showcase: { island: 12, room: 8 } };
 const WALK_SPEED = 2.2;
 
-// The Blender models, loaded once per page.
-let modelsPromise = null;
-function loadModels() {
-  if (!modelsPromise) {
+// Events with their own set of Blender models (assets/models/<event>.glb).
+const EVENT_MODELS = new Set(['apollo-11']);
+
+// The Blender models, loaded once per page and event.
+const modelCache = new Map();
+function loadModels(eraId) {
+  const key = EVENT_MODELS.has(eraId) ? eraId : '';
+  if (!modelCache.has(key)) {
     const loader = new GLTFLoader();
     const base = new URL('../../assets/models/', import.meta.url).href;
-    modelsPromise = Promise.all([loader.loadAsync(`${base}character.glb`), loader.loadAsync(`${base}props.glb`)]).then(([character, props]) => ({
+    const files = ['character', 'props', ...(key ? [key] : [])].map(name => loader.loadAsync(`${base}${name}.glb`));
+    modelCache.set(key, Promise.all(files).then(([character, ...packs]) => ({
       character,
-      props: new Map(props.scene.children.map(child => [child.name, child])),
-    }));
+      props: new Map(packs.flatMap(pack => pack.scene.children.map(child => [child.name, child]))),
+    })));
   }
-  return modelsPromise;
+  return modelCache.get(key);
 }
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -345,7 +350,7 @@ class Actor {
  * `npcs` are the event's characters: { id, color, name }.
  */
 export async function createStage(container, { eraId, mode = 'play', onStep, npcs = [] } = {}) {
-  const models = await loadModels();
+  const models = await loadModels(eraId);
   const canvas = document.createElement('canvas');
   canvas.className = 'stage-canvas';
   container.appendChild(canvas);
@@ -584,7 +589,7 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
     moonFill.intensity = sky.night * 0.9;
     const r = 34;
     // On the Moon the Sun hangs low in the east all day, as it did for Apollo 11.
-    const angle = space ? 0.45 : sky.sunAngle;
+    const angle = space ? 0.12 : sky.sunAngle;
     sun.position.set(Math.cos(angle) * r, 14 + Math.sin(angle) * 24, -8 + Math.sin(angle) * 6);
     stage.night = sky.night;
     post.uniforms.night.value = sky.night;

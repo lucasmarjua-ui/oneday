@@ -28,6 +28,7 @@ test('formatClock converts elapsed time into a clock label', () => {
   assert.equal(formatClock(era, 0), '07:00');
   assert.equal(formatClock(era, 8), '15:00');
   assert.equal(formatClock(era, 16), '23:00');
+  assert.equal(formatClock({ day: { startLabel: '06:00', totalTime: 22 } }, 20), '02:00');
 });
 
 test('advanceTime clamps at totalTime', () => {

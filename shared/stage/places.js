@@ -44,9 +44,9 @@ export const NPC_SCENES = {
 export const PLACES = {
   'apollo-11': [
     { id: 'bunk', scene: 'columbia', label: { en: 'Columbia, lunar orbit', es: 'Columbia, órbita lunar' }, pos: [-1, -1], keywords: ['wake', 'breakfast', 'neil-photos', 'suitup', 'transfer', 'undock', 'earthrise', 'home-burn', 'abort-dock', 'abort-tv'] },
-    { id: 'cabin', scene: 'eagle', label: { en: 'Eagle', es: 'Eagle' }, pos: [0, 0], keywords: ['doi', 'pdi', 'alarm', 'boulders', 'sixty', 'contact', 'stay', 'west-crater', 'rest', 'communion', 'breaker', 'abort-climb', 'collins-alone', 'dust'] },
-    { id: 'ladder', scene: 'surface', label: { en: 'Tranquility Base', es: 'Base Tranquilidad' }, pos: [-0.5, 1.5], keywords: ['hatch', 'first-step', 'magnificent', 'plaque', 'nixon'] },
-    { id: 'flag', scene: 'surface', label: { en: 'Tranquility Base', es: 'Base Tranquilidad' }, pos: [2.5, 2.5], keywords: ['flag', 'earth', 'footprint'] },
+    { id: 'cabin', scene: 'eagle', label: { en: 'Eagle', es: 'Eagle' }, pos: [0, 0], keywords: ['doi', 'pdi', 'alarm', 'boulders', 'sixty', 'contact', 'stay', 'west-crater', 'rest', 'communion', 'breaker', 'abort-climb', 'collins-alone', 'dust', 'jettison', 'lunar-night'] },
+    { id: 'ladder', scene: 'surface', label: { en: 'Tranquility Base', es: 'Base Tranquilidad' }, pos: [-0.5, 1.5], keywords: ['hatch', 'first-step', 'magnificent', 'plaque', 'nixon', 'contingency', 'closeout', 'overtime'] },
+    { id: 'flag', scene: 'surface', label: { en: 'Tranquility Base', es: 'Base Tranquilidad' }, pos: [2.5, 2.5], keywords: ['flag', 'earth', 'footprint', 'medals'] },
     { id: 'experiments', scene: 'surface', label: { en: 'Tranquility Base', es: 'Base Tranquilidad' }, pos: [3, -2], keywords: ['experiments', 'samples'] },
   ],
   giza: [

@@ -229,7 +229,10 @@ export function buildWorld(THREE, stage, { eraId, sceneId, scene: config, places
   if (builder?.before) builder.before(kit);
 
   const groundTiles = [];
-  if (config.kind === 'room') {
+  if (config.kind === 'room' && builder?.set) {
+    // A room modelled whole in Blender: the builder places it and says where the floor is.
+    (builder.floor || [[0, 0, config.size[0] - 0.3, config.size[1] - 0.3]]).forEach(rect => groundTiles.push(rect));
+  } else if (config.kind === 'room') {
     const [w, d] = config.size;
     groundTiles.push([0, 0, w - 0.3, d - 0.3]);
     const room = ROOMS[sceneId] || ROOMS.house;
@@ -356,47 +359,45 @@ export function buildWorld(THREE, stage, { eraId, sceneId, scene: config, places
 const SCENES = {
   'apollo-11': {
     columbia: {
+      // Columbia's cabin, cut away: modelled in Blender (tools/blender/apollo.py).
+      set: true,
+      floor: [[0, 0, 4.2, 4.2], [0, 0, 5.4, 2.2], [0, 0, 2.2, 5.4]],
       build(k) {
-        // Main display console along the back wall.
-        k.box(0, 0.6, -2.7, 4.6, 1.6, 0.5, '#3b3f48');
-        for (let i = 0; i < 9; i++) for (let j = 0; j < 3; j++) k.screen(-2 + i * 0.5, 1 + j * 0.4, -2.44, 0.2, 0.12, ['#7dff9b', '#ffd84a', '#ffffff'][(i + j) % 3]);
-        k.screen(-0.5, 1.2, -2.44, 0.7, 0.5, '#13361e');
-        // Three couches.
-        [-1.5, 0, 1.5].forEach(x => {
-          k.box(x, 0, -1.1, 1, 0.5, 1.4, '#d8d5cc');
-          k.box(x, 0.5, -1.7, 1, 0.9, 0.3, '#c9c6bd');
-        });
-        // Window with the Moon outside.
-        k.box(-3.3, 1.2, 0.6, 0.25, 1.2, 1.2, '#0b0c14');
-        k.screen(-3.18, 1.45, 0.6, 0.6, 0.6, '#cfcfc9', { facing: 'x' });
-        // Sleeping bag, food lockers, a floating pen.
-        k.box(-3.25, 0.6, -1.8, 0.2, 1.8, 0.7, '#6fa2d6');
-        k.box(2.6, 0, 1.6, 1, 0.9, 1, '#9da1aa');
-        const pen = k.box(1, 1.8, 0.8, 0.5, 0.06, 0.06, '#d33b2c', { cast: false });
+        k.model('cm_interior', 0, 0, 0, { solid: false });
+        // The console and the cabin wall, and the three couches.
+        for (let a = 100; a <= 170; a += 10) {
+          const r = (a * Math.PI) / 180;
+          k.blocker({ type: 'circle', x: Math.cos(r) * 2.35, z: -Math.sin(r) * 2.35, r: 0.3 });
+        }
+        for (let a = 40; a <= 230; a += 12) {
+          const r = (a * Math.PI) / 180;
+          k.blocker({ type: 'circle', x: Math.cos(r) * 2.75, z: -Math.sin(r) * 2.75, r: 0.3 });
+        }
+        [[0.15, 0.15], [-0.63, 0.93], [0.93, -0.63]].forEach(([x, z]) => k.blocker({ type: 'rect', x, z, w: 0.8, d: 1.6, rot: Math.PI / 4 }));
+        // What glows: the DSKY, the caution-and-warning lights, the Moon in the windows.
+        const diag = { rotY: Math.PI / 4, cast: false, solid: false };
+        k.box(-1.5, 1.3, -1.5, 0.3, 0.12, 0.04, '#7dff9b', { ...diag, emissive: '#3fbf5b' });
+        k.box(-1.42, 2.1, -1.42, 0.5, 0.25, 0.04, '#ffcf70', { ...diag, emissive: '#8a6a20' });
+        [[0.62, -2.32, 0.26], [-2.32, 0.62, -1.31]].forEach(([x, z, r]) => k.box(x, 2.0, z, 0.3, 0.3, 0.04, '#d8d8d2', { rotY: r, cast: false, solid: false, emissive: '#9a9a96' }));
+        // A pen floating in zero gravity, the cabin floodlight, the master alarm.
+        const pen = k.box(1, 1.8, 0.8, 0.5, 0.06, 0.06, '#d33b2c', { cast: false, solid: false });
         k.animate((dt, t) => { pen.position.y = 1.8 + Math.sin(t * 0.8) * 0.2; pen.rotation.y = t * 0.3; pen.rotation.z = t * 0.2; });
-        k.lamp(1.5, 2.8, -2.2, '#e8f1ff', { always: true, strength: 4 });
-        k.alarm(-1.8, 2.3, -2.4, '#ff3b3b');
+        k.lamp(0, 2.9, 0, '#e8f1ff', { always: true, strength: 5, range: 9 });
+        k.alarm(-1.55, 2.45, -1.25, '#ff3b3b');
       },
     },
     eagle: {
+      // Eagle's cockpit: modelled in Blender, crew stations, breakers and all.
+      set: true,
       build(k) {
-        // Two triangular windows looking down at the Moon.
-        [[-1.2, '#bdbdb8'], [1.2, '#b1b1ac']].forEach(([x, c]) => {
-          const frame = k.box(x, 1.4, -2.3, 1, 1, 0.3, '#2b2d33');
-          frame.rotation.z = Math.PI / 4;
-          k.screen(x, 1.55, -2.13, 0.6, 0.6, c);
-        });
-        // Instrument panels and the guidance computer (DSKY).
-        k.box(0, 0, -1.9, 1.4, 1.2, 0.6, '#4a4e58');
-        k.box(-2.6, 0.4, -0.6, 0.6, 2, 2.4, '#4a4e58');
-        for (let i = 0; i < 6; i++) k.screen(-2.28, 0.9 + (i % 3) * 0.4, -1.2 + Math.floor(i / 3) * 0.9, 0.3, 0.12, i % 2 ? '#ffd84a' : '#ffffff', { facing: 'x' });
-        k.screen(0, 1.25, -1.58, 0.8, 0.5, '#1c5a2c');
-        k.screen(0.15, 1.3, -1.55, 0.4, 0.12, '#7dff9b');
-        k.alarm(-0.35, 1.25, -1.55, '#ffcc33');
-        // Floor hatch and backpacks.
-        k.box(1.2, 0, 1.2, 1.2, 0.12, 1.2, '#2b2d33');
-        k.box(2.2, 0, -1.2, 0.8, 1.2, 0.5, '#e8e8e2');
-        k.box(2.2, 0, -0.4, 0.8, 1.2, 0.5, '#e8e8e2');
+        k.model('lm_interior', 0, 0, 0, { solid: false });
+        k.blocker({ type: 'rect', x: 0, z: -2.0, w: 1.1, d: 0.8 });
+        k.blocker({ type: 'circle', x: 1.2, z: -0.6, r: 0.65 });
+        [[2.3, 1.3], [2.3, 0.5]].forEach(([x, z]) => k.blocker({ type: 'rect', x, z, w: 0.75, d: 0.5 }));
+        // The DSKY's display, the windows full of grey Moon, the program alarm.
+        k.box(0.12, 1.3, -1.66, 0.3, 0.14, 0.04, '#7dff9b', { cast: false, solid: false, emissive: '#3fbf5b' });
+        [-1.05, 1.05].forEach(x => k.box(x, 2.0, -2.24, 0.45, 0.3, 0.03, '#bdbdb8', { cast: false, solid: false, emissive: '#6a6a66' }));
+        k.alarm(-0.3, 1.45, -1.7, '#ffcc33');
         k.lamp(0, 2.8, 0.5, '#fff1d6', { always: true, strength: 4 });
       },
     },
@@ -411,29 +412,30 @@ const SCENES = {
         const [fx, fz] = k.pos('flag');
         k.model('us_flag', fx - 1.4, 0, fz - 1.4, { rotY: -0.3, solid: false });
         k.blocker({ type: 'circle', x: fx - 1.4, z: fz - 1.4, r: 0.15 });
-        // Experiments: the seismometer with solar wings and the laser reflector.
+        // The experiments Apollo 11 left: the passive seismometer and the
+        // laser retroreflector, still used today to measure the Moon's distance.
         const [ex, ez] = k.pos('experiments');
-        k.box(ex - 1, 0, ez - 1.2, 0.6, 0.5, 0.6, '#d4a73a');
-        k.box(ex - 1.8, 0.4, ez - 1.2, 1, 0.04, 0.6, '#2b3f8c');
-        k.box(ex - 0.2, 0.4, ez - 1.2, 1, 0.04, 0.6, '#2b3f8c');
-        const reflector = k.box(ex + 0.8, 0.2, ez - 1.4, 0.9, 0.08, 0.7, '#3b3f48');
-        reflector.rotation.x = -0.5;
-        // The TV camera on its tripod, craters, rocks and boot prints.
-        k.box(4, 0, 4.5, 0.06, 1.2, 0.06, '#aaaaaa');
-        k.box(4, 1.2, 4.5, 0.4, 0.3, 0.5, '#555a66');
-        [[-6, 4, 2.2], [5.5, -5, 1.6], [-5, -6, 1.4], [6, 2, 1.1]].forEach(([cx, cz, r]) => {
-          for (let i = 0; i < 12; i++) {
-            const a = (i / 12) * Math.PI * 2;
-            k.box(cx + Math.cos(a) * r, 0, cz + Math.sin(a) * r, 0.7, 0.3, 0.7, '#8b8b86', { rotY: a });
+        k.model('psep', ex - 1.2, 0, ez - 1.2, { rotY: 0.4 });
+        k.model('lrrr', ex + 0.9, 0, ez - 1.4, { rotY: -0.3 });
+        k.model('swc', lx + 2.3, 0, lz - 0.6, { rotY: 0.8 });
+        k.model('tv_camera', 4, 0, 4.5, { rotY: 2.3 });
+        // Craters, boulders and boot prints between the lander and the work sites.
+        [[-6, 4, 'crater_large', 1.1], [5.5, -5, 'crater_large', 0.8], [-5, -6, 'crater_small', 1.2], [6, 2, 'crater_small', 1], [1.5, 6.5, 'crater_small', 0.7]]
+          .forEach(([cx, cz, name, scale]) => k.model(name, cx, 0, cz, { scale, solid: false }));
+        [[3, 6], [-7, -1], [7, -2], [1, -6], [-3, 6.5], [-8, 1.5]].forEach(([x, z], i) => k.model('moon_boulder', x, 0, z, { scale: 0.5 + (i % 3) * 0.3, rotY: i * 1.3 }));
+        const prints = [[ladx, ladz, fx, fz], [ladx, ladz, ex, ez], [fx, fz, ex, ez]];
+        prints.forEach(([ax, az, bx, bz]) => {
+          const n = Math.floor(Math.hypot(bx - ax, bz - az) / 0.5);
+          for (let i = 1; i < n; i++) {
+            const t = i / n;
+            const side = i % 2 ? 0.08 : -0.08;
+            k.box(ax + (bx - ax) * t + side, -0.02, az + (bz - az) * t - side, 0.1, 0.03, 0.16, '#8a8a85', { rotY: Math.atan2(bx - ax, bz - az), cast: false, solid: false });
           }
-          k.box(cx, -0.05, cz, r * 1.2, 0.06, r * 1.2, '#7a7a75', { cast: false });
         });
-        [[3, 6], [-7, -1], [7, -2], [1, -6], [-3, 6]].forEach(([x, z], i) => k.model('rock', x, 0, z, { scale: 0.7 + (i % 3) * 0.35, rotY: i * 1.3 }));
         // The Earth, hanging in the black sky.
-        const earth = k.sphere(-16, 15, -22, 2.2, '#3f7fd8', { emissive: '#163a77', cast: false, seg: 16 });
-        const cloud = k.sphere(-15.6, 15.3, -21.4, 1.6, '#f4f4f4', { emissive: '#8a8a8a', cast: false, seg: 10 });
-        earth.userData.isSprite = true;
-        cloud.userData.isSprite = true;
+        const earth = k.model('earth', -16, 15, -22, { scale: 2.4, rotY: 0.6, solid: false, cast: false });
+        earth?.traverse(obj => { obj.userData.isSprite = true; });
+        k.animate(dt => { if (earth) earth.rotation.y += dt * 0.02; });
       },
     },
   },
