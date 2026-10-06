@@ -17,9 +17,9 @@
     "es": "El 20 de julio de 1969 el Eagle se separó del Columbia e inició el descenso. Las alarmas 1202 y 1201 saltaron en la aproximación final; el oficial de guiado de Control de Misión, Steve Bales, respaldado por Jack Garman, dio el GO. Armstrong tomó el control semimanual para sobrevolar un campo de rocas y alunizó a las 20:17 UTC con apenas segundos de margen de combustible. Seis horas y media después pisó el Mar de la Tranquilidad, seguido de Aldrin. Plantaron una bandera, dejaron un sismómetro y un reflector láser, recogieron 21,5 kg de roca y pasaron unas dos horas y media fuera. Los tres astronautas volvieron a la Tierra el 24 de julio."
   },
   "day": {
-    "totalTime": 18,
+    "totalTime": 22,
     "startLabel": "06:00",
-    "endLabel": "24:00",
+    "endLabel": "04:00",
     "openingCard": "apollo-wake",
     "slots": [
       {
@@ -56,7 +56,7 @@
           "es": "Paseo lunar"
         },
         "from": 13,
-        "to": 18
+        "to": 22
       }
     ]
   },

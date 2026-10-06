@@ -22,7 +22,8 @@ export function getCurrentSlot(era, elapsed) {
 export function formatClock(era, elapsed) {
   const startHour = parseInt(era.day.startLabel.split(':')[0], 10);
   const hour = Math.min(startHour + elapsed, startHour + era.day.totalTime);
-  return `${String(Math.round(hour)).padStart(2, '0')}:00`;
+  // A day can run past midnight (the Moon landing does).
+  return `${String(Math.round(hour) % 24).padStart(2, '0')}:00`;
 }
 
 export function dayFraction(dayState) {

@@ -2304,7 +2304,8 @@
         "first-step"
       ],
       "flagsExcluded": [
-        "aldrin-out"
+        "aldrin-out",
+        "closed-out"
       ]
     },
     "fact": {
@@ -2413,13 +2414,14 @@
     "timeSlots": [
       "eva"
     ],
-    "weight": 90,
+    "weight": 400,
     "conditions": {
       "flagsRequired": [
         "aldrin-out"
       ],
       "flagsExcluded": [
-        "flag-planted"
+        "flag-planted",
+        "closed-out"
       ]
     },
     "fact": {
@@ -2547,7 +2549,8 @@
         "aldrin-out"
       ],
       "flagsExcluded": [
-        "reflector-deployed"
+        "reflector-deployed",
+        "closed-out"
       ]
     },
     "fact": {
@@ -2657,6 +2660,9 @@
     "conditions": {
       "flagsRequired": [
         "aldrin-out"
+      ],
+      "flagsExcluded": [
+        "closed-out"
       ]
     },
     "fact": {
@@ -2784,6 +2790,9 @@
     "conditions": {
       "flagsRequired": [
         "flag-planted"
+      ],
+      "flagsExcluded": [
+        "closed-out"
       ]
     },
     "fact": {
@@ -2887,6 +2896,9 @@
     "conditions": {
       "flagsRequired": [
         "aldrin-out"
+      ],
+      "flagsExcluded": [
+        "closed-out"
       ]
     },
     "fact": {
@@ -2961,6 +2973,9 @@
     "conditions": {
       "flagsRequired": [
         "first-step"
+      ],
+      "flagsExcluded": [
+        "closed-out"
       ]
     },
     "fact": {
@@ -3222,7 +3237,7 @@
     "weight": 10,
     "conditions": {
       "flagsRequired": [
-        "aldrin-out"
+        "closed-out"
       ]
     },
     "fact": {
@@ -3279,6 +3294,688 @@
           "text": {
             "en": "Geologists on Earth argue about the smell for years.",
             "es": "Los geólogos en la Tierra discuten sobre ese olor durante años."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-contingency",
+    "npcId": "npc-neil",
+    "threadId": "neil-thread",
+    "text": {
+      "en": "Before anything else, Neil scoops a bag of lunar soil on a stick and stuffs it in his thigh pocket. \"In case we have to leave in a hurry,\" he says.",
+      "es": "Antes que nada, Neil recoge con un palo una bolsa de suelo lunar y se la mete en el bolsillo del muslo. \"Por si tenemos que irnos deprisa\", dice."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 40,
+    "conditions": {
+      "flagsRequired": [
+        "first-step"
+      ],
+      "flagsExcluded": [
+        "aborted",
+        "closed-out"
+      ]
+    },
+    "fact": {
+      "en": "Armstrong's first task on the surface was the 'contingency sample': about 1 kg of soil scooped into a bag in his suit pocket, so that something would return to Earth even if the moonwalk had to be cut short.",
+      "es": "La primera tarea de Armstrong en la superficie fue la 'muestra de contingencia': cerca de 1 kg de suelo metido en una bolsa en el bolsillo del traje, para que algo volviera a la Tierra aunque hubiera que interrumpir el paseo."
+    },
+    "options": [
+      {
+        "id": "help-bag",
+        "text": {
+          "en": "Hold the bag open for him",
+          "es": "Sujétale la bolsa abierta"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "samples": 1,
+            "reputation": 3
+          },
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "A kilo of the Moon, safe in a pocket. Whatever happens now, you will not go home empty-handed.",
+            "es": "Un kilo de Luna, a salvo en un bolsillo. Pase lo que pase, no volveréis con las manos vacías."
+          }
+        }
+      },
+      {
+        "id": "grab-own",
+        "text": {
+          "en": "Grab a rock of your own",
+          "es": "Coge una roca tú también"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "pickup",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "samples": 1,
+            "oxygen": -2
+          },
+          "text": {
+            "en": "Clumsy gloves, a dark glassy pebble. Your first piece of another world.",
+            "es": "Guantes torpes, un guijarro oscuro y vítreo. Tu primer trozo de otro mundo."
+          }
+        }
+      },
+      {
+        "id": "note-site",
+        "text": {
+          "en": "Note where it came from",
+          "es": "Anota de dónde salió"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "write",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "text": {
+            "en": "Geologists will want to know exactly where every grain was picked up.",
+            "es": "Los geólogos querrán saber exactamente dónde se recogió cada grano."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-medals",
+    "text": {
+      "en": "In your sleeve pocket there is a small packet: an Apollo 1 mission patch, medals honouring the cosmonauts Yuri Gagarin and Vladimir Komarov, a tiny gold olive branch and a silicon disc engraved with messages from world leaders.",
+      "es": "En el bolsillo de la manga llevas un paquetito: un emblema del Apolo 1, medallas en honor de los cosmonautas Yuri Gagarin y Vladímir Komarov, una pequeña rama de olivo de oro y un disco de silicio grabado con mensajes de líderes de todo el mundo."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 30,
+    "conditions": {
+      "flagsRequired": [
+        "aldrin-out"
+      ],
+      "flagsExcluded": [
+        "memorial-left",
+        "closed-out"
+      ]
+    },
+    "fact": {
+      "en": "Apollo 11 left a memorial packet on the Moon: an Apollo 1 patch for Grissom, White and Chaffee, killed in a 1967 fire, medals honouring Soviet cosmonauts Gagarin and Komarov, a gold olive branch, and a silicon disc with goodwill messages from 73 countries.",
+      "es": "El Apolo 11 dejó un paquete conmemorativo en la Luna: un emblema del Apolo 1 por Grissom, White y Chaffee, muertos en un incendio en 1967, medallas en honor de los cosmonautas soviéticos Gagarin y Komarov, una rama de olivo de oro y un disco de silicio con mensajes de buena voluntad de 73 países."
+    },
+    "options": [
+      {
+        "id": "leave-it",
+        "text": {
+          "en": "Kneel and leave it on the ground",
+          "es": "Arrodíllate y déjalo en el suelo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "bow",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5,
+            "focus": 3
+          },
+          "flagsSet": [
+            "memorial-left"
+          ],
+          "text": {
+            "en": "Three Americans and two Soviets who died reaching for space, remembered where they wanted to go.",
+            "es": "Tres estadounidenses y dos soviéticos que murieron intentando llegar al espacio, recordados donde querían ir."
+          }
+        }
+      },
+      {
+        "id": "toss",
+        "text": {
+          "en": "Toss it gently towards the lander",
+          "es": "Lánzalo suavemente hacia el módulo"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "flagsSet": [
+            "memorial-left"
+          ],
+          "text": {
+            "en": "It lands in the dust by Eagle's footpad. Neil nods.",
+            "es": "Cae en el polvo junto a la pata del Eagle. Neil asiente."
+          }
+        }
+      },
+      {
+        "id": "say-words",
+        "text": {
+          "en": "Say a few words for them first",
+          "es": "Di antes unas palabras por ellos"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "pray",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "memorial-left"
+          ],
+          "text": {
+            "en": "Grissom, White, Chaffee. Gagarin. Komarov. The radio is silent for a moment.",
+            "es": "Grissom, White, Chaffee. Gagarin. Komarov. La radio calla un momento."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-overtime",
+    "npcId": "npc-houston",
+    "threadId": "houston-thread",
+    "text": {
+      "en": "\"Tranquility, Houston. We'd like to give you another fifteen minutes.\" Your oxygen gauge disagrees a little.",
+      "es": "\"Tranquilidad, aquí Houston. Os damos otros quince minutos\". Tu indicador de oxígeno no está tan de acuerdo."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 20,
+    "conditions": {
+      "flagsRequired": [
+        "aldrin-out"
+      ],
+      "flagsExcluded": [
+        "closed-out"
+      ]
+    },
+    "fact": {
+      "en": "Houston extended the moonwalk by 15 minutes. Armstrong spent about two and a half hours outside in total; Aldrin, who stepped out second and went in first, a little less.",
+      "es": "Houston prolongó el paseo lunar 15 minutos. Armstrong pasó en total unas dos horas y media fuera; Aldrin, que salió el segundo y entró el primero, algo menos."
+    },
+    "options": [
+      {
+        "id": "take-it",
+        "text": {
+          "en": "Take the extra time for more rocks",
+          "es": "Aprovecha el tiempo extra para más rocas"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "oxygen": -8
+          }
+        },
+        "act": "pickup",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "samples": 3,
+            "reputation": 3
+          },
+          "text": {
+            "en": "Fifteen more minutes on the Moon. Nobody in history has had so few, or so many.",
+            "es": "Quince minutos más en la Luna. Nadie en la historia ha tenido tan pocos, ni tantos."
+          }
+        }
+      },
+      {
+        "id": "decline",
+        "text": {
+          "en": "Thank them and start the closeout",
+          "es": "Dales las gracias y empieza a recoger"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "oxygen": 5,
+            "focus": 3
+          },
+          "flagsSet": [
+            "closeout-early"
+          ],
+          "text": {
+            "en": "Better back inside with oxygen to spare.",
+            "es": "Mejor volver dentro con oxígeno de sobra."
+          }
+        }
+      },
+      {
+        "id": "photograph",
+        "text": {
+          "en": "Use it to photograph the site properly",
+          "es": "Úsalo para fotografiar bien el lugar"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5,
+            "oxygen": -5
+          },
+          "text": {
+            "en": "Panoramas, close-ups, the lander from every side. Historians will thank you.",
+            "es": "Panorámicas, primeros planos, el módulo desde cada lado. Los historiadores te lo agradecerán."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-closeout",
+    "text": {
+      "en": "Time to go home. The sample boxes have to go up to the hatch on a pulley line, the Lunar Equipment Conveyor, before you climb the ladder yourself.",
+      "es": "Hora de volver. Las cajas de muestras tienen que subir hasta la escotilla con una polea, el transportador de equipo lunar, antes de que subas tú por la escalerilla."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "flag-planted",
+        "reflector-deployed"
+      ],
+      "flagsExcluded": [
+        "closed-out"
+      ]
+    },
+    "fact": {
+      "en": "Aldrin climbed back into Eagle first. The two sample boxes were hoisted up to the hatch with the Lunar Equipment Conveyor, a pulley line that left both men covered in dust.",
+      "es": "Aldrin volvió a entrar al Eagle el primero. Las dos cajas de muestras se subieron hasta la escotilla con el transportador de equipo lunar, una polea que dejó a los dos cubiertos de polvo."
+    },
+    "options": [
+      {
+        "id": "haul",
+        "text": {
+          "en": "Haul the boxes up the line",
+          "es": "Sube las cajas por la cuerda"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "pull",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "samples": 2,
+            "focus": -3
+          },
+          "flagsSet": [
+            "closed-out"
+          ],
+          "text": {
+            "en": "The line throws dust all over you and Neil. The boxes make it.",
+            "es": "La cuerda os llena de polvo a ti y a Neil. Las cajas llegan."
+          }
+        }
+      },
+      {
+        "id": "climb-first",
+        "text": {
+          "en": "Climb up first and receive them",
+          "es": "Sube primero y recíbelas"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "climb",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "oxygen": 3
+          },
+          "flagsSet": [
+            "closed-out"
+          ],
+          "text": {
+            "en": "You squeeze through the hatch backwards, the way you came out.",
+            "es": "Te metes por la escotilla de espaldas, igual que saliste."
+          }
+        }
+      },
+      {
+        "id": "last-look",
+        "text": {
+          "en": "Take one last look around",
+          "es": "Echa un último vistazo"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "closed-out"
+          ],
+          "text": {
+            "en": "The flag, the footprints, the instruments, the black sky. Then the ladder.",
+            "es": "La bandera, las huellas, los instrumentos, el cielo negro. Luego la escalerilla."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-jettison",
+    "text": {
+      "en": "Back inside, Eagle is too heavy for the ascent. Backpacks, overshoes, empty bags: everything you no longer need has to go out of the hatch.",
+      "es": "Ya dentro, el Eagle pesa demasiado para el despegue. Mochilas, chanclos, bolsas vacías: todo lo que ya no necesitáis tiene que salir por la escotilla."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "closed-out"
+      ],
+      "flagsExcluded": [
+        "jettisoned"
+      ]
+    },
+    "fact": {
+      "en": "To save weight for the ascent, the crew threw their backpacks, overshoes and other equipment out onto the surface. The seismometer they had just set up recorded the impacts.",
+      "es": "Para ahorrar peso en el despegue, la tripulación tiró a la superficie las mochilas, los chanclos y otro equipo. El sismómetro que acababan de instalar registró los golpes."
+    },
+    "options": [
+      {
+        "id": "throw",
+        "text": {
+          "en": "Throw the backpacks out yourself",
+          "es": "Tira tú mismo las mochilas"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "carry",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "flagsSet": [
+            "jettisoned"
+          ],
+          "text": {
+            "en": "They tumble down the porch into the dust. Houston reports that the seismometer felt them land.",
+            "es": "Ruedan por la plataforma hasta el polvo. Houston informa de que el sismómetro ha notado el golpe."
+          }
+        }
+      },
+      {
+        "id": "checklist",
+        "text": {
+          "en": "Go by the stowage list, item by item",
+          "es": "Sigue la lista de estiba, pieza a pieza"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "inspect",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "jettisoned"
+          ],
+          "text": {
+            "en": "Nothing goes out that you might need, nothing stays that you will not.",
+            "es": "No sale nada que podáis necesitar ni se queda nada que sobre."
+          }
+        }
+      },
+      {
+        "id": "keep-souvenir",
+        "text": {
+          "en": "Quietly keep a small souvenir",
+          "es": "Guárdate en silencio un pequeño recuerdo"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "crouch",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": -2,
+            "focus": 3
+          },
+          "flagsSet": [
+            "jettisoned"
+          ],
+          "text": {
+            "en": "A strap, a checklist page. Weight is weight, but some things you keep.",
+            "es": "Una correa, una página de la lista. El peso es el peso, pero algunas cosas se guardan."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-lunar-night",
+    "text": {
+      "en": "Lights dimmed. You curl up on Eagle's floor; Neil sleeps propped on the ascent engine cover, his head in a sling. It is cold, the pumps are loud, and Earth glows through the window.",
+      "es": "Luces bajas. Te acurrucas en el suelo del Eagle; Neil duerme apoyado en la tapa del motor de ascenso, con la cabeza en una correa. Hace frío, las bombas hacen ruido y la Tierra brilla por la ventana."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "jettisoned"
+      ],
+      "flagsExcluded": [
+        "slept"
+      ]
+    },
+    "fact": {
+      "en": "The crew rested about seven hours on the Moon before lift-off. They slept badly: the cabin was cold and noisy, and light leaked in around the window shades. Aldrin lay on the floor; Armstrong rested in a makeshift sling.",
+      "es": "La tripulación descansó unas siete horas en la Luna antes del despegue. Durmieron mal: la cabina estaba fría y era ruidosa, y la luz se colaba por las cortinillas de las ventanas. Aldrin se tumbó en el suelo; Armstrong descansó en una correa improvisada."
+    },
+    "options": [
+      {
+        "id": "sleep",
+        "text": {
+          "en": "Try to sleep",
+          "es": "Intenta dormir"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sleep",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 10
+          },
+          "flagsSet": [
+            "slept"
+          ],
+          "text": {
+            "en": "A few fitful hours. Tomorrow you have to fly off the Moon.",
+            "es": "Unas pocas horas inquietas. Mañana tenéis que despegar de la Luna."
+          }
+        }
+      },
+      {
+        "id": "window",
+        "text": {
+          "en": "Look at the Earth through the window",
+          "es": "Mira la Tierra por la ventana"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5,
+            "reputation": 2
+          },
+          "flagsSet": [
+            "slept"
+          ],
+          "text": {
+            "en": "Half lit, blue and white. Everyone you have ever known is on it.",
+            "es": "Medio iluminada, azul y blanca. Todos los que has conocido están en ella."
+          }
+        }
+      },
+      {
+        "id": "talk-neil",
+        "text": {
+          "en": "Whisper with Neil about the day",
+          "es": "Susurra con Neil sobre el día"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "slept"
+          ],
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "He does not say much. He does not need to.",
+            "es": "No dice gran cosa. No le hace falta."
           }
         }
       }

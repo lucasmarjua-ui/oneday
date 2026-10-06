@@ -25,8 +25,9 @@
     const sun = new THREE.DirectionalLight(0xffffff, 2);
     sun.position.set(3, 6, 4);
     scene.add(sun);
-    const props = params.get('file') === 'props';
-    const gltf = await new GLTFLoader().loadAsync(`../../assets/models/${props ? 'props' : 'character'}.glb`);
+    const file = params.get('file') || 'character';
+    const props = file !== 'character';
+    const gltf = await new GLTFLoader().loadAsync(`../../assets/models/${file}.glb`);
     // In props mode every root object is shown as if it were a clip.
     const clips = props ? [...gltf.scene.children].map(child => ({ name: child.name, child })) : gltf.animations;
     const cols = Math.ceil(Math.sqrt(clips.length * 1.6));
