@@ -26,6 +26,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -52,6 +53,7 @@
         "cost": {
           "time": 1
         },
+        "act": "look",
         "successChance": {
           "base": 1
         },
@@ -78,6 +80,7 @@
         "cost": {
           "time": 1
         },
+        "act": "sit",
         "successChance": {
           "base": 1
         },
@@ -127,6 +130,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 0.65,
           "resourceBonus": {
@@ -171,6 +175,7 @@
         "cost": {
           "time": 1
         },
+        "act": "nod",
         "successChance": {
           "base": 1
         },
@@ -200,6 +205,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -252,6 +258,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -281,6 +288,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -310,6 +318,7 @@
         "cost": {
           "time": 2
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -358,6 +367,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -390,6 +400,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 0.5,
           "traitBonus": {
@@ -437,6 +448,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -482,6 +494,7 @@
         "cost": {
           "time": 1
         },
+        "act": "think",
         "successChance": {
           "base": 1
         },
@@ -507,6 +520,7 @@
         "cost": {
           "time": 1
         },
+        "act": "pray",
         "successChance": {
           "base": 1
         },
@@ -533,6 +547,7 @@
         "cost": {
           "time": 1
         },
+        "act": "look",
         "successChance": {
           "base": 1
         },
@@ -585,6 +600,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -617,6 +633,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 0.25,
           "traitBonus": {
@@ -663,6 +680,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -721,6 +739,7 @@
         "cost": {
           "time": 16
         },
+        "act": "look",
         "successChance": {
           "base": 1
         },
@@ -749,6 +768,7 @@
         "cost": {
           "time": 16
         },
+        "act": "bow",
         "successChance": {
           "base": 1
         },
@@ -777,6 +797,7 @@
         "cost": {
           "time": 16
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -835,6 +856,7 @@
         "cost": {
           "time": 1
         },
+        "act": "point",
         "successChance": {
           "base": 1
         },
@@ -867,6 +889,7 @@
         "cost": {
           "time": 1
         },
+        "act": "look",
         "successChance": {
           "base": 1
         },
@@ -895,6 +918,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -942,6 +966,7 @@
         "cost": {
           "time": 1
         },
+        "act": "wave",
         "successChance": {
           "base": 1
         },
@@ -968,6 +993,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -994,6 +1020,7 @@
         "cost": {
           "time": 1
         },
+        "act": "wave",
         "successChance": {
           "base": 1
         },
@@ -1037,6 +1064,7 @@
         "cost": {
           "time": 1
         },
+        "act": "wave",
         "successChance": {
           "base": 1
         },
@@ -1063,6 +1091,7 @@
         "cost": {
           "time": 1
         },
+        "act": "look",
         "successChance": {
           "base": 1
         },
@@ -1088,6 +1117,7 @@
         "cost": {
           "time": 1
         },
+        "act": "point",
         "successChance": {
           "base": 1
         },
@@ -1132,6 +1162,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -1158,6 +1189,7 @@
         "cost": {
           "time": 1
         },
+        "act": "think",
         "successChance": {
           "base": 1
         },
@@ -1184,6 +1216,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -1234,6 +1267,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -1263,6 +1297,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -1292,6 +1327,7 @@
         "cost": {
           "time": 1
         },
+        "act": "bow",
         "successChance": {
           "base": 1
         },
@@ -1350,6 +1386,7 @@
         "cost": {
           "time": 1
         },
+        "act": "point",
         "successChance": {
           "base": 1
         },
@@ -1382,6 +1419,7 @@
         "cost": {
           "time": 1
         },
+        "act": "nod",
         "successChance": {
           "base": 1
         },
@@ -1411,6 +1449,7 @@
         "cost": {
           "time": 1
         },
+        "act": "bow",
         "successChance": {
           "base": 0.6,
           "resourceBonus": {
@@ -1487,6 +1526,7 @@
         "cost": {
           "time": 1
         },
+        "act": "bow",
         "successChance": {
           "base": 1
         },
@@ -1519,6 +1559,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -1548,6 +1589,7 @@
         "cost": {
           "time": 1
         },
+        "act": "think",
         "successChance": {
           "base": 1
         },
@@ -1595,6 +1637,7 @@
         "cost": {
           "time": 1
         },
+        "act": "salute",
         "successChance": {
           "base": 1
         },
@@ -1621,6 +1664,7 @@
         "cost": {
           "time": 1
         },
+        "act": "look",
         "successChance": {
           "base": 1
         },
@@ -1646,6 +1690,7 @@
         "cost": {
           "time": 1
         },
+        "act": "point",
         "successChance": {
           "base": 1
         },
@@ -1689,6 +1734,7 @@
         "cost": {
           "time": 1
         },
+        "act": "wave",
         "successChance": {
           "base": 1
         },
@@ -1714,6 +1760,7 @@
         "cost": {
           "time": 1
         },
+        "act": "point",
         "successChance": {
           "base": 1
         },
@@ -1740,6 +1787,7 @@
         "cost": {
           "time": 1
         },
+        "act": "think",
         "successChance": {
           "base": 1
         },
@@ -1784,6 +1832,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -1812,6 +1861,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -1837,6 +1887,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -1881,6 +1932,7 @@
         "cost": {
           "time": 1
         },
+        "act": "drink",
         "successChance": {
           "base": 1
         },
@@ -1907,6 +1959,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -1932,6 +1985,7 @@
         "cost": {
           "time": 1
         },
+        "act": "point",
         "successChance": {
           "base": 1
         },
@@ -1976,6 +2030,7 @@
         "cost": {
           "time": 1
         },
+        "act": "point",
         "successChance": {
           "base": 1
         },
@@ -2002,6 +2057,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -2032,6 +2088,7 @@
         "cost": {
           "time": 1
         },
+        "act": "wave",
         "successChance": {
           "base": 1
         },
@@ -2083,6 +2140,7 @@
         "cost": {
           "time": 1
         },
+        "act": "bow",
         "successChance": {
           "base": 1
         },
@@ -2115,6 +2173,7 @@
         "cost": {
           "time": 1
         },
+        "act": "crouch",
         "successChance": {
           "base": 1
         },
@@ -2147,6 +2206,7 @@
         "cost": {
           "time": 1
         },
+        "act": "look",
         "successChance": {
           "base": 1
         },
@@ -2202,6 +2262,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -2235,6 +2296,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -2267,6 +2329,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 0.5,
           "traitBonus": {
@@ -2338,6 +2401,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 0.45,
           "resourceBonus": {
@@ -2379,6 +2443,7 @@
         "cost": {
           "time": 1
         },
+        "act": "run",
         "successChance": {
           "base": 1
         },
@@ -2406,6 +2471,7 @@
         "cost": {
           "time": 1
         },
+        "act": "nod",
         "successChance": {
           "base": 1
         },
@@ -2450,6 +2516,7 @@
         "cost": {
           "time": 1
         },
+        "act": "drink",
         "successChance": {
           "base": 1
         },
@@ -2475,6 +2542,7 @@
         "cost": {
           "time": 1
         },
+        "act": "give",
         "successChance": {
           "base": 1
         },
@@ -2504,6 +2572,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -2553,6 +2622,7 @@
         "cost": {
           "time": 1
         },
+        "act": "bow",
         "successChance": {
           "base": 1
         },
@@ -2581,6 +2651,7 @@
         "cost": {
           "time": 1
         },
+        "act": "drink",
         "successChance": {
           "base": 1
         },
@@ -2607,6 +2678,7 @@
         "cost": {
           "time": 1
         },
+        "act": "look",
         "successChance": {
           "base": 1
         },
@@ -2659,6 +2731,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -2691,6 +2764,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -2723,6 +2797,7 @@
         "cost": {
           "time": 1
         },
+        "act": "talk",
         "successChance": {
           "base": 1
         },
@@ -2778,6 +2853,7 @@
         "cost": {
           "time": 1
         },
+        "act": "write",
         "successChance": {
           "base": 1
         },
@@ -2803,6 +2879,7 @@
         "cost": {
           "time": 1
         },
+        "act": "sleep",
         "successChance": {
           "base": 1
         },
@@ -2828,6 +2905,7 @@
         "cost": {
           "time": 1
         },
+        "act": "crouch",
         "successChance": {
           "base": 1
         },

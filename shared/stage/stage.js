@@ -1,26 +1,44 @@
-// The 3D stage: a pixel-art diorama of the era with a sprite character who
-// walks to wherever each card happens and acts out the choice. The rules never
-// wait on it; it only plays back what direction.js says.
+// The 3D stage: a pixel-art diorama of each scene of the event, with a
+// character modelled and animated in Blender (assets/models) who walks around
+// obstacles to wherever each card happens and acts out the choice. The rules
+// never wait on it; it only plays back what direction.js says.
 //
 // Rendering is built to look like hand-placed pixel art rather than a 3D game
 // scaled down:
-// - one sprite texel is exactly one render pixel (16 pixels per world unit),
-//   and the render is upscaled by a whole number of device pixels, so every
-//   pixel on screen is the same size;
+// - the world is drawn at a fixed number of pixels per unit and upscaled by a
+//   whole number of device pixels, so every pixel on screen is the same size;
 // - the camera snaps to the pixel grid, so nothing shimmers as it moves;
 // - a post pass draws dark outlines on silhouettes and light rims on convex
 //   edges from the depth and normal buffers, then grades the colour;
 // - text (damage-style numbers, NPC names) is drawn by the browser over the
 //   canvas, so it stays sharp at any size.
 import * as THREE from '../../vendor/three/three.module.min.js';
-import { buildFrame, FRAME_ORDER, SPRITE_W, SPRITE_H, playerPalette, npcPalette, SKIN_TONES } from './sprites.js';
+import { GLTFLoader } from '../../vendor/three/addons/loaders/GLTFLoader.js';
 import { skyAt, isSpaceEvent } from './direction.js';
 import { getPlaces, getScenes, showcaseScene, npcPresent } from './places.js';
 import { buildWorld } from './worlds.js';
+import { playerLook, npcLook } from './looks.js';
+import { findPath, nearestFree, isFree, lineClear } from './nav.js';
 
-const PPU = 16; // render pixels per world unit: one sprite texel per pixel
+const PPU = 24; // render pixels per world unit
+const ICON_PPU = 16; // speech-bubble icons keep their own, chunkier pixel size
 // Desired half-height of the view, in world units: rooms are framed closer.
-const VIEW = { play: { island: 7.4, room: 6.6 }, showcase: { island: 13.5, room: 9 } };
+const VIEW = { play: { island: 6, room: 5.4 }, showcase: { island: 12, room: 8 } };
+const WALK_SPEED = 2.2;
+
+// The Blender models, loaded once per page.
+let modelsPromise = null;
+function loadModels() {
+  if (!modelsPromise) {
+    const loader = new GLTFLoader();
+    const base = new URL('../../assets/models/', import.meta.url).href;
+    modelsPromise = Promise.all([loader.loadAsync(`${base}character.glb`), loader.loadAsync(`${base}props.glb`)]).then(([character, props]) => ({
+      character,
+      props: new Map(props.scene.children.map(child => [child.name, child])),
+    }));
+  }
+  return modelsPromise;
+}
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -49,12 +67,6 @@ function pixelTexture(canvas) {
   texture.generateMipmaps = false;
   texture.colorSpace = THREE.SRGBColorSpace;
   return texture;
-}
-
-function makeFrames(palette) {
-  const frames = {};
-  FRAME_ORDER.forEach(name => { frames[name] = pixelTexture(gridToCanvas(buildFrame(name), palette)); });
-  return frames;
 }
 
 const ICONS = {
@@ -133,139 +145,194 @@ const POST_FRAGMENT = `
   }
 `;
 
-// --- Sprite actors -------------------------------------------------------------
+// --- 3D actors ------------------------------------------------------------------
+
+// What each action looks like: the clip, how long it plays, what is in the
+// character's hands, and whether they move while doing it.
+const ACTION_SPECS = {
+  run: { clip: 'run', move: 'dash' },
+  sit: { clip: 'sit', time: 1.8 },
+  sleep: { clip: 'sleep', time: 2, bubble: 'zzz' },
+  crouch: { clip: 'crouch', time: 1.6 },
+  give: { clip: 'give', time: 1.5, bubble: 'heart' },
+  pickup: { clip: 'pickup', time: 1.5 },
+  work: { clip: 'work', time: 1.8, props: ['prop_hammer', 'prop_hammer_head'], sparks: true },
+  pull: { clip: 'pull', time: 1.8, props: ['prop_rope'], move: 'back' },
+  push: { clip: 'push', time: 1.8, move: 'forward' },
+  inspect: { clip: 'inspect', time: 1.6, bubble: 'question' },
+  point: { clip: 'point', time: 1.3 },
+  talk: { clip: 'talk', time: 1.6, bubble: 'dots' },
+  cheer: { clip: 'cheer', time: 1.3 },
+  wave: { clip: 'wave', time: 1.4 },
+  drink: { clip: 'drink', time: 1.7, props: ['prop_cup'] },
+  write: { clip: 'write', time: 1.8, props: ['prop_tablet'] },
+  treat: { clip: 'treat', time: 2, props: ['prop_bandage'], bubble: 'heart' },
+  carry: { clip: 'carry', time: 1.8, move: 'forward' },
+  climb: { clip: 'climb', time: 1.8 },
+  swim: { clip: 'swim', time: 2 },
+  pray: { clip: 'pray', time: 2 },
+  bow: { clip: 'bow', time: 1.5 },
+  think: { clip: 'think', time: 1.7, bubble: 'question' },
+  salute: { clip: 'salute', time: 1.3 },
+  look: { clip: 'look', time: 1.8 },
+  dig: { clip: 'dig', time: 1.8, dust: true },
+  nod: { clip: 'nod', time: 0.8 },
+};
+const ONE_SHOTS = new Set(['give', 'pickup', 'point', 'cheer', 'stumble', 'drink', 'bow', 'salute', 'nod']);
+const ACCESSORY = /^acc_/;
+const PROP = /^prop_/;
 
 class Actor {
-  constructor(stage, palette, { label = null, parent = stage.scene } = {}) {
+  constructor(stage, models, look, { parent = stage.scene } = {}) {
     this.stage = stage;
-    this.frames = makeFrames(palette);
-    this.material = new THREE.SpriteMaterial({ map: this.frames.stand, transparent: true, alphaTest: 0.5 });
-    this.sprite = new THREE.Sprite(this.material);
-    this.sprite.userData.isSprite = true;
-    this.height = SPRITE_H / PPU;
-    this.width = SPRITE_W / PPU;
-    this.sprite.center.set(0.5, 0);
-    this.sprite.scale.set(this.width, this.height, 1);
-    this.group = new THREE.Group();
-    this.group.add(this.sprite);
-    const shadow = new THREE.Mesh(
-      new THREE.CircleGeometry(0.4, 12),
-      new THREE.MeshBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.3, depthWrite: false }),
-    );
-    shadow.rotation.x = -Math.PI / 2;
-    shadow.position.y = 0.02;
-    shadow.userData.isSprite = true;
-    this.group.add(shadow);
-    this.facing = 1;
-    this.lift = 0;
-    this.time = Math.random() * 10;
-    this.walking = false;
-    this.override = null;
-    this.stepPhase = 0;
-    this.label = label;
     this.parent = parent;
+    this.group = new THREE.Group();
+    this.model = models.character.scene.clone(true);
+    this.group.add(this.model);
+    this.clips = new Map(models.character.animations.map(clip => [clip.name, clip]));
+    this.mixer = new THREE.AnimationMixer(this.model);
+    this.actions = new Map();
+    this.materials = new Map();
+    this.model.traverse(obj => {
+      if (!obj.isMesh) return;
+      obj.castShadow = true;
+      obj.receiveShadow = true;
+      const name = obj.material.name;
+      if (!this.materials.has(name)) this.materials.set(name, new THREE.MeshLambertMaterial({ color: obj.material.color.clone(), flatShading: true, transparent: true }));
+      obj.material = this.materials.get(name);
+    });
+    this.height = 1.6;
+    this.heading = 0;
+    this.targetHeading = 0;
+    this.path = [];
+    this.walking = false;
+    this.busy = false;
+    this.stepClock = 0;
+    this.setLook(look);
+    this.loop('idle');
     parent.add(this.group);
-  }
-
-  /** Change clothes (a helmet on the Moon, a kilt in Egypt) without a new actor. */
-  setPalette(palette) {
-    const old = this.frames;
-    this.frames = makeFrames(palette);
-    const current = Object.keys(old).find(name => old[name] === this.material.map) || 'stand';
-    this.material.map = this.frames[current];
-    this.material.needsUpdate = true;
-    Object.values(old).forEach(texture => texture.dispose());
   }
 
   get position() {
     return this.group.position;
   }
 
-  setPose(name) {
-    if (this.frames[name] && this.material.map !== this.frames[name]) {
-      this.material.map = this.frames[name];
-      this.material.needsUpdate = true;
-    }
-  }
-
-  face(dx) {
-    if (Math.abs(dx) > 0.01) this.facing = dx > 0 ? 1 : -1;
-  }
-
-  /** Turn towards a point, in screen terms (the camera's right is +x, -z). */
-  lookAt(point) {
-    const me = this.group.position;
-    this.face((point.x - point.z) - (me.x - me.z));
-  }
-
-  /** Walk in a straight line; `y` is reached in step with the walk (a ramp). */
-  walkTo(x, z, speed = 3.4, y = this.group.position.y) {
-    const pos = this.group.position;
-    this.target?.resolve();
-    return new Promise(resolve => {
-      this.target = { x, z, y, fromY: pos.y, total: Math.hypot(x - pos.x, z - pos.z), speed, resolve };
-      this.walking = true;
+  /** Dress the character: recolour its materials, show its accessories. */
+  setLook({ colors = {}, accessories = [] }) {
+    this.materials.forEach((material, name) => {
+      const key = name.replace(/^pal_/, '');
+      if (colors[key]) material.color.set(colors[key]);
+    });
+    this.model.traverse(obj => {
+      if (ACCESSORY.test(obj.name)) obj.visible = accessories.some(acc => obj.name === acc || obj.name.startsWith(`${acc}_`));
+      else if (PROP.test(obj.name)) obj.visible = false;
     });
   }
 
-  play(frames, fps, duration) {
-    this.override = { frames, fps, until: this.time + duration };
+  showProps(props = []) {
+    this.model.traverse(obj => { if (PROP.test(obj.name)) obj.visible = props.includes(obj.name); });
+  }
+
+  action(name) {
+    if (!this.actions.has(name)) {
+      const clip = this.clips.get(name) || this.clips.get('idle');
+      this.actions.set(name, this.mixer.clipAction(clip));
+    }
+    return this.actions.get(name);
+  }
+
+  /** Cross-fade into a clip; one-shots hold their last pose. */
+  loop(name, { timeScale = 1, fade = 0.2 } = {}) {
+    const next = this.action(name);
+    if (this.current === next) { next.timeScale = timeScale; return next; }
+    next.reset();
+    next.enabled = true;
+    next.timeScale = timeScale;
+    if (ONE_SHOTS.has(name)) { next.setLoop(THREE.LoopOnce, 1); next.clampWhenFinished = true; }
+    else next.setLoop(THREE.LoopRepeat, Infinity);
+    next.play();
+    if (this.current) this.current.crossFadeTo(next, fade, false);
+    this.current = next;
+    this.currentName = name;
+    return next;
+  }
+
+  /** Turn towards a direction on the ground. */
+  face(dx, dz) {
+    if (Math.hypot(dx, dz) > 0.001) this.targetHeading = Math.atan2(dx, dz);
+  }
+
+  lookAt(point) {
+    this.face(point.x - this.position.x, point.z - this.position.z);
+  }
+
+  /** Walk a list of [x, z] waypoints; y is reached in step with the last leg (a ramp). */
+  walkPath(points, speed = WALK_SPEED, finalY = this.position.y) {
+    this.finish?.();
+    if (!points?.length) return Promise.resolve();
+    return new Promise(resolve => {
+      this.path = points.map(([x, z]) => ({ x, z }));
+      this.path[this.path.length - 1].y = finalY;
+      this.speed = speed;
+      this.walking = true;
+      this.legFrom = this.position.clone();
+      this.finish = () => { this.finish = null; this.walking = false; this.path = []; resolve(); };
+      this.loop(speed > 3.2 ? 'run' : 'walk', { timeScale: speed > 3.2 ? speed / 3 : speed / 1.4 });
+    });
+  }
+
+  walkTo(x, z, speed = WALK_SPEED, y = this.position.y) {
+    return this.walkPath([[x, z]], speed, y);
   }
 
   update(dt) {
-    this.time += dt;
-    const pos = this.group.position;
-    if (this.walking && this.target) {
-      const dx = this.target.x - pos.x;
-      const dz = this.target.z - pos.z;
+    const pos = this.position;
+    if (this.walking && this.path.length) {
+      const target = this.path[0];
+      const dx = target.x - pos.x;
+      const dz = target.z - pos.z;
       const dist = Math.hypot(dx, dz);
-      const step = this.target.speed * dt;
-      this.face(dx - dz);
+      const step = this.speed * dt;
+      this.face(dx, dz);
+      const isLast = this.path.length === 1 && target.y !== undefined;
       if (dist <= step) {
-        pos.x = this.target.x;
-        pos.z = this.target.z;
-        pos.y = this.target.y;
-        this.walking = false;
-        const done = this.target.resolve;
-        this.target = null;
-        done();
+        pos.x = target.x;
+        pos.z = target.z;
+        if (isLast) pos.y = target.y;
+        this.path.shift();
+        this.legFrom = pos.clone();
+        if (!this.path.length) {
+          this.finish?.();
+          if (!this.busy) this.loop('idle');
+        }
       } else {
         pos.x += (dx / dist) * step;
         pos.z += (dz / dist) * step;
-        const done = this.target.total ? 1 - (dist - step) / this.target.total : 1;
-        pos.y = this.target.fromY + (this.target.y - this.target.fromY) * done;
+        if (isLast && target.y !== pos.y) {
+          const total = Math.hypot(target.x - this.legFrom.x, target.z - this.legFrom.z) || 1;
+          pos.y = this.legFrom.y + (target.y - this.legFrom.y) * (1 - (dist - step) / total);
+        }
       }
+      this.stepClock += dt * this.speed;
+      if (this.stepClock > 0.55) { this.stepClock = 0; this.onStep?.(this); }
     }
-    let frame = 'stand';
-    let bob = 0;
-    if (this.override && this.time < this.override.until) {
-      const { frames, fps } = this.override;
-      frame = frames[Math.floor(this.time * fps) % frames.length];
-    } else if (this.walking) {
-      this.override = null;
-      const cycle = ['walkA', 'stand', 'walkB', 'stand'];
-      const i = Math.floor(this.time * 8) % 4;
-      frame = cycle[i];
-      bob = i % 2 === 1 ? 1 / PPU : 0;
-      if (i !== this.stepPhase) {
-        this.stepPhase = i;
-        if (i === 0 || i === 2) this.onStep?.(this);
-      }
-    } else {
-      this.override = null;
-      bob = Math.floor(this.time * 2) % 2 === 0 ? 0 : 1 / PPU;
-    }
-    this.setPose(frame);
-    // Keep the sprite on whole pixels vertically, so its texels never split.
-    this.sprite.position.y = Math.round((this.lift + bob) * PPU) / PPU;
-    this.sprite.scale.x = this.width * this.facing;
+    // Turn smoothly, the short way round.
+    let delta = this.targetHeading - this.heading;
+    delta = Math.atan2(Math.sin(delta), Math.cos(delta));
+    this.heading += delta * Math.min(1, dt * 12);
+    this.group.rotation.y = this.heading;
+    this.mixer.update(dt);
+  }
+
+  setOpacity(value) {
+    this.materials.forEach(material => { material.opacity = value; });
   }
 
   dispose() {
+    this.finish?.();
+    this.mixer.stopAllAction();
     this.parent.remove(this.group);
-    Object.values(this.frames).forEach(texture => texture.dispose());
-    this.material.dispose();
-    this.labelEl?.remove();
+    this.materials.forEach(material => material.dispose());
   }
 }
 
@@ -278,6 +345,7 @@ class Actor {
  * `npcs` are the event's characters: { id, color, name }.
  */
 export async function createStage(container, { eraId, mode = 'play', onStep, npcs = [] } = {}) {
+  const models = await loadModels();
   const canvas = document.createElement('canvas');
   canvas.className = 'stage-canvas';
   container.appendChild(canvas);
@@ -390,7 +458,7 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
   }
 
   // --- Actors ---
-  const player = new Actor(stage, playerPalette(eraId));
+  const player = new Actor(stage, models, playerLook(eraId));
   const dustColor = space ? '#b9b9b4' : '#cbbf9f';
   player.onStep = actor => {
     onStep?.();
@@ -405,6 +473,18 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
   let sceneConfig = null;
   let scenePlaces = [];
   let alarmOn = false;
+  let nav = null;
+
+  /** The nearest spot nobody would clip into. */
+  function freeSpot([x, z]) {
+    return (nav && nearestFree(nav, x, z)) || [x, z];
+  }
+
+  /** A path around obstacles, or a straight line if there is no grid. */
+  function route(from, to) {
+    if (!nav) return [to];
+    return findPath(nav, [from.x, from.z], to) || [freeSpot(to)];
+  }
 
   const npcById = id => npcs.find(entry => entry.id === id);
   const crowdColors = ['#e9e1cc', '#b5835a', '#7b8f6a', '#c06c5a', '#5f86a8', '#d8c9a4'];
@@ -442,27 +522,28 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
     currentScene = sceneId;
     sceneConfig = scenes[sceneId] || { kind: 'island', size: 10, entrance: [0, 0] };
     scenePlaces = allPlaces.filter(place => place.scene === sceneId);
-    buildWorld(THREE, stage, { eraId, sceneId, scene: sceneConfig, places: scenePlaces, burst });
+    const world = buildWorld(THREE, stage, { eraId, sceneId, scene: sceneConfig, places: scenePlaces, burst, models: models.props });
+    nav = world.nav;
     const room = sceneConfig.kind === 'room';
     if (!room && !space) addClouds();
     container.classList.toggle('stage-interior', room);
     container.classList.toggle('stage-space', space && !room);
 
-    player.setPalette(playerPalette(eraId, sceneConfig.outfit));
-    const [sx, sz] = startPos || sceneConfig.entrance || [0, 0];
-    player.target?.resolve();
-    player.target = null;
-    player.walking = false;
+    player.setLook(playerLook(eraId, sceneConfig.outfit));
+    const [sx, sz] = freeSpot(startPos || sceneConfig.entrance || [0, 0]);
+    player.finish?.();
+    player.loop('idle');
     player.position.set(sx, 0, sz);
 
     // The people who are always here: crewmates in the cabin.
     (sceneConfig.cast || []).forEach((id, i) => {
       const data = npcById(id);
       if (!data) return;
-      const actor = new Actor(stage, npcPalette(data.color, eraId, sceneConfig.outfit), { parent: root });
+      const actor = new Actor(stage, models, npcLook(eraId, { id, color: data.color, variant: sceneConfig.outfit }), { parent: root });
       const anchor = scenePlaces[0]?.pos || [0, 0];
-      actor.position.set(anchor[0] + 1.4 + i * 1.1, 0, anchor[1] - 0.9 + i * 0.5);
-      actor.facing = -1;
+      const [cx, cz] = freeSpot([anchor[0] + 1.4 + i * 1.1, anchor[1] - 0.9 + i * 0.5]);
+      actor.position.set(cx, 0, cz);
+      actor.face(1, 1);
       cast.set(id, actor);
       actors.push(actor);
     });
@@ -472,10 +553,9 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
       const spots = [sceneConfig.entrance || [0, 0], ...scenePlaces.map(place => place.pos)];
       for (let i = 0; i < (sceneConfig.crowd || 0); i++) {
         const colors = sceneConfig.crowdColors || crowdColors;
-        const palette = { ...npcPalette(colors[i % colors.length], eraId), ...SKIN_TONES[(i + 1) % SKIN_TONES.length] };
-        const walker = new Actor(stage, palette, { parent: root });
-        const [x, z] = spots[i % spots.length];
-        walker.position.set(x + 1.6 - (i % 2) * 3, 0, z + 1.2);
+        const walker = new Actor(stage, models, npcLook(eraId, { color: colors[i % colors.length], variant: sceneConfig.outfit, skin: i + 1 }), { parent: root });
+        const [x, z] = freeSpot([spots[i % spots.length][0] + 1.6 - (i % 2) * 3, spots[i % spots.length][1] + 1.2]);
+        walker.position.set(x, 0, z);
         walker.wanderAt = Math.random() * 3;
         walker.spots = spots;
         crowd.push(walker);
@@ -696,7 +776,8 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
       walker.wanderAt -= dt;
       if (walker.wanderAt <= 0) {
         const [x, z] = walker.spots[Math.floor(Math.random() * walker.spots.length)];
-        walker.walkTo(x + (Math.random() - 0.5) * 4, z + 1 + Math.random() * 2, 1.6, 0).then(() => { walker.wanderAt = 2 + Math.random() * 5; });
+        walker.wanderAt = 2 + Math.random() * 5;
+        walker.walkPath(route(walker.position, [x + (Math.random() - 0.5) * 4, z + 1 + Math.random() * 2]), 1.3, 0);
       }
     });
 
@@ -760,14 +841,15 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
 
   function bubble(name, actor = player, opts = {}) {
     const rows = ICONS[name].rows;
-    floatSprite(iconTexture(name), headOf(actor), { width: rows[0].length / PPU, height: rows.length / PPU, rise: 0.5, life: 1.3, ...opts });
+    floatSprite(iconTexture(name), headOf(actor), { width: rows[0].length / ICON_PPU, height: rows.length / ICON_PPU, rise: 0.5, life: 1.3, ...opts });
   }
 
   function clearNpc() {
     removeLabel(npcTag);
     npcTag = null;
     if (!npc) return;
-    if (!cast.has(npc.id)) removeActor(npc.actor);
+    if (cast.has(npc.id)) npc.actor.loop('idle');
+    else removeActor(npc.actor);
     npc = null;
   }
 
@@ -803,8 +885,9 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
         if (present && cast.has(npcData.id)) {
           npc = { id: npcData.id, actor: cast.get(npcData.id) };
         } else if (present) {
-          const actor = new Actor(stage, npcPalette(npcData.color, eraId, sceneConfig.outfit), { parent: root });
-          actor.position.set(px + 1.3, py, pz - 1.3);
+          const actor = new Actor(stage, models, npcLook(eraId, { id: npcData.id, color: npcData.color, variant: sceneConfig.outfit }), { parent: root });
+          const [nx, nz] = py ? [px + 1, pz - 1] : freeSpot([px + 1.3, pz - 1.3]);
+          actor.position.set(nx, py, nz);
           actors.push(actor);
           burst(actor.position.clone().add(new THREE.Vector3(0, 0.3, 0)), { count: 8, colors: ['#ffffff', npcData.color], up: 1.5 });
           npc = { id: npcData.id, actor };
@@ -815,96 +898,96 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
       if (reducedMotion()) {
         player.position.set(px, py, pz);
       } else {
-        // Ramps: walk to their foot first, then climb (or the other way down).
-        if (place.via && Math.abs(player.position.y - py) > 0.01) await player.walkTo(place.via[0], place.via[1], 3.4, 0);
-        else if (!place.via && player.position.y > 0.01) {
-          const from = scenePlaces.find(entry => entry.via && entry.y);
-          if (from) await player.walkTo(from.via[0], from.via[1], 3.4, 0);
+        // Ramps: walk around things to their foot, then climb straight up
+        // (or come straight down, then walk on).
+        const ramp = place.via ? place : (player.position.y > 0.01 ? scenePlaces.find(entry => entry.via && entry.y) : null);
+        if (ramp && player.position.y > 0.01 && !place.via) {
+          await player.walkTo(ramp.via[0], ramp.via[1], WALK_SPEED, 0);
+        } else if (ramp && Math.abs(player.position.y - py) > 0.01) {
+          await player.walkPath(route(player.position, ramp.via), WALK_SPEED, 0);
         }
-        await player.walkTo(px, pz, 3.4, py);
+        if (py > 0.01 || place.via) await player.walkTo(px, pz, WALK_SPEED, py);
+        else await player.walkPath(route(player.position, [px, pz]), WALK_SPEED, 0);
       }
       if (npc) {
         player.lookAt(npc.actor.position);
         npc.actor.lookAt(player.position);
+        npc.actor.loop('talk');
+      } else {
+        // Face the camera, so the action reads.
+        player.face(1, 1);
       }
     },
 
-    /** Act out a choice: the body language of the option's trait. */
+    /** Act out a choice: the action the option describes. */
     async act(action) {
-      const pos = player.position.clone();
-      switch (action) {
-        case 'dash': {
-          player.play(['walkA', 'walkB'], 14, 0.7);
-          const start = player.position.clone();
-          const dir = player.facing;
-          await player.walkTo(start.x + dir * 1.2, start.z - dir * 1.2, 7);
-          burst(pos.clone().add(new THREE.Vector3(0, 0.1, 0)), { count: 10, colors: [dustColor, '#ffffff'], up: 1.2, speed: 1.5 });
-          await player.walkTo(start.x, start.z, 5);
-          break;
+      const spec = ACTION_SPECS[action] || ACTION_SPECS.nod;
+      npc?.actor.loop('idle');
+      player.busy = true;
+      player.showProps(spec.props);
+      const start = player.position.clone();
+      const forward = new THREE.Vector3(Math.sin(player.heading), 0, Math.cos(player.heading));
+      const clear = to => !nav || (isFree(nav, to.x, to.z) && lineClear(nav, [start.x, start.z], [to.x, to.z]));
+      if (spec.move === 'dash' && !reducedMotion()) {
+        // A sprint there and back, along whichever direction is free.
+        const dirs = [forward, forward.clone().negate(), new THREE.Vector3(forward.z, 0, -forward.x), new THREE.Vector3(-forward.z, 0, forward.x)];
+        const dir = dirs.find(d => clear(start.clone().addScaledVector(d, 1.6)));
+        if (dir) {
+          const to = start.clone().addScaledVector(dir, 1.6);
+          await player.walkTo(to.x, to.z, 4.5, start.y);
+          burst(to.clone().add(new THREE.Vector3(0, 0.1, 0)), { count: 10, colors: [dustColor, '#ffffff'], up: 1.2, speed: 1.5 });
+          await player.walkTo(start.x, start.z, 4.5, start.y);
         }
-        case 'rest':
-          player.play(['sit'], 1, 1.4);
-          bubble('zzz');
-          await wait(1300);
-          break;
-        case 'give':
-          player.play(['reach'], 1, 1.1);
-          bubble('heart', npc?.actor || player, { delay: 0.2 });
-          bubble('heart', player, { delay: 0.5 });
-          await wait(1100);
-          break;
-        case 'sneak':
-          player.play(['crouch'], 1, 1.3);
-          player.material.opacity = 0.55;
-          await wait(1200);
-          player.material.opacity = 1;
-          break;
-        case 'work':
-          player.play(['raise', 'reach'], 6, 1.4);
-          for (let i = 0; i < 4; i++) {
-            setTimeout(() => burst(headOf(player).add(new THREE.Vector3(player.facing * 0.5, -0.9, 0)), { count: 5, colors: ['#ffb52e', '#fff3b0'], up: 2, speed: 1.2, life: 0.5 }), i * 320);
-          }
-          await wait(1400);
-          break;
-        case 'inspect':
-          player.play(['reach', 'stand'], 2, 1.2);
-          bubble('question');
-          await wait(1200);
-          break;
-        default:
-          bubble('dots');
-          await wait(800);
+        player.loop('cheer');
+        await wait(500);
+      } else {
+        if ((spec.move === 'forward' || spec.move === 'back') && !reducedMotion()) {
+          const to = start.clone().addScaledVector(forward, spec.move === 'back' ? -0.5 : 0.5);
+          if (clear(to)) player.walkTo(to.x, to.z, 0.5, start.y).then(() => player.face(forward.x, forward.z));
+        }
+        player.loop(spec.clip);
+        if (spec.move === 'forward' || spec.move === 'back') player.walking = true;
+        if (spec.bubble) bubble(spec.bubble, player, { delay: 0.3 });
+        if (action === 'give' && npc) bubble('heart', npc.actor, { delay: 0.6 });
+        if (spec.sparks) {
+          for (let i = 0; i < 4; i++) setTimeout(() => burst(player.position.clone().add(forward.clone().multiplyScalar(0.45)).add(new THREE.Vector3(0, 0.55, 0)), { count: 5, colors: ['#ffb52e', '#fff3b0'], up: 2, speed: 1.2, life: 0.5 }), 250 + i * 400);
+        }
+        if (spec.dust) {
+          for (let i = 0; i < 3; i++) setTimeout(() => burst(player.position.clone().add(forward.clone().multiplyScalar(0.5)), { count: 6, colors: [dustColor, '#ffffff'], up: 1.6, speed: 0.8, life: 0.6 }), 300 + i * 450);
+        }
+        if (action === 'crouch') player.setOpacity(0.6);
+        await wait((spec.time || 1.5) * 1000);
+        player.setOpacity(1);
+        if (player.walking && !player.path.length) player.walking = false;
+        if (Math.hypot(player.position.x - start.x, player.position.z - start.z) > 0.05) await player.walkTo(start.x, start.z, 1.5, start.y);
       }
+      player.showProps([]);
+      player.busy = false;
     },
 
     /** React to how it went, and float the resource changes above the head. */
     async react(reaction, popups = []) {
+      player.face(1, 1);
       if (reaction === 'cheer') {
-        player.play(['raise'], 1, 1.2);
+        player.loop('cheer');
         bubble('bang');
         burst(headOf(player), { count: 16, colors: ['#7dff9b', '#ffd84a', '#ffffff'], up: 3.2, speed: 2.2, life: 1 });
-        if (!reducedMotion()) {
-          const base = player.position.y;
-          const jump = async () => { for (let i = 0; i <= 10; i++) { player.lift = Math.sin((i / 10) * Math.PI) * (space ? 0.9 : 0.5); await wait(space ? 45 : 28); } player.lift = 0; };
-          await jump();
-          await jump();
-          player.position.y = base;
-        }
+        await wait(1300);
       } else if (reaction === 'stumble') {
-        player.play(['crouch'], 1, 1.2);
+        player.loop('stumble');
         burst(player.position.clone().add(new THREE.Vector3(0, 0.4, 0)), { count: 12, colors: ['#8a8580', '#b9b3aa'], up: 1, speed: 1.6, life: 0.9, gravity: 0 });
         bubble('cloud');
-        await wait(700);
+        await wait(1500);
       } else {
-        player.lift = 1 / PPU * 2;
-        await wait(160);
-        player.lift = 0;
+        player.loop('nod');
+        await wait(700);
       }
       popups.forEach((popup, i) => {
         // Stacked one line apart, so several changes never overlap.
         const lineHeight = 26 / (PPU * upscale / (window.devicePixelRatio || 1));
         addLabel(popup.text, headOf(player).add(new THREE.Vector3(0, 0.3 + i * lineHeight, 0)), { className: popup.good ? 'pop good' : 'pop bad', life: 2, rise: 0.6, delay: i * 0.18 });
       });
+      player.loop('idle', { fade: 0.4 });
       await wait(450);
     },
 
@@ -932,7 +1015,7 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
       clearNpc();
       alarmOn = false;
       orbitSpeed = reducedMotion() ? 0 : 0.1;
-      player.play(good ? ['raise', 'stand'] : ['sit'], good ? 2 : 1, 999);
+      player.loop(good ? 'cheer' : 'sit');
       if (good) burst(headOf(player), { count: 28, colors: ['#ffd84a', '#7dff9b', '#ff8ad8', '#ffffff'], up: 4, speed: 3, life: 1.4 });
     },
 
@@ -940,7 +1023,7 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
       orbitSpeed = 0;
       orbit = 0;
       alarmOn = false;
-      player.override = null;
+      player.loop('idle');
       dayTarget = 0;
       const home = allPlaces[0];
       loadScene(home.scene, home.pos);

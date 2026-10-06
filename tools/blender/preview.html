@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>OneDay — character preview</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #20202a; color: #fff; font: 12px monospace; overflow: hidden; }
+    canvas { display: block; }
+    .tag { position: absolute; transform: translate(-50%, 0); pointer-events: none; text-shadow: 0 1px 0 #000; }
+  </style>
+</head>
+<body>
+  <!-- Every clip of assets/models/character.glb, playing side by side. Serve the
+       repository root over http and open /tools/blender/preview.html. -->
+  <script type="module">
+    import * as THREE from '../../vendor/three/three.module.min.js';
+    import { GLTFLoader } from '../../vendor/three/addons/loaders/GLTFLoader.js';
+
+    const params = new URLSearchParams(location.search);
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(innerWidth, innerHeight);
+    document.body.appendChild(renderer.domElement);
+    const scene = new THREE.Scene();
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x445566, 1.2));
+    const sun = new THREE.DirectionalLight(0xffffff, 2);
+    sun.position.set(3, 6, 4);
+    scene.add(sun);
+    const props = params.get('file') === 'props';
+    const gltf = await new GLTFLoader().loadAsync(`../../assets/models/${props ? 'props' : 'character'}.glb`);
+    // In props mode every root object is shown as if it were a clip.
+    const clips = props ? [...gltf.scene.children].map(child => ({ name: child.name, child })) : gltf.animations;
+    const cols = Math.ceil(Math.sqrt(clips.length * 1.6));
+    const rows = Math.ceil(clips.length / cols);
+    const aspect = innerWidth / innerHeight;
+    const half = Math.max(rows * 2.3, (cols * 1.5) / aspect) / 2 + 0.2;
+    const camera = new THREE.OrthographicCamera(-half * aspect, half * aspect, half, -half, -50, 50);
+    const angle = Number(params.get('angle') || 0.6);
+    camera.position.set(Math.sin(angle) * 10, 2.5, Math.cos(angle) * 10);
+    camera.lookAt(0, 0, 0);
+    camera.updateMatrixWorld();
+    scene.background = new THREE.Color('#2a2a36');
+    const mixers = [];
+    clips.forEach((clip, i) => {
+      const actor = props ? clip.child.clone(true) : gltf.scene.clone(true);
+      if (props) {
+        const size = new THREE.Box3().setFromObject(clip.child).getSize(new THREE.Vector3());
+        actor.scale.setScalar(1.2 / Math.max(size.x, size.y, size.z));
+      }
+      actor.traverse(obj => { if (/^(acc|prop)_/.test(obj.name)) obj.visible = false; });
+      const c = i % cols;
+      const r = Math.floor(i / cols);
+      const x = (c - (cols - 1) / 2) * 1.5;
+      const y = ((rows - 1) / 2 - r) * 2.3 - 0.75;
+      actor.position.set(x * Math.cos(angle), y, -x * Math.sin(angle));
+      actor.rotation.y = Number(params.get('turn') || 0);
+      scene.add(actor);
+      if (!props) {
+        const mixer = new THREE.AnimationMixer(actor);
+        mixer.clipAction(clip).play();
+        mixer.setTime(Number(params.get('t') || 0));
+        mixers.push(mixer);
+      }
+      const tag = document.createElement('div');
+      tag.className = 'tag';
+      tag.textContent = clip.name;
+      document.body.appendChild(tag);
+      const p = new THREE.Vector3(x * Math.cos(angle), y - 0.1, -x * Math.sin(angle)).project(camera);
+      tag.style.left = `${((p.x + 1) / 2) * innerWidth}px`;
+      tag.style.top = `${((1 - p.y) / 2) * innerHeight}px`;
+    });
+    const clock = new THREE.Clock();
+    const frozen = params.has('t');
+    renderer.setAnimationLoop(() => {
+      const dt = clock.getDelta();
+      if (!frozen) mixers.forEach(m => m.update(dt));
+      renderer.render(scene, camera);
+    });
+    window.previewReady = true;
+  </script>
+</body>
+</html>

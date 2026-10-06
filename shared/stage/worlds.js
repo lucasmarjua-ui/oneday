@@ -22,10 +22,24 @@ const ROOMS = {
   hold: { floor: ['#6b7078', '#646971'], wall: '#8e939b', trim: '#55595f' },
 };
 
-export function buildWorld(THREE, stage, { eraId, sceneId, scene: config, places, burst }) {
+import { createNavGrid, setRect, blockShape } from './nav.js';
+
+// Anything whose base is below this and whose top is above it blocks walking.
+const KNEE = 0.3;
+
+export function buildWorld(THREE, stage, { eraId, sceneId, scene: config, places, burst, models = new Map() }) {
   const root = stage.root;
   const materials = new Map();
   const waterCells = new Set();
+  const colliders = [];
+  const walkways = [];
+  const lambert = new Map();
+
+  // Solid things are remembered as footprints for the navigation grid.
+  function solid(shape, base, top, opts) {
+    if (opts.solid === false || base > KNEE || top < KNEE) return;
+    colliders.push(shape);
+  }
 
   function mat(color, emissive) {
     const key = `${color}|${emissive || ''}`;
@@ -49,18 +63,68 @@ export function buildWorld(THREE, stage, { eraId, sceneId, scene: config, places
       stage.timers.push(setInterval(() => { if (!document.hidden) fn(); }, ms));
     },
     box(x, y, z, w, h, d, color, opts = {}) {
+      solid({ type: 'rect', x, z, w, d, rot: opts.rotY || 0 }, y, y + h, opts);
       return place(new THREE.Mesh(new THREE.BoxGeometry(w, h, d), opts.material || mat(color, opts.emissive)), x, y + h / 2, z, opts);
     },
     cyl(x, y, z, r, h, color, opts = {}) {
+      solid({ type: 'circle', x, z, r: Math.max(r, opts.rTop ?? r) }, y, y + h, opts);
       return place(new THREE.Mesh(new THREE.CylinderGeometry(opts.rTop ?? r, r, h, opts.seg || 8), mat(color, opts.emissive)), x, y + h / 2, z, opts);
     },
     cone(x, y, z, r, h, color, opts = {}) {
+      solid({ type: 'circle', x, z, r }, y, y + h, opts);
       return place(new THREE.Mesh(new THREE.ConeGeometry(r, h, opts.seg || 4), mat(color, opts.emissive)), x, y + h / 2, z, { rotY: Math.PI / 4, ...opts });
     },
     sphere(x, y, z, r, color, opts = {}) {
+      solid({ type: 'circle', x, z, r }, y - r, y + r, opts);
       return place(new THREE.Mesh(new THREE.SphereGeometry(r, opts.seg || 12, opts.seg ? opts.seg / 2 : 8), mat(color, opts.emissive)), x, y, z, opts);
     },
+    /**
+     * A prop modelled in Blender (assets/models/props.glb), placed with its
+     * base at y. Its collision footprint is its bounding box.
+     */
+    model(name, x, y, z, opts = {}) {
+      const template = models.get(name);
+      if (!template) return null;
+      const obj = template.clone(true);
+      const scale = opts.scale || 1;
+      obj.scale.setScalar(scale);
+      obj.traverse(child => {
+        if (!child.isMesh) return;
+        child.castShadow = opts.cast !== false;
+        child.receiveShadow = true;
+        // Blender's materials become the stage's flat-shaded Lambert ones,
+        // so models and primitives are lit and inked the same way.
+        const source = child.material;
+        const key = source.color.getHexString();
+        if (!lambert.has(key)) lambert.set(key, new THREE.MeshLambertMaterial({ color: source.color.clone(), flatShading: true }));
+        child.material = lambert.get(key);
+      });
+      obj.position.set(x, y, z);
+      obj.rotation.y = opts.rotY || 0;
+      root.add(obj);
+      const box = new THREE.Box3().setFromObject(template);
+      const size = box.getSize(new THREE.Vector3()).multiplyScalar(scale);
+      const center = box.getCenter(new THREE.Vector3()).multiplyScalar(scale);
+      const cos = Math.cos(obj.rotation.y);
+      const sin = Math.sin(obj.rotation.y);
+      const footprint = opts.footprint || 1;
+      solid({ type: 'rect', x: x + center.x * cos + center.z * sin, z: z - center.x * sin + center.z * cos, w: size.x * footprint, d: size.z * footprint, rot: obj.rotation.y }, y + box.min.y * scale, y + box.max.y * scale, opts);
+      return obj;
+    },
+    /** Open a rectangle for walking even over water (a deck, a jetty). */
+    walkway(x, z, w, d) {
+      walkways.push([x, z, w, d]);
+    },
+    /** Block a footprint without drawing anything (an invisible fence). */
+    blocker(shape) {
+      colliders.push(shape);
+    },
     tree(x, z, style = 'palm', colors = {}) {
+      const model = kit.model(style === 'palm' ? 'palm' : 'round_tree', x, 0, z, { rotY: (x * 7 + z * 3) % 6, scale: style === 'palm' ? 1 : 1.1, solid: false });
+      if (model) {
+        colliders.push({ type: 'circle', x, z, r: 0.22 });
+        return;
+      }
       const trunk = colors.trunk || '#8a6a45';
       const leaf = colors.leaf || '#4f8a3a';
       const leaf2 = colors.leaf2 || '#62a04a';
@@ -164,8 +228,10 @@ export function buildWorld(THREE, stage, { eraId, sceneId, scene: config, places
 
   if (builder?.before) builder.before(kit);
 
+  const groundTiles = [];
   if (config.kind === 'room') {
     const [w, d] = config.size;
+    groundTiles.push([0, 0, w - 0.3, d - 0.3]);
     const room = ROOMS[sceneId] || ROOMS.house;
     const floor = new THREE.InstancedMesh(new THREE.BoxGeometry(1, 0.4, 1), new THREE.MeshLambertMaterial({ flatShading: true }), w * d);
     let n = 0;
@@ -215,6 +281,7 @@ export function buildWorld(THREE, stage, { eraId, sceneId, scene: config, places
         ground.setMatrixAt(n, m4);
         ground.setColorAt(n++, color.set(onPath(cx, cz) ? palette.path : palette.top[Math.floor(hash * palette.top.length)]));
       }
+      if (!isWater) groundTiles.push([cx, cz, 1, 1]);
       const r = Math.hypot(cx, cz);
       const depth = r > half - 3 ? 2 : r > half - 5 ? 1 : 0;
       for (let k = 1; k <= depth; k++) {
@@ -274,7 +341,14 @@ export function buildWorld(THREE, stage, { eraId, sceneId, scene: config, places
   }
 
   builder?.build(kit, { burst, config });
-  return { groundY: 0 };
+
+  // The navigation grid: ground and walkways open, solid things closed.
+  const extent = config.kind === 'room' ? Math.max(...config.size) / 2 + 1 : config.size + 1;
+  const nav = createNavGrid({ minX: -extent, maxX: extent, minZ: -extent, maxZ: extent });
+  groundTiles.forEach(([x, z, w, d]) => setRect(nav, x, z, w, d, 1));
+  walkways.forEach(([x, z, w, d]) => setRect(nav, x, z, w, d, 1));
+  colliders.forEach(shape => blockShape(nav, shape));
+  return { groundY: 0, nav };
 }
 
 // --- Scenes -----------------------------------------------------------------------
@@ -329,25 +403,14 @@ const SCENES = {
     surface: {
       ground: 'moon',
       build(k) {
-        // Eagle: gold-foil descent stage on four legs, grey ascent stage on top.
+        // Eagle, modelled in Blender, its ladder turned towards Tranquility Base.
         const [lx, lz] = [-2.5, -1.5];
-        k.box(lx, 0.8, lz, 2.4, 1.2, 2.4, '#d4a73a', { emissive: '#3a2a06' });
-        [[-1.4, -1.4], [1.4, -1.4], [-1.4, 1.4], [1.4, 1.4]].forEach(([dx, dz]) => {
-          k.box(lx + dx * 0.85, 0.2, lz + dz * 0.85, 0.12, 1.1, 0.12, '#bfbfbf');
-          k.cyl(lx + dx, 0, lz + dz, 0.35, 0.12, '#cfcfcf');
-        });
-        k.box(lx + 1.25, 0.1, lz + 1.25, 0.12, 1.9, 0.6, '#9a9aa0', { rotY: Math.PI / 4 });
-        k.box(lx, 2, lz, 1.8, 1.4, 1.7, '#cfd2d6');
-        k.box(lx + 0.6, 2.6, lz + 0.86, 0.4, 0.4, 0.05, '#18191e');
-        k.box(lx - 0.6, 2.6, lz + 0.86, 0.4, 0.4, 0.05, '#18191e');
-        k.cyl(lx - 0.7, 3.4, lz - 0.3, 0.05, 0.6, '#bbbbbb');
-        k.cone(lx - 0.7, 4, lz - 0.3, 0.35, 0.2, '#e8e8e8', { seg: 8 });
+        const [ladx, ladz] = k.pos('ladder');
+        k.model('lunar_module', lx, 0, lz, { rotY: Math.atan2(ladx - lx, ladz - lz) + Math.PI / 4, footprint: 0.75 });
         // The flag.
         const [fx, fz] = k.pos('flag');
-        const flagPos = [fx - 1.4, fz - 1.4];
-        k.box(flagPos[0], 0, flagPos[1], 0.06, 2.1, 0.06, '#dddddd');
-        for (let i = 0; i < 7; i++) k.box(flagPos[0] + 0.6, 1.25 + i * 0.12, flagPos[1], 1.1, 0.12, 0.04, i % 2 ? '#f4f4f4' : '#c8302c', { cast: false });
-        k.box(flagPos[0] + 0.3, 1.73, flagPos[1] + 0.01, 0.5, 0.36, 0.04, '#2b3f8c', { cast: false });
+        k.model('us_flag', fx - 1.4, 0, fz - 1.4, { rotY: -0.3, solid: false });
+        k.blocker({ type: 'circle', x: fx - 1.4, z: fz - 1.4, r: 0.15 });
         // Experiments: the seismometer with solar wings and the laser reflector.
         const [ex, ez] = k.pos('experiments');
         k.box(ex - 1, 0, ez - 1.2, 0.6, 0.5, 0.6, '#d4a73a');
@@ -365,7 +428,7 @@ const SCENES = {
           }
           k.box(cx, -0.05, cz, r * 1.2, 0.06, r * 1.2, '#7a7a75', { cast: false });
         });
-        [[3, 6], [-7, -1], [7, -2], [1, -6], [-3, 6]].forEach(([x, z], i) => k.rock(x, z, 0.5 + (i % 3) * 0.3, '#73736e'));
+        [[3, 6], [-7, -1], [7, -2], [1, -6], [-3, 6]].forEach(([x, z], i) => k.model('rock', x, 0, z, { scale: 0.7 + (i % 3) * 0.35, rotY: i * 1.3 }));
         // The Earth, hanging in the black sky.
         const earth = k.sphere(-16, 15, -22, 2.2, '#3f7fd8', { emissive: '#163a77', cast: false, seg: 16 });
         const cloud = k.sphere(-15.6, 15.3, -21.4, 1.6, '#f4f4f4', { emissive: '#8a8a8a', cast: false, seg: 10 });
@@ -404,6 +467,7 @@ const SCENES = {
         k.box(bx + 0.5, 0, bz - 2.2, 3, 1.4, 1.6, '#c99a66');
         [0, 1].forEach(i => { k.cone(bx - 0.3 + i * 1.6, 1.4, bz - 2.2, 0.6, 0.8, '#9c6b3e', { seg: 8 }); k.fire(bx - 0.3 + i * 1.6, bz - 1.2, { scale: 0.7 }); });
         for (let i = 0; i < 5; i++) k.cone(bx + 2 + (i % 3) * 0.4, 0, bz - 0.6 + Math.floor(i / 3) * 0.4, 0.18, 0.4, '#b5643a', { seg: 6 });
+        [[bx - 1.8, bz + 0.6], [bx - 1.4, bz + 1.1]].forEach(([x, z]) => k.model('water_jar', x, 0, z, { scale: 0.9 }));
         for (let i = 0; i < 4; i++) k.cyl(bx - 1.8, 0, bz - 1 + i * 0.5, 0.2, 0.7, '#d9a36b', { rTop: 0.12 });
         // Tia's courtyard: mats under an awning, herbs drying.
         const [hx, hz] = k.pos('healer');
@@ -424,19 +488,11 @@ const SCENES = {
         k.box(-1, 0, -0.4, 6, 0.3, 1.2, '#b8a07a');
         const barge = k.box(2, -0.2, -2.4, 4.2, 0.5, 1.4, '#7a4a26');
         const beam = k.box(2, 0.3, -2.4, 3.4, 0.6, 0.7, '#b48e8c');
-        const boats = [];
-        [[5.5, -5, 0], [1, -6, 1]].forEach(([x, z, i]) => {
-          boats.push([k.box(x, -0.2, z, 2.6, 0.4, 0.9, '#8a5a2b'), k.box(x, 0.2, z, 0.1, 2.4, 0.1, '#5a3a20'), k.box(x + 0.05, 0.9, z, 0.05, 1.5, 1.2, '#f3ead6'), i]);
-        });
+        const boats = [[5.5, -5.2, 0.3], [1, -6.4, -0.2]].map(([x, z, r]) => k.model('nile_boat', x, -0.25, z, { rotY: r, scale: 0.75 }));
         k.animate((dt, t) => {
           barge.position.y = 0.05 + Math.sin(t * 1.2) * 0.04;
           beam.position.y = 0.6 + Math.sin(t * 1.2) * 0.04;
-          boats.forEach(([hull, mast, sail, i]) => {
-            const y = Math.sin(t * 1.4 + i) * 0.06;
-            hull.position.y = y;
-            mast.position.y = 1.4 + y;
-            sail.position.y = 1.65 + y;
-          });
+          boats.forEach((boat, i) => { if (boat) boat.position.y = -0.25 + Math.sin(t * 1.4 + i) * 0.06; });
         });
         for (let i = 0; i < 10; i++) k.box(-3 + (i % 5) * 0.4, 0, -2.6 + Math.floor(i / 5) * 0.5, 0.08, 0.9 + (i % 3) * 0.2, 0.08, '#6f8f3a');
         // Limestone blocks waiting on the quay.
@@ -482,9 +538,8 @@ const SCENES = {
         }
         const [fx, fz] = k.pos('ramp-foot');
         // The sledge with its beam, ropes, water jars; palms and the harbour canal.
-        k.box(fx - 1.6, 0, fz - 0.6, 1.4, 0.2, 3, '#8a6a45');
-        k.box(fx - 1.6, 0.2, fz - 0.6, 0.8, 0.6, 2.6, '#b48e8c');
-        for (let i = 0; i < 3; i++) k.cyl(fx + 1.2, 0, fz + 1 + i * 0.5, 0.2, 0.6, '#c27a48', { rTop: 0.12 });
+        k.model('sledge', fx - 1.6, 0, fz - 0.6);
+        for (let i = 0; i < 3; i++) k.model('water_jar', fx + 1.2, 0, fz + 1 + i * 0.5, { scale: 0.8, rotY: i });
         k.tree(-8, -2, 'palm');
         k.tree(-6, 8, 'palm');
         k.tree(8, 7, 'palm');
@@ -531,13 +586,13 @@ SCENES.tenochtitlan = {
       });
       // Canoes full of onlookers, bobbing.
       const canoes = [[-3, -3.5], [1, 4.5], [-5.5, 1], [4.5, 1.5], [0, -5.5]].map(([x, z], i) => {
-        const hull = k.box(x, -0.2, z, 1.6, 0.25, 0.45, '#7a4a26', { rotY: 0.7 + i * 0.3 });
+        const hull = k.model('canoe', x, -0.2, z, { rotY: 0.7 + i * 0.3, scale: 0.9 });
         const rider = k.box(x, 0.05, z, 0.25, 0.5, 0.25, ['#efe8d8', '#c0392b', '#2f9e7a'][i % 3], { rotY: 0.7 });
         return [hull, rider, i];
       });
       k.animate((dt, t) => canoes.forEach(([hull, rider, i]) => {
         const y = Math.sin(t * 1.3 + i) * 0.05;
-        hull.position.y = -0.07 + y;
+        if (hull) hull.position.y = -0.2 + y;
         rider.position.y = 0.3 + y;
       }));
       // Xoloc: the fort with two towers where the causeways meet, and
@@ -547,10 +602,7 @@ SCENES.tenochtitlan = {
         k.box(mx + dx, 0, mz + dz, 1.3, 2.4, 1.3, '#e8dfca');
         k.box(mx + dx, 2.4, mz + dz, 1.5, 0.2, 1.5, '#c0392b');
       });
-      [[-0.6, -0.6], [0.6, -0.6], [-0.6, 0.6], [0.6, 0.6]].forEach(([dx, dz]) => k.box(mx + 1.6 + dx, 0, mz - 1 + dz, 0.08, 1.8, 0.08, '#d9a441'));
-      k.box(mx + 1.6, 1.8, mz - 1, 1.5, 0.15, 1.5, '#2f9e7a');
-      k.box(mx + 1.6, 1.95, mz - 1, 1.1, 0.12, 1.1, '#3fcf9a');
-      k.box(mx + 1.6, 0.3, mz - 1, 1, 0.5, 1.4, '#d9a441');
+      k.model('litter', mx + 1.6, 0, mz - 1, { rotY: 0.6, scale: 1.1 });
       // The island city on the horizon, and the volcano beyond the lake.
       [[8, -7, 2.4], [6.5, -8.5, 1.4], [9.5, -5, 1.6]].forEach(([x, z, h]) => k.box(x, 0, z, 1.6, h, 1.6, '#efe8d8'));
       const volcano = k.cone(-22, -6, -28, 9, 12, '#7d8796', { seg: 8 });
@@ -568,15 +620,9 @@ SCENES.tenochtitlan = {
     build(k) {
       // The Great Temple: a stepped pyramid crowned by two shrines,
       // Tlaloc's painted blue, Huitzilopochtli's red.
-      const [cx, cz] = [-2, -3.5];
-      for (let i = 0; i < 4; i++) k.box(cx, i * 0.9, cz, 5 - i * 1, 0.9, 5 - i * 1, i % 2 ? '#e8dfca' : '#ddd2b8');
-      k.box(cx + 0.8, 0, cz + 2.2, 1.2, 0.2, 1.4, '#c9bfa8');
-      [[-0.55, '#3f7fd8'], [0.55, '#c0392b']].forEach(([dx, color]) => {
-        k.box(cx + dx, 3.6, cz, 0.9, 1.1, 1.1, color);
-        k.box(cx + dx, 4.7, cz, 1, 0.2, 1.2, '#efe8d8');
-      });
-      k.fire(cx - 0.5, cz + 0.9, { y: 3.6, scale: 0.5 });
-      k.fire(cx + 0.5, cz + 0.9, { y: 3.6, scale: 0.5 });
+      const [cx, cz] = [-2, -3.8];
+      k.model('templo_mayor', cx, 0, cz, { rotY: Math.PI / 4 });
+      k.fire(cx + 0.7, cz + 0.7, { y: 3.4, scale: 0.5 });
       // White houses with flat roofs and gardens on top.
       [[4, -3], [5, 0.5], [-5, 1], [2, -6], [-5.5, -2.5]].forEach(([x, z], i) => {
         k.box(x, 0, z, 2, 1.4, 1.8, '#efe8d8');
@@ -648,29 +694,21 @@ SCENES['d-day'] = {
       k.waterWhere(() => true);
     },
     build(k, { burst }) {
-      // The landing craft: a steel box with a ramp at the bow, pitching in the swell.
-      const hull = [
-        k.box(1, -0.35, -0.4, 5, 0.35, 2.6, '#6b7078'),
-        k.box(1, 0, -1.65, 5, 0.9, 0.1, '#7a7f87'),
-        k.box(1, 0, 0.85, 5, 0.9, 0.1, '#7a7f87'),
-        k.box(-1.45, 0, -0.4, 0.1, 0.9, 2.6, '#7a7f87'),
-        k.box(3.55, 0, -0.4, 0.15, 1.2, 2.6, '#8a8f97'),
-        k.box(-1.1, 0, -0.4, 0.6, 1.1, 0.6, '#55595f'),
-      ];
-      const bases = hull.map(mesh => mesh.position.y);
-      // Other boats in the wave, a battleship on the horizon, the coast ahead.
-      const others = [[-4, -4], [5, 4], [-5, 3], [5.5, -3.5]].map(([x, z]) => k.box(x, -0.2, z, 2.6, 0.7, 1.4, '#6b7078'));
-      const otherBases = others.map(mesh => mesh.position.y);
+      // The landing craft (a Higgins boat modelled in Blender), pitching in
+      // the swell; its deck is the only place to stand.
+      const craft = k.model('lcvp', 0, -0.12, 0.2, { solid: false });
+      k.walkway(0, 0.1, 2.1, 3.8);
+      // Other boats in the wave, a destroyer on the horizon, the coast ahead.
+      const others = [[-4.5, -4.5, 0.2], [5, 4.5, -0.3], [-5.5, 3, 0.1], [5.5, -3.5, 0.4]].map(([x, z, r]) => k.model('lcvp', x, -0.2, z, { rotY: Math.PI / 4 + r, scale: 0.8, solid: false }));
       k.animate((dt, t) => {
-        const y = Math.sin(t * 1.6) * 0.08;
-        hull.forEach((mesh, i) => { mesh.position.y = bases[i] + y; });
-        others.forEach((mesh, i) => { mesh.position.y = otherBases[i] + Math.sin(t * 1.6 + i * 1.3) * 0.1; });
+        if (craft) { craft.position.y = -0.12 + Math.sin(t * 1.6) * 0.06; craft.rotation.x = Math.sin(t * 1.6 + 0.6) * 0.03; }
+        others.forEach((boat, i) => { if (boat) boat.position.y = -0.2 + Math.sin(t * 1.6 + i * 1.3) * 0.1; });
       });
-      const ship = [k.box(-9, -0.2, -9, 7, 1.2, 1.6, '#5a5f68'), k.box(-9, 1, -9, 2, 1.4, 1.2, '#6b7078'), k.box(-7, 1, -9, 0.3, 0.3, 2.4, '#4a4e56')];
-      ship.forEach(mesh => { mesh.userData.isSprite = true; });
+      const ship = k.model('destroyer', -9, -0.3, -9, { rotY: Math.PI / 4, scale: 1.5, solid: false });
+      ship?.traverse(obj => { obj.userData.isSprite = true; });
       const coast = k.box(14, -0.5, -10, 6, 3, 30, '#6f8f45');
       coast.userData.isSprite = true;
-      k.every(900, () => burst(new k.THREE.Vector3(1 + Math.random() * 3, 0.4, 0.95), { count: 4, colors: ['#ffffff', '#d6e6f0'], up: 1.6, speed: 0.8, life: 0.7, size: 0.1 }));
+      k.every(900, () => burst(new k.THREE.Vector3(Math.random() * 2 - 1, 0.4, -2.3), { count: 4, colors: ['#ffffff', '#d6e6f0'], up: 1.6, speed: 0.8, life: 0.7, size: 0.1 }));
     },
   },
   beach: {
@@ -690,8 +728,7 @@ SCENES['d-day'] = {
           k.box(x + 0.5, h, z + 0.5, 1, 0.2, 1, (x * 7 + z * 3) % 3 ? '#6f8f45' : '#78984c', { cast: false });
         }
       }
-      k.box(-4.5, 3.8, -4.5, 1.6, 1, 1.6, '#9a9a94', { rotY: Math.PI / 4 });
-      k.box(-3.9, 4.1, -3.9, 0.9, 0.15, 0.05, '#1a1a1a', { rotY: -Math.PI / 4 });
+      k.model('bunker', -4.6, 3.8, -4.6, { rotY: Math.PI / 4, scale: 0.8 });
       // The seawall and the shingle bank in front of it.
       for (let j = -6; j <= 6; j++) {
         const x = j - 1.3;
@@ -704,23 +741,17 @@ SCENES['d-day'] = {
         k.box(j / 1 - 0.6 + off, 0, -j - 0.6 - off, 0.3, 0.18, 0.3, ['#8f8a7c', '#a59c86', '#77736a'][i % 3], { rotY: i });
       }
       // Obstacles: steel hedgehogs and mined wooden stakes.
-      const hedgehog = (x, z) => [0, Math.PI / 3, -Math.PI / 3].forEach((a, i) => {
-        const bar = k.box(x, 0.2, z, 1.2, 0.1, 0.1, '#3a3a3a', { rotY: i * 1.2 });
-        bar.rotation.z = a;
-      });
-      [[1, 4.5], [4, 1.2], [3.2, -0.3], [-0.5, 5.2], [5.5, -1.5], [0.8, 2.2]].forEach(([x, z]) => hedgehog(x, z));
+      [[1, 4.5], [4, 1.2], [3.2, -0.3], [-0.5, 5.2], [5.5, -1.5], [0.8, 2.2]].forEach(([x, z], i) => k.model('hedgehog', x, 0, z, { rotY: i * 0.9, scale: 0.85, footprint: 0.7 }));
       [[2.2, 4.8], [4.8, 2.6], [-1.6, 6.4], [6.4, -0.6]].forEach(([x, z]) => {
         const stake = k.box(x, 0, z, 0.15, 1.4, 0.15, '#6e5236');
         stake.rotation.z = 0.4;
         k.cyl(x + 0.25, 1.2, z, 0.15, 0.1, '#4f5638');
       });
       // A burning landing craft at the waterline, a wrecked tank, a destroyer offshore.
-      k.box(5.5, -0.3, 2.5, 2.4, 0.8, 1.2, '#55595f', { rotY: 0.6 });
+      k.model('lcvp', 5.6, -0.35, 2.6, { rotY: 2.2, scale: 0.85 });
       k.fire(5.5, 2.5, { y: 0.5, scale: 0.9 });
-      k.box(-2.5, 0, 3, 1.6, 0.7, 1, '#4f5638', { rotY: 0.3 });
-      k.box(-2.5, 0.7, 3, 0.8, 0.4, 0.7, '#4f5638', { rotY: 0.3 });
-      const destroyer = [k.box(8, -0.2, 6, 5, 0.8, 1, '#6b7078', { rotY: -Math.PI / 4 }), k.box(8, 0.6, 6, 1.2, 1, 0.7, '#7a7f87', { rotY: -Math.PI / 4 })];
-      destroyer.forEach(mesh => { mesh.userData.isSprite = true; });
+      k.model('sherman', -2.5, 0, 3, { rotY: 0.9, scale: 0.8 });
+      k.model('destroyer', 8.2, -0.35, 6.2, { rotY: -Math.PI / 4, solid: false });
       k.lamp(-1, 0.8, -1.6, '#ffb347');
     },
   },
@@ -733,9 +764,8 @@ SCENES['d-day'] = {
         k.box(x, 0.8, z, 6, 0.9, 1.2, '#4f6e30', { rotY: r });
       });
       // A wrecked German bunker.
-      k.box(3.5, 0, 0.5, 2.2, 1.2, 2, '#9a9a94');
-      k.box(3.5, 0.7, 1.51, 1.2, 0.18, 0.05, '#1a1a1a');
-      k.rock(2.2, 2, 0.6, '#8a8a84');
+      k.model('bunker', 3.5, 0, 0.5, { rotY: -0.3 });
+      k.model('rock', 2.2, 0, 2.2, { scale: 0.8 });
       // The battalion aid station: a tent with a red cross, stretchers.
       const [ax, az] = k.pos('aid');
       k.box(ax - 0.4, 0, az - 1.2, 2.2, 1.4, 1.6, '#7a7556');

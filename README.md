@@ -8,7 +8,7 @@
 
 OneDay is a historical decision game played on a **3D pixel-art stage**. Each event is **one real day from history, lived from inside**: you are Buzz Aldrin waking up in lunar orbit on 20 July 1969; Nefer, overseer of a work gang at Giza in 2560 BC, woken by a ram's horn on the day the last granite beam goes over the King's Chamber; Malintzin, the interpreter on whose words the meeting of Cortés and Moctezuma hangs in 1519; or a combat medic woken by the klaxon of a troopship off Omaha Beach on D-Day. Every day starts in your bedroom with the alarm ringing, then moves through the scenes of that day (a capsule, a lunar module, the Moon; a workers' town, a harbour, a quarry, the pyramid's ramp; a causeway across a lake into the Mexica capital; a landing craft, the beach, the bluffs). Every option costs hours and resources and is acted out on stage.
 
-It is meant to **teach while you play**: almost every moment carries a short *historical note* about what really happened there, and the end of the day tells you the real story. And history is not fixed: each event has **one historical ending and several alternative ones** (run out of fuel over the boulders, abort the landing, hide a cracked beam...), to be found and collected, along with every fact.
+It is meant to **teach while you play**, like a historical novel: **every dialogue carries a historical note** about what really happened at that moment, and the end of the day tells you the real story. And history is not fixed: each event has **one historical ending and several alternative ones** (run out of fuel over the boulders, abort the landing, hide a cracked beam...), to be found and collected, along with every fact.
 
 Built with HTML, CSS and vanilla JavaScript plus [three.js](https://threejs.org) (vendored, no CDN). No frameworks, no build step, fully bilingual (English/Spanish).
 
@@ -19,11 +19,11 @@ Built with HTML, CSS and vanilla JavaScript plus [three.js](https://threejs.org)
 <table>
   <tr>
     <td width="50%"><img src="screenshots/home.png" alt="The title screen: the Apollo 11 landing site as a floating pixel-art diorama"></td>
-    <td width="50%"><img src="screenshots/note-apollo.png" alt="Inside Eagle during the landing, with a historical note"></td>
+    <td width="50%"><img src="screenshots/note-tenochtitlan.png" alt="Malintzin wakes in the palace of Iztapalapa; the dialogue carries a historical note"></td>
   </tr>
   <tr>
     <td><sub>The title screen: each event is a living diorama you flip through with ◂ ▸, with your endings and facts collected so far.</sub></td>
-    <td><sub>Skimming the boulder field inside Eagle. Every outcome comes with a historical note on what really happened.</sub></td>
+    <td><sub>Dawn in Iztapalapa, 1519. Every dialogue carries a historical note on what really happened there.</sub></td>
   </tr>
   <tr>
     <td><img src="screenshots/decision-giza.png" alt="Hemiunu arrives at the bakery of the workers' town at Giza"></td>
@@ -68,12 +68,20 @@ python -m http.server 8000
 
 Then visit `http://localhost:8000`. (`package.json` exists only to mark the code as ES modules and to give the test suite an `npm test` command — there is nothing to `npm install`.)
 
+To rebuild the 3D models (optional; the exported GLBs are committed):
+
+```bash
+pip install bpy            # Blender as a Python module
+python tools/blender/character.py
+python tools/blender/props.py
+```
+
 ## How to play
 
 1. Flip through the events on the title screen (◂ ▸ or the arrow keys) and press **Live this day**.
 2. A **briefing** tells you the date, the place, who you are, and the three objectives drawn for this playthrough.
 3. The day always opens **at home, with the alarm going off**: the stage flashes and beeps until you act. From there your character walks, scene by scene, to wherever each card happens. Each card offers 2-4 options (click, or the keys **1-4**), each showing what it costs in hours and resources and its odds when it is a real gamble.
-4. After each choice the outcome comes with a **historical note**, and objectives tick off live in the HUD with a fanfare when completed.
+4. Every dialogue comes with a **historical note**: the real history behind the moment you are living. Your character, modelled and animated in Blender, **acts out exactly what you chose** (drinks, writes, bandages, hauls a rope, prays, climbs, swims...), and objectives tick off live in the HUD with a fanfare when completed.
 5. The day ends when the clock runs out or a critical resource bottoms out. The summary shows **your ending** (marked *as it really happened* or *alternative history*), **what really happened** that day, the facts you learned, and your **collection**: endings found and facts learned for that event, kept between playthroughs.
 6. Every event also has a **Today's Challenge**: a shared daily seed, one attempt per player per day, a leaderboard, a streak and a downloadable result card.
 
@@ -146,7 +154,7 @@ Events are added **one at a time**, each researched and written as a whole: a da
 How an event is put together (`data/eras/<id>/`):
 
 - **`era.json`** declares the resources (fuel and oxygen are both *critical* on the Moon; crew health and morale at Giza), the day's time slots, the opening card, the cast, personas, objectives, the `role` and `history` texts, and the **endings**. An ending has a `when` (`depleted` resource, `flagsRequired`, `flagsExcluded`, `resources`, `counters`); `shared/endings.js` picks the first that holds, exactly one is `historical`, and the last is a catch-all.
-- **`cards.json`**: the key story beats (undocking, the 1202 alarm, the boulder field, the first step; the sledge, the ramp, setting the beam) carry a high weight and are chained by flags, so the day follows history unless your choices break the chain. Most cards carry a `fact`, the historical note shown after the outcome.
+- **`cards.json`**: the key story beats (undocking, the 1202 alarm, the boulder field, the first step; the sledge, the ramp, setting the beam) carry a high weight and are chained by flags, so the day follows history unless your choices break the chain. Every card carries a `fact`, the historical note shown in the dialogue, and every option an `act`, what the character physically does.
 - **Collections** (`shared/progress-logic.js`, stored by `shared/progress.js`) remember the endings and facts each player has found per event.
 
 ## The stage: a 3D pixel-art diorama
@@ -161,9 +169,10 @@ Every event is told across **several scenes**, each its own diorama (`shared/sta
 - **Clouds cast shadows without hiding anything**: over the island they are invisible shadow-casters, so patches of shade sweep across the ground; visible clouds drift around the edge of the view.
 - **Text is never a texture.** Floating resource changes and NPC name tags are browser text positioned over the canvas, so they stay sharp at any size.
 
-- **The character is a pixel-art sprite** (16x24) assembled from text grids in `shared/stage/sprites.js`: a head, a torso, an arm pose and a leg pose, dressed by an event palette (a white suit with a red stripe on Apollo 11, a linen kilt at Giza). NPCs reuse the body in their own portrait colour, and a few villagers wander between landmarks.
+- **The character and the props are modelled in Blender** (`tools/blender/`, run headless with the `bpy` module). The character is a low-poly figure with rigid parts on a skeleton and **30 animations** keyframed in code: idle, walk, run, sit, sleep, crouch, give, pick up, hammer, haul, push, inspect, point, talk, cheer, stumble, wave, drink, write, treat a wound, carry, climb, swim, pray, bow, think, salute, look out, dig and nod. Its materials are recoloured per event and its accessories switched on per outfit (`shared/stage/looks.js`): a spacesuit, helmet and gold visor on the Moon, a linen kilt at Giza, a huipil skirt for Malintzin, Moctezuma's feathers and mantle, Cortés's morion, a medic's armband and steel helmet on Omaha. The props are 16 models (the lunar module, palms, Nile boats, a sledge, dugout canoes, the Templo Mayor, Moctezuma's litter, a Higgins boat, steel hedgehogs, a Sherman, a destroyer, a bunker...). `tools/blender/preview.html` shows every clip and prop side by side.
+- **Nobody walks through anything.** `shared/stage/nav.js` rasterises each scene into a grid: the ground is open, water and every solid prop (grown by a character's radius) are closed, and characters walk A* paths straightened wherever a line is clear. The player, NPCs and the crowds all path around boats, walls, hedgehogs and palm trunks.
 - **Cards happen somewhere.** `shared/stage/places.js` gives each event its scenes and 5-7 places; a card goes to the place its id names (`first-step`, `sledge`, `tia`), or failing that to a place picked by a stable hash; each place belongs to a scene. The character walks there (up ramps too) and the NPC is waiting, or speaks over the radio.
-- **Choices are acted out.** `shared/stage/direction.js` maps the option's trait to body language: bold dashes, prudent sits down, generous gives (hearts), cunning crouches out of sight, diligent works (sparks), curious inspects (a question mark). A real gamble then gets a cheer and confetti or a stumble and a dust cloud; a sure thing gets a nod. Resource changes float up over the character's head.
+- **Every choice is acted out as written.** Each option names what the character does (`act`), from 27 actions, with hand props where they help: a cup to drink, a tablet to write, a hammer to work (with sparks), a bandage to treat, a rope to haul. Options without one fall back to their trait's body language. A real gamble then gets a cheer and confetti or a stumble and a dust cloud; a sure thing gets a nod. Resource changes float up over the character's head.
 - **The day passes on screen.** The sun travels across the sky with the clock and the light warms, fades and turns blue; lamps, lanterns and windows switch on as night falls. In space the sky stays black all day. Low vitals desaturate the world and pulses a red vignette.
 - **It is a game, not a page.**
   - A boot sequence: a studio card, a loading bar and pixel-wipe transitions between screens (`shared/ui/screens.js`).
@@ -207,7 +216,9 @@ shared/
   game.css                     The game interface: pixel panels, HUD, dialog, title screen
   stage/stage.js               three.js stage: pixel rendering, camera, day cycle, actors, effects
   stage/worlds.js              The scene dioramas of every event
-  stage/sprites.js             Pixel-art character frames and palettes (pure)
+  stage/sprites.js             Event palettes and the pixel portraits of the dialog box (pure)
+  stage/looks.js               How the 3D character dresses per event, scene and NPC (pure)
+  stage/nav.js                 Collision grid and A* pathfinding (pure)
   stage/places.js              Each event's scenes, places, cast, and which card plays where (pure)
   stage/direction.js           Trait -> action, outcome -> reaction, sky colours by time (pure)
   stage/sfx.js                 WebAudio sound effects and the shared audio context
@@ -215,7 +226,9 @@ shared/
   ui/icons.js                  Pixel-art interface and resource icons as crisp SVG (pure)
   ui/settings.js               Music, sound and text-speed settings (persisted)
   ui/screens.js                Pixel-wipe transitions and the loading bar
-vendor/three/                  three.js r169, MIT
+vendor/three/                  three.js r169 and its GLTFLoader, MIT
+assets/models/                 character.glb and props.glb, exported from Blender
+tools/blender/                 character.py and props.py (headless Blender scripts), preview.html
 data/
   i18n/en.json, es.json        Interface strings
   eras/<id>/era.json           Resources, day structure, NPCs, personas, objectives, endings
@@ -225,7 +238,7 @@ tests/*.test.js                Node's built-in test runner, no test framework
 
 ## Testing
 
-**210 tests**, zero test-framework dependencies, using Node's built-in test runner.
+**219 tests**, zero test-framework dependencies, using Node's built-in test runner.
 
 ```bash
 npm test
@@ -233,7 +246,7 @@ npm test
 
 The engine's rules are covered directly (card filtering, weighted draw, both bonus types and their caps, the clamp/certainty rule, objective checks, RNG determinism, streak and memory rules, the scoring formula's invariants).
 
-`tests/era-data.test.js` is the one that scales: it reads `shared/era-registry.js` and runs the **same checks against every event**, so a new event inherits them by existing. Per era it asserts that every player-facing field is bilingual, that personas cover all six traits plus a fallback, that every option declares a valid trait, that every trait is actually reachable through that era's cards, that success bonuses only reference resources and traits that exist, that NPC/thread references resolve and chain, that every flag-based objective is reachable by some card, that declared memories are really produced, and that a simulated day terminates and stays deterministic across 60 seeds. Per event it also checks the endings: exactly one historical ending, a catch-all last, an ending for every critical resource, every flag an ending needs set by some card, the historical ending reached and at least four different endings across 400 simulated days, at least 15 historical notes, and a valid opening card. It also checks globally that card ids are unique *across* eras and that eras use genuinely different resource sets rather than being reskins.
+`tests/era-data.test.js` is the one that scales: it reads `shared/era-registry.js` and runs the **same checks against every event**, so a new event inherits them by existing. Per era it asserts that every player-facing field is bilingual, that personas cover all six traits plus a fallback, that every option declares a valid trait, that every trait is actually reachable through that era's cards, that success bonuses only reference resources and traits that exist, that NPC/thread references resolve and chain, that every flag-based objective is reachable by some card, that declared memories are really produced, and that a simulated day terminates and stays deterministic across 60 seeds. Per event it also checks the endings: exactly one historical ending, a catch-all last, an ending for every critical resource, every flag an ending needs set by some card, the historical ending reached and at least four different endings across 400 simulated days, a historical note on every single card, and a valid opening card. It also checks globally that card ids are unique *across* eras and that eras use genuinely different resource sets rather than being reskins.
 
 `tests/stage.test.js` covers the stage's pure layer for every event: every sprite pose is a full frame with a colour for every pixel in every palette, every card lands on a real place in a real scene (and always the same one), every day opens indoors on an alarm, every NPC is on stage or a voice, every option maps to a known action, and the day ends in night on Earth but never in space.
 
@@ -265,18 +278,18 @@ The Firebase SDK is loaded from Google's CDN with a dynamic `import()` (see `sha
 
 **No build step, no frameworks.** GitHub Pages serves the repository as-is. The one library, three.js, is vendored as a single ES module in `vendor/three/`, so the game never depends on a CDN being up.
 
-**Pixel art without an art pipeline.** Characters, icons and portraits are text grids coloured by palettes; the worlds are built from primitives in code. There are no image or model files to load, and the sprite and place data are unit-tested like the rules.
+**Blender as code.** The character and props are built by Python scripts run against Blender's `bpy` module, so every model and animation is reproducible, reviewable in a diff and regenerated with one command. Tests read the exported GLBs directly: every action has a clip, every accessory a node, every prop the scenes place a model.
 
 **Data-driven content, engine-agnostic of event.** The engine only knows generic concepts — resources, traits, time slots, flags, counters — so a new event is content (plus its scenes), not engine code.
 
 **Seeded RNG as a first-class dependency.** Every random draw takes an explicit `rng` argument; nothing calls `Math.random()`. That is what makes the Daily Challenge and the determinism tests possible.
 
-**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (108 decision cards across four events, 210 tests).
+**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (108 decision cards across four events, 219 tests).
 
 ## Known gaps
 
 - **Email/Password sign-in is not enabled yet in the live Firebase project**, so on the live site every account-gated feature silently behaves like guest mode.
-- **Walks are straight lines.** Characters do not pathfind around props, so on rare cards they brush through one.
+- **Characters do not collide with each other.** They path around the scenery, but crowds can overlap one another.
 - **Four events so far.** More (the fall of the Berlin Wall, Columbus in 1492...) will be added one at a time.
 - **The downloadable result card still uses the previous print design**, not the pixel style.
 - **No global all-time leaderboard for free play** — only the Daily Challenge has one.
