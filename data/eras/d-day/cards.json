@@ -431,7 +431,6 @@
       "es": "\"¡Arriad las lanchas!\" Bajas por una red de cuerda hasta una lancha de desembarco que se bambolea en el mar negro. Sube y baja dos metros con cada ola. Estás a dieciocho kilómetros de Francia."
     },
     "timeSlots": [
-      "ship",
       "run-in"
     ],
     "weight": 100,
@@ -1304,7 +1303,8 @@
       "es": "En el oleaje que sube a tu espalda, hay heridos tendidos donde la marea los alcanzará en minutos."
     },
     "timeSlots": [
-      "beach"
+      "beach",
+      "inland"
     ],
     "weight": 7,
     "conditions": {
@@ -1894,12 +1894,15 @@
             "courage": -10,
             "health": -5
           },
+          "flagsSet": [
+            "rallied"
+          ],
           "countersAdd": {
             "cotaNotice": 1
           },
           "text": {
-            "en": "A burst of fire forces you back down. Cota keeps walking. Next time.",
-            "es": "Una ráfaga te obliga a tirarte otra vez. Cota sigue andando. La próxima vez."
+            "en": "A burst of fire forces you back down. Cota keeps walking. Ten minutes later, when the men around you get up, you go with them.",
+            "es": "Una ráfaga te obliga a tirarte otra vez. Cota sigue andando. Diez minutos después, cuando los hombres de tu alrededor se levantan, vas con ellos."
           }
         }
       },
@@ -2471,7 +2474,7 @@
     "timeSlots": [
       "inland"
     ],
-    "weight": 6,
+    "weight": 18,
     "conditions": {
       "flagsRequired": [
         "bluff-climbed"
@@ -2578,7 +2581,7 @@
     "timeSlots": [
       "inland"
     ],
-    "weight": 3,
+    "weight": 9,
     "conditions": {
       "flagsRequired": [
         "bluff-climbed"
@@ -2681,7 +2684,7 @@
     "timeSlots": [
       "inland"
     ],
-    "weight": 6,
+    "weight": 18,
     "conditions": {
       "flagsRequired": [
         "bluff-climbed",
@@ -2793,7 +2796,7 @@
     "timeSlots": [
       "inland"
     ],
-    "weight": 4,
+    "weight": 12,
     "conditions": {
       "flagsRequired": [
         "bluff-climbed"
@@ -2905,7 +2908,7 @@
     "timeSlots": [
       "inland"
     ],
-    "weight": 6,
+    "weight": 18,
     "conditions": {
       "flagsRequired": [
         "bluff-climbed"
@@ -3026,7 +3029,7 @@
     "timeSlots": [
       "inland"
     ],
-    "weight": 5,
+    "weight": 15,
     "conditions": {
       "flagsRequired": [
         "bluff-climbed"
@@ -3120,6 +3123,420 @@
           "text": {
             "en": "The longest day is ending. You are still here.",
             "es": "El día más largo termina. Sigues aquí."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-civilians",
+    "text": {
+      "en": "In the ruins of a farmhouse above the beach, a French family comes up out of the cellar: a grandmother, a mother, two small boys. The grandmother holds out a jug of cider.",
+      "es": "Entre las ruinas de una granja sobre la playa, una familia francesa sale del sótano: una abuela, una madre, dos niños pequeños. La abuela te tiende una jarra de sidra."
+    },
+    "timeSlots": [
+      "inland"
+    ],
+    "weight": 15,
+    "conditions": {
+      "flagsRequired": [
+        "bluff-climbed"
+      ]
+    },
+    "fact": {
+      "en": "Normandy's civilians paid a heavy price: around 3,000 French civilians were killed on D-Day and the day after, and some 20,000 in the whole Battle of Normandy, mostly by Allied bombing and shelling.",
+      "es": "La población civil de Normandía pagó un precio enorme: unos 3.000 civiles franceses murieron el Día D y el día siguiente, y unos 20.000 en toda la batalla de Normandía, sobre todo por los bombardeos aliados."
+    },
+    "options": [
+      {
+        "id": "check-kids",
+        "text": {
+          "en": "Check the children for wounds",
+          "es": "Revisa si los niños están heridos"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -5
+          }
+        },
+        "act": "treat",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 5
+          },
+          "text": {
+            "en": "A cut, a lot of dust, no worse. The mother cries and laughs at once.",
+            "es": "Un corte, mucho polvo, nada más. La madre llora y ríe a la vez."
+          }
+        }
+      },
+      {
+        "id": "cider",
+        "text": {
+          "en": "Accept the cider and thank them",
+          "es": "Acepta la sidra y dales las gracias"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "drink",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 10
+          },
+          "text": {
+            "en": "\"Merci.\" The only French word you know. It is enough.",
+            "es": "\"Merci\". La única palabra en francés que sabes. Basta."
+          }
+        }
+      },
+      {
+        "id": "warn-mines",
+        "text": {
+          "en": "Warn them away from the minefields",
+          "es": "Avísales de que se alejen de los campos de minas"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "point",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "text": {
+            "en": "You point at the signs with the skull: Achtung Minen. They nod; they know.",
+            "es": "Señalas los carteles con la calavera: Achtung Minen. Asienten; ya lo saben."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-k-ration",
+    "text": {
+      "en": "A lull. Someone tosses you a waxed cardboard box: a K-ration. Canned meat, hard biscuits, a fruit bar, four cigarettes, chewing gum.",
+      "es": "Una pausa. Alguien te lanza una caja de cartón encerado: una ración K. Carne en lata, galletas duras, una barrita de fruta, cuatro cigarrillos, chicle."
+    },
+    "timeSlots": [
+      "beach",
+      "inland"
+    ],
+    "weight": 8,
+    "conditions": {
+      "flagsRequired": [
+        "at-seawall"
+      ]
+    },
+    "fact": {
+      "en": "American soldiers landed with K-rations and D-ration chocolate bars. A K-ration came in a waxed box to keep it dry and fitted into a uniform pocket; the D-ration bar was deliberately made to taste only a little better than a boiled potato, so men would not eat it as a treat.",
+      "es": "Los soldados estadounidenses desembarcaron con raciones K y tabletas de chocolate D. La ración K venía en una caja encerada para mantenerla seca y cabía en un bolsillo; la tableta D se hizo a propósito para que supiera solo un poco mejor que una patata cocida, para que nadie se la comiera como capricho."
+    },
+    "options": [
+      {
+        "id": "eat",
+        "text": {
+          "en": "Eat it sitting on your helmet",
+          "es": "Cómetela sentado en el casco"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "drink",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 15
+          },
+          "text": {
+            "en": "The first food since three in the morning. It tastes wonderful.",
+            "es": "La primera comida desde las tres de la madrugada. Sabe a gloria."
+          }
+        }
+      },
+      {
+        "id": "share",
+        "text": {
+          "en": "Split it with the wounded who can eat",
+          "es": "Repártela entre los heridos que pueden comer"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "saved": 1
+          },
+          "text": {
+            "en": "Biscuits and sugar for men in shock. Your own stomach can wait.",
+            "es": "Galletas y azúcar para hombres en shock. Tu estómago puede esperar."
+          }
+        }
+      },
+      {
+        "id": "pocket",
+        "text": {
+          "en": "Pocket it for tonight",
+          "es": "Guárdatela para esta noche"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "pickup",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 2
+          },
+          "text": {
+            "en": "Nobody knows what tonight will bring.",
+            "es": "Nadie sabe lo que traerá la noche."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-luftwaffe",
+    "text": {
+      "en": "Someone yells and points: two fighters streak along the coast, low and fast, wings flashing. Then they are gone. Above you the sky is full of Allied planes.",
+      "es": "Alguien grita y señala: dos cazas pasan rasantes y rápidos sobre la costa, con destellos en las alas. Luego desaparecen. Sobre ti el cielo está lleno de aviones aliados."
+    },
+    "timeSlots": [
+      "beach",
+      "inland"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "landed"
+      ]
+    },
+    "fact": {
+      "en": "The Luftwaffe was almost absent on D-Day. The Allies flew some 14,000 sorties; famously, only two German fighters, flown by Josef Priller and his wingman, strafed the British beaches that morning.",
+      "es": "La Luftwaffe casi no apareció el Día D. Los aliados realizaron unas 14.000 salidas; es famoso que solo dos cazas alemanes, pilotados por Josef Priller y su compañero, ametrallaron las playas británicas aquella mañana."
+    },
+    "options": [
+      {
+        "id": "dive",
+        "text": {
+          "en": "Throw yourself flat",
+          "es": "Tírate al suelo"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "crouch",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": -3,
+            "energy": 3
+          },
+          "text": {
+            "en": "A rattle of cannon fire somewhere down the beach. Then nothing.",
+            "es": "Un tableteo de cañones en algún punto de la playa. Luego nada."
+          }
+        }
+      },
+      {
+        "id": "watch-sky",
+        "text": {
+          "en": "Watch them go",
+          "es": "Míralos alejarse"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "Two. Only two. Where is the rest of the German air force?",
+            "es": "Dos. Solo dos. ¿Dónde está el resto de la aviación alemana?"
+          }
+        }
+      },
+      {
+        "id": "cover-wounded",
+        "text": {
+          "en": "Shield the man you are treating",
+          "es": "Protege al hombre que estás curando"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "treat",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "saved": 1
+          },
+          "text": {
+            "en": "You lie across him until the noise has passed.",
+            "es": "Te tumbas sobre él hasta que pasa el ruido."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-tags",
+    "text": {
+      "en": "Your pockets are full of the paper tags you have tied to men all day: name, wound, morphine given and when. A stretcher team asks which man goes first.",
+      "es": "Tienes los bolsillos llenos de las etiquetas de papel que has atado a los hombres todo el día: nombre, herida, morfina y a qué hora. Unos camilleros preguntan qué hombre va primero."
+    },
+    "timeSlots": [
+      "inland"
+    ],
+    "weight": 12,
+    "conditions": {
+      "flagsRequired": [
+        "bluff-climbed"
+      ]
+    },
+    "fact": {
+      "en": "Medics tied an Emergency Medical Tag to each casualty, recording the wound and the treatment, morphine included, so later doctors knew what had been done. The wounded were taken back to the beach and out to hospital ships, often in the same landing craft that had brought the troops in.",
+      "es": "Los sanitarios ataban a cada herido una etiqueta médica de emergencia con la herida y el tratamiento, morfina incluida, para que los médicos supieran lo que se había hecho. Los heridos volvían a la playa y de allí a buques hospital, a menudo en las mismas lanchas que habían traído a las tropas."
+    },
+    "options": [
+      {
+        "id": "read-tags",
+        "text": {
+          "en": "Read the tags and decide",
+          "es": "Lee las etiquetas y decide"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "inspect",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 2
+          },
+          "text": {
+            "en": "Chest wound, two morphine, three hours ago. Him first.",
+            "es": "Herida en el pecho, dos morfinas, hace tres horas. Él primero."
+          }
+        }
+      },
+      {
+        "id": "write-tags",
+        "text": {
+          "en": "Rewrite the smudged ones",
+          "es": "Reescribe las que están borrosas"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "write",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 2
+          },
+          "text": {
+            "en": "A doctor on a ship will need to read these tonight.",
+            "es": "Esta noche un médico en un barco tendrá que leerlas."
+          }
+        }
+      },
+      {
+        "id": "carry",
+        "text": {
+          "en": "Grab a handle and carry the stretcher yourself",
+          "es": "Coge un asa y lleva tú la camilla"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -15
+          }
+        },
+        "act": "carry",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 2,
+            "courage": 3
+          },
+          "text": {
+            "en": "Down the draw to the beach, where the landing craft take the wounded out.",
+            "es": "Bajando por la vaguada hasta la playa, donde las lanchas se llevan a los heridos."
           }
         }
       }

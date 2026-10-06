@@ -69,8 +69,8 @@ export const PLACES = {
     { id: 'bunk', scene: 'hold', label: { en: 'Troopship, English Channel', es: 'Transporte de tropas, canal de la Mancha' }, pos: [-1, -1], keywords: ['wake', 'breakfast', 'order', 'sarge-brief', 'eddie-bedford', 'load'] },
     { id: 'boat', scene: 'boat', label: { en: 'Landing craft, off Omaha', es: 'Lancha de desembarco, frente a Omaha' }, pos: [0, 0], keywords: ['run-in', 'tanks', 'bombers', 'ramp', 'swim-back'] },
     { id: 'surf', scene: 'beach', label: { en: 'Dog Green, the tide line', es: 'Dog Green, la orilla' }, pos: [2.5, 2.5], keywords: ['obstacles', 'drowning', 'eddie-hit'] },
-    { id: 'bluff-top', scene: 'bluff', label: { en: 'Top of the bluffs', es: 'Lo alto de los acantilados' }, pos: [0, 1], keywords: ['climb', 'prisoners', 'rommel', 'vierville', 'hedgerow', 'dusk'] },
-    { id: 'shingle', scene: 'beach', label: { en: 'The shingle and the seawall', es: 'Los guijarros y el muro' }, pos: [-0.4, -0.4], keywords: ['seawall', 'cota', 'bangalore', 'destroyers', 'rangers'] },
+    { id: 'bluff-top', scene: 'bluff', label: { en: 'Top of the bluffs', es: 'Lo alto de los acantilados' }, pos: [0, 1], keywords: ['climb', 'prisoners', 'rommel', 'vierville', 'hedgerow', 'dusk', 'civilians', 'tags'] },
+    { id: 'shingle', scene: 'beach', label: { en: 'The shingle and the seawall', es: 'Los guijarros y el muro' }, pos: [-0.4, -0.4], keywords: ['seawall', 'cota', 'bangalore', 'destroyers', 'rangers', 'k-ration', 'luftwaffe'] },
     { id: 'aid', scene: 'bluff', label: { en: 'Battalion aid station', es: 'Puesto de socorro del batallón' }, pos: [-2.5, -1.5], keywords: ['aid-station'] },
   ],
 };
