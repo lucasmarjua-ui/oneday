@@ -240,7 +240,12 @@
       "dawn",
       "causeway"
     ],
-    "weight": 6,
+    "weight": 40,
+    "conditions": {
+      "flagsExcluded": [
+        "envoy-heard"
+      ]
+    },
     "fact": {
       "en": "The story that the Mexica took Cortés for the returning god Quetzalcoatl is doubted by most historians today: it appears only in accounts written decades after the conquest.",
       "es": "La historia de que los mexicas tomaron a Cortés por el dios Quetzalcóatl que regresaba es puesta en duda hoy por la mayoría de historiadores: solo aparece en relatos escritos décadas después de la conquista."
@@ -349,7 +354,12 @@
     "timeSlots": [
       "dawn"
     ],
-    "weight": 6,
+    "weight": 40,
+    "conditions": {
+      "flagsExcluded": [
+        "envoy-heard"
+      ]
+    },
     "fact": {
       "en": "Jerónimo de Aguilar was shipwrecked off Yucatán in 1511 and lived eight years among the Maya. Malintzin translated Nahuatl into Maya, Aguilar Maya into Spanish, until she learned Spanish herself.",
       "es": "Jerónimo de Aguilar naufragó frente a Yucatán en 1511 y vivió ocho años entre los mayas. Malintzin traducía del náhuatl al maya y Aguilar del maya al castellano, hasta que ella aprendió castellano."
@@ -476,7 +486,12 @@
     "timeSlots": [
       "dawn"
     ],
-    "weight": 5,
+    "weight": 40,
+    "conditions": {
+      "flagsExcluded": [
+        "envoy-heard"
+      ]
+    },
     "fact": {
       "en": "Malintzin was born to a noble Nahua family near Coatzacoalcos. As a girl she was sold into slavery and ended up among the Maya of Tabasco, who gave her to Cortés in March 1519.",
       "es": "Malintzin nació en una familia noble nahua cerca de Coatzacoalcos. De niña fue vendida como esclava y acabó entre los mayas de Tabasco, que la entregaron a Cortés en marzo de 1519."
@@ -949,6 +964,11 @@
       "meeting"
     ],
     "weight": 5,
+    "conditions": {
+      "flagsExcluded": [
+        "lodged"
+      ]
+    },
     "fact": {
       "en": "Chinampas were fields built up from lake mud and reeds, anchored by willow trees. They could produce several harvests a year and helped feed one of the largest cities in the world.",
       "es": "Las chinampas eran campos construidos con lodo del lago y juncos, sujetos por sauces. Daban varias cosechas al año y ayudaban a alimentar a una de las mayores ciudades del mundo."
@@ -1047,6 +1067,11 @@
       "meeting"
     ],
     "weight": 5,
+    "conditions": {
+      "flagsExcluded": [
+        "lodged"
+      ]
+    },
     "fact": {
       "en": "Tenochtitlan was linked to the shore by three great causeways with removable bridges. Most people and goods moved through the city by canoe along its canals.",
       "es": "Tenochtitlan estaba unida a la orilla por tres grandes calzadas con puentes desmontables. La mayoría de personas y mercancías se movían por la ciudad en canoa por sus canales."
@@ -1145,6 +1170,11 @@
       "meeting"
     ],
     "weight": 4,
+    "conditions": {
+      "flagsExcluded": [
+        "lodged"
+      ]
+    },
     "fact": {
       "en": "Horses had been extinct in the Americas for over ten thousand years. The Spaniards brought only a few to Tenochtitlan, but their charges terrified warriors who had never seen one.",
       "es": "Los caballos llevaban más de diez mil años extinguidos en América. Los españoles solo llevaron unos pocos a Tenochtitlan, pero sus cargas aterraban a guerreros que nunca habían visto uno."
@@ -1248,6 +1278,9 @@
     "conditions": {
       "flagsRequired": [
         "march"
+      ],
+      "flagsExcluded": [
+        "lodged"
       ]
     },
     "fact": {
@@ -1619,7 +1652,15 @@
       "meeting",
       "palace"
     ],
-    "weight": 4,
+    "weight": 40,
+    "conditions": {
+      "flagsRequired": [
+        "met"
+      ],
+      "flagsExcluded": [
+        "lodged"
+      ]
+    },
     "fact": {
       "en": "Mexica scribes recorded events in painted books (codices). Moctezuma's envoys brought him paintings of the Spaniards, and later codices such as the Lienzo de Tlaxcala show Malintzin interpreting beside Cortés.",
       "es": "Los escribas mexicas registraban los hechos en libros pintados (códices). Los enviados de Moctezuma le llevaron pinturas de los españoles, y códices posteriores como el Lienzo de Tlaxcala muestran a Malintzin traduciendo junto a Cortés."
@@ -1716,7 +1757,15 @@
       "meeting",
       "palace"
     ],
-    "weight": 4,
+    "weight": 40,
+    "conditions": {
+      "flagsRequired": [
+        "met"
+      ],
+      "flagsExcluded": [
+        "lodged"
+      ]
+    },
     "fact": {
       "en": "The Spaniards called her Doña Marina; the Nahua, Malintzin. Cortés became 'Malinche', and centuries later 'malinchista' came to mean someone who prefers foreign things, a reputation historians now question.",
       "es": "Los españoles la llamaban doña Marina; los nahuas, Malintzin. Cortés pasó a ser 'Malinche' y, siglos después, 'malinchista' llegó a significar quien prefiere lo extranjero, una fama que hoy los historiadores cuestionan."
@@ -2499,6 +2548,11 @@
       "palace"
     ],
     "weight": 4,
+    "conditions": {
+      "flagsRequired": [
+        "lodged"
+      ]
+    },
     "fact": {
       "en": "Cacao was drunk cold and frothy, often with chilli or vanilla, mostly by nobles and warriors. Cacao beans were also used as money in Mexica markets.",
       "es": "El cacao se bebía frío y espumoso, a menudo con chile o vainilla, sobre todo por nobles y guerreros. Los granos de cacao también se usaban como moneda en los mercados mexicas."

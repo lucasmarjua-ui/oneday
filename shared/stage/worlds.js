@@ -554,23 +554,20 @@ const SCENES = {
 
 SCENES.tenochtitlan = {
   chamber: {
+    // A room in Cuitlahuac's palace at Iztapalapa, modelled in Blender
+    // (tools/blender/tenochtitlan.py): stucco, a painted frieze, an icpalli.
+    set: true,
     build(k) {
-      // A room in Cuitlahuac's palace: whitewashed walls with a red band,
-      // reed mats, a low bench, a brazier, a doorway onto the gardens.
-      k.box(-1.4, 0, -1.4, 2.2, 0.08, 1.4, '#c8a45c');
-      k.box(-1.4, 0.08, -1.7, 1.8, 0.2, 0.6, '#e8dcc0');
-      k.box(1.6, 0, -2.4, 2.4, 0.5, 0.8, '#8a5a3a');
-      for (let i = 0; i < 3; i++) k.box(1 + i * 0.6, 0.5, -2.4, 0.4, 0.25, 0.4, ['#2f9e7a', '#c0392b', '#e0b040'][i]);
-      k.box(-3.3, 1.2, -0.2, 0.15, 0.25, 6, '#2f9e7a', { cast: false });
-      k.box(0, 1.2, -2.95, 7, 0.25, 0.15, '#2f9e7a', { cast: false });
-      k.box(-3.3, 0, 1.6, 0.15, 2.4, 1.4, '#3a2a1a');
-      k.screen(-3.2, 0.2, 1.6, 1.2, 2.1, '#4f8a3a', { facing: 'x' });
-      k.screen(0.8, 1.5, -2.95, 1.4, 0.9, '#ffb36b');
-      k.cyl(2.6, 0, 1.4, 0.35, 0.5, '#7a4a2a', { rTop: 0.45 });
-      k.fire(2.6, 1.4, { y: 0.5, scale: 0.6 });
-      k.cyl(-2.6, 0, 1.8, 0.25, 0.7, '#b5643a', { rTop: 0.15 });
+      k.model('chamber_interior', 0, 0, 0, { solid: false });
+      k.blocker({ type: 'rect', x: 1.6, z: -2.4, w: 1.2, d: 0.6 });
+      k.blocker({ type: 'rect', x: -2.4, z: -2.2, w: 0.75, d: 0.7 });
+      k.blocker({ type: 'circle', x: 2.9, z: -1.2, r: 0.22 });
+      k.blocker({ type: 'circle', x: 2.6, z: 1.4, r: 0.35 });
+      k.fire(2.6, 1.4, { y: 0.58, scale: 0.5 });
+      k.box(0.6, 1.7, -2.76, 1.2, 0.55, 0.03, '#ffb36b', { emissive: '#ff9a4a', cast: false, solid: false });
       // The conch trumpet and the drums of the temple, glimpsed through the window.
-      k.alarm(0.8, 2.2, -2.75, '#ffcf70');
+      k.alarm(0.6, 2.45, -2.6, '#ffcf70');
+      k.lamp(-0.5, 2.7, 0, '#ffcf70', { always: true, strength: 3 });
     },
   },
   causeway: {
@@ -580,12 +577,13 @@ SCENES.tenochtitlan = {
       k.waterWhere((x, z) => Math.abs(0.846 * x + z - 0.077) / 1.309 > 1.7 && Math.hypot(x - 3.5, z + 3) > 2.6);
     },
     build(k) {
-      // Chinampas: green fields on the water, edged with willows.
-      [[-6, -4], [-4, -6.5], [-7.5, -1.5], [5, 4], [2, 6.5], [7, 1.5]].forEach(([x, z], i) => {
-        k.box(x, -0.3, z, 2.2, 0.35, 1.1, '#6a8f3a', { rotY: 0.7 });
-        for (let j = 0; j < 3; j++) k.box(x - 0.7 + j * 0.7, 0.05, z, 0.2, 0.3, 0.2, ['#c9b23a', '#7aa84a', '#e07a3a'][(i + j) % 3], { rotY: 0.7 });
-        if (i % 2) k.tree(x + 1, z - 0.8, 'round', { leaf: '#5f8a3a', leaf2: '#78a04a' });
+      // Chinampas: fields built on the lake, edged with tall ahuejote willows.
+      [[-6, -4, 0.7], [-4, -6.5, 0.7], [-7.5, -1.5, 0.4], [5, 4, 0.7], [2, 6.5, 0.6], [7, 1.5, 0.3]].forEach(([x, z, r], i) => {
+        k.model('chinampa', x, -0.15, z, { rotY: r, solid: false });
+        if (i % 2) k.model('ahuejote', x + 1.1, -0.15, z - 0.6, { scale: 1.1, solid: false });
+        else k.model('ahuejote', x - 1.2, -0.15, z + 0.4, { solid: false });
       });
+      [[-2, 4.6], [6.4, -0.6], [-6.5, 2.2], [0.5, -6.3]].forEach(([x, z], i) => k.model('tule', x, -0.2, z, { rotY: i, solid: false }));
       // Canoes full of onlookers, bobbing.
       const canoes = [[-3, -3.5], [1, 4.5], [-5.5, 1], [4.5, 1.5], [0, -5.5]].map(([x, z], i) => {
         const hull = k.model('canoe', x, -0.2, z, { rotY: 0.7 + i * 0.3, scale: 0.9 });
@@ -597,16 +595,15 @@ SCENES.tenochtitlan = {
         if (hull) hull.position.y = -0.2 + y;
         rider.position.y = 0.3 + y;
       }));
+      // One of the removable wooden bridges that spanned gaps in the causeway.
+      k.model('causeway_bridge', -3.6, 0, 3.12, { rotY: 0.7, solid: false });
       // Xoloc: the fort with two towers where the causeways meet, and
       // Moctezuma's litter under its canopy of green feathers.
       const [mx, mz] = k.pos('xoloc');
-      [[2.2, -2.4], [-0.6, -3.6]].forEach(([dx, dz]) => {
-        k.box(mx + dx, 0, mz + dz, 1.3, 2.4, 1.3, '#e8dfca');
-        k.box(mx + dx, 2.4, mz + dz, 1.5, 0.2, 1.5, '#c0392b');
-      });
-      k.model('litter', mx + 1.6, 0, mz - 1, { rotY: 0.6, scale: 1.1 });
+      k.model('xoloc_fort', mx + 1.0, 0, mz - 2.9, { rotY: 0.7 });
+      k.model('litter', mx + 1.6, 0, mz - 0.6, { rotY: 0.6, scale: 1.1 });
       // The island city on the horizon, and the volcano beyond the lake.
-      [[8, -7, 2.4], [6.5, -8.5, 1.4], [9.5, -5, 1.6]].forEach(([x, z, h]) => k.box(x, 0, z, 1.6, h, 1.6, '#efe8d8'));
+      [[8, -7, 0.1], [6.2, -8.6, -0.2], [9.6, -4.8, 0.3]].forEach(([x, z, r]) => k.model('mexica_house', x, 0, z, { rotY: r, scale: 0.9 }));
       const volcano = k.cone(-22, -6, -28, 9, 12, '#7d8796', { seg: 8 });
       const snow = k.cone(-22, 3, -28, 3.2, 3.2, '#f4f6ff', { seg: 8 });
       volcano.userData.isSprite = true;
@@ -620,26 +617,24 @@ SCENES.tenochtitlan = {
       k.waterWhere((x, z) => Math.abs(x - z - 5) < 1.1);
     },
     build(k) {
-      // The Great Temple: a stepped pyramid crowned by two shrines,
-      // Tlaloc's painted blue, Huitzilopochtli's red.
+      // The Great Temple, with Tlaloc's and Huitzilopochtli's shrines on top.
       const [cx, cz] = [-2, -3.8];
       k.model('templo_mayor', cx, 0, cz, { rotY: Math.PI / 4 });
       k.fire(cx + 0.7, cz + 0.7, { y: 3.4, scale: 0.5 });
-      // White houses with flat roofs and gardens on top.
-      [[4, -3], [5, 0.5], [-5, 1], [2, -6], [-5.5, -2.5]].forEach(([x, z], i) => {
-        k.box(x, 0, z, 2, 1.4, 1.8, '#efe8d8');
-        k.box(x, 1.4, z, 2.1, 0.12, 1.9, '#c9bfa8');
-        k.box(x - 0.4, 1.52, z, 0.6, 0.3, 0.6, '#5f8a3a');
-        k.box(x + 0.5, 0, z + 0.91, 0.5, 0.9, 0.05, '#3a2a1a');
+      [[cx + 2.6, cz + 2.0], [cx - 0.4, cz + 3.2]].forEach(([x, z]) => {
+        k.model('brazier', x, 0, z);
+        k.fire(x, z, { y: 0.7, scale: 0.45 });
       });
-      // The aqueduct from Chapultepec: a stone channel on a low wall.
-      for (let i = 0; i < 7; i++) {
-        k.box(-6 + i * 1.2, 0, 4.5, 1.2, 0.5, 0.5, '#bfae8a');
-        k.box(-6 + i * 1.2, 0.5, 4.5, 1.2, 0.06, 0.3, '#5fb3e6', { emissive: '#1a4a66', cast: false });
-      }
+      // Plastered houses with gardens on their roofs.
+      [[4, -3, 0], [5, 0.5, 0.1], [-5, 1, -0.1], [2, -6, 0], [-5.5, -2.5, 0.05]].forEach(([x, z, r]) => k.model('mexica_house', x, 0, z, { rotY: r }));
+      // The aqueduct from Chapultepec, with its two channels.
+      k.model('aqueduct', -4, 0, 4.6);
+      k.model('aqueduct', 0, 0, 4.6);
+      // Market stalls: maize, chillies, cacao beans, greens.
+      [[1.8, 2.6, 0.3], [-1.6, 1.8, -0.4]].forEach(([x, z, r]) => k.model('market_stall', x, 0, z, { rotY: r }));
       // A canoe on the canal.
-      const canoe = k.box(5.5, -0.15, -0.5, 1.6, 0.25, 0.45, '#7a4a26', { rotY: Math.PI / 4 });
-      k.animate((dt, t) => { canoe.position.y = -0.03 + Math.sin(t * 1.4) * 0.04; });
+      const canoe = k.model('canoe', 5.5, -0.15, -0.5, { rotY: Math.PI / 4 });
+      k.animate((dt, t) => { if (canoe) canoe.position.y = -0.15 + Math.sin(t * 1.4) * 0.04; });
       k.tree(3, 3.5, 'round', { leaf: '#3f6e3a', leaf2: '#4f8a3a' });
       k.tree(-3.5, 3, 'round', { leaf: '#3f6e3a', leaf2: '#4f8a3a' });
       k.lamp(1.5, 1.2, 0, '#ffb347');
@@ -647,23 +642,19 @@ SCENES.tenochtitlan = {
     },
   },
   palace: {
+    // The palace of Axayacatl, modelled in Blender: red columns, murals,
+    // a dais with a jaguar pelt, and the walled-up door of the treasure.
+    set: true,
     build(k) {
-      // The palace of Axayacatl: painted plaster, cedar columns, a dais with
-      // mats and cushions, braziers, and the walled-up door of the treasure.
-      [[-2.5, -2], [0, -2], [2.5, -2]].forEach(([x, z]) => k.cyl(x, 0, z, 0.25, 3, '#8a5a3a', { seg: 6 }));
-      k.box(-0.5, 0, -2.9, 3.4, 0.4, 1.2, '#c9bfa8');
-      k.box(-0.5, 0.4, -2.9, 3, 0.1, 1, '#c8a45c');
-      [[-1.4, '#2f9e7a'], [-0.5, '#d9a441'], [0.4, '#c0392b']].forEach(([dx, color]) => k.box(dx - 0.5, 0.5, -2.9, 0.6, 0.25, 0.5, color));
-      k.box(-3.8, 0.3, 0, 0.1, 1.2, 6.4, '#2f9e7a', { cast: false });
-      k.box(0, 1.6, -3.4, 7.8, 0.3, 0.1, '#d9a441', { cast: false });
-      k.box(-3.8, 0, 2, 0.12, 2.2, 1.2, '#d6ccb4');
-      k.box(-3.75, 0.3, 2, 0.05, 1.4, 0.9, '#c9bfa8');
-      [[2.8, 1.8], [-2.6, 2.4]].forEach(([x, z]) => {
-        k.cyl(x, 0, z, 0.35, 0.5, '#7a4a2a', { rTop: 0.45 });
-        k.fire(x, z, { y: 0.5, scale: 0.6 });
+      k.model('palace_hall', 0, 0, 0, { solid: false });
+      [-2.5, 0, 2.5].forEach(x => k.blocker({ type: 'circle', x, z: -1.8, r: 0.28 }));
+      k.blocker({ type: 'rect', x: 0.4, z: -2.7, w: 3.4, d: 1.2 });
+      k.blocker({ type: 'rect', x: 3.4, z: -0.33, w: 0.5, d: 2.2 });
+      [[2.9, 1.4], [-2.4, 0.2]].forEach(([x, z]) => {
+        k.blocker({ type: 'circle', x, z, r: 0.35 });
+        k.fire(x, z, { y: 0.58, scale: 0.5 });
       });
-      for (let i = 0; i < 4; i++) k.cyl(3.2, 0, -1 + i * 0.6, 0.22, 0.5, '#b5643a', { rTop: 0.14 });
-      k.lamp(-0.5, 2.6, -2, '#ffcf70', { always: true, strength: 4 });
+      k.lamp(0, 3.0, 0, '#ffcf70', { always: true, strength: 4 });
     },
   },
 };

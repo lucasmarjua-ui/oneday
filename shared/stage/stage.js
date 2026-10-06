@@ -27,7 +27,7 @@ const VIEW = { play: { island: 6, room: 5.4 }, showcase: { island: 12, room: 8 }
 const WALK_SPEED = 2.2;
 
 // Events with their own set of Blender models (assets/models/<event>.glb).
-const EVENT_MODELS = new Set(['apollo-11', 'giza']);
+const EVENT_MODELS = new Set(['apollo-11', 'giza', 'tenochtitlan']);
 
 // The Blender models, loaded once per page and event.
 const modelCache = new Map();
