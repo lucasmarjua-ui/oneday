@@ -42,8 +42,25 @@
   <aside class="hud frame" id="hud" aria-label="Status"></aside>
 
   <div id="banner-host" aria-live="polite"></div>
+  <div id="toast-host" aria-live="polite"></div>
 
   <main>
+    <section id="briefing-screen" class="results frame briefing" hidden aria-labelledby="brief-name">
+      <div class="results-scroll">
+        <span class="t8 soft" data-i18n="brief.kicker"></span>
+        <h2 class="brief-name" id="brief-name"></h2>
+        <p class="t16 brief-when" id="brief-when"></p>
+        <div class="col-head t8" data-i18n="brief.role"></div>
+        <p class="verdict-desc" id="brief-role"></p>
+        <div class="col-head t8" data-i18n="brief.objectives"></div>
+        <ul class="line-list" id="brief-objectives"></ul>
+        <p class="t8 soft brief-collection" id="brief-collection"></p>
+        <div class="actions-row">
+          <button id="brief-start" class="btn btn-primary" type="button"><span data-i18n="brief.start"></span> <span class="next-indicator" id="brief-icon"></span></button>
+        </div>
+      </div>
+    </section>
+
     <section id="decision-screen" class="dialog frame" hidden aria-live="polite">
       <div class="nameplate frame-sm"><span class="t16" id="speaker"></span><span class="t8 soft" id="speaker-role"></span></div>
       <div class="dialog-body">
@@ -62,6 +79,10 @@
           <span class="outcome-tag" id="outcome-tag"></span>
           <p class="dialog-text" id="outcome-text"></p>
           <div class="deltas" id="outcome-deltas"></div>
+          <aside class="fact-note" id="outcome-fact" hidden>
+            <span class="fact-head t8"><span id="fact-icon"></span><span data-i18n="game.factHeading"></span></span>
+            <p id="outcome-fact-text"></p>
+          </aside>
           <div class="dialog-foot">
             <button id="outcome-continue" class="btn btn-primary" type="button"><span data-i18n="game.continue"></span> <span class="next-indicator" id="next-icon"></span></button>
           </div>
@@ -78,15 +99,28 @@
       <div class="results-scroll">
         <div class="verdict">
           <span class="t8 soft" id="verdict-kicker"></span>
-          <h2 id="persona-name"></h2>
-          <p class="verdict-desc" id="persona-desc"></p>
-          <p class="ending-line" id="ending-line"></p>
+          <span class="ending-badge t8" id="ending-badge"></span>
+          <h2 id="ending-title"></h2>
+          <p class="verdict-desc" id="ending-desc"></p>
+          <p class="new-ending t16" id="ending-new" hidden data-i18n="game.endingNew"></p>
+          <p class="ending-line" id="persona-line"></p>
           <p class="streak-line t16" id="summary-streak" hidden></p>
         </div>
 
         <div class="score-row" id="summary-score" hidden></div>
 
+        <div class="history-box">
+          <div class="col-head t8" data-i18n="game.historyHeading"></div>
+          <p id="summary-history"></p>
+        </div>
+
         <div class="summary-cols">
+          <div>
+            <div class="col-head t8" data-i18n="game.factsHeading"></div>
+            <ul class="line-list facts-list" id="summary-facts"></ul>
+            <div class="col-head t8" style="margin-top:16px" data-i18n="game.collectionHeading"></div>
+            <div class="collection" id="summary-collection"></div>
+          </div>
           <div>
             <div class="col-head t8" data-i18n="game.objectivesHeading"></div>
             <ul class="line-list" id="summary-objectives"></ul>
@@ -142,8 +176,11 @@
     import { loadEra, getEraMeta } from './shared/era-registry.js';
     import { createResourceState, applyResourceDeltas, isCriticalDepleted, getCriticalResourceKey } from './shared/resources.js';
     import { createDayState, getCurrentSlot, formatClock, advanceTime, isTimeUp, trackMinSeen, dayFraction } from './shared/day-engine.js';
-    import { getValidCards, pickWeightedCard, computeSuccessChance, resolveOption } from './shared/decision-engine.js';
-    import { pickDailyObjectives, isObjectiveComplete } from './shared/objectives.js';
+    import { getValidCards, pickWeightedCard, computeSuccessChance, resolveOption, openingCard } from './shared/decision-engine.js';
+    import { pickDailyObjectives, isObjectiveComplete, objectiveStatus } from './shared/objectives.js';
+    import { resolveEnding } from './shared/endings.js';
+    import { getProgress, saveDay } from './shared/progress.js';
+    import { completion } from './shared/progress-logic.js';
     import { recordDayGains, checkAndUnlockMetaAchievements } from './shared/achievements.js';
     import { recordDayResult } from './shared/stats.js';
     import { createRng, randomSeed, dailySeed } from './shared/rng.js';
@@ -171,7 +208,7 @@
       id: 'filler-wait',
       text: { en: 'Nothing much happens for a moment. The world moves around you.', es: 'No pasa gran cosa por un momento. El mundo sigue su curso a tu alrededor.' },
       options: [
-        { id: 'rest', text: { en: 'Take a moment', es: 'Tómate un momento' }, traits: { prudent: 1 }, cost: { time: 1 }, successChance: { base: 1 }, success: { resources: { energy: 5 }, text: { en: 'You catch your breath.', es: 'Recuperas el aliento.' } } },
+        { id: 'rest', text: { en: 'Take a moment', es: 'Tómate un momento' }, traits: { prudent: 1 }, cost: { time: 1 }, successChance: { base: 1 }, success: { text: { en: 'You catch your breath.', es: 'Recuperas el aliento.' } } },
       ],
     };
     const SPEEDS = ['slow', 'normal', 'fast'];
@@ -194,6 +231,8 @@
     $('#back-icon').innerHTML = icon('back', 3);
     $('#menu-icon').innerHTML = icon('menu', 3);
     $('#next-icon').innerHTML = icon('next', 3);
+    $('#brief-icon').innerHTML = icon('next', 3);
+    $('#fact-icon').innerHTML = icon('scroll', 2);
 
     let era = null;
     let cards = [];
@@ -213,10 +252,13 @@
     let isDaily = false;
     let dailyDateKeyValue = null;
     let lastLeaderboardEntries = null;
+    let objectivesDone = new Set();
+    let factsToday = [];
+    let alarmTimer = null;
 
     // --- The 3D stage. If WebGL or the module is unavailable the game is still
     // fully playable: every stage call becomes a no-op and the HUD carries it.
-    const noStage = { goTo: async () => {}, act: async () => {}, react: async () => {}, setDayFraction() {}, setCritical() {}, finale() {}, reset() {} };
+    const noStage = { goTo: async () => {}, act: async () => {}, react: async () => {}, setDayFraction() {}, setCritical() {}, setAlarm() {}, finale() {}, reset() {} };
     let stage = noStage;
 
     const withTimeout = (promise, ms) => Promise.race([promise, new Promise(resolve => setTimeout(resolve, ms))]);
@@ -308,6 +350,8 @@
       narrativeLog = [];
       gainsThisDay = {};
       summaryData = null;
+      objectivesDone = new Set();
+      factsToday = [];
     }
 
     function renderClock() {
@@ -341,7 +385,16 @@
         <span class="leaning-value">${leading ? t(`trait.${leading.trait}`) : t('game.leaningNone')}</span>
       </div>`;
 
-      hud.innerHTML = resourcesHtml + leaningHtml;
+      // Today's objectives, live: a tick appears the moment one is done.
+      const questsHtml = `<div class="quests">
+        <span class="res-name">${t('game.objectivesHeading')}</span>
+        <ul>${dailyObjectives.map(objective => {
+          const status = objectiveStatus(objective, { resourceState, dayState });
+          return `<li class="quest ${status}"><span class="mark">${{ done: '✓', holding: '◆', failed: '✗', open: '·' }[status]}</span>${localize(objective.description)}</li>`;
+        }).join('')}</ul>
+      </div>`;
+
+      hud.innerHTML = resourcesHtml + leaningHtml + questsHtml;
       document.body.classList.toggle('critical-alert', anyCritical);
       stage.setCritical(anyCritical);
       previousResourceState = { ...resourceState };
@@ -365,14 +418,82 @@
     }
 
     function pickNextCard() {
+      // Every day starts the same way: at home, with the alarm going off.
+      const opening = openingCard(cards, era, dayState);
+      if (opening) { currentCard = opening; return; }
       const valid = getValidCards(cards, era, resourceState, dayState);
       currentCard = valid.length ? pickWeightedCard(valid, rng) : FILLER_CARD;
     }
+
+    function startAlarm() {
+      stopAlarm();
+      stage.setAlarm(true);
+      sfx.alarm();
+      alarmTimer = setInterval(() => sfx.alarm(), 1100);
+    }
+
+    function stopAlarm() {
+      clearInterval(alarmTimer);
+      alarmTimer = null;
+      stage.setAlarm(false);
+    }
+
+    function toast(html) {
+      const host = $('#toast-host');
+      const el = document.createElement('div');
+      el.className = 'toast frame-sm';
+      el.innerHTML = html;
+      host.appendChild(el);
+      setTimeout(() => el.remove(), 3200);
+    }
+
+    // An objective done mid-day gets its own fanfare, once.
+    function announceObjectives() {
+      dailyObjectives.forEach(objective => {
+        if (objectivesDone.has(objective.id)) return;
+        if (objectiveStatus(objective, { resourceState, dayState }) !== 'done') return;
+        objectivesDone.add(objective.id);
+        sfx.chime();
+        toast(`<span class="t8" style="color:var(--gold)">${t('game.objectiveDone')}</span><span>${localize(objective.description)}</span>`);
+      });
+    }
+
+    function hideBriefing() {
+      $('#briefing-screen').hidden = true;
+    }
+
+    // Before the day: the date, the place, who you are and what to aim for.
+    function showBriefing() {
+      phase = 'briefing';
+      hideAll();
+      renderHUD();
+      renderBriefingUI();
+      $('#briefing-screen').hidden = false;
+      $('#brief-start').focus({ preventScroll: true });
+    }
+
+    function renderBriefingUI() {
+      $('#brief-name').textContent = localize(era.name);
+      $('#brief-when').textContent = `${localize(eraMeta.year)} · ${localize(eraMeta.place)}`;
+      $('#brief-role').textContent = localize(era.role);
+      $('#brief-objectives').innerHTML = dailyObjectives.map(objective => `<li><span class="mark" style="color:var(--gold)">◆</span> ${localize(objective.description)}</li>`).join('');
+      const done = completion(getProgress(eraId), era, cards);
+      $('#brief-collection').textContent = t('brief.collection', { found: done.endings, total: done.totalEndings, facts: done.facts, totalFacts: done.totalFacts });
+    }
+
+    function beginDay() {
+      if (phase !== 'briefing') return;
+      sfx.select();
+      hideBriefing();
+      showDecision();
+    }
+    $('#brief-start').addEventListener('click', beginDay);
 
     function hideAll() {
       decisionScreen.hidden = true;
       outcomeScreen.hidden = true;
       summaryScreen.hidden = true;
+      hideBriefing();
     }
 
     function renderDecisionHead() {
@@ -436,7 +557,8 @@
       const place = placeForCard(eraId, currentCard);
       const npc = currentCard.npcId ? findNpc(era, currentCard.npcId) : null;
       showBanner(`<span class="t16">${localize(place.label)}</span>`, 'place-banner frame-sm');
-      await withTimeout(stage.goTo(place, npc ? { color: npc.portraitColor, name: localize(npc.name) } : null), 6000);
+      await withTimeout(stage.goTo(place, npc ? { id: npc.id, color: npc.portraitColor, name: localize(npc.name) } : null), 8000);
+      if (currentCard.alarm) startAlarm();
 
       phase = 'decision';
       decisionScreen.hidden = false;
@@ -452,6 +574,7 @@
       if (busy || phase !== 'decision' || !pause.hidden) return;
       busy = true;
       sfx.select();
+      stopAlarm();
       optionsEl.querySelectorAll('.choice').forEach(button => { button.disabled = true; });
       const slotBefore = getCurrentSlot(era, dayState.elapsed).id;
 
@@ -468,9 +591,10 @@
       dayState = { ...dayState, playedCardIds: [...dayState.playedCardIds, currentCard.id] };
       gainsThisDay = mergeDeltas(gainsThisDay, combined);
       if (outcome.text) narrativeLog.push(outcome.text);
+      if (currentCard.fact && !factsToday.includes(currentCard.id)) factsToday.push(currentCard.id);
 
       // A sure thing is not a gamble: it gets no SUCCESS/FAILURE tag and no big reaction.
-      currentOutcome = { hasChance: !!option.successChance && chance < 1, success, text: outcome.text, combined };
+      currentOutcome = { hasChance: !!option.successChance && chance < 1, success, text: outcome.text, combined, fact: currentCard.fact || null };
 
       // The stage acts it out before the words arrive.
       phase = 'acting';
@@ -491,6 +615,7 @@
       phase = 'outcome';
       renderHUD();
       renderOutcomeUI();
+      announceObjectives();
       busy = false;
       $('#outcome-continue').focus({ preventScroll: true });
     }
@@ -506,6 +631,9 @@
         .filter(([, value]) => value !== 0)
         .map(([key, value]) => `<span class="delta ${value > 0 ? 'up' : 'down'}">${resourceIcon(key, 1)}${value > 0 ? '+' : ''}${value} ${localize(era.resources[key].label)}</span>`)
         .join('');
+      // What really happened at this moment: the game teaches as it goes.
+      $('#outcome-fact').hidden = !currentOutcome.fact;
+      $('#outcome-fact-text').textContent = currentOutcome.fact ? localize(currentOutcome.fact) : '';
     }
 
     function continueDay() {
@@ -520,13 +648,13 @@
     // The end of the day is a short cinematic: letterbox, then the name the day
     // gave you, then the results panel.
     let skipReveal = null;
-    async function playReveal(persona, good) {
+    async function playReveal(ending, good) {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       phase = 'reveal';
       document.body.classList.add('letterbox');
       const reveal = $('#reveal');
-      $('#reveal-kicker').textContent = t('game.summaryKicker');
-      $('#reveal-name').textContent = persona ? localize(persona.name) : t('game.summaryHeading');
+      $('#reveal-kicker').textContent = t('game.endingKicker');
+      $('#reveal-name').textContent = ending ? localize(ending.title) : t('game.summaryHeading');
       reveal.hidden = false;
       sfx.end(good);
       await new Promise(resolve => {
@@ -551,6 +679,8 @@
       const newlyUnlocked = checkAndUnlockMetaAchievements(eraId, era);
       const criticalKey = getCriticalResourceKey(resourceState, era);
       const persona = resolvePersona(era, dayState.traits);
+      const ending = resolveEnding(era, { dayState, resourceState, criticalKey });
+      const { newEnding, newFacts } = saveDay(eraId, { endingId: ending?.id, factIds: factsToday });
 
       let score = null;
       if (isDaily) {
@@ -562,6 +692,8 @@
           finalResources: { ...resourceState },
           criticalKey: criticalKey || null,
           personaId: persona?.id || null,
+          endingId: ending?.id || null,
+          factIds: [...factsToday],
           log: [...narrativeLog],
           score: score.total,
           objectivesScore: score.objectivesScore,
@@ -569,10 +701,11 @@
         });
       }
 
-      summaryData = { objectivesResults, newlyUnlocked, criticalKey, persona, finalResources: { ...resourceState }, log: [...narrativeLog], score, streak: getStreak(), alreadyPlayed: false };
+      summaryData = { objectivesResults, newlyUnlocked, criticalKey, persona, ending, newEnding, facts: [...factsToday], newFacts, finalResources: { ...resourceState }, log: [...narrativeLog], score, streak: getStreak(), alreadyPlayed: false };
       hideAll();
+      stopAlarm();
       stage.finale(!criticalKey);
-      await playReveal(persona, !criticalKey);
+      await playReveal(ending, !criticalKey);
       phase = 'summary';
       renderSummaryUI();
 
@@ -603,6 +736,10 @@
         newlyUnlocked: [],
         criticalKey: saved.criticalKey || null,
         persona: (era.personas || []).find(p => p.id === saved.personaId) || null,
+        ending: (era.endings || []).find(e => e.id === saved.endingId) || resolveEnding(era, { dayState: createDayState(era), resourceState: createResourceState(era), criticalKey: saved.criticalKey || null }),
+        newEnding: false,
+        facts: saved.factIds || [],
+        newFacts: [],
         finalResources: saved.finalResources || {},
         log: saved.log || null,
         score: { objectivesScore: saved.objectivesScore, tiebreakScore: saved.tiebreakScore, total: saved.score },
@@ -621,14 +758,28 @@
       document.body.classList.remove('critical-alert');
       stage.setCritical(false);
 
-      const persona = summaryData.persona;
-      $('#verdict-kicker').textContent = summaryData.alreadyPlayed ? t('daily.alreadyPlayedHeading') : t('game.summaryKicker');
-      $('#persona-name').textContent = persona ? localize(persona.name) : t('game.summaryHeading');
-      $('#persona-desc').textContent = persona ? localize(persona.description) : '';
+      const { persona, ending } = summaryData;
+      $('#verdict-kicker').textContent = summaryData.alreadyPlayed ? t('daily.alreadyPlayedHeading') : t('game.endingKicker');
+      const badge = $('#ending-badge');
+      badge.textContent = ending?.historical ? t('game.endingHistorical') : t('game.endingAlternative');
+      badge.className = `ending-badge t8 ${ending?.historical ? 'historical' : 'alternative'}`;
+      $('#ending-title').textContent = ending ? localize(ending.title) : t('game.summaryHeading');
+      $('#ending-desc').textContent = ending ? localize(ending.description) : '';
+      $('#ending-desc').className = `verdict-desc ${summaryData.criticalKey ? 'bad' : ''}`;
+      $('#ending-new').hidden = !summaryData.newEnding;
+      $('#persona-line').textContent = persona ? t('game.personaLine', { name: localize(persona.name) }) : '';
 
-      const endingEl = $('#ending-line');
-      endingEl.textContent = summaryData.criticalKey ? localize(era.badEnding) : localize(era.goodEnding);
-      endingEl.className = `ending-line ${summaryData.criticalKey ? 'bad' : ''}`;
+      $('#summary-history').textContent = localize(era.history);
+      const factCards = summaryData.facts.map(id => cards.find(card => card.id === id)).filter(card => card?.fact);
+      $('#summary-facts').innerHTML = factCards.length
+        ? factCards.map((card, index) => `<li style="animation-delay:${index * 0.06}s"><span class="mark" style="color:var(--gold)">${icon('scroll', 1)}</span><span>${localize(card.fact)}${summaryData.newFacts.includes(card.id) ? ` <span class="new-tag t8">${t('game.factNew')}</span>` : ''}</span></li>`).join('')
+        : `<li class="muted">${t('game.factsNone')}</li>`;
+      const done = completion(getProgress(eraId), era, cards);
+      const bar = (found, total) => `<span class="collection-bar"><span style="width:${total ? Math.round((found / total) * 100) : 0}%"></span></span>`;
+      $('#summary-collection').innerHTML = `
+        <div class="collection-row"><span>${t('game.collectionEndings', { found: done.endings, total: done.totalEndings })}</span>${bar(done.endings, done.totalEndings)}</div>
+        <div class="collection-row"><span>${t('game.collectionFacts', { found: done.facts, total: done.totalFacts })}</span>${bar(done.facts, done.totalFacts)}</div>
+      `;
 
       $('#summary-objectives').innerHTML = summaryData.objectivesResults.map((entry, index) => `
         <li class="${entry.complete ? 'done' : ''}" style="animation-delay:${index * 0.08}s"><span class="mark">${entry.complete ? '✓' : '✗'}</span> ${localize(entry.objective.description)}</li>
@@ -704,7 +855,7 @@
       sfx.select();
       resetDay();
       stage.reset();
-      showDecision();
+      showBriefing();
     });
 
     $('#download-card').addEventListener('click', async () => {
@@ -712,8 +863,8 @@
       await renderShareCardCanvas(canvas, {
         eraName: localize(era.name),
         accentHue: eraMeta.accent,
-        personaName: summaryData.persona ? localize(summaryData.persona.name) : '',
-        endingText: summaryData.criticalKey ? localize(era.badEnding) : localize(era.goodEnding),
+        personaName: summaryData.ending ? localize(summaryData.ending.title) : '',
+        endingText: summaryData.ending ? localize(summaryData.ending.description) : '',
         dateLabel: dailyDateKeyValue,
         score: summaryData.score,
         objectives: summaryData.objectivesResults.map(entry => ({ description: localize(entry.objective.description), complete: entry.complete })),
@@ -768,6 +919,7 @@
       if (!pause.hidden) return;
       const confirm = event.key === 'Enter' || event.key === ' ';
       if (phase === 'reveal' && (confirm || event.key === 'Escape')) { event.preventDefault(); skipReveal?.(); return; }
+      if (phase === 'briefing' && confirm && event.target.id !== 'brief-start') { event.preventDefault(); beginDay(); return; }
       if (phase === 'decision') {
         if (skipTyping && confirm) { event.preventDefault(); skipTyping(); return; }
         if (skipTyping) return;
@@ -791,6 +943,7 @@
       if (phase === 'decision') { skipTyping?.(); renderDecisionUI(); }
       else if (phase === 'outcome') { renderHUD(); renderOutcomeUI(); }
       else if (phase === 'summary') { renderSummaryUI(); if (isDaily) renderLeaderboardHtml(); }
+      else if (phase === 'briefing') { renderHUD(); renderBriefingUI(); }
       else if (dayState) renderHUD();
     });
 
@@ -811,7 +964,8 @@
       try {
         const { createStage } = await import('./shared/stage/stage.js');
         setLoading(0.8);
-        stage = await createStage($('#stage'), { eraId, mode: 'play', onStep: () => sfx.step() });
+        const npcs = (era.npcs || []).map(npc => ({ id: npc.id, color: npc.portraitColor, name: localize(npc.name) }));
+        stage = await createStage($('#stage'), { eraId, mode: 'play', onStep: () => sfx.step(), npcs });
       } catch (error) {
         console.warn('OneDay: 3D stage unavailable, playing without it', error);
         document.body.classList.add('no-stage');
@@ -834,7 +988,7 @@
       }
 
       resetDay();
-      showDecision();
+      showBriefing();
     })();
 
     // The loading screen's caption is localised as soon as the strings arrive.

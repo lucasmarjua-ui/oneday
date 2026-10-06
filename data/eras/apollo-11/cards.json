@@ -1,0 +1,3670 @@
+[
+  {
+    "id": "apollo-wake",
+    "npcId": "npc-houston",
+    "threadId": "houston-thread",
+    "text": {
+      "en": "\"Apollo 11, Apollo 11, good morning from the Black Team.\" Houston's wake-up call crackles through Columbia. The Moon fills the window. Today, two of you will try to land on it.",
+      "es": "\"Apolo 11, Apolo 11, buenos días del Equipo Negro.\" La llamada de Houston para despertar resuena en el Columbia. La Luna llena la ventanilla. Hoy, dos de vosotros intentaréis alunizar."
+    },
+    "timeSlots": [
+      "columbia"
+    ],
+    "weight": 100,
+    "fact": {
+      "en": "On landing day the crew woke up in lunar orbit, about 110 km above the surface. Mission Control worked in shifts named by colours; the 'Black Team' was on duty that morning.",
+      "es": "El día del alunizaje la tripulación despertó en órbita lunar, a unos 110 km de la superficie. Control de Misión trabajaba en turnos con nombres de colores; esa mañana estaba el 'Equipo Negro'."
+    },
+    "options": [
+      {
+        "id": "wake-checklist",
+        "text": {
+          "en": "Unzip the sleeping bag and open the checklist",
+          "es": "Abre el saco de dormir y saca la lista de comprobación"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 10
+          },
+          "text": {
+            "en": "Sixty pages, all yours. By the time the coffee is hot you are three steps ahead.",
+            "es": "Sesenta páginas, todas tuyas. Cuando el café está caliente ya vas tres pasos por delante."
+          }
+        }
+      },
+      {
+        "id": "wake-window",
+        "text": {
+          "en": "Float to the window and look at the Moon",
+          "es": "Flota hasta la ventanilla y mira la Luna"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "text": {
+            "en": "Grey, cratered, close enough to touch. Somewhere down there is a flat patch called the Sea of Tranquility.",
+            "es": "Gris, llena de cráteres, tan cerca que parece tocarse. Ahí abajo hay una llanura llamada Mar de la Tranquilidad."
+          }
+        }
+      },
+      {
+        "id": "wake-joke",
+        "text": {
+          "en": "Answer Houston with a joke",
+          "es": "Responde a Houston con una broma"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "countersAdd": {
+            "houstonTrust": 1
+          },
+          "text": {
+            "en": "Laughter on the loop. Three hundred people in Houston relax a little.",
+            "es": "Risas en el canal. Trescientas personas en Houston se relajan un poco."
+          }
+        }
+      }
+    ],
+    "alarm": true
+  },
+  {
+    "id": "apollo-breakfast",
+    "text": {
+      "en": "Breakfast in zero gravity: bacon squares, peaches, sugar cookie cubes and coffee you drink through a valve.",
+      "es": "Desayuno en gravedad cero: cuadraditos de beicon, melocotón, cubitos de galleta y café que se bebe por una válvula."
+    },
+    "timeSlots": [
+      "columbia"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "Apollo food was mostly freeze-dried and rehydrated with a water gun. The first meal eaten on the Moon, a few hours later, included bacon squares, peaches and sugar cookie cubes.",
+      "es": "La comida del Apolo era casi toda liofilizada y se rehidrataba con una pistola de agua. La primera comida en la Luna, horas después, incluía cuadraditos de beicon, melocotón y cubitos de galleta."
+    },
+    "options": [
+      {
+        "id": "eat-full",
+        "text": {
+          "en": "Eat everything; it's a long day",
+          "es": "Cómetelo todo; el día es largo"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 10
+          },
+          "text": {
+            "en": "Not delicious, but you will be glad of it at the 60-second call.",
+            "es": "No está rico, pero lo agradecerás en el aviso de los 60 segundos."
+          }
+        }
+      },
+      {
+        "id": "eat-light",
+        "text": {
+          "en": "Eat light and review the descent",
+          "es": "Come poco y repasa el descenso"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5,
+            "reputation": 3
+          },
+          "text": {
+            "en": "Half a cube of cookie, a whole page of numbers.",
+            "es": "Medio cubito de galleta, una página entera de números."
+          }
+        }
+      },
+      {
+        "id": "share-coffee",
+        "text": {
+          "en": "Make Collins's coffee too",
+          "es": "Prepárale también el café a Collins"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "countersAdd": {
+            "collinsBond": 1
+          },
+          "text": {
+            "en": "\"Best service in the solar system,\" he says.",
+            "es": "\"El mejor servicio del sistema solar\", dice."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-neil-photos",
+    "npcId": "npc-neil",
+    "threadId": "neil-thread",
+    "text": {
+      "en": "Neil is studying the landing-site photographs again, a finger on a crater nobody has named yet.",
+      "es": "Neil vuelve a estudiar las fotos del lugar de alunizaje, con un dedo sobre un cráter que aún no tiene nombre."
+    },
+    "timeSlots": [
+      "columbia"
+    ],
+    "weight": 6,
+    "fact": {
+      "en": "The landing site in the Sea of Tranquility was chosen for being flat and smooth in photographs taken by earlier probes and by Apollo 8 and 10.",
+      "es": "El lugar de alunizaje en el Mar de la Tranquilidad se eligió por parecer llano y liso en fotos de sondas anteriores y de las misiones Apolo 8 y 10."
+    },
+    "options": [
+      {
+        "id": "study-site",
+        "text": {
+          "en": "Go through the boulder scenarios with him",
+          "es": "Repasa con él los escenarios de rocas"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 10
+          },
+          "flagsSet": [
+            "studied-site"
+          ],
+          "countersAdd": {
+            "neilTrust": 2
+          },
+          "text": {
+            "en": "If the computer takes you somewhere ugly, you both know what to say.",
+            "es": "Si el ordenador os lleva a un sitio feo, los dos sabéis qué decir."
+          }
+        }
+      },
+      {
+        "id": "talk-family",
+        "text": {
+          "en": "Talk about anything except the Moon",
+          "es": "Habla de cualquier cosa menos de la Luna"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "Ten minutes about lawns and kids in Houston. He almost smiles.",
+            "es": "Diez minutos sobre jardines y niños en Houston. Casi sonríe."
+          }
+        }
+      },
+      {
+        "id": "practise-abort",
+        "text": {
+          "en": "Rehearse the abort calls",
+          "es": "Ensaya los avisos de aborto"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "Abort, abort stage, the switch under your hand. Hopefully you will not need it.",
+            "es": "Abortar, etapa de aborto, el interruptor bajo tu mano. Ojalá no haga falta."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-suitup",
+    "text": {
+      "en": "Suits on. Putting a pressure suit on in a cabin the size of a car takes time, patience and help.",
+      "es": "Trajes puestos. Ponerse un traje presurizado en una cabina del tamaño de un coche requiere tiempo, paciencia y ayuda."
+    },
+    "timeSlots": [
+      "columbia"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsExcluded": [
+        "suited"
+      ]
+    },
+    "fact": {
+      "en": "Each Apollo surface suit was made of about 21 layers and was custom-fitted. In the cramped cabins the astronauts usually helped each other with zips and locking rings.",
+      "es": "Cada traje de superficie del Apolo tenía unas 21 capas y estaba hecho a medida. En cabinas tan estrechas, los astronautas se ayudaban con cremalleras y anillos de cierre."
+    },
+    "options": [
+      {
+        "id": "help-neil",
+        "text": {
+          "en": "Help Neil with his first",
+          "es": "Ayuda primero a Neil con el suyo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "flagsSet": [
+            "suited"
+          ],
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "Zips, rings, gloves. He returns the favour without a word.",
+            "es": "Cremalleras, anillos, guantes. Te devuelve el favor sin decir palabra."
+          }
+        }
+      },
+      {
+        "id": "suit-careful",
+        "text": {
+          "en": "Check every seal twice",
+          "es": "Revisa cada sello dos veces"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "oxygen": 5
+          },
+          "flagsSet": [
+            "suited"
+          ],
+          "text": {
+            "en": "One wrist ring was not quite locked. Now it is.",
+            "es": "Un anillo de muñeca no estaba del todo cerrado. Ahora sí."
+          }
+        }
+      },
+      {
+        "id": "suit-fast",
+        "text": {
+          "en": "Race through it to gain time",
+          "es": "Hazlo a toda prisa para ganar tiempo"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.6,
+          "resourceBonus": {
+            "resource": "focus",
+            "scale": 0.4
+          }
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "suited"
+          ],
+          "text": {
+            "en": "Suited in record time.",
+            "es": "Traje puesto en tiempo récord."
+          }
+        },
+        "failure": {
+          "resources": {
+            "focus": -10,
+            "oxygen": -5
+          },
+          "flagsSet": [
+            "suited"
+          ],
+          "text": {
+            "en": "A glove ring jams and costs you more time than you saved.",
+            "es": "Un anillo del guante se atasca y pierdes más tiempo del que ganaste."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-transfer",
+    "text": {
+      "en": "Through the tunnel into Eagle. The Lunar Module is cold, smells of new wiring and has no seats: you fly it standing up.",
+      "es": "Por el túnel hasta el Eagle. El módulo lunar está frío, huele a cableado nuevo y no tiene asientos: se pilota de pie."
+    },
+    "timeSlots": [
+      "columbia"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "suited"
+      ],
+      "flagsExcluded": [
+        "in-eagle"
+      ]
+    },
+    "fact": {
+      "en": "The Lunar Module had no seats. The commander stood on the left and the pilot on the right, held in place by cables; standing let them sit closer to the small triangular windows.",
+      "es": "El módulo lunar no tenía asientos. El comandante iba de pie a la izquierda y el piloto a la derecha, sujetos con cables; así quedaban más cerca de las pequeñas ventanas triangulares."
+    },
+    "options": [
+      {
+        "id": "power-careful",
+        "text": {
+          "en": "Power up switch by switch with the checklist",
+          "es": "Enciéndelo interruptor a interruptor con la lista"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 2
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5,
+            "reputation": 5
+          },
+          "flagsSet": [
+            "in-eagle"
+          ],
+          "text": {
+            "en": "Every gauge alive and where it should be.",
+            "es": "Cada indicador vivo y donde debe estar."
+          }
+        }
+      },
+      {
+        "id": "power-fast",
+        "text": {
+          "en": "Power up fast and trust the systems",
+          "es": "Enciéndelo rápido y confía en los sistemas"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "in-eagle"
+          ],
+          "text": {
+            "en": "Eagle hums to life ahead of schedule.",
+            "es": "El Eagle cobra vida antes de lo previsto."
+          }
+        }
+      },
+      {
+        "id": "ask-latches",
+        "text": {
+          "en": "Ask Collins to check the docking latches",
+          "es": "Pide a Collins que revise los cierres de acoplamiento"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "flagsSet": [
+            "in-eagle"
+          ],
+          "countersAdd": {
+            "collinsBond": 1
+          },
+          "text": {
+            "en": "All twelve latches good. \"You're clear to go,\" he says.",
+            "es": "Los doce cierres bien. \"Podéis iros\", dice."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-undock",
+    "npcId": "npc-collins",
+    "threadId": "collins-thread",
+    "text": {
+      "en": "Columbia lets go. Through the window you watch Collins drift away, turning slowly so he can inspect you. Neil says: \"The Eagle has wings.\"",
+      "es": "El Columbia os suelta. Por la ventana ves a Collins alejarse, girando despacio para inspeccionaros. Neil dice: \"El Eagle tiene alas\"."
+    },
+    "timeSlots": [
+      "columbia",
+      "descent"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "in-eagle"
+      ],
+      "flagsExcluded": [
+        "undocked"
+      ]
+    },
+    "fact": {
+      "en": "Eagle undocked from Columbia on 20 July at about 17:44 UTC. Collins stayed alone in orbit, circling the Moon every two hours.",
+      "es": "El Eagle se separó del Columbia el 20 de julio hacia las 17:44 UTC. Collins se quedó solo en órbita, dando una vuelta a la Luna cada dos horas."
+    },
+    "options": [
+      {
+        "id": "photo-columbia",
+        "text": {
+          "en": "Photograph Columbia against the Moon",
+          "es": "Fotografía el Columbia sobre la Luna"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "flagsSet": [
+            "undocked"
+          ],
+          "text": {
+            "en": "A white cone against grey craters. One of the photos of the century.",
+            "es": "Un cono blanco sobre cráteres grises. Una de las fotos del siglo."
+          }
+        }
+      },
+      {
+        "id": "collins-inspect",
+        "text": {
+          "en": "Ask Collins for a careful look at your landing gear",
+          "es": "Pide a Collins que mire bien vuestro tren de aterrizaje"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "undocked"
+          ],
+          "countersAdd": {
+            "collinsBond": 1
+          },
+          "text": {
+            "en": "\"All four legs down and locked. You've got a fine-looking machine.\"",
+            "es": "\"Las cuatro patas bajadas y bloqueadas. Lleváis una máquina preciosa\"."
+          }
+        }
+      },
+      {
+        "id": "goodbye-collins",
+        "text": {
+          "en": "Say a proper goodbye to Collins",
+          "es": "Despídete bien de Collins"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "flagsSet": [
+            "undocked"
+          ],
+          "countersAdd": {
+            "collinsBond": 2
+          },
+          "text": {
+            "en": "\"Take care of yourselves,\" he says. He means it.",
+            "es": "\"Cuidaos\", dice. Lo dice en serio."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-doi",
+    "text": {
+      "en": "Behind the Moon, out of contact with Earth, you fire the engine for 30 seconds to drop toward the surface. Nobody can help if it goes wrong.",
+      "es": "Tras la Luna, sin contacto con la Tierra, encendéis el motor 30 segundos para bajar hacia la superficie. Nadie puede ayudar si sale mal."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "undocked"
+      ],
+      "flagsExcluded": [
+        "doi",
+        "aborted"
+      ]
+    },
+    "fact": {
+      "en": "The descent orbit insertion burn happened behind the Moon, where radio signals from Earth cannot reach. Mission Control had to wait for Eagle to come around to know it had worked.",
+      "es": "El encendido de inserción en órbita de descenso se hizo tras la Luna, donde no llegan las señales de radio de la Tierra. Control de Misión tuvo que esperar a que el Eagle reapareciera para saber si había funcionado."
+    },
+    "options": [
+      {
+        "id": "doi-numbers",
+        "text": {
+          "en": "Fly it exactly by the numbers",
+          "es": "Hazlo exactamente según las cifras"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -5
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "doi"
+          ],
+          "text": {
+            "en": "Burn complete. Your orbit now dips to 15 km over the landing site.",
+            "es": "Encendido completo. Vuestra órbita baja ahora a 15 km sobre la zona de alunizaje."
+          }
+        }
+      },
+      {
+        "id": "doi-long",
+        "text": {
+          "en": "Burn a little long, just in case",
+          "es": "Alarga un poco el encendido, por si acaso"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -12
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "flagsSet": [
+            "doi"
+          ],
+          "text": {
+            "en": "Lower than planned. It works, but you spent fuel you will want later.",
+            "es": "Más bajo de lo previsto. Funciona, pero gastas combustible que luego querrás."
+          }
+        }
+      },
+      {
+        "id": "doi-crosscheck",
+        "text": {
+          "en": "Cross-check the computer by hand first",
+          "es": "Comprueba antes el ordenador a mano"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -5
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "doi"
+          ],
+          "text": {
+            "en": "Your sums and the computer's agree. You burn with confidence.",
+            "es": "Tus cuentas y las del ordenador coinciden. Encendéis con confianza."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-pdi",
+    "text": {
+      "en": "Powered descent. The engine lights, and so does the static: Houston's voice keeps cutting out. Twelve minutes to the surface.",
+      "es": "Descenso propulsado. Se enciende el motor y también la estática: la voz de Houston se corta una y otra vez. Doce minutos hasta la superficie."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "doi"
+      ],
+      "flagsExcluded": [
+        "pdi",
+        "aborted"
+      ]
+    },
+    "fact": {
+      "en": "During the descent Eagle's radio link kept dropping out. At one point Michael Collins relayed Houston's GO for powered descent from Columbia.",
+      "es": "Durante el descenso, el enlace de radio del Eagle se cortaba una y otra vez. En un momento Michael Collins retransmitió desde el Columbia el GO de Houston para el descenso propulsado."
+    },
+    "options": [
+      {
+        "id": "relay-collins",
+        "text": {
+          "en": "Let Collins relay Houston's messages",
+          "es": "Deja que Collins retransmita los mensajes de Houston"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -15
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "pdi"
+          ],
+          "countersAdd": {
+            "collinsBond": 1
+          },
+          "text": {
+            "en": "\"Eagle, Columbia. They just gave you a GO for powered descent.\"",
+            "es": "\"Eagle, aquí Columbia. Os acaban de dar el GO para el descenso propulsado\"."
+          }
+        }
+      },
+      {
+        "id": "antenna",
+        "text": {
+          "en": "Fiddle with the antenna until the signal holds",
+          "es": "Ajusta la antena hasta que la señal aguante"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -15
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "pdi"
+          ],
+          "text": {
+            "en": "A few degrees of yaw and Houston is back, loud and clear.",
+            "es": "Unos grados de guiñada y Houston vuelve, alto y claro."
+          }
+        }
+      },
+      {
+        "id": "fly-on",
+        "text": {
+          "en": "Keep flying and call out the numbers",
+          "es": "Sigue volando y canta las cifras"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -15
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "pdi"
+          ],
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "Altitude, velocity, all nominal. Neil nods without looking away.",
+            "es": "Altitud, velocidad, todo nominal. Neil asiente sin apartar la vista."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-alarm-1202",
+    "npcId": "npc-houston",
+    "threadId": "houston-thread",
+    "text": {
+      "en": "A yellow light on the computer. Neil, tight-voiced: \"Program alarm. It's a 1202.\" Neither of you knows what a 1202 is. The ground is coming up fast.",
+      "es": "Una luz amarilla en el ordenador. Neil, con la voz tensa: \"Alarma de programa. Es un 1202\". Ninguno sabe qué es un 1202. El suelo se acerca deprisa."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "pdi"
+      ],
+      "flagsExcluded": [
+        "alarm-cleared",
+        "aborted"
+      ]
+    },
+    "fact": {
+      "en": "The 1202 and 1201 alarms meant the guidance computer was overloaded. It restarted and kept only its most important tasks, a design by Margaret Hamilton's team at MIT. Guidance officer Steve Bales and engineer Jack Garman knew it was safe and called GO.",
+      "es": "Las alarmas 1202 y 1201 significaban que el ordenador de guiado estaba sobrecargado. Se reiniciaba y conservaba solo sus tareas más importantes, un diseño del equipo de Margaret Hamilton en el MIT. El oficial de guiado Steve Bales y el ingeniero Jack Garman sabían que era seguro y dieron el GO."
+    },
+    "options": [
+      {
+        "id": "ask-houston",
+        "text": {
+          "en": "\"Give us a reading on the 1202\"",
+          "es": "\"Dadnos una lectura del 1202\""
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8
+          },
+          "flagsSet": [
+            "alarm-cleared"
+          ],
+          "countersAdd": {
+            "houstonTrust": 2
+          },
+          "text": {
+            "en": "A pause that lasts forever. Then: \"We're GO on that alarm.\" Somewhere in Houston a 26-year-old just saved the landing.",
+            "es": "Una pausa eterna. Luego: \"Seguimos GO con esa alarma\". En algún lugar de Houston, un joven de 26 años acaba de salvar el alunizaje."
+          }
+        }
+      },
+      {
+        "id": "ignore-alarm",
+        "text": {
+          "en": "Ignore it and keep flying",
+          "es": "Ignórala y sigue volando"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.6,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.05
+          }
+        },
+        "success": {
+          "resources": {
+            "focus": -5
+          },
+          "flagsSet": [
+            "alarm-cleared"
+          ],
+          "text": {
+            "en": "The light flickers and dies. The computer keeps steering.",
+            "es": "La luz parpadea y se apaga. El ordenador sigue guiando."
+          }
+        },
+        "failure": {
+          "resources": {
+            "fuel": -15,
+            "focus": -10
+          },
+          "flagsSet": [
+            "alarm-cleared"
+          ],
+          "text": {
+            "en": "Two more alarms. The computer restarts mid-descent and you lose precious seconds of data and fuel.",
+            "es": "Dos alarmas más. El ordenador se reinicia en pleno descenso y perdéis segundos preciosos de datos y combustible."
+          }
+        }
+      },
+      {
+        "id": "abort-1202",
+        "text": {
+          "en": "Hit ABORT STAGE",
+          "es": "Pulsa ETAPA DE ABORTO"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": -5
+          },
+          "flagsSet": [
+            "aborted"
+          ],
+          "text": {
+            "en": "The descent stage falls away and the ascent engine kicks. You are going back up.",
+            "es": "La etapa de descenso se suelta y el motor de ascenso empuja. Volvéis arriba."
+          }
+        }
+      }
+    ],
+    "alarm": true
+  },
+  {
+    "id": "apollo-boulders",
+    "npcId": "npc-neil",
+    "threadId": "neil-thread",
+    "text": {
+      "en": "Out of the window, Neil sees it first: the computer is taking you into a crater the size of a football field, ringed with boulders as big as cars.",
+      "es": "Por la ventana, Neil lo ve primero: el ordenador os lleva a un cráter del tamaño de un campo de fútbol, rodeado de rocas grandes como coches."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "alarm-cleared"
+      ],
+      "flagsExcluded": [
+        "manual-control",
+        "landed",
+        "aborted"
+      ]
+    },
+    "fact": {
+      "en": "The computer was steering Eagle toward the rocky rim of a crater later named West. Armstrong switched to semi-manual control and flew several kilometres beyond the planned spot to find a smooth place to land.",
+      "es": "El ordenador llevaba al Eagle hacia el borde rocoso de un cráter que después se llamó West. Armstrong pasó a control semimanual y voló varios kilómetros más allá del punto previsto para encontrar un lugar liso."
+    },
+    "options": [
+      {
+        "id": "back-manual",
+        "text": {
+          "en": "Back Neil as he takes control and flies past it",
+          "es": "Respalda a Neil mientras toma el control y lo sobrevuela"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -30
+          }
+        },
+        "successChance": {
+          "base": 0.8,
+          "resourceBonus": {
+            "resource": "focus",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "manual-control"
+          ],
+          "countersAdd": {
+            "neilTrust": 2
+          },
+          "text": {
+            "en": "He tips Eagle forward and skims over the boulder field. You keep your eyes on the numbers so he can keep his on the ground.",
+            "es": "Inclina el Eagle hacia delante y pasa rozando el campo de rocas. Tú vigilas las cifras para que él pueda vigilar el suelo."
+          }
+        },
+        "failure": {
+          "resources": {
+            "fuel": -12
+          },
+          "flagsSet": [
+            "manual-control"
+          ],
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "The long flight eats into the fuel faster than anyone planned.",
+            "es": "El vuelo largo se come el combustible más rápido de lo previsto."
+          }
+        }
+      },
+      {
+        "id": "land-target",
+        "text": {
+          "en": "Land on the computer's target anyway",
+          "es": "Alunizad igualmente donde marca el ordenador"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -15
+          }
+        },
+        "successChance": {
+          "base": 0.45,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.05
+          }
+        },
+        "success": {
+          "resources": {
+            "focus": -10
+          },
+          "flagsSet": [
+            "landed",
+            "landed-in-boulders"
+          ],
+          "text": {
+            "en": "Between two boulders, with a thud. One footpad rests on a rock. You are down.",
+            "es": "Entre dos rocas, con un golpe. Una pata descansa sobre una piedra. Estáis abajo."
+          }
+        },
+        "failure": {
+          "resources": {
+            "reputation": -5
+          },
+          "flagsSet": [
+            "aborted"
+          ],
+          "text": {
+            "en": "A boulder fills the window. Neil aborts at the last second.",
+            "es": "Una roca llena la ventana. Neil aborta en el último segundo."
+          }
+        }
+      },
+      {
+        "id": "call-abort",
+        "text": {
+          "en": "Call it: too risky, abort",
+          "es": "Dilo claro: demasiado arriesgado, abortar"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "flagsSet": [
+            "aborted"
+          ],
+          "text": {
+            "en": "Neil hesitates, then agrees. The ascent engine fires.",
+            "es": "Neil duda y luego acepta. El motor de ascenso se enciende."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-sixty-seconds",
+    "text": {
+      "en": "\"Sixty seconds,\" Houston calls. Sixty seconds of fuel before you must land or abort. Dust is starting to blow out across the ground below.",
+      "es": "\"Sesenta segundos\", avisa Houston. Sesenta segundos de combustible antes de alunizar o abortar. El polvo empieza a levantarse sobre el suelo."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "manual-control"
+      ],
+      "flagsExcluded": [
+        "landed",
+        "aborted"
+      ]
+    },
+    "fact": {
+      "en": "Houston thought Eagle had less than 30 seconds of fuel left at touchdown. Later analysis found propellant sloshing in the tanks had fooled the gauge, so the real margin was a little larger, but nobody knew that at the time.",
+      "es": "Houston creía que al tocar suelo al Eagle le quedaban menos de 30 segundos de combustible. Un análisis posterior descubrió que el combustible agitándose en los tanques había engañado al indicador y el margen era algo mayor, pero entonces nadie lo sabía."
+    },
+    "options": [
+      {
+        "id": "callouts",
+        "text": {
+          "en": "Keep calling altitude and speed, calm and steady",
+          "es": "Sigue cantando altitud y velocidad, con calma"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -15
+          }
+        },
+        "successChance": {
+          "base": 0.65,
+          "resourceBonus": {
+            "resource": "focus",
+            "scale": 0.4
+          },
+          "traitBonus": {
+            "trait": "diligent",
+            "perPoint": 0.03
+          }
+        },
+        "success": {
+          "resources": {
+            "focus": 5,
+            "reputation": 8
+          },
+          "flagsSet": [
+            "landed"
+          ],
+          "countersAdd": {
+            "neilTrust": 2
+          },
+          "text": {
+            "en": "\"Forty feet, down two and a half... picking up some dust... thirty seconds... contact light.\" The engine stops.",
+            "es": "\"Doce metros, bajando... algo de polvo... treinta segundos... luz de contacto\". El motor se detiene."
+          }
+        },
+        "failure": {
+          "resources": {
+            "fuel": -30
+          },
+          "flagsSet": [
+            "landed"
+          ],
+          "text": {
+            "en": "Your numbers lag for a second, Neil hesitates, and the fuel gauge drops into the red.",
+            "es": "Tus cifras se retrasan un segundo, Neil duda y el indicador de combustible cae al rojo."
+          }
+        }
+      },
+      {
+        "id": "push-down",
+        "text": {
+          "en": "\"Put it down, Neil. Now.\"",
+          "es": "\"Bájalo ya, Neil\""
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "fuel": -10
+          }
+        },
+        "successChance": {
+          "base": 0.55,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.05
+          }
+        },
+        "success": {
+          "resources": {
+            "focus": -5
+          },
+          "flagsSet": [
+            "landed"
+          ],
+          "text": {
+            "en": "A hard, square landing. The cabin rattles and goes still.",
+            "es": "Un alunizaje seco y firme. La cabina vibra y se queda quieta."
+          }
+        },
+        "failure": {
+          "resources": {
+            "reputation": -5
+          },
+          "flagsSet": [
+            "aborted"
+          ],
+          "text": {
+            "en": "Too fast, too low. Neil aborts at thirty feet.",
+            "es": "Demasiado rápido, demasiado bajo. Neil aborta a nueve metros."
+          }
+        }
+      },
+      {
+        "id": "suggest-abort",
+        "text": {
+          "en": "Suggest aborting while there is fuel to do it",
+          "es": "Propón abortar mientras quede combustible para hacerlo"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "flagsSet": [
+            "aborted"
+          ],
+          "text": {
+            "en": "Neil takes one more look, then hits the switch. Up you go.",
+            "es": "Neil echa un último vistazo y pulsa el interruptor. Arriba."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-contact",
+    "npcId": "npc-houston",
+    "threadId": "houston-thread",
+    "text": {
+      "en": "Silence. Dust settles outside the window. Neil keys the radio: \"Houston, Tranquility Base here. The Eagle has landed.\"",
+      "es": "Silencio. El polvo se posa tras la ventana. Neil pulsa la radio: \"Houston, aquí Base Tranquilidad. El Eagle ha alunizado\"."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility",
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "landed"
+      ],
+      "flagsExcluded": [
+        "landed-in-boulders"
+      ]
+    },
+    "fact": {
+      "en": "Eagle landed at 20:17 UTC on 20 July 1969. The voice answering from Houston was CAPCOM Charlie Duke, an astronaut who would walk on the Moon himself on Apollo 16.",
+      "es": "El Eagle alunizó a las 20:17 UTC del 20 de julio de 1969. La voz que respondió desde Houston era la del CAPCOM Charlie Duke, un astronauta que caminaría él mismo por la Luna en el Apolo 16."
+    },
+    "options": [
+      {
+        "id": "listen-houston",
+        "text": {
+          "en": "Listen to Houston",
+          "es": "Escucha a Houston"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "countersAdd": {
+            "houstonTrust": 2
+          },
+          "text": {
+            "en": "\"Roger, Tranquility, we copy you on the ground. You got a bunch of guys about to turn blue. We're breathing again.\"",
+            "es": "\"Recibido, Tranquilidad, os tenemos en tierra. Aquí hay un montón de gente a punto de ponerse azul. Volvemos a respirar\"."
+          }
+        }
+      },
+      {
+        "id": "post-landing",
+        "text": {
+          "en": "Start the post-landing checklist at once",
+          "es": "Empieza ya la lista posterior al alunizaje"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5,
+            "reputation": 3
+          },
+          "text": {
+            "en": "Engine safe, valves closed, abort guidance updated. Then a handshake.",
+            "es": "Motor seguro, válvulas cerradas, guiado de aborto actualizado. Después, un apretón de manos."
+          }
+        }
+      },
+      {
+        "id": "look-out",
+        "text": {
+          "en": "Look out at the Moon",
+          "es": "Mira la Luna por la ventana"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "text": {
+            "en": "Flat grey plain, small craters, rocks with long shadows. It looks like nowhere you have ever been.",
+            "es": "Llanura gris, cráteres pequeños, rocas de sombras largas. No se parece a ningún lugar donde hayas estado."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-stay",
+    "text": {
+      "en": "\"Stay or no-stay?\" Houston has two minutes to decide whether Eagle is safe to remain on the Moon. They need your readings.",
+      "es": "\"¿Quedarse o no?\" Houston tiene dos minutos para decidir si el Eagle puede quedarse en la Luna. Necesitan vuestras lecturas."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility",
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "landed"
+      ],
+      "flagsExcluded": [
+        "stay"
+      ]
+    },
+    "fact": {
+      "en": "Right after landing Mission Control had to decide 'stay' or 'no stay'. If something was wrong they would have ordered an immediate liftoff at the next safe moment, called T1 or T2.",
+      "es": "Justo después de alunizar, Control de Misión tenía que decidir 'quedarse' o 'no quedarse'. Si algo fallaba habrían ordenado despegar en el siguiente momento seguro, llamado T1 o T2."
+    },
+    "options": [
+      {
+        "id": "readings",
+        "text": {
+          "en": "Read out every system, carefully",
+          "es": "Lee cada sistema con cuidado"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8
+          },
+          "flagsSet": [
+            "stay"
+          ],
+          "text": {
+            "en": "\"Eagle, you are STAY for T1.\" The Moon is yours for a while.",
+            "es": "\"Eagle, os quedáis para T1\". La Luna es vuestra durante un rato."
+          }
+        }
+      },
+      {
+        "id": "trust-ground",
+        "text": {
+          "en": "Trust Houston's call and get ready",
+          "es": "Confía en Houston y prepárate"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "flagsSet": [
+            "stay"
+          ],
+          "countersAdd": {
+            "houstonTrust": 1
+          },
+          "text": {
+            "en": "Stay. You start unpacking.",
+            "es": "Os quedáis. Empezáis a desempaquetar."
+          }
+        }
+      },
+      {
+        "id": "tilt-check",
+        "text": {
+          "en": "Check the tilt and the legs first",
+          "es": "Comprueba antes la inclinación y las patas"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "stay"
+          ],
+          "text": {
+            "en": "Level within a few degrees, all legs solid. Stay.",
+            "es": "Nivelado con pocos grados, todas las patas firmes. Os quedáis."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-west-crater",
+    "text": {
+      "en": "Eagle rests tilted among the boulders, one footpad on a rock. Houston is quiet. Nobody likes this angle.",
+      "es": "El Eagle reposa inclinado entre las rocas, con una pata sobre una piedra. Houston está callado. A nadie le gusta este ángulo."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility",
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "landed-in-boulders"
+      ],
+      "flagsExcluded": [
+        "stay"
+      ]
+    },
+    "fact": {
+      "en": "A Lunar Module could only lift off safely if it was tilted less than about 12 degrees, one reason Armstrong refused to land in the boulder field.",
+      "es": "Un módulo lunar solo podía despegar con seguridad si estaba inclinado menos de unos 12 grados, una de las razones por las que Armstrong no quiso alunizar entre las rocas."
+    },
+    "options": [
+      {
+        "id": "tilt-report",
+        "text": {
+          "en": "Report the exact tilt to Houston",
+          "es": "Informa a Houston de la inclinación exacta"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "stay"
+          ],
+          "text": {
+            "en": "Eleven degrees. Within limits, just. Stay.",
+            "es": "Once grados. Dentro de los límites, por poco. Os quedáis."
+          }
+        }
+      },
+      {
+        "id": "tilt-wedge",
+        "text": {
+          "en": "Plan to wedge the ladder with a rock",
+          "es": "Planea calzar la escalerilla con una roca"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "stay"
+          ],
+          "text": {
+            "en": "An ugly fix, but the ladder will hold.",
+            "es": "Un apaño feo, pero la escalerilla aguantará."
+          }
+        }
+      },
+      {
+        "id": "tilt-go",
+        "text": {
+          "en": "Ask to go outside before anything shifts",
+          "es": "Pide salir antes de que algo se mueva"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": -3
+          },
+          "flagsSet": [
+            "stay",
+            "eva-prep"
+          ],
+          "text": {
+            "en": "Houston agrees, nervously.",
+            "es": "Houston acepta, nervioso."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-rest-or-walk",
+    "text": {
+      "en": "The flight plan says: eat, then sleep four hours before going outside. Nobody aboard is going to sleep.",
+      "es": "El plan de vuelo dice: comer y dormir cuatro horas antes de salir. Nadie a bordo va a dormir."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility",
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "stay"
+      ],
+      "flagsExcluded": [
+        "eva-prep"
+      ]
+    },
+    "fact": {
+      "en": "The crew asked to skip the planned rest period and go outside early. Houston agreed, which is why the first step happened in prime time in the United States.",
+      "es": "La tripulación pidió saltarse el descanso previsto y salir antes. Houston aceptó, y por eso el primer paso ocurrió en horario de máxima audiencia en Estados Unidos."
+    },
+    "options": [
+      {
+        "id": "walk-early",
+        "text": {
+          "en": "Ask Houston to start the moonwalk early",
+          "es": "Pide a Houston empezar antes el paseo lunar"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": -5
+          },
+          "flagsSet": [
+            "eva-prep"
+          ],
+          "countersAdd": {
+            "houstonTrust": 1
+          },
+          "text": {
+            "en": "\"We're go for that.\" The rest period is cancelled.",
+            "es": "\"Adelante\". Se cancela el descanso."
+          }
+        }
+      },
+      {
+        "id": "rest-plan",
+        "text": {
+          "en": "Rest as planned",
+          "es": "Descansa según lo previsto"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 2
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 25,
+            "oxygen": 5
+          },
+          "flagsSet": [
+            "eva-prep"
+          ],
+          "text": {
+            "en": "You lie in the dark with your eyes open. It still helps.",
+            "es": "Te tumbas a oscuras con los ojos abiertos. Aun así, ayuda."
+          }
+        }
+      },
+      {
+        "id": "describe-site",
+        "text": {
+          "en": "Use the time to describe the site to geologists",
+          "es": "Aprovecha para describir el lugar a los geólogos"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8
+          },
+          "flagsSet": [
+            "eva-prep"
+          ],
+          "text": {
+            "en": "Blocky rocks, fine powder, a crater on the left. Back in Houston, geologists scribble everything down.",
+            "es": "Rocas angulosas, polvo fino, un cráter a la izquierda. En Houston, los geólogos lo anotan todo."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-communion",
+    "text": {
+      "en": "A quiet moment before the work. You have brought a tiny kit from your church at home, and a few minutes of radio silence to spare.",
+      "es": "Un momento de calma antes del trabajo. Has traído un pequeño estuche de tu iglesia y tienes unos minutos de silencio de radio."
+    },
+    "timeSlots": [
+      "tranquility"
+    ],
+    "weight": 8,
+    "conditions": {
+      "flagsRequired": [
+        "stay"
+      ]
+    },
+    "fact": {
+      "en": "Aldrin took communion on the Moon in private, using a kit from his church in Houston. NASA kept it quiet: an earlier Bible reading on Apollo 8 had led to a lawsuit.",
+      "es": "Aldrin tomó la comunión en la Luna en privado, con un estuche de su iglesia de Houston. La NASA no lo difundió: una lectura de la Biblia en el Apolo 8 había acabado en una demanda."
+    },
+    "options": [
+      {
+        "id": "private",
+        "text": {
+          "en": "Take communion privately",
+          "es": "Toma la comunión en privado"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 10
+          },
+          "text": {
+            "en": "A few words read from a card, a little wine that pours slowly in one-sixth gravity.",
+            "es": "Unas palabras leídas de una tarjeta, un poco de vino que cae despacio con un sexto de gravedad."
+          }
+        }
+      },
+      {
+        "id": "invite-all",
+        "text": {
+          "en": "Invite everyone listening to give thanks in their own way",
+          "es": "Invita a quien escuche a dar las gracias a su manera"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "countersAdd": {
+            "houstonTrust": 1
+          },
+          "text": {
+            "en": "A short message, then silence on the loop.",
+            "es": "Un mensaje breve y después silencio en el canal."
+          }
+        }
+      },
+      {
+        "id": "skip-moment",
+        "text": {
+          "en": "Skip it and get the backpacks ready",
+          "es": "Sáltatelo y prepara las mochilas"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "text": {
+            "en": "Hoses, straps, cooling water. Time well used.",
+            "es": "Mangueras, correas, agua de refrigeración. Tiempo bien aprovechado."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-breaker",
+    "text": {
+      "en": "Something small on the floor of the cabin: a broken-off circuit breaker knob. You look up at the panel. It is the one that arms the ascent engine.",
+      "es": "Algo pequeño en el suelo de la cabina: el pulsador roto de un disyuntor. Miras al panel. Es el que arma el motor de ascenso."
+    },
+    "timeSlots": [
+      "tranquility",
+      "eva"
+    ],
+    "weight": 5,
+    "conditions": {
+      "flagsRequired": [
+        "stay"
+      ],
+      "flagsExcluded": [
+        "breaker-fixed"
+      ]
+    },
+    "fact": {
+      "en": "A backpack probably snapped the engine-arm breaker inside Eagle. Before liftoff Aldrin pushed it in with a felt-tip pen, and the ascent engine fired normally.",
+      "es": "Seguramente una mochila partió el disyuntor de armado del motor dentro del Eagle. Antes del despegue, Aldrin lo pulsó con un rotulador, y el motor de ascenso funcionó con normalidad."
+    },
+    "options": [
+      {
+        "id": "pen-fix",
+        "text": {
+          "en": "Push the breaker in with a felt-tip pen",
+          "es": "Empuja el disyuntor con un rotulador"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "breaker-fixed"
+          ],
+          "text": {
+            "en": "The pen fits. The engine will arm when you need it. You keep the pen.",
+            "es": "El rotulador encaja. El motor se armará cuando haga falta. Te guardas el rotulador."
+          }
+        }
+      },
+      {
+        "id": "report-breaker",
+        "text": {
+          "en": "Report it to Houston and wait for a fix",
+          "es": "Informa a Houston y espera una solución"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "flagsSet": [
+            "breaker-fixed"
+          ],
+          "countersAdd": {
+            "houstonTrust": 1
+          },
+          "text": {
+            "en": "Engineers in Houston start working on it. It costs time.",
+            "es": "Los ingenieros de Houston se ponen con ello. Cuesta tiempo."
+          }
+        }
+      },
+      {
+        "id": "ignore-breaker",
+        "text": {
+          "en": "Deal with it later",
+          "es": "Ya te ocuparás después"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": -5
+          },
+          "text": {
+            "en": "You kick it into a corner. Later is a long way off.",
+            "es": "Lo apartas con el pie a una esquina. Después queda lejos."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-hatch",
+    "text": {
+      "en": "Cabin depressurised. The hatch opens inward and is barely wide enough for a man wearing a backpack. Neil has to go out backwards, on his knees.",
+      "es": "Cabina despresurizada. La escotilla se abre hacia dentro y apenas cabe un hombre con mochila. Neil tiene que salir de espaldas, de rodillas."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "eva-prep"
+      ],
+      "flagsExcluded": [
+        "hatch-open",
+        "aborted"
+      ]
+    },
+    "fact": {
+      "en": "Each astronaut wore a backpack called the PLSS that supplied oxygen, cooling water and radio. With it on, getting through the small hatch took several minutes of careful wriggling.",
+      "es": "Cada astronauta llevaba una mochila llamada PLSS que daba oxígeno, agua de refrigeración y radio. Con ella puesta, pasar por la pequeña escotilla llevaba varios minutos de contorsiones cuidadosas."
+    },
+    "options": [
+      {
+        "id": "guide-neil",
+        "text": {
+          "en": "Guide him out, calling every inch",
+          "es": "Guíale hacia fuera, centímetro a centímetro"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "flagsSet": [
+            "hatch-open"
+          ],
+          "countersAdd": {
+            "neilTrust": 2
+          },
+          "text": {
+            "en": "\"Little to the left... you're clear... roll to the right.\" He is on the porch.",
+            "es": "\"Un poco a la izquierda... libre... gira a la derecha\". Ya está en el porche."
+          }
+        }
+      },
+      {
+        "id": "check-plss",
+        "text": {
+          "en": "Double-check his backpack connections",
+          "es": "Revisa dos veces las conexiones de su mochila"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "oxygen": 5
+          },
+          "flagsSet": [
+            "hatch-open"
+          ],
+          "text": {
+            "en": "Oxygen, water, radio: all tight.",
+            "es": "Oxígeno, agua, radio: todo bien apretado."
+          }
+        }
+      },
+      {
+        "id": "hurry-out",
+        "text": {
+          "en": "Hurry: the world is waiting",
+          "es": "Deprisa: el mundo espera"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "oxygen": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "flagsSet": [
+            "hatch-open"
+          ],
+          "text": {
+            "en": "A scrape against the frame, nothing torn. Out.",
+            "es": "Un roce contra el marco, nada roto. Fuera."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-first-step",
+    "npcId": "npc-neil",
+    "threadId": "neil-thread",
+    "text": {
+      "en": "Neil climbs down the ladder and pauses on the footpad. Then: \"That's one small step for man, one giant leap for mankind.\"",
+      "es": "Neil baja la escalerilla y se detiene sobre la pata. Entonces: \"Es un pequeño paso para el hombre, un gran salto para la humanidad\"."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "hatch-open"
+      ],
+      "flagsExcluded": [
+        "first-step"
+      ]
+    },
+    "fact": {
+      "en": "Armstrong stepped onto the Moon at 02:56 UTC on 21 July 1969 (still 20 July in Houston). He meant to say 'one small step for a man'; the 'a' is lost in the recording. About 600 million people watched live.",
+      "es": "Armstrong pisó la Luna a las 02:56 UTC del 21 de julio de 1969 (aún 20 de julio en Houston). Quiso decir 'un pequeño paso para un hombre'; el 'un' se pierde en la grabación. Lo vieron en directo unos 600 millones de personas."
+    },
+    "options": [
+      {
+        "id": "film-it",
+        "text": {
+          "en": "Film it through the window",
+          "es": "Grábalo por la ventana"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "first-step"
+          ],
+          "text": {
+            "en": "The 16 mm camera whirs. Millions are watching the TV feed; you are watching the real thing.",
+            "es": "La cámara de 16 mm zumba. Millones lo ven por televisión; tú lo ves en persona."
+          }
+        }
+      },
+      {
+        "id": "describe-it",
+        "text": {
+          "en": "Describe it for the people at home",
+          "es": "Descríbelo para la gente en casa"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8
+          },
+          "flagsSet": [
+            "first-step"
+          ],
+          "countersAdd": {
+            "houstonTrust": 1
+          },
+          "text": {
+            "en": "Your voice goes out to 600 million people. You keep it simple.",
+            "es": "Tu voz llega a 600 millones de personas. Lo dices sencillo."
+          }
+        }
+      },
+      {
+        "id": "watch-telemetry",
+        "text": {
+          "en": "Watch his suit readings",
+          "es": "Vigila las lecturas de su traje"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "oxygen": 5
+          },
+          "flagsSet": [
+            "first-step"
+          ],
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "Heart rate high but steady. Pressure good.",
+            "es": "Pulso alto pero estable. Presión correcta."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-magnificent",
+    "text": {
+      "en": "Your turn. You back down the ladder, test your weight on the footpad and look around. \"Beautiful view,\" Neil says.",
+      "es": "Tu turno. Bajas de espaldas por la escalerilla, pruebas tu peso sobre la pata y miras alrededor. \"Bonita vista\", dice Neil."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "first-step"
+      ],
+      "flagsExcluded": [
+        "aldrin-out"
+      ]
+    },
+    "fact": {
+      "en": "Aldrin followed Armstrong about 19 minutes later. Gravity on the Moon is one sixth of Earth's, so the astronauts found loping, kangaroo-like hops the easiest way to move.",
+      "es": "Aldrin siguió a Armstrong unos 19 minutos después. La gravedad lunar es un sexto de la terrestre, así que a los astronautas les resultaba más fácil moverse dando saltitos de canguro."
+    },
+    "options": [
+      {
+        "id": "say-magnificent",
+        "text": {
+          "en": "\"Magnificent desolation.\"",
+          "es": "\"Magnífica desolación\""
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "aldrin-out"
+          ],
+          "text": {
+            "en": "Two words that will outlive you.",
+            "es": "Dos palabras que te sobrevivirán."
+          }
+        }
+      },
+      {
+        "id": "hop-test",
+        "text": {
+          "en": "Try a kangaroo hop",
+          "es": "Prueba un salto de canguro"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "oxygen": -5
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "aldrin-out"
+          ],
+          "text": {
+            "en": "Up, a slow float, down. One-sixth gravity is strange and wonderful.",
+            "es": "Arriba, flotas despacio, abajo. Un sexto de gravedad es raro y maravilloso."
+          }
+        }
+      },
+      {
+        "id": "step-careful",
+        "text": {
+          "en": "Step down slowly and test the ground",
+          "es": "Baja despacio y prueba el suelo"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "oxygen": 3
+          },
+          "flagsSet": [
+            "aldrin-out"
+          ],
+          "text": {
+            "en": "The dust takes your boot print perfectly. It feels solid underneath.",
+            "es": "El polvo marca tu bota a la perfección. Debajo se nota firme."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-flag",
+    "text": {
+      "en": "The flag. The pole sinks a few centimetres into the dust and then hits something hard. The horizontal rod that holds the cloth out will not fully extend.",
+      "es": "La bandera. El mástil se hunde unos centímetros en el polvo y choca con algo duro. La varilla que mantiene extendida la tela no se despliega del todo."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 90,
+    "conditions": {
+      "flagsRequired": [
+        "aldrin-out"
+      ],
+      "flagsExcluded": [
+        "flag-planted"
+      ]
+    },
+    "fact": {
+      "en": "The astronauts could push the flagpole only about 20 cm into the ground. When Eagle lifted off the next day, Aldrin saw the engine's blast knock the flag over.",
+      "es": "Los astronautas solo pudieron clavar el mástil unos 20 cm en el suelo. Cuando el Eagle despegó al día siguiente, Aldrin vio cómo el chorro del motor tumbaba la bandera."
+    },
+    "options": [
+      {
+        "id": "hammer",
+        "text": {
+          "en": "Hammer it deeper",
+          "es": "Clávalo más hondo a golpes"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "oxygen": -8
+          }
+        },
+        "successChance": {
+          "base": 0.6,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.05
+          }
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "flag-planted"
+          ],
+          "text": {
+            "en": "A few more centimetres. It stands.",
+            "es": "Unos centímetros más. Se mantiene."
+          }
+        },
+        "failure": {
+          "flagsSet": [
+            "flag-planted"
+          ],
+          "text": {
+            "en": "It leans; you prop it with your hand for the photo.",
+            "es": "Se inclina; la sujetas con la mano para la foto."
+          }
+        }
+      },
+      {
+        "id": "let-it-be",
+        "text": {
+          "en": "Plant it as it is and step back",
+          "es": "Plántala tal cual y apártate"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "flagsSet": [
+            "flag-planted"
+          ],
+          "text": {
+            "en": "A little crooked, the cloth wrinkled. It will become the most famous wrinkle in history.",
+            "es": "Un poco torcida, la tela arrugada. Será la arruga más famosa de la historia."
+          }
+        }
+      },
+      {
+        "id": "photo-neil",
+        "text": {
+          "en": "Salute while Neil takes the photograph",
+          "es": "Saluda mientras Neil hace la foto"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "flag-planted"
+          ],
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "Click. That is the picture the world will remember.",
+            "es": "Clic. Esa es la foto que recordará el mundo."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-experiments",
+    "text": {
+      "en": "Two experiments to deploy: a seismometer to listen for moonquakes and a laser reflector that scientists on Earth will aim at.",
+      "es": "Dos experimentos que desplegar: un sismómetro para escuchar los terremotos lunares y un reflector láser al que apuntarán los científicos desde la Tierra."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 80,
+    "conditions": {
+      "flagsRequired": [
+        "aldrin-out"
+      ],
+      "flagsExcluded": [
+        "reflector-deployed"
+      ]
+    },
+    "fact": {
+      "en": "The laser reflector Apollo 11 left is still in use. Observatories bounce lasers off it to measure the distance to the Moon to within millimetres, and have found it moves away from Earth about 3.8 cm a year.",
+      "es": "El reflector láser que dejó el Apolo 11 aún se usa. Los observatorios rebotan láseres en él para medir la distancia a la Luna con precisión de milímetros, y han visto que se aleja de la Tierra unos 3,8 cm al año."
+    },
+    "options": [
+      {
+        "id": "level-seismo",
+        "text": {
+          "en": "Level the seismometer carefully",
+          "es": "Nivela el sismómetro con cuidado"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "reflector-deployed"
+          ],
+          "text": {
+            "en": "The little ball in the bubble level will not centre, then it does. Good enough.",
+            "es": "La bolita del nivel no se centra, y al final sí. Suficiente."
+          }
+        }
+      },
+      {
+        "id": "reflector-first",
+        "text": {
+          "en": "Set up the laser reflector first",
+          "es": "Monta primero el reflector láser"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "reflector-deployed"
+          ],
+          "text": {
+            "en": "A grid of 100 small mirrors pointed at home.",
+            "es": "Una rejilla de 100 espejitos apuntando a casa."
+          }
+        }
+      },
+      {
+        "id": "rush-both",
+        "text": {
+          "en": "Rush both to save oxygen",
+          "es": "Monta los dos deprisa para ahorrar oxígeno"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "oxygen": 5
+          },
+          "flagsSet": [
+            "reflector-deployed"
+          ],
+          "text": {
+            "en": "Done fast. The seismometer is a few degrees off level.",
+            "es": "Hecho rápido. El sismómetro queda unos grados desnivelado."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-samples",
+    "text": {
+      "en": "Sample bags, tongs and a scoop. Geologists back home have waited their whole careers for what you are about to pick up.",
+      "es": "Bolsas de muestras, pinzas y una pala. Los geólogos en casa llevan toda su carrera esperando lo que vas a recoger."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 80,
+    "conditions": {
+      "flagsRequired": [
+        "aldrin-out"
+      ]
+    },
+    "fact": {
+      "en": "Apollo 11 brought back 21.5 kg of lunar rock and soil. Armstrong also made an unplanned run to Little West crater, about 60 m away, to photograph it.",
+      "es": "El Apolo 11 trajo 21,5 kg de roca y suelo lunar. Armstrong además corrió, sin estar previsto, hasta el pequeño cráter Little West, a unos 60 m, para fotografiarlo."
+    },
+    "options": [
+      {
+        "id": "grab-fast",
+        "text": {
+          "en": "Grab as many rocks as you can, fast",
+          "es": "Coge todas las rocas que puedas, rápido"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "oxygen": -8
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "samples": 12
+          },
+          "text": {
+            "en": "Bag after bag. Quantity, at least.",
+            "es": "Bolsa tras bolsa. Cantidad, al menos."
+          }
+        }
+      },
+      {
+        "id": "core-tubes",
+        "text": {
+          "en": "Hammer in the core tubes properly",
+          "es": "Clava bien los tubos de testigo"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "oxygen": -5
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "samples": 8,
+            "reputation": 5
+          },
+          "text": {
+            "en": "Hard work for two short cores, layered like a cake. Scientists will love them.",
+            "es": "Mucho trabajo para dos testigos cortos, en capas como un pastel. A los científicos les encantarán."
+          }
+        }
+      },
+      {
+        "id": "crater-walk",
+        "text": {
+          "en": "Walk to the rim of a nearby crater",
+          "es": "Camina hasta el borde de un cráter cercano"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "oxygen": -15
+          }
+        },
+        "successChance": {
+          "base": 0.7,
+          "resourceBonus": {
+            "resource": "oxygen",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "samples": 15
+          },
+          "flagsSet": [
+            "extended-eva"
+          ],
+          "text": {
+            "en": "From the rim you can see bedrock thrown up by the impact. You bring back the best rocks of the day.",
+            "es": "Desde el borde se ve roca madre lanzada por el impacto. Traes las mejores rocas del día."
+          }
+        },
+        "failure": {
+          "resources": {
+            "samples": 4,
+            "reputation": -5
+          },
+          "text": {
+            "en": "Houston calls you back before you get there.",
+            "es": "Houston te llama antes de que llegues."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-nixon",
+    "text": {
+      "en": "\"Neil and Buzz, the President of the United States is in his office now and would like to say a few words to you.\"",
+      "es": "\"Neil y Buzz, el presidente de Estados Unidos está en su despacho y quiere deciros unas palabras\"."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 50,
+    "conditions": {
+      "flagsRequired": [
+        "flag-planted"
+      ]
+    },
+    "fact": {
+      "en": "President Richard Nixon spoke to the astronauts by radio-telephone from the Oval Office during the moonwalk; he called it 'the most historic phone call ever made'.",
+      "es": "El presidente Richard Nixon habló con los astronautas por radioteléfono desde el Despacho Oval durante el paseo lunar; lo llamó 'la llamada telefónica más histórica jamás hecha'."
+    },
+    "options": [
+      {
+        "id": "attention",
+        "text": {
+          "en": "Stand to attention by the flag",
+          "es": "Ponte firme junto a la bandera"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "text": {
+            "en": "Two minutes of very formal words between the White House and the Moon.",
+            "es": "Dos minutos de palabras muy solemnes entre la Casa Blanca y la Luna."
+          }
+        }
+      },
+      {
+        "id": "thank-team",
+        "text": {
+          "en": "Thank the 400,000 people who built Apollo",
+          "es": "Da las gracias a las 400.000 personas que construyeron el Apolo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8
+          },
+          "countersAdd": {
+            "houstonTrust": 1
+          },
+          "text": {
+            "en": "You make sure the engineers and seamstresses and cooks get a mention.",
+            "es": "Te aseguras de mencionar a ingenieros, costureras y cocineros."
+          }
+        }
+      },
+      {
+        "id": "keep-working",
+        "text": {
+          "en": "Listen while you keep working",
+          "es": "Escucha mientras sigues trabajando"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "samples": 3
+          },
+          "text": {
+            "en": "Polite answers, hands still busy with the sample box.",
+            "es": "Respuestas educadas, manos ocupadas con la caja de muestras."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-footprint",
+    "text": {
+      "en": "Engineers asked for one odd thing: a photograph of a single bootprint in the dust, close up.",
+      "es": "Los ingenieros pidieron algo curioso: una foto de cerca de una sola huella de bota en el polvo."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 30,
+    "conditions": {
+      "flagsRequired": [
+        "aldrin-out"
+      ]
+    },
+    "fact": {
+      "en": "Aldrin's bootprint photo was taken to study how lunar soil behaves under weight. With no wind or rain, footprints on the Moon can last for millions of years.",
+      "es": "La foto de la huella de Aldrin se hizo para estudiar cómo se comporta el suelo lunar bajo peso. Sin viento ni lluvia, las huellas en la Luna pueden durar millones de años."
+    },
+    "options": [
+      {
+        "id": "photo-print",
+        "text": {
+          "en": "Take the picture",
+          "es": "Haz la foto"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "text": {
+            "en": "Sharp edges, fine powder, every tread visible. It will be one of the most famous photos ever taken.",
+            "es": "Bordes nítidos, polvo fino, cada dibujo de la suela visible. Será una de las fotos más famosas de la historia."
+          }
+        }
+      },
+      {
+        "id": "skip-print",
+        "text": {
+          "en": "Skip it; oxygen matters more",
+          "es": "Sáltatelo; importa más el oxígeno"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "oxygen": 5
+          },
+          "text": {
+            "en": "You save a few minutes.",
+            "es": "Ahorras unos minutos."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-plaque",
+    "text": {
+      "en": "On the ladder leg, a steel plaque you have not read properly until now.",
+      "es": "En la pata de la escalerilla, una placa de acero que hasta ahora no habías leído bien."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 25,
+    "conditions": {
+      "flagsRequired": [
+        "first-step"
+      ]
+    },
+    "fact": {
+      "en": "The plaque on Eagle's descent stage, which still stands on the Moon, is signed by the three astronauts and by President Nixon.",
+      "es": "La placa de la etapa de descenso del Eagle, que sigue en la Luna, está firmada por los tres astronautas y por el presidente Nixon."
+    },
+    "options": [
+      {
+        "id": "read-plaque",
+        "text": {
+          "en": "Read it aloud for Houston",
+          "es": "Léela en voz alta para Houston"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "countersAdd": {
+            "houstonTrust": 1
+          },
+          "text": {
+            "en": "\"Here men from the planet Earth first set foot upon the Moon, July 1969 A.D. We came in peace for all mankind.\"",
+            "es": "\"Aquí hombres del planeta Tierra pisaron por primera vez la Luna, julio de 1969 d. C. Vinimos en paz en nombre de toda la humanidad\"."
+          }
+        }
+      },
+      {
+        "id": "photo-plaque",
+        "text": {
+          "en": "Photograph it",
+          "es": "Fotografíala"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "text": {
+            "en": "The two hemispheres of Earth, four signatures, one sentence.",
+            "es": "Los dos hemisferios de la Tierra, cuatro firmas, una frase."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-collins-alone",
+    "npcId": "npc-collins",
+    "threadId": "collins-thread",
+    "text": {
+      "en": "Columbia comes back around the Moon and Collins's voice returns: for 48 minutes of every orbit he is out of contact with every other human being.",
+      "es": "El Columbia reaparece tras la Luna y vuelve la voz de Collins: durante 48 minutos de cada órbita no tiene contacto con ningún otro ser humano."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility",
+      "eva"
+    ],
+    "weight": 4,
+    "conditions": {
+      "flagsRequired": [
+        "undocked"
+      ]
+    },
+    "fact": {
+      "en": "Behind the Moon, Collins was cut off from Earth and from his crewmates. He later wrote that not since Adam had any human known such solitude, but that he felt awareness and joy rather than fear.",
+      "es": "Tras la Luna, Collins quedaba aislado de la Tierra y de sus compañeros. Escribió después que desde Adán ningún humano había conocido tal soledad, pero que sintió conciencia y alegría, no miedo."
+    },
+    "options": [
+      {
+        "id": "talk-collins",
+        "text": {
+          "en": "Tell him what it's like down here",
+          "es": "Cuéntale cómo es aquí abajo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 3
+          },
+          "countersAdd": {
+            "collinsBond": 2
+          },
+          "text": {
+            "en": "\"Sounds like you're having a ball,\" he says. He sounds glad.",
+            "es": "\"Parece que os lo estáis pasando en grande\", dice. Suena contento."
+          }
+        }
+      },
+      {
+        "id": "ask-collins-view",
+        "text": {
+          "en": "Ask what he sees from orbit",
+          "es": "Pregúntale qué ve desde la órbita"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "countersAdd": {
+            "collinsBond": 1
+          },
+          "text": {
+            "en": "An Earthrise every two hours, he says, and he still is not tired of it.",
+            "es": "Una salida de la Tierra cada dos horas, dice, y aún no se ha cansado."
+          }
+        }
+      },
+      {
+        "id": "clear-channel",
+        "text": {
+          "en": "Keep the channel clear for Houston",
+          "es": "Deja el canal libre para Houston"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "text": {
+            "en": "A quick \"all good\" and back to work.",
+            "es": "Un rápido \"todo bien\" y a trabajar."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-earth",
+    "text": {
+      "en": "Above the horizon, half-lit, blue and white: the Earth. You can cover it with your thumb.",
+      "es": "Sobre el horizonte, a medio iluminar, azul y blanca: la Tierra. Puedes taparla con el pulgar."
+    },
+    "timeSlots": [
+      "tranquility",
+      "eva"
+    ],
+    "weight": 4,
+    "conditions": {
+      "flagsRequired": [
+        "landed"
+      ]
+    },
+    "fact": {
+      "en": "From the Moon, the Earth looks about four times wider than the full Moon looks from Earth, and it stays in almost the same place in the sky.",
+      "es": "Desde la Luna, la Tierra parece unas cuatro veces más ancha que la Luna llena vista desde la Tierra, y se queda casi fija en el mismo lugar del cielo."
+    },
+    "options": [
+      {
+        "id": "thumb",
+        "text": {
+          "en": "Hold up your thumb and cover it",
+          "es": "Levanta el pulgar y tápala"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "text": {
+            "en": "Everyone you have ever known, behind your thumb.",
+            "es": "Todas las personas que has conocido, detrás de tu pulgar."
+          }
+        }
+      },
+      {
+        "id": "earth-photo",
+        "text": {
+          "en": "Photograph it over the horizon",
+          "es": "Fotografíala sobre el horizonte"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "text": {
+            "en": "Exposure set, click.",
+            "es": "Exposición ajustada, clic."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-dust",
+    "text": {
+      "en": "Back inside, grey dust is everywhere: on the suits, the floor, the controls. It smells like spent gunpowder.",
+      "es": "Ya dentro, el polvo gris está por todas partes: en los trajes, el suelo, los mandos. Huele a pólvora quemada."
+    },
+    "timeSlots": [
+      "eva"
+    ],
+    "weight": 10,
+    "conditions": {
+      "flagsRequired": [
+        "aldrin-out"
+      ]
+    },
+    "fact": {
+      "en": "Apollo astronauts described lunar dust as smelling like spent gunpowder. The dust is sharp and clingy because there is no wind or water on the Moon to wear the grains smooth.",
+      "es": "Los astronautas del Apolo describieron que el polvo lunar olía a pólvora quemada. Es afilado y se pega porque en la Luna no hay viento ni agua que redondee los granos."
+    },
+    "options": [
+      {
+        "id": "clean-up",
+        "text": {
+          "en": "Clean the controls before anything else",
+          "es": "Limpia los mandos antes que nada"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "text": {
+            "en": "A rag, patience and a lot of sneezing.",
+            "es": "Un trapo, paciencia y muchos estornudos."
+          }
+        }
+      },
+      {
+        "id": "smell",
+        "text": {
+          "en": "Describe the smell to Houston",
+          "es": "Describe el olor a Houston"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "text": {
+            "en": "Geologists on Earth argue about the smell for years.",
+            "es": "Los geólogos en la Tierra discuten sobre ese olor durante años."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-abort-climb",
+    "text": {
+      "en": "The ascent engine roars. Below you the descent stage falls away. You are climbing back toward orbit, toward Columbia.",
+      "es": "El motor de ascenso ruge. Debajo, la etapa de descenso se queda atrás. Subís de vuelta a la órbita, hacia el Columbia."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility",
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "aborted"
+      ],
+      "flagsExcluded": [
+        "abort-flown"
+      ]
+    },
+    "fact": {
+      "en": "Every phase of the landing had an abort plan. Collins carried a notebook with 18 different rendezvous procedures in case Eagle came back up early or late.",
+      "es": "Cada fase del alunizaje tenía un plan de aborto. Collins llevaba un cuaderno con 18 procedimientos distintos de encuentro por si el Eagle volvía antes o después de lo previsto."
+    },
+    "options": [
+      {
+        "id": "by-the-book",
+        "text": {
+          "en": "Fly the rendezvous by the book",
+          "es": "Haz el encuentro según el manual"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "abort-flown"
+          ],
+          "text": {
+            "en": "Radar lock, burn, coast. Columbia's lights appear on schedule.",
+            "es": "Enganche de radar, encendido, inercia. Las luces del Columbia aparecen a su hora."
+          }
+        }
+      },
+      {
+        "id": "call-collins",
+        "text": {
+          "en": "Ask Collins to come and get you",
+          "es": "Pide a Collins que venga a buscaros"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "flagsSet": [
+            "abort-flown"
+          ],
+          "countersAdd": {
+            "collinsBond": 2
+          },
+          "text": {
+            "en": "\"On my way,\" he says. He has a notebook with eighteen ways to do this.",
+            "es": "\"Voy\", dice. Tiene un cuaderno con dieciocho formas de hacerlo."
+          }
+        }
+      },
+      {
+        "id": "shortcut",
+        "text": {
+          "en": "Try a shortcut rendezvous",
+          "es": "Prueba un encuentro por atajo"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.6,
+          "traitBonus": {
+            "trait": "cunning",
+            "perPoint": 0.05
+          }
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "abort-flown"
+          ],
+          "text": {
+            "en": "One orbit early. Houston whistles.",
+            "es": "Una órbita antes. Houston silba."
+          }
+        },
+        "failure": {
+          "resources": {
+            "focus": -10
+          },
+          "flagsSet": [
+            "abort-flown"
+          ],
+          "text": {
+            "en": "You overshoot and have to go round again.",
+            "es": "Os pasáis y tenéis que dar otra vuelta."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-abort-dock",
+    "npcId": "npc-collins",
+    "threadId": "collins-thread",
+    "text": {
+      "en": "Columbia fills the window. Collins lines up the docking probe; the latches bang shut.",
+      "es": "El Columbia llena la ventana. Collins alinea la sonda de acoplamiento; los cierres se cierran de golpe."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility",
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "abort-flown"
+      ],
+      "flagsExcluded": [
+        "redocked"
+      ]
+    },
+    "fact": {
+      "en": "If Eagle had aborted, its ascent stage would have docked with Columbia and the crew would have returned to Earth without landing, as Apollo 13 later did after its explosion.",
+      "es": "Si el Eagle hubiera abortado, su etapa de ascenso se habría acoplado al Columbia y la tripulación habría vuelto sin alunizar, como hizo después el Apolo 13 tras su explosión."
+    },
+    "options": [
+      {
+        "id": "hug-collins",
+        "text": {
+          "en": "Float through the tunnel and hug him",
+          "es": "Cruza el túnel flotando y abrázalo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "flagsSet": [
+            "redocked"
+          ],
+          "countersAdd": {
+            "collinsBond": 2
+          },
+          "text": {
+            "en": "Not a word for a while.",
+            "es": "Durante un rato, ni una palabra."
+          }
+        }
+      },
+      {
+        "id": "debrief",
+        "text": {
+          "en": "Start the debrief while it's fresh",
+          "es": "Empieza el informe mientras está fresco"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8
+          },
+          "flagsSet": [
+            "redocked"
+          ],
+          "text": {
+            "en": "Every alarm, every number, written down for Apollo 12.",
+            "es": "Cada alarma, cada cifra, anotada para el Apolo 12."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-abort-tv",
+    "text": {
+      "en": "Houston asks for a few words for the television networks. Hundreds of millions of people watched you not land.",
+      "es": "Houston pide unas palabras para las cadenas de televisión. Cientos de millones de personas os vieron no alunizar."
+    },
+    "timeSlots": [
+      "tranquility",
+      "eva"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "redocked"
+      ]
+    },
+    "fact": {
+      "en": "Apollo 12 landed on 19 November 1969 in the Ocean of Storms, within walking distance of the Surveyor 3 probe, showing that precise landings were possible.",
+      "es": "El Apolo 12 alunizó el 19 de noviembre de 1969 en el Océano de las Tormentas, a poca distancia de la sonda Surveyor 3, demostrando que se podía alunizar con precisión."
+    },
+    "options": [
+      {
+        "id": "honest",
+        "text": {
+          "en": "Explain exactly what happened",
+          "es": "Explica exactamente qué pasó"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "text": {
+            "en": "Alarms, boulders, fuel. The engineers will fix it.",
+            "es": "Alarmas, rocas, combustible. Los ingenieros lo arreglarán."
+          }
+        }
+      },
+      {
+        "id": "hopeful",
+        "text": {
+          "en": "\"Apollo 12 will finish the job\"",
+          "es": "\"El Apolo 12 terminará el trabajo\""
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8
+          },
+          "text": {
+            "en": "Four months later, it does.",
+            "es": "Cuatro meses después, lo hace."
+          }
+        }
+      },
+      {
+        "id": "thanks",
+        "text": {
+          "en": "Thank Collins on air",
+          "es": "Da las gracias a Collins en directo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "countersAdd": {
+            "collinsBond": 1
+          },
+          "text": {
+            "en": "For once, the man in orbit gets the attention.",
+            "es": "Por una vez, el hombre de la órbita recibe la atención."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-earthrise",
+    "text": {
+      "en": "Back in orbit, Columbia's window turns blue: the Earth rising over the lunar horizon.",
+      "es": "De vuelta en órbita, la ventana del Columbia se vuelve azul: la Tierra asomando sobre el horizonte lunar."
+    },
+    "timeSlots": [
+      "descent",
+      "tranquility",
+      "eva"
+    ],
+    "weight": 4,
+    "conditions": {
+      "flagsRequired": [
+        "aborted"
+      ]
+    },
+    "fact": {
+      "en": "The famous 'Earthrise' photograph was taken by Bill Anders on Apollo 8 in December 1968, the first time humans saw the Earth rise over the Moon.",
+      "es": "La famosa foto 'Salida de la Tierra' la hizo Bill Anders en el Apolo 8 en diciembre de 1968, la primera vez que unos humanos vieron la Tierra salir sobre la Luna."
+    },
+    "options": [
+      {
+        "id": "earthrise-photo",
+        "text": {
+          "en": "Photograph the Earthrise",
+          "es": "Fotografía la salida de la Tierra"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "text": {
+            "en": "The same view that changed how people saw their planet.",
+            "es": "La misma vista que cambió cómo la gente veía su planeta."
+          }
+        }
+      },
+      {
+        "id": "earthrise-rest",
+        "text": {
+          "en": "Rest your eyes for a while",
+          "es": "Descansa la vista un rato"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 10
+          },
+          "text": {
+            "en": "Ten minutes with your eyes closed, the Moon turning beneath you.",
+            "es": "Diez minutos con los ojos cerrados y la Luna girando debajo."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "apollo-home-burn",
+    "text": {
+      "en": "Houston reads up the numbers for the burn that will send you home. Three days back to Earth, without the Moon dust you hoped to bring.",
+      "es": "Houston os dicta las cifras del encendido que os llevará a casa. Tres días de vuelta a la Tierra, sin el polvo lunar que esperabais traer."
+    },
+    "timeSlots": [
+      "tranquility",
+      "eva"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "redocked"
+      ]
+    },
+    "fact": {
+      "en": "The trans-Earth injection burn, fired behind the Moon, sent Apollo crews home in about three days. Apollo 11 splashed down in the Pacific on 24 July 1969.",
+      "es": "El encendido de inyección transterrestre, hecho tras la Luna, devolvía a las tripulaciones del Apolo a casa en unos tres días. El Apolo 11 amerizó en el Pacífico el 24 de julio de 1969."
+    },
+    "options": [
+      {
+        "id": "copy-numbers",
+        "text": {
+          "en": "Copy every number twice",
+          "es": "Copia cada cifra dos veces"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "text": {
+            "en": "Read back, confirmed, stowed.",
+            "es": "Leídas, confirmadas, guardadas."
+          }
+        }
+      },
+      {
+        "id": "lift-spirits",
+        "text": {
+          "en": "Lift the crew's spirits",
+          "es": "Anima a la tripulación"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "focus": 5
+          },
+          "countersAdd": {
+            "neilTrust": 1
+          },
+          "text": {
+            "en": "You remind them nobody has ever flown this far and come back. Yet.",
+            "es": "Les recuerdas que nadie ha volado tan lejos y vuelto. Todavía."
+          }
+        }
+      }
+    ]
+  }
+]

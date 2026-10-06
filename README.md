@@ -6,7 +6,9 @@
 [![Live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://lucasmarjua-ui.github.io/oneday/)
 ![Build step: none](https://img.shields.io/badge/build_step-none-orange)
 
-OneDay is a data-driven decision game played on a **3D pixel-art stage**. Pick one of six eras, live a single day inside it one decision card at a time, and watch your character walk to the agora, the temple or the airlock, act out every choice and react to how it went, while the sun crosses the sky. At nightfall the game tells you who that day turned you into. Every option costs hours and resources; the day ends when time runs out or a critical resource hits zero. There is no character creation and no class: **the person you end up being is read backwards from the choices you actually made.**
+OneDay is a historical decision game played on a **3D pixel-art stage**. Each event is **one real day from history, lived from inside**: you are Buzz Aldrin waking up in lunar orbit on 20 July 1969, or Nefer, overseer of a work gang at Giza in 2560 BC, woken by a ram's horn on the day the last granite beam goes over the King's Chamber. Every day starts in your bedroom with the alarm ringing, then moves through the scenes of that day (a capsule, a lunar module, the Moon; a workers' town, a harbour, a quarry, the pyramid's ramp). Every option costs hours and resources and is acted out on stage.
+
+It is meant to **teach while you play**: almost every moment carries a short *historical note* about what really happened there, and the end of the day tells you the real story. And history is not fixed: each event has **one historical ending and several alternative ones** (run out of fuel over the boulders, abort the landing, hide a cracked beam...), to be found and collected, along with every fact.
 
 Built with HTML, CSS and vanilla JavaScript plus [three.js](https://threejs.org) (vendored, no CDN). No frameworks, no build step, fully bilingual (English/Spanish).
 
@@ -16,14 +18,20 @@ Built with HTML, CSS and vanilla JavaScript plus [three.js](https://threejs.org)
 
 <table>
   <tr>
-    <td width="33%"><img src="screenshots/home.png" alt="The title screen: Ancient Greece as a floating pixel-art island"></td>
-    <td width="33%"><img src="screenshots/decision-cordoba.png" alt="A decision with Yusuf in the souk of Córdoba, 961"></td>
-    <td width="33%"><img src="screenshots/summary-edo.png" alt="The end of a day in Edo, 1750, at night"></td>
+    <td width="50%"><img src="screenshots/home.png" alt="The title screen: the Apollo 11 landing site as a floating pixel-art diorama"></td>
+    <td width="50%"><img src="screenshots/note-apollo.png" alt="Inside Eagle during the landing, with a historical note"></td>
   </tr>
   <tr>
-    <td><sub>The title screen: each era is a living diorama you flip through with ◂ ▸.</sub></td>
-    <td><sub>Meeting Yusuf in the souk. Costs and odds on every choice, resource changes float over your head.</sub></td>
-    <td><sub>Lantern hours in Edo: the day names you while the camera circles your character.</sub></td>
+    <td><sub>The title screen: each event is a living diorama you flip through with ◂ ▸, with your endings and facts collected so far.</sub></td>
+    <td><sub>Skimming the boulder field inside Eagle. Every outcome comes with a historical note on what really happened.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/decision-giza.png" alt="Hemiunu arrives at the bakery of the workers' town at Giza"></td>
+    <td><img src="screenshots/ending-giza.png" alt="An alternative ending on top of the pyramid at night"></td>
+  </tr>
+  <tr>
+    <td><sub>The workers' town at Giza: the vizier Hemiunu brings the day's orders. Today's objectives are tracked live on the left.</sub></td>
+    <td><sub>Nightfall on the pyramid: one of seven endings, the real story behind the day, and your collection.</sub></td>
   </tr>
 </table>
 
@@ -33,7 +41,7 @@ Built with HTML, CSS and vanilla JavaScript plus [three.js](https://threejs.org)
 - [How to play](#how-to-play)
 - [Who you become: traits and personas](#who-you-become-traits-and-personas)
 - [The decision engine](#the-decision-engine)
-- [Eras](#eras)
+- [Historical events](#historical-events)
 - [The stage: a 3D pixel-art diorama](#the-stage-a-3d-pixel-art-diorama)
 - [Architecture](#architecture)
 - [Testing](#testing)
@@ -54,12 +62,12 @@ Then visit `http://localhost:8000`. (`package.json` exists only to mark the code
 
 ## How to play
 
-1. Flip through the eras on the title screen (◂ ▸ or the arrow keys) and press **Live this day**. That is the entire setup.
-2. Your character walks to where the card happens and the dialog box types it out (Enter skips). Each card offers 2-4 options, picked with a click or the keys **1-4**. Every option shows what it costs in hours and resources, and its odds when it is a real gamble.
-3. Your odds are shaped by the day itself: how much energy or standing you have left, and how consistently you have been making a certain *kind* of choice today.
-4. The day ends when the clock runs out (a normal ending) or a critical resource bottoms out (a bad one, with era-specific narration).
-5. The summary screen names you: **The Hoplite**, **The Almsgiver**, **The Fixer**, **The Sign-Reader**… whichever of the six traits your choices leaned into most. It also scores the three objectives that were drawn for that playthrough, lists where your resources ended, and recaps what happened.
-6. Every era also has a **Today's Challenge**: a shared daily seed, one attempt per player per era per day, a same-day leaderboard, a streak, and a downloadable result card.
+1. Flip through the events on the title screen (◂ ▸ or the arrow keys) and press **Live this day**.
+2. A **briefing** tells you the date, the place, who you are, and the three objectives drawn for this playthrough.
+3. The day always opens **at home, with the alarm going off**: the stage flashes and beeps until you act. From there your character walks, scene by scene, to wherever each card happens. Each card offers 2-4 options (click, or the keys **1-4**), each showing what it costs in hours and resources and its odds when it is a real gamble.
+4. After each choice the outcome comes with a **historical note**, and objectives tick off live in the HUD with a fanfare when completed.
+5. The day ends when the clock runs out or a critical resource bottoms out. The summary shows **your ending** (marked *as it really happened* or *alternative history*), **what really happened** that day, the facts you learned, and your **collection**: endings found and facts learned for that event, kept between playthroughs.
+6. Every event also has a **Today's Challenge**: a shared daily seed, one attempt per player per day, a leaderboard, a streak and a downloadable result card.
 
 ## Who you become: traits and personas
 
@@ -67,7 +75,7 @@ This is the core of the redesign, and the reason character creation was removed.
 
 Every option in every card is tagged with exactly one of six **traits** — `bold`, `prudent`, `generous`, `cunning`, `diligent`, `curious`. Choosing it adds a point. Those points accumulate in `dayState.traits` over the day (the same accumulate-a-named-number helper that NPC attitude counters already used), and the HUD shows which one is currently ahead, so you can see your own drift in real time.
 
-At day's end, `shared/persona.js`'s `resolvePersona` picks the era's persona for your highest trait. Each era declares one persona per trait plus a trait-less fallback for a day with no leaning at all, so a persona always resolves — that invariant is asserted for all six eras in `tests/era-data.test.js`, together with a check that every trait is actually reachable through that era's own cards (otherwise a persona would be unreachable content).
+At day's end, `shared/persona.js`'s `resolvePersona` picks the era's persona for your highest trait. Each event declares one persona per trait plus a trait-less fallback for a day with no leaning at all, so a persona always resolves — that invariant is asserted for every event in `tests/era-data.test.js`, together with a check that every trait is actually reachable through that era's own cards (otherwise a persona would be unreachable content).
 
 Traits also feed back into play *during* the day. An option's `successChance` can carry a `traitBonus`, which rewards you for consistency: a bold player finds the next bold gamble slightly more likely to pay off, capped so a one-note day can never buy certainty.
 
@@ -116,26 +124,24 @@ Two deliberate rules about odds:
 
 `resourceBonus` reads a bounded resource and swings the chance by up to ±scale/2 between empty and full, so being worn out genuinely makes the physical option riskier without ever locking it.
 
-## Eras
+## Historical events
 
-Six worlds, one day each. Adding a seventh means two JSON files plus one registry entry — and it inherits the whole data test suite automatically.
+Events are added **one at a time**, each researched and written as a whole: a day structure, a cast, 20-35 cards, endings and a scene set.
 
-| Era | When | Its own currency & flavor |
-|---|---|---|
-| **Ancient Greece** | 440 BC | Drachmas & Arete; agora, gymnasium, assembly, a hidden shrine |
-| **Córdoba, 961** | 961 AD | Dirhams & Renown; the caliph's library, the souk, tanneries, a flooding Guadalquivir |
-| **Edo, 1750** | 1750 | Mon & Honor; temple bell, fire watch, kabuki, a daimyo procession |
-| **Neanderthals** | 50,000 BC | Provisions & Tribal Respect; a fused `survival` resource, the great hunt, the fire |
-| **Futuristic City** | 2088 | Credits & Corporate Influence; gig deliveries, a rogue AI, a courier strike |
-| **Mars Colony** | 2140 | Credits & Standing; **oxygen as a second critical resource**, EVAs, dust storms, a clinic |
+| Event | When & where | You are | Endings |
+|---|---|---|---|
+| **Apollo 11** | 20 July 1969, the Sea of Tranquility | Buzz Aldrin, Lunar Module Pilot | 8: the real landing at Tranquility Base, plus running out of fuel, losing oxygen, aborting, landing in West crater... |
+| **The Great Pyramid** | c. 2560 BC, Giza | Nefer, overseer of the "Friends of Khufu" gang | 7: the gang's name painted over the King's Chamber, plus a hidden crack, a walk-off, a tomb of your own... |
 
-Mars is the clearest proof the schema generalizes: it declares `oxygen` as a *second* `critical: true` resource, so a day can end by suffocation as easily as by injury, and the engine needed no changes for it — `isCriticalDepleted` already iterated whatever the era declared.
+How an event is put together (`data/eras/<id>/`):
 
-Each era has three recurring NPCs with their own multi-card threads and attitude counters, and declares which flags/counters are **memorable**, so a signed-in player's relationships carry into their next playthrough of that era (`shared/memories-logic.js`).
+- **`era.json`** declares the resources (fuel and oxygen are both *critical* on the Moon; crew health and morale at Giza), the day's time slots, the opening card, the cast, personas, objectives, the `role` and `history` texts, and the **endings**. An ending has a `when` (`depleted` resource, `flagsRequired`, `flagsExcluded`, `resources`, `counters`); `shared/endings.js` picks the first that holds, exactly one is `historical`, and the last is a catch-all.
+- **`cards.json`**: the key story beats (undocking, the 1202 alarm, the boulder field, the first step; the sledge, the ramp, setting the beam) carry a high weight and are chained by flags, so the day follows history unless your choices break the chain. Most cards carry a `fact`, the historical note shown after the outcome.
+- **Collections** (`shared/progress-logic.js`, stored by `shared/progress.js`) remember the endings and facts each player has found per event.
 
 ## The stage: a 3D pixel-art diorama
 
-Every era is a floating island built from voxel tiles, with its landmarks modelled from boxes, cylinders and cones: the Parthenon and the agora's striped stalls, the Great Mosque's red-and-white arches and a turning waterwheel, Sensoji's pagoda and a torii gate, a cave and a grazing mammoth, a neon tower with flying cars, habitat domes and a greenhouse on Mars. Grass tufts and flowers (pebbles on Mars) cover the open ground.
+Every event is told across **several scenes**, each its own diorama (`shared/stage/worlds.js`): cut-away **rooms** (Columbia's cabin with its couches, consoles and a floating pen; Eagle's cramped cockpit with the guidance computer; a mud-brick house at Giza) and floating voxel **islands** (the grey lunar surface with the gold-foil lander, the flag, the experiments and the Earth in a black sky; the workers' town with its bakery ovens; the harbour basin with the granite barge; the quarry terraces; the stepped pyramid with a mud-brick ramp the character actually climbs). The stage fades between scenes as the day moves on, the outfit changes (a helmet with a gold visor on the Moon), crewmates stand in the cabin, crowds of workers mill about, and anyone not physically there speaks as a voice (Houston on the radio).
 
 **How it is made to look like hand-placed pixel art** (`shared/stage/stage.js`):
 
@@ -145,10 +151,10 @@ Every era is a floating island built from voxel tiles, with its landmarks modell
 - **Clouds cast shadows without hiding anything**: over the island they are invisible shadow-casters, so patches of shade sweep across the ground; visible clouds drift around the edge of the view.
 - **Text is never a texture.** Floating resource changes and NPC name tags are browser text positioned over the canvas, so they stay sharp at any size.
 
-- **The character is a pixel-art sprite** (16x24) assembled from text grids in `shared/stage/sprites.js`: a head, a torso, an arm pose and a leg pose, dressed by an era palette (a chiton in Athens, a spacesuit on Mars). NPCs reuse the body in their own portrait colour, and a few villagers wander between landmarks.
-- **Cards happen somewhere.** `shared/stage/places.js` gives each era 5-7 landmarks; a card goes to the one its id names (`temple`, `souk`, `canal`), or where its NPC lives, or, failing both, to a landmark picked by a stable hash. The character walks there along the island's paths and the NPC is waiting.
+- **The character is a pixel-art sprite** (16x24) assembled from text grids in `shared/stage/sprites.js`: a head, a torso, an arm pose and a leg pose, dressed by an event palette (a white suit with a red stripe on Apollo 11, a linen kilt at Giza). NPCs reuse the body in their own portrait colour, and a few villagers wander between landmarks.
+- **Cards happen somewhere.** `shared/stage/places.js` gives each event its scenes and 5-7 places; a card goes to the place its id names (`first-step`, `sledge`, `tia`), or failing that to a place picked by a stable hash; each place belongs to a scene. The character walks there (up ramps too) and the NPC is waiting, or speaks over the radio.
 - **Choices are acted out.** `shared/stage/direction.js` maps the option's trait to body language: bold dashes, prudent sits down, generous gives (hearts), cunning crouches out of sight, diligent works (sparks), curious inspects (a question mark). A real gamble then gets a cheer and confetti or a stumble and a dust cloud; a sure thing gets a nod. Resource changes float up over the character's head.
-- **The day passes on screen.** The sun travels across the sky with the clock and the light warms, fades and turns blue; lamps, lanterns and windows switch on as night falls. Low health desaturates the world and pulses a red vignette.
+- **The day passes on screen.** The sun travels across the sky with the clock and the light warms, fades and turns blue; lamps, lanterns and windows switch on as night falls. In space the sky stays black all day. Low vitals desaturate the world and pulses a red vignette.
 - **It is a game, not a page.**
   - A boot sequence: a studio card, a loading bar and pixel-wipe transitions between screens (`shared/ui/screens.js`).
   - A pixel HUD with drawn resource icons (`shared/ui/icons.js`), 9-slice frames with notched corners, and two pixel fonts used only at sizes where their pixels land on whole screen pixels (Silkscreen at multiples of 8 px, Pixelify Sans at 16 and 24 px).
@@ -162,10 +168,12 @@ The rules never wait on the stage: every stage call has a timeout, and if WebGL 
 ## Architecture
 
 ```text
-index.html                     Title screen: era picker over a live diorama, login, profile
-game.html                      The day loop: stage, HUD, dialog, outcomes, results
+index.html                     Title screen: event picker over a live diorama, collections, login, profile
+game.html                      The day: briefing, stage, HUD, dialog, outcomes with notes, endings
 shared/
-  era-registry.js              The six eras: ids, names, years, accent hues, file paths
+  era-registry.js              The events: ids, names, dates, places, accent hues, file paths
+  endings.js                   Which ending a day reaches
+  progress-logic.js / progress.js  Collected endings and facts per event
   persona.js                   Traits, trait ranking, and which persona a day resolves to
   decision-engine.js           Card filtering, weighted draw, success chance, roll resolution
   day-engine.js                Time budget, time-of-day slot, clock, day progress
@@ -188,9 +196,9 @@ shared/
   auth.js                      Username/password auth + localStorage <-> Firestore sync
   game.css                     The game interface: pixel panels, HUD, dialog, title screen
   stage/stage.js               three.js stage: pixel rendering, camera, day cycle, actors, effects
-  stage/worlds.js              The six era dioramas
+  stage/worlds.js              The scene dioramas of every event
   stage/sprites.js             Pixel-art character frames and palettes (pure)
-  stage/places.js              Each era's landmarks and which card plays where (pure)
+  stage/places.js              Each event's scenes, places, cast, and which card plays where (pure)
   stage/direction.js           Trait -> action, outcome -> reaction, sky colours by time (pure)
   stage/sfx.js                 WebAudio sound effects and the shared audio context
   stage/music.js               Generative per-era chiptune music
@@ -207,7 +215,7 @@ tests/*.test.js                Node's built-in test runner, no test framework
 
 ## Testing
 
-**207 tests**, zero test-framework dependencies, using Node's built-in test runner.
+**174 tests**, zero test-framework dependencies, using Node's built-in test runner.
 
 ```bash
 npm test
@@ -215,9 +223,9 @@ npm test
 
 The engine's rules are covered directly (card filtering, weighted draw, both bonus types and their caps, the clamp/certainty rule, objective checks, RNG determinism, streak and memory rules, the scoring formula's invariants).
 
-`tests/era-data.test.js` is the one that scales: it reads `shared/era-registry.js` and runs the **same twelve checks against every era**, so a new era inherits them by existing. Per era it asserts that every player-facing field is bilingual, that personas cover all six traits plus a fallback, that every option declares a valid trait, that every trait is actually reachable through that era's cards, that success bonuses only reference resources and traits that exist, that NPC/thread references resolve and chain, that every flag-based objective is reachable by some card, that declared memories are really produced, and that a simulated day terminates and stays deterministic across 60 seeds. It also checks globally that card ids are unique *across* eras and that eras use genuinely different resource sets rather than being reskins.
+`tests/era-data.test.js` is the one that scales: it reads `shared/era-registry.js` and runs the **same checks against every event**, so a new event inherits them by existing. Per era it asserts that every player-facing field is bilingual, that personas cover all six traits plus a fallback, that every option declares a valid trait, that every trait is actually reachable through that era's cards, that success bonuses only reference resources and traits that exist, that NPC/thread references resolve and chain, that every flag-based objective is reachable by some card, that declared memories are really produced, and that a simulated day terminates and stays deterministic across 60 seeds. Per event it also checks the endings: exactly one historical ending, a catch-all last, an ending for every critical resource, every flag an ending needs set by some card, the historical ending reached and at least four different endings across 400 simulated days, at least 15 historical notes, and a valid opening card. It also checks globally that card ids are unique *across* eras and that eras use genuinely different resource sets rather than being reskins.
 
-`tests/stage.test.js` covers the stage's pure layer for every era: every sprite pose is a full frame with a colour for every pixel in every palette, every card and every NPC lands on a real landmark (and always the same one), every option maps to a known action, and the day cycle ends in night with the lamps on.
+`tests/stage.test.js` covers the stage's pure layer for every event: every sprite pose is a full frame with a colour for every pixel in every palette, every card lands on a real place in a real scene (and always the same one), every day opens indoors on an alarm, every NPC is on stage or a voice, every option maps to a known action, and the day ends in night on Earth but never in space.
 
 `tests/ui.test.js` checks that every resource of every era has its own HUD icon, that icons are drawn at whole-pixel scales, and that settings default sensibly.
 
@@ -231,7 +239,7 @@ Each era's "Today's Challenge" plays the same engine seeded from `dailySeed(eraI
 
 Scoring: 100 points per completed objective, plus a 0-10 tiebreak from final health and currency — capped well below one objective on purpose, so it can only rank players who completed the same number of objectives.
 
-Finishing a challenge while signed in keeps one global **streak** alive across all eras, and offers a **downloadable result card**: a PNG drawn on `<canvas>`, headlined with the persona that day produced.
+Finishing a challenge while signed in keeps one global **streak** alive across all events, and offers a **downloadable result card**: a PNG drawn on `<canvas>`, headlined with the ending that day reached.
 
 ## Accounts and progress (Firebase)
 
@@ -249,16 +257,17 @@ The Firebase SDK is loaded from Google's CDN with a dynamic `import()` (see `sha
 
 **Pixel art without an art pipeline.** Characters, icons and portraits are text grids coloured by palettes; the worlds are built from primitives in code. There are no image or model files to load, and the sprite and place data are unit-tested like the rules.
 
-**Data-driven content, engine-agnostic of era.** The engine only knows generic concepts — resources, traits, time slots, flags, counters — so a new era is content, not code. Mars adding a second critical resource required no engine change at all.
+**Data-driven content, engine-agnostic of event.** The engine only knows generic concepts — resources, traits, time slots, flags, counters — so a new event is content (plus its scenes), not engine code.
 
 **Seeded RNG as a first-class dependency.** Every random draw takes an explicit `rng` argument; nothing calls `Math.random()`. That is what makes the Daily Challenge and the determinism tests possible.
 
-**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (211 decision cards across six eras, 207 tests).
+**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (56 decision cards across two events, 174 tests).
 
 ## Known gaps
 
 - **Email/Password sign-in is not enabled yet in the live Firebase project**, so on the live site every account-gated feature silently behaves like guest mode.
-- **Walks are straight lines.** Characters follow the paths between landmarks but do not pathfind around props, so on rare cards they brush through a stall.
+- **Walks are straight lines.** Characters do not pathfind around props, so on rare cards they brush through one.
+- **Two events so far.** More (Tenochtitlan 1519, D-Day, the fall of the Berlin Wall...) will be added one at a time.
 - **The downloadable result card still uses the previous print design**, not the pixel style.
 - **No global all-time leaderboard for free play** — only the Daily Challenge has one.
 - **No achievements showcase.** Meta-achievement progress is tracked and unlockable but there is no gallery view.

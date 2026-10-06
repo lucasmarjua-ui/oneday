@@ -131,26 +131,39 @@ function shade(hex, amount) {
 
 const SKIN = { s: '#f2c79b', S: '#d39e74' };
 
-// How the player character dresses in each era.
+// How the player character dresses in each event, plus per-scene variants
+// (an astronaut without and with a helmet).
 export const OUTFITS = {
-  greece: { h: '#4a2f1d', c: '#efe8d8', C: '#c8bda4', t: '#3d6fb0', p: '#f2c79b', f: '#7a4a26' },
-  cordoba: { h: '#f3ede0', c: '#2f8a62', C: '#21634a', t: '#d9a840', p: '#3b3a52', f: '#8a5a2b' },
-  edo: { h: '#15131a', c: '#2e3f7c', C: '#1f2c5a', t: '#c0392b', p: '#2e3f7c', f: '#f1f1f1' },
-  neanderthal: { h: '#5b3b22', c: '#8f6239', C: '#6c4626', t: '#4a3018', p: '#e2b58b', f: '#6c4626' },
-  'future-city': { h: '#ff3fa4', c: '#20222f', C: '#14151f', t: '#2de2e6', p: '#2b2d3d', f: '#f4f4f4' },
-  mars: { h: '#eeeeee', c: '#e2672f', C: '#b44c1f', t: '#f4f4f4', p: '#e2672f', f: '#8a8f99' },
+  'apollo-11': { h: '#6b4a2e', c: '#f2f1ec', C: '#c4c2bb', t: '#c8382c', p: '#f2f1ec', f: '#8d8f96' },
+  giza: { s: '#c98b5a', S: '#a26a40', h: '#16120f', c: '#b9774a', C: '#93573a', t: '#f3ecd8', p: '#b9774a', f: '#9b6b3b' },
 };
 
-export function playerPalette(eraId) {
-  const outfit = OUTFITS[eraId] || OUTFITS.greece;
-  return { k: '#1b1620', e: '#1b1620', ...SKIN, H: shade(outfit.h, 0.75), ...outfit };
+const VARIANTS = {
+  // A gold sun visor over the face, a white helmet over the hair.
+  helmet: { h: '#f4f4f1', H: '#cfcfca', s: '#d9a63a', S: '#a8781f', e: '#fff3c4' },
+};
+
+const DEFAULT_OUTFIT = { h: '#4a2f1d', c: '#efe8d8', C: '#c8bda4', t: '#3d6fb0', p: '#f2c79b', f: '#7a4a26' };
+
+export function playerPalette(eraId, variant) {
+  const outfit = OUTFITS[eraId] || DEFAULT_OUTFIT;
+  const base = { k: '#1b1620', e: '#1b1620', ...SKIN, H: shade(outfit.h, 0.75), ...outfit };
+  return variant && VARIANTS[variant] ? { ...base, ...VARIANTS[variant] } : base;
 }
 
-// NPCs share the body but wear their own portrait colour, so a recurring face
-// is recognisable on stage the same way it is in the dialog box.
-export function npcPalette(color, eraId) {
-  const base = playerPalette(eraId);
-  return { ...base, c: color, C: shade(color, 0.72), t: shade(color, 0.5), h: shade(color, 0.35), p: shade(color, 0.6) };
+export function npcPalette(color, eraId, variant) {
+  const base = playerPalette(eraId, variant);
+  const tinted = { ...base, c: color, C: shade(color, 0.72), t: shade(color, 0.5), p: shade(color, 0.6) };
+  // A helmet stays a helmet; otherwise NPCs get darker hair in their own hue.
+  return variant === 'helmet' ? tinted : { ...tinted, h: shade(color, 0.35) };
 }
+
+/** Skin tones for crowds, so a town is not full of twins. */
+export const SKIN_TONES = [
+  { s: '#f2c79b', S: '#d39e74' },
+  { s: '#c98b5a', S: '#a26a40' },
+  { s: '#9b6a45', S: '#7a4f31' },
+  { s: '#e0ac7d', S: '#b98557' },
+];
 
 export const FRAME_ORDER = Object.keys(POSES);

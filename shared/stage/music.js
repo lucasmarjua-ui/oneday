@@ -6,12 +6,8 @@ import { getSettings, onSettingsChange } from '../ui/settings.js';
 
 const THEMES = {
   title: { tempo: 92, root: 60, scale: [0, 2, 4, 7, 9], progression: [0, 3, 4, 2], lead: 'square' },
-  greece: { tempo: 96, root: 62, scale: [0, 2, 3, 5, 7, 9, 10], progression: [0, 3, 4, 0], lead: 'square' },
-  cordoba: { tempo: 88, root: 64, scale: [0, 1, 4, 5, 7, 8, 10], progression: [0, 1, 0, 6], lead: 'triangle' },
-  edo: { tempo: 80, root: 62, scale: [0, 1, 5, 7, 8], progression: [0, 2, 3, 0], lead: 'triangle' },
-  neanderthal: { tempo: 72, root: 57, scale: [0, 3, 5, 7, 10], progression: [0, 0, 3, 4], lead: 'triangle', drums: true },
-  'future-city': { tempo: 104, root: 57, scale: [0, 2, 3, 5, 7, 8, 10], progression: [0, 5, 3, 6], lead: 'sawtooth', drums: true },
-  mars: { tempo: 64, root: 60, scale: [0, 2, 4, 6, 7, 9, 11], progression: [0, 1, 4, 3], lead: 'sine' },
+  'apollo-11': { tempo: 70, root: 57, scale: [0, 2, 4, 6, 7, 9, 11], progression: [0, 4, 5, 3], lead: 'sine' },
+  giza: { tempo: 84, root: 62, scale: [0, 1, 4, 5, 7, 8, 10], progression: [0, 1, 6, 0], lead: 'triangle', drums: true },
 };
 
 const ARP = [0, 1, 2, 1, 0, 2, 1, 2];

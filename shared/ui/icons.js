@@ -9,6 +9,11 @@ const ICONS = {
   reputation: { rows: ['...k...', '..kyk..', 'kkkykkk', 'kyyyyyk', '.kyyyk.', 'kyykyyk', 'kk...kk'], pal: { k: '#3a2a05', y: '#ffe07a' } },
   survival: { rows: ['...k..', '..kok.', '.koyok', 'koyyok', 'koyyok', '.kook.', '..kk..'], pal: { k: '#3a1405', o: '#ff7a1a', y: '#ffe28a' } },
   oxygen: { rows: ['.kkkk.', 'kbbbbk', 'kbwbbk', 'kbbbbk', 'kbbbbk', '.kkkk.'], pal: { k: '#0b2440', b: '#7fe3ff', w: '#ffffff' } },
+  fuel: { rows: ['.kkkk..', 'kwwwwk.', 'kooook.', 'kooookk', 'kOOOOkk', 'kOOOOk.', '.kkkk..'], pal: { k: '#3a1a05', w: '#ffe9b8', o: '#ff9a2e', O: '#d9661a' } },
+  focus: { rows: ['..kkk..', '.kwwwk.', 'kwkbkwk', 'kwbbbwk', 'kwkbkwk', '.kwwwk.', '..kkk..'], pal: { k: '#14203a', w: '#e6f0ff', b: '#4f8cff' } },
+  samples: { rows: ['..kkk..', '.kgggk.', 'kgwgggk', 'kgggGgk', 'kgGgggk', '.kkkkk.'], pal: { k: '#26262a', g: '#a9a9a4', G: '#7c7c78', w: '#e4e4e0' } },
+  morale: { rows: ['.kkkkk.', 'kyyyyyk', 'kykykyk', 'kyyyyyk', 'kykkkyk', 'kyyyyyk', '.kkkkk.'], pal: { k: '#3a2a05', y: '#ffd84a' } },
+  scroll: { rows: ['kkkkkkk', 'kwwwwwk', '.kbbbk.', '.kwwwk.', '.kbbbk.', 'kwwwwwk', 'kkkkkkk'], pal: { k: '#3a2a10', w: '#f3e3bf', b: '#b08a52' } },
   cursor: { rows: ['k....', 'kk...', 'kyk..', 'kyyk.', 'kyyyk', 'kyyk.', 'kyk..', 'kk...', 'k....'], pal: { k: '#14111c', y: 'currentColor' } },
   menu: { rows: ['wwwwwww', '.......', 'wwwwwww', '.......', 'wwwwwww'], pal: { w: 'currentColor' } },
   sound: { rows: ['...w...', '..ww.w.', 'www.w.w', 'www.w.w', 'www.w.w', '..ww.w.', '...w...'], pal: { w: 'currentColor' } },
@@ -19,7 +24,7 @@ const ICONS = {
   next: { rows: ['wwwww', '.www.', '..w..'], pal: { w: 'currentColor' } },
 };
 
-const RESOURCE_ICON = { energy: 'energy', health: 'health', hunger: 'hunger', thirst: 'thirst', currency: 'currency', reputation: 'reputation', survival: 'survival', oxygen: 'oxygen' };
+const RESOURCE_ICON = { energy: 'energy', health: 'health', hunger: 'hunger', thirst: 'thirst', currency: 'currency', reputation: 'reputation', survival: 'survival', oxygen: 'oxygen', fuel: 'fuel', focus: 'focus', samples: 'samples', morale: 'morale' };
 
 /** An inline SVG for `name`, `scale` CSS pixels per icon pixel. */
 export function icon(name, scale = 2, className = 'px-icon') {

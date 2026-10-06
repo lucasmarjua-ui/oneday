@@ -26,3 +26,25 @@ export function isObjectiveComplete(objective, { resourceState, dayState }) {
       return false;
   }
 }
+
+/**
+ * Where an objective stands mid-day, for the live tracker:
+ * - 'done': achieved and cannot be undone (something that happened);
+ * - 'holding': met right now, but only the end of the day settles it;
+ * - 'failed': a "never below" objective that can no longer be kept;
+ * - 'open': not there yet.
+ */
+export function objectiveStatus(objective, state) {
+  const met = isObjectiveComplete(objective, state);
+  switch (objective.check.type) {
+    case 'flagSet':
+      return met ? 'done' : 'open';
+    case 'resourceNeverBelow':
+      return met ? 'holding' : 'failed';
+    case 'resourceAtLeast':
+    case 'resourceAtMost':
+      return met ? 'holding' : 'open';
+    default:
+      return 'open';
+  }
+}

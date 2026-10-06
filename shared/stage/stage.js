@@ -13,14 +13,14 @@
 // - text (damage-style numbers, NPC names) is drawn by the browser over the
 //   canvas, so it stays sharp at any size.
 import * as THREE from '../../vendor/three/three.module.min.js';
-import { buildFrame, FRAME_ORDER, SPRITE_W, SPRITE_H, playerPalette, npcPalette } from './sprites.js';
-import { skyAt } from './direction.js';
-import { getPlaces } from './places.js';
+import { buildFrame, FRAME_ORDER, SPRITE_W, SPRITE_H, playerPalette, npcPalette, SKIN_TONES } from './sprites.js';
+import { skyAt, isSpaceEvent } from './direction.js';
+import { getPlaces, getScenes, showcaseScene, npcPresent } from './places.js';
 import { buildWorld } from './worlds.js';
 
-const ISLAND = 12; // half-size of the island in world units
 const PPU = 16; // render pixels per world unit: one sprite texel per pixel
-const VIEW = { play: 7.4, showcase: 13.5 }; // desired half-height of the view, in world units
+// Desired half-height of the view, in world units: rooms are framed closer.
+const VIEW = { play: { island: 7.4, room: 6.6 }, showcase: { island: 13.5, room: 9 } };
 
 const reducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -136,7 +136,7 @@ const POST_FRAGMENT = `
 // --- Sprite actors -------------------------------------------------------------
 
 class Actor {
-  constructor(stage, palette, { label = null } = {}) {
+  constructor(stage, palette, { label = null, parent = stage.scene } = {}) {
     this.stage = stage;
     this.frames = makeFrames(palette);
     this.material = new THREE.SpriteMaterial({ map: this.frames.stand, transparent: true, alphaTest: 0.5 });
@@ -163,7 +163,18 @@ class Actor {
     this.override = null;
     this.stepPhase = 0;
     this.label = label;
-    stage.scene.add(this.group);
+    this.parent = parent;
+    parent.add(this.group);
+  }
+
+  /** Change clothes (a helmet on the Moon, a kilt in Egypt) without a new actor. */
+  setPalette(palette) {
+    const old = this.frames;
+    this.frames = makeFrames(palette);
+    const current = Object.keys(old).find(name => old[name] === this.material.map) || 'stand';
+    this.material.map = this.frames[current];
+    this.material.needsUpdate = true;
+    Object.values(old).forEach(texture => texture.dispose());
   }
 
   get position() {
@@ -187,9 +198,12 @@ class Actor {
     this.face((point.x - point.z) - (me.x - me.z));
   }
 
-  walkTo(x, z, speed = 3.4) {
+  /** Walk in a straight line; `y` is reached in step with the walk (a ramp). */
+  walkTo(x, z, speed = 3.4, y = this.group.position.y) {
+    const pos = this.group.position;
+    this.target?.resolve();
     return new Promise(resolve => {
-      this.target = { x, z, speed, resolve };
+      this.target = { x, z, y, fromY: pos.y, total: Math.hypot(x - pos.x, z - pos.z), speed, resolve };
       this.walking = true;
     });
   }
@@ -210,6 +224,7 @@ class Actor {
       if (dist <= step) {
         pos.x = this.target.x;
         pos.z = this.target.z;
+        pos.y = this.target.y;
         this.walking = false;
         const done = this.target.resolve;
         this.target = null;
@@ -217,6 +232,8 @@ class Actor {
       } else {
         pos.x += (dx / dist) * step;
         pos.z += (dz / dist) * step;
+        const done = this.target.total ? 1 - (dist - step) / this.target.total : 1;
+        pos.y = this.target.fromY + (this.target.y - this.target.fromY) * done;
       }
     }
     let frame = 'stand';
@@ -245,7 +262,7 @@ class Actor {
   }
 
   dispose() {
-    this.stage.scene.remove(this.group);
+    this.parent.remove(this.group);
     Object.values(this.frames).forEach(texture => texture.dispose());
     this.material.dispose();
     this.labelEl?.remove();
@@ -254,7 +271,13 @@ class Actor {
 
 // --- Stage -------------------------------------------------------------------
 
-export async function createStage(container, { eraId, mode = 'play', onStep } = {}) {
+/**
+ * Create the stage for an event. It is told across several scenes (a cabin, a
+ * harbour, the Moon...); the stage builds one at a time and walks the
+ * character from scene to scene behind a quick fade.
+ * `npcs` are the event's characters: { id, color, name }.
+ */
+export async function createStage(container, { eraId, mode = 'play', onStep, npcs = [] } = {}) {
   const canvas = document.createElement('canvas');
   canvas.className = 'stage-canvas';
   container.appendChild(canvas);
@@ -289,7 +312,14 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
   const moonFill = new THREE.AmbientLight(0x4a5c9a, 0);
   scene.add(moonFill);
 
-  const stage = { scene, eraId, animators: [], lamps: [], timers: [], night: 0 };
+  // Everything that belongs to the current scene hangs off `root`, so a scene
+  // change is: dispose the root's children, build the next scene into it.
+  const root = new THREE.Group();
+  scene.add(root);
+  const stage = { scene, root, eraId, animators: [], lamps: [], alarms: [], timers: [], night: 0 };
+  const scenes = getScenes(eraId);
+  const allPlaces = getPlaces(eraId);
+  const space = isSpaceEvent(eraId);
 
   // --- Particles ---
   const particles = [];
@@ -322,16 +352,13 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     particles.push({ mesh: sprite, v: new THREE.Vector3(0, rise / life, 0), life, age: -delay, gravity: 0, sprite: true });
   }
 
-  const world = buildWorld(THREE, stage, { eraId, island: ISLAND, places: getPlaces(eraId), burst });
-
   // --- Clouds ---
   // Over the island, clouds are invisible and only cast shadows, so soft
   // patches of shade sweep across the ground without ever hiding the action.
   // Visible clouds drift around the island, at the edge of the view.
-  const cloudStyle = { mars: ['#e7b48c', 0.6], 'future-city': ['#b9a6d9', 0.55] }[eraId] || ['#ffffff', 0.95];
-  const cloudMaterial = new THREE.MeshLambertMaterial({ color: cloudStyle[0], transparent: true, opacity: cloudStyle[1], flatShading: true, depthWrite: false });
+  const cloudMaterial = new THREE.MeshLambertMaterial({ color: '#ffffff', transparent: true, opacity: 0.95, flatShading: true, depthWrite: false });
   const shadowOnly = new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false });
-  const clouds = [];
+  let clouds = [];
   function makeCloud(i, material) {
     const cloud = new THREE.Group();
     const parts = 3 + (i % 3);
@@ -346,45 +373,121 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     }
     return cloud;
   }
-  for (let i = 0; i < 4; i++) {
-    const cloud = makeCloud(i, shadowOnly);
-    cloud.userData = { angle: (i / 4) * Math.PI * 2, radius: 3 + (i % 2) * 5, height: 16, speed: 0.02 + (i % 3) * 0.006 };
-    scene.add(cloud);
-    clouds.push(cloud);
-  }
-  for (let i = 0; i < 7; i++) {
-    const cloud = makeCloud(i + 4, cloudMaterial);
-    cloud.userData = { angle: (i / 7) * Math.PI * 2, radius: 19 + (i % 3) * 3, height: -1 + (i % 4) * 2.2, speed: 0.01 + (i % 3) * 0.003 };
-    scene.add(cloud);
-    clouds.push(cloud);
+  function addClouds() {
+    clouds = [];
+    for (let i = 0; i < 4; i++) {
+      const cloud = makeCloud(i, shadowOnly);
+      cloud.userData = { isSprite: true, angle: (i / 4) * Math.PI * 2, radius: 3 + (i % 2) * 5, height: 16, speed: 0.02 + (i % 3) * 0.006 };
+      root.add(cloud);
+      clouds.push(cloud);
+    }
+    for (let i = 0; i < 7; i++) {
+      const cloud = makeCloud(i + 4, cloudMaterial);
+      cloud.userData = { isSprite: true, angle: (i / 7) * Math.PI * 2, radius: 19 + (i % 3) * 3, height: -1 + (i % 4) * 2.2, speed: 0.01 + (i % 3) * 0.003 };
+      root.add(cloud);
+      clouds.push(cloud);
+    }
   }
 
   // --- Actors ---
   const player = new Actor(stage, playerPalette(eraId));
-  const home = getPlaces(eraId)[0];
-  player.position.set(home.pos[0], world.groundY, home.pos[1]);
-  const dustColor = { mars: '#d98a5c', 'future-city': '#9aa3c2' }[eraId] || '#cbbf9f';
+  const dustColor = space ? '#b9b9b4' : '#cbbf9f';
   player.onStep = actor => {
     onStep?.();
-    burst(actor.position.clone().add(new THREE.Vector3(0, 0.06, 0)), { count: 2, colors: [dustColor], up: 0.6, speed: 0.5, life: 0.45, gravity: 1, size: 0.09 });
+    burst(actor.position.clone().add(new THREE.Vector3(0, 0.06, 0)), { count: 2, colors: [dustColor], up: space ? 0.9 : 0.6, speed: 0.5, life: space ? 0.9 : 0.45, gravity: space ? 0.4 : 1, size: 0.09 });
   };
   const actors = [player];
+  let crowd = [];
+  let cast = new Map();
+  let npc = null;
+  let npcTag = null;
+  let currentScene = null;
+  let sceneConfig = null;
+  let scenePlaces = [];
+  let alarmOn = false;
 
-  const villagerColors = ['#b5835a', '#7b8f6a', '#8a6f9e', '#c06c5a', '#5f86a8'];
-  const villagers = [];
-  const places = getPlaces(eraId);
-  if (!reducedMotion()) {
-    for (let i = 0; i < 4; i++) {
-      const v = new Actor(stage, npcPalette(villagerColors[i % villagerColors.length], eraId));
-      const p = places[(i + 1) % places.length];
-      v.position.set(p.pos[0] + 1.5, world.groundY, p.pos[1] + 1);
-      v.wanderAt = Math.random() * 3;
-      villagers.push(v);
-      actors.push(v);
-    }
+  const npcById = id => npcs.find(entry => entry.id === id);
+  const crowdColors = ['#e9e1cc', '#b5835a', '#7b8f6a', '#c06c5a', '#5f86a8', '#d8c9a4'];
+
+  function removeActor(actor) {
+    actor.dispose();
+    const index = actors.indexOf(actor);
+    if (index >= 0) actors.splice(index, 1);
   }
 
-  let npc = null;
+  function clearScene() {
+    clearNpc();
+    crowd.forEach(removeActor);
+    crowd = [];
+    cast.forEach(removeActor);
+    cast = new Map();
+    stage.timers.forEach(clearInterval);
+    stage.timers = [];
+    stage.animators = [];
+    stage.lamps = [];
+    stage.alarms = [];
+    clouds = [];
+    [...root.children].forEach(child => {
+      child.traverse(obj => {
+        obj.geometry?.dispose?.();
+        if (obj.material && obj.material !== cloudMaterial && obj.material !== shadowOnly) [].concat(obj.material).forEach(m => m.dispose?.());
+      });
+      root.remove(child);
+    });
+  }
+
+  /** Build one scene of the event and put the character at its entrance. */
+  function loadScene(sceneId, startPos) {
+    clearScene();
+    currentScene = sceneId;
+    sceneConfig = scenes[sceneId] || { kind: 'island', size: 10, entrance: [0, 0] };
+    scenePlaces = allPlaces.filter(place => place.scene === sceneId);
+    buildWorld(THREE, stage, { eraId, sceneId, scene: sceneConfig, places: scenePlaces, burst });
+    const room = sceneConfig.kind === 'room';
+    if (!room && !space) addClouds();
+    container.classList.toggle('stage-interior', room);
+    container.classList.toggle('stage-space', space && !room);
+
+    player.setPalette(playerPalette(eraId, sceneConfig.outfit));
+    const [sx, sz] = startPos || sceneConfig.entrance || [0, 0];
+    player.target?.resolve();
+    player.target = null;
+    player.walking = false;
+    player.position.set(sx, 0, sz);
+
+    // The people who are always here: crewmates in the cabin.
+    (sceneConfig.cast || []).forEach((id, i) => {
+      const data = npcById(id);
+      if (!data) return;
+      const actor = new Actor(stage, npcPalette(data.color, eraId, sceneConfig.outfit), { parent: root });
+      const anchor = scenePlaces[0]?.pos || [0, 0];
+      actor.position.set(anchor[0] + 1.4 + i * 1.1, 0, anchor[1] - 0.9 + i * 0.5);
+      actor.facing = -1;
+      cast.set(id, actor);
+      actors.push(actor);
+    });
+
+    // A town is never empty: a few people go about their day.
+    if (!reducedMotion()) {
+      const spots = [sceneConfig.entrance || [0, 0], ...scenePlaces.map(place => place.pos)];
+      for (let i = 0; i < (sceneConfig.crowd || 0); i++) {
+        const palette = { ...npcPalette(crowdColors[i % crowdColors.length], eraId), ...SKIN_TONES[(i + 1) % SKIN_TONES.length] };
+        const walker = new Actor(stage, palette, { parent: root });
+        const [x, z] = spots[i % spots.length];
+        walker.position.set(x + 1.6 - (i % 2) * 3, 0, z + 1.2);
+        walker.wanderAt = Math.random() * 3;
+        walker.spots = spots;
+        crowd.push(walker);
+        actors.push(walker);
+      }
+    }
+
+    viewHalf = (VIEW[mode] || VIEW.play)[room ? 'room' : 'island'];
+    resize();
+    if (room) focus.set(0, 0, 0);
+    else focus.set(player.position.x, player.position.y, player.position.z);
+    applySky(dayFraction);
+  }
 
   // --- Day cycle ---
   let dayFraction = mode === 'play' ? 0 : 0.33;
@@ -396,10 +499,12 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     sun.intensity = 0.25 + sky.sun * 1.55;
     sun.color.set(sky.sun < 0.5 ? 0xffb38a : 0xfff1d6);
     hemi.intensity = 0.35 + sky.sun * 0.65;
-    hemi.color.set(sky.top);
+    hemi.color.set(space ? '#c9d3e6' : sky.top);
     moonFill.intensity = sky.night * 0.9;
     const r = 34;
-    sun.position.set(Math.cos(sky.sunAngle) * r, 14 + Math.sin(sky.sunAngle) * 24, -8 + Math.sin(sky.sunAngle) * 6);
+    // On the Moon the Sun hangs low in the east all day, as it did for Apollo 11.
+    const angle = space ? 0.45 : sky.sunAngle;
+    sun.position.set(Math.cos(angle) * r, 14 + Math.sin(angle) * 24, -8 + Math.sin(angle) * 6);
     stage.night = sky.night;
     post.uniforms.night.value = sky.night;
   }
@@ -425,19 +530,25 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
   const postScene = new THREE.Scene();
   const postCamera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
   postScene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), post));
-  applySky(dayFraction);
 
   // --- Sizing: whole-number upscaling in device pixels ---
-  let viewHalf = VIEW[mode] || VIEW.play;
+  // The canvas always covers the whole stage and is centred on it. The size is
+  // re-checked every frame as well as on resize events, so a missed event (a
+  // zoom, a window moved to another screen, a late layout) can never leave the
+  // world drawn in a corner.
+  let viewHalf = VIEW.play.island;
   let renderW = 1;
   let renderH = 1;
   let upscale = 1;
+  let measured = '';
   function resize() {
     const dpr = window.devicePixelRatio || 1;
-    const cssW = Math.max(1, container.clientWidth);
-    const cssH = Math.max(1, container.clientHeight);
-    const devW = cssW * dpr;
-    const devH = cssH * dpr;
+    const rect = container.getBoundingClientRect();
+    const cssW = Math.max(1, rect.width || window.innerWidth);
+    const cssH = Math.max(1, rect.height || window.innerHeight);
+    measured = `${cssW}x${cssH}@${dpr}`;
+    const devW = Math.round(cssW * dpr);
+    const devH = Math.round(cssH * dpr);
     const aspect = cssW / cssH;
     // Portrait screens see a taller slice of the world so it is not cramped.
     const wanted = aspect < 1 ? viewHalf * Math.min(1.5, 0.85 / aspect) : viewHalf;
@@ -445,6 +556,7 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     renderW = Math.ceil(devW / upscale);
     renderH = Math.ceil(devH / upscale);
     renderer.setSize(renderW, renderH, false);
+    renderer.setViewport(0, 0, renderW, renderH);
     colorTarget.setSize(renderW, renderH);
     normalTarget.setSize(renderW, renderH);
     post.uniforms.resolution.value.set(renderW, renderH);
@@ -453,6 +565,10 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     canvas.style.height = `${(renderH * upscale) / dpr}px`;
     stage.aspect = aspect;
     updateCamera(true);
+  }
+  function checkSize() {
+    const rect = container.getBoundingClientRect();
+    if (`${Math.max(1, rect.width || window.innerWidth)}x${Math.max(1, rect.height || window.innerHeight)}@${window.devicePixelRatio || 1}` !== measured) resize();
   }
 
   const right = new THREE.Vector3();
@@ -481,7 +597,8 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
 
   const observer = new ResizeObserver(resize);
   observer.observe(container);
-  resize();
+  window.visualViewport?.addEventListener('resize', resize);
+  document.fonts?.ready?.then(resize);
 
   // --- Screen-space labels (crisp browser text anchored to the world) ---
   const labelItems = [];
@@ -505,6 +622,13 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     const item = { el, anchor: anchor.clone(), age: -delay, life, rise, follow };
     labelItems.push(item);
     return item;
+  }
+
+  function removeLabel(item) {
+    if (!item) return;
+    item.el.remove();
+    const index = labelItems.indexOf(item);
+    if (index >= 0) labelItems.splice(index, 1);
   }
 
   function updateLabels(dt) {
@@ -548,6 +672,7 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     renderer.render(scene, camera);
 
     renderer.setRenderTarget(null);
+    renderer.setViewport(0, 0, renderW, renderH);
     renderer.clear();
     renderer.render(postScene, postCamera);
   }
@@ -557,6 +682,7 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     const t = now / 1000;
+    checkSize();
 
     if (Math.abs(dayTarget - dayFraction) > 0.0005) {
       dayFraction += (dayTarget - dayFraction) * Math.min(1, dt * 1.5);
@@ -564,12 +690,12 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     }
 
     actors.forEach(actor => actor.update(dt));
-    villagers.forEach(v => {
-      if (v.walking) return;
-      v.wanderAt -= dt;
-      if (v.wanderAt <= 0) {
-        const p = places[Math.floor(Math.random() * places.length)];
-        v.walkTo(p.pos[0] + (Math.random() - 0.5) * 4, p.pos[1] + (Math.random() - 0.5) * 4, 1.6).then(() => { v.wanderAt = 2 + Math.random() * 5; });
+    crowd.forEach(walker => {
+      if (walker.walking) return;
+      walker.wanderAt -= dt;
+      if (walker.wanderAt <= 0) {
+        const [x, z] = walker.spots[Math.floor(Math.random() * walker.spots.length)];
+        walker.walkTo(x + (Math.random() - 0.5) * 4, z + 1 + Math.random() * 2, 1.6, 0).then(() => { walker.wanderAt = 2 + Math.random() * 5; });
       }
     });
 
@@ -581,6 +707,8 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
 
     stage.animators.forEach(fn => fn(dt, t));
     stage.lamps.forEach(lamp => lamp.set(stage.night));
+    const alarmLevel = alarmOn ? (Math.sin(t * 9) > 0 ? 1 : 0.15) : 0;
+    stage.alarms.forEach(alarm => alarm.set(alarmLevel));
 
     for (let i = particles.length - 1; i >= 0; i--) {
       const p = particles[i];
@@ -601,9 +729,15 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     }
 
     // The dialog covers the bottom of the screen, so in play the character is
-    // kept in the upper half; the title screen frames the island above the menu.
-    if (mode === 'play') focusTarget.set(player.position.x, (stage.aspect || 1) < 1 ? -2.6 : -1.4, player.position.z);
-    else focusTarget.set(0, (stage.aspect || 1) < 1 ? -4.5 : -2.6, 0);
+    // kept in the upper half; the title screen frames the scene above the menu.
+    // A room is small enough to stay still and show whole; outside, the camera
+    // follows the character, up ramps too.
+    const portrait = (stage.aspect || 1) < 1;
+    const room = sceneConfig?.kind === 'room';
+    const drop = (portrait ? 2.6 : 1.4) * (viewHalf / VIEW.play.island);
+    if (mode !== 'play') focusTarget.set(0, portrait ? -4.5 : -2.6, 0).multiplyScalar(room ? 0.4 : 1);
+    else if (room) focusTarget.set(0, 0.6 - drop, 0);
+    else focusTarget.set(player.position.x, player.position.y - drop, player.position.z);
     focus.lerp(focusTarget, Math.min(1, dt * 2.5));
     orbit += orbitSpeed * dt;
     updateCamera();
@@ -612,7 +746,6 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     render();
     raf = requestAnimationFrame(tick);
   }
-  raf = requestAnimationFrame(tick);
 
   const onVisibility = () => {
     if (document.hidden) { running = false; cancelAnimationFrame(raf); }
@@ -630,35 +763,68 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
   }
 
   function clearNpc() {
+    removeLabel(npcTag);
+    npcTag = null;
     if (!npc) return;
-    npc.dispose();
-    actors.splice(actors.indexOf(npc), 1);
-    const tag = labelItems.findIndex(item => item.follow === npc);
-    if (tag >= 0) { labelItems[tag].el.remove(); labelItems.splice(tag, 1); }
+    if (!cast.has(npc.id)) removeActor(npc.actor);
     npc = null;
   }
 
+  async function fadeTo(sceneId, startPos) {
+    container.classList.add('stage-fade');
+    await wait(240);
+    loadScene(sceneId, startPos);
+    container.classList.remove('stage-fade');
+    await wait(160);
+  }
+
+  const startScene = mode === 'play' ? (allPlaces[0]?.scene || Object.keys(scenes)[0]) : showcaseScene(eraId);
+  const startPlace = mode === 'play' ? allPlaces[0] : allPlaces.find(place => place.scene === startScene);
+  loadScene(startScene, startPlace?.pos);
+  if (startPlace?.y) player.position.y = startPlace.y;
+  focus.copy(focusTarget);
+  raf = requestAnimationFrame(tick);
+
   // --- Public API ----------------------------------------------------------
   return {
-    /** Walk to where a card happens and meet its NPC there, if it has one. */
+    /**
+     * Walk to where a card happens, changing scene if need be, and meet its
+     * NPC there: in person if they are in this scene, otherwise as a voice
+     * (Houston on the radio, a shout from the ramp).
+     */
     async goTo(place, npcData) {
       clearNpc();
+      if (place.scene && place.scene !== currentScene) await fadeTo(place.scene);
       const [px, pz] = place.pos;
+      const py = place.y || 0;
       if (npcData) {
-        npc = new Actor(stage, npcPalette(npcData.color, eraId));
-        npc.position.set(px + 1.3, world.groundY, pz - 1.3);
-        actors.push(npc);
-        burst(npc.position.clone().add(new THREE.Vector3(0, 0.3, 0)), { count: 8, colors: ['#ffffff', npcData.color], up: 1.5 });
-        if (npcData.name) addLabel(npcData.name, headOf(npc), { className: 'npc-tag', follow: npc });
+        const present = npcPresent(eraId, npcData.id, currentScene);
+        if (present && cast.has(npcData.id)) {
+          npc = { id: npcData.id, actor: cast.get(npcData.id) };
+        } else if (present) {
+          const actor = new Actor(stage, npcPalette(npcData.color, eraId, sceneConfig.outfit), { parent: root });
+          actor.position.set(px + 1.3, py, pz - 1.3);
+          actors.push(actor);
+          burst(actor.position.clone().add(new THREE.Vector3(0, 0.3, 0)), { count: 8, colors: ['#ffffff', npcData.color], up: 1.5 });
+          npc = { id: npcData.id, actor };
+        }
+        if (npc && npcData.name) npcTag = addLabel(npcData.name, headOf(npc.actor), { className: 'npc-tag', follow: npc.actor });
+        else if (npcData.name) npcTag = addLabel(`(( ${npcData.name} ))`, headOf(player), { className: 'npc-tag voice', follow: player });
       }
       if (reducedMotion()) {
-        player.position.set(px, world.groundY, pz);
+        player.position.set(px, py, pz);
       } else {
-        await player.walkTo(px, pz);
+        // Ramps: walk to their foot first, then climb (or the other way down).
+        if (place.via && Math.abs(player.position.y - py) > 0.01) await player.walkTo(place.via[0], place.via[1], 3.4, 0);
+        else if (!place.via && player.position.y > 0.01) {
+          const from = scenePlaces.find(entry => entry.via && entry.y);
+          if (from) await player.walkTo(from.via[0], from.via[1], 3.4, 0);
+        }
+        await player.walkTo(px, pz, 3.4, py);
       }
       if (npc) {
-        player.lookAt(npc.position);
-        npc.lookAt(player.position);
+        player.lookAt(npc.actor.position);
+        npc.actor.lookAt(player.position);
       }
     },
 
@@ -682,7 +848,7 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
           break;
         case 'give':
           player.play(['reach'], 1, 1.1);
-          bubble('heart', npc || player, { delay: 0.2 });
+          bubble('heart', npc?.actor || player, { delay: 0.2 });
           bubble('heart', player, { delay: 0.5 });
           await wait(1100);
           break;
@@ -717,9 +883,11 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
         bubble('bang');
         burst(headOf(player), { count: 16, colors: ['#7dff9b', '#ffd84a', '#ffffff'], up: 3.2, speed: 2.2, life: 1 });
         if (!reducedMotion()) {
-          const jump = async () => { for (let i = 0; i <= 10; i++) { player.lift = Math.sin((i / 10) * Math.PI) * 0.5; await wait(28); } player.lift = 0; };
+          const base = player.position.y;
+          const jump = async () => { for (let i = 0; i <= 10; i++) { player.lift = Math.sin((i / 10) * Math.PI) * (space ? 0.9 : 0.5); await wait(space ? 45 : 28); } player.lift = 0; };
           await jump();
           await jump();
+          player.position.y = base;
         }
       } else if (reaction === 'stumble') {
         player.play(['crouch'], 1, 1.2);
@@ -739,6 +907,16 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
       await wait(450);
     },
 
+    /** An alarm clock, a master alarm: every warning light in the scene flashes. */
+    setAlarm(on) {
+      alarmOn = !!on;
+      container.classList.toggle('stage-alarm', alarmOn);
+    },
+
+    get sceneId() {
+      return currentScene;
+    },
+
     setDayFraction(fraction) {
       dayTarget = fraction;
     },
@@ -751,6 +929,7 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     /** The end of the day: the camera slowly circles the character. */
     finale(good) {
       clearNpc();
+      alarmOn = false;
       orbitSpeed = reducedMotion() ? 0 : 0.1;
       player.play(good ? ['raise', 'stand'] : ['sit'], good ? 2 : 1, 999);
       if (good) burst(headOf(player), { count: 28, colors: ['#ffd84a', '#7dff9b', '#ff8ad8', '#ffffff'], up: 4, speed: 3, life: 1.4 });
@@ -759,18 +938,21 @@ export async function createStage(container, { eraId, mode = 'play', onStep } = 
     reset() {
       orbitSpeed = 0;
       orbit = 0;
+      alarmOn = false;
       player.override = null;
-      player.position.set(home.pos[0], world.groundY, home.pos[1]);
       dayTarget = 0;
+      const home = allPlaces[0];
+      loadScene(home.scene, home.pos);
     },
 
     dispose() {
       running = false;
       cancelAnimationFrame(raf);
-      stage.timers.forEach(clearInterval);
+      clearScene();
       observer.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
       window.removeEventListener('resize', resize);
+      window.visualViewport?.removeEventListener('resize', resize);
       actors.forEach(actor => actor.dispose());
       colorTarget.dispose();
       normalTarget.dispose();

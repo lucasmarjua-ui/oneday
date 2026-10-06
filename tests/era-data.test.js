@@ -9,7 +9,9 @@ import { dirname, join } from 'node:path';
 import { ERAS } from '../shared/era-registry.js';
 import { createResourceState, applyResourceDeltas, isCriticalDepleted } from '../shared/resources.js';
 import { createDayState, isTimeUp, trackMinSeen, advanceTime } from '../shared/day-engine.js';
-import { getValidCards, pickWeightedCard, resolveOption } from '../shared/decision-engine.js';
+import { getValidCards, pickWeightedCard, resolveOption, openingCard } from '../shared/decision-engine.js';
+import { getCriticalResourceKey } from '../shared/resources.js';
+import { resolveEnding } from '../shared/endings.js';
 import { pickDailyObjectives, isObjectiveComplete } from '../shared/objectives.js';
 import { applyCounterDeltas } from '../shared/narrative.js';
 import { resolvePersona } from '../shared/persona.js';
@@ -43,8 +45,13 @@ loaded.forEach(({ meta, era, cards }) => {
   test(`${eraId}: every player-facing field in era.json is bilingual`, () => {
     assert.ok(isBilingual(era.name), 'name');
     assert.ok(isBilingual(era.tagline), 'tagline');
-    assert.ok(isBilingual(era.goodEnding), 'goodEnding');
-    assert.ok(isBilingual(era.badEnding), 'badEnding');
+    assert.ok(isBilingual(era.role), 'role');
+    assert.ok(isBilingual(era.history), 'history');
+    era.endings.forEach(ending => {
+      assert.ok(isBilingual(ending.title), `ending ${ending.id} title`);
+      assert.ok(isBilingual(ending.description), `ending ${ending.id} description`);
+    });
+    cards.filter(card => card.fact).forEach(card => assert.ok(isBilingual(card.fact), `card ${card.id} fact`));
     era.day.slots.forEach(slot => assert.ok(isBilingual(slot.label), `slot ${slot.id}`));
     Object.entries(era.resources).forEach(([key, config]) => assert.ok(isBilingual(config.label), `resource ${key}`));
     era.objectivesPool.forEach(objective => assert.ok(isBilingual(objective.description), `objective ${objective.id}`));
@@ -179,6 +186,51 @@ loaded.forEach(({ meta, era, cards }) => {
     (era.memories?.counters || []).forEach(key => assert.ok(counterKeys.has(key), `memorable counter "${key}" is never adjusted`));
   });
 
+  test(`${eraId}: declares a historical ending, alternatives and a fallback`, () => {
+    const endings = era.endings || [];
+    assert.ok(endings.length >= 4, `expected at least 4 endings, got ${endings.length}`);
+    assert.equal(endings.filter(ending => ending.historical).length, 1, 'exactly one ending must be the historical one');
+    assert.equal(new Set(endings.map(ending => ending.id)).size, endings.length, 'ending ids must be unique');
+    const last = endings[endings.length - 1];
+    assert.deepEqual(last.when, {}, 'the last ending must be an unconditional fallback');
+  });
+
+  test(`${eraId}: every critical resource has its own ending, and endings only use real flags`, () => {
+    Object.entries(era.resources).filter(([, config]) => config.critical).forEach(([key]) => {
+      assert.ok(era.endings.some(ending => ending.when?.depleted === key), `no ending for running out of "${key}"`);
+    });
+    const setFlags = new Set(cards.flatMap(card => card.options.flatMap(option => [...(option.success?.flagsSet || []), ...(option.failure?.flagsSet || [])])));
+    era.endings.forEach(ending => {
+      if (ending.when?.depleted) assert.ok(era.resources[ending.when.depleted]?.critical, `${ending.id} depends on a non-critical resource`);
+      [...(ending.when?.flagsRequired || []), ...(ending.when?.flagsExcluded || [])].forEach(flag => assert.ok(setFlags.has(flag), `ending ${ending.id} uses flag "${flag}", which no card sets`));
+    });
+  });
+
+  test(`${eraId}: the day opens with its wake-up card`, () => {
+    const card = openingCard(cards, era, { playedCardIds: [] });
+    assert.ok(card, 'era.day.openingCard must name an existing card');
+    assert.ok(!card.conditions?.flagsRequired?.length, 'the opening card cannot require flags');
+    assert.ok(!card.timeSlots || card.timeSlots.includes(era.day.slots[0].id), 'the opening card must be playable in the first slot');
+  });
+
+  test(`${eraId}: teaches history: most cards carry a bilingual fact`, () => {
+    const withFacts = cards.filter(card => card.fact).length;
+    assert.ok(withFacts >= 15 && withFacts / cards.length >= 0.75, `only ${withFacts}/${cards.length} cards carry a fact`);
+  });
+
+  test(`${eraId}: the historical ending and several alternatives are reachable in play`, () => {
+    const reached = new Set();
+    for (let seed = 0; seed < 400; seed++) {
+      const rng = mulberry32(seed * 104729 + 7);
+      const result = playOneDay(era, cards, rng, (card, rand) => Math.floor(rand() * card.options.length));
+      const criticalKey = getCriticalResourceKey(result.resourceState, era);
+      reached.add(resolveEnding(era, { dayState: result.dayState, resourceState: result.resourceState, criticalKey }).id);
+    }
+    const historical = era.endings.find(ending => ending.historical).id;
+    assert.ok(reached.has(historical), `the historical ending "${historical}" was never reached`);
+    assert.ok(reached.size >= 4, `only ${reached.size} endings were ever reached: ${[...reached].join(', ')}`);
+  });
+
   test(`${eraId}: a simulated day always terminates, across 60 seeds`, () => {
     for (let seed = 0; seed < 60; seed++) {
       const rng = mulberry32(seed * 7919 + 13);
@@ -199,9 +251,9 @@ loaded.forEach(({ meta, era, cards }) => {
   });
 });
 
-test('eras genuinely differ from one another rather than being reskins', () => {
+test('events genuinely differ from one another rather than being reskins', () => {
   const signatures = loaded.map(({ era }) => Object.keys(era.resources).sort().join(','));
-  assert.ok(new Set(signatures).size >= 3, 'expected several genuinely different resource sets across eras');
+  assert.equal(new Set(signatures).size, signatures.length, 'every event should track its own set of resources');
   const cardIds = new Set();
   loaded.forEach(({ meta, cards }) => cards.forEach(card => {
     assert.ok(!cardIds.has(card.id), `card id "${card.id}" is reused across eras (${meta.id})`);
@@ -209,11 +261,11 @@ test('eras genuinely differ from one another rather than being reskins', () => {
   }));
 });
 
-test('the whole game ships enough content to be worth playing', () => {
-  const totalCards = loaded.reduce((sum, { cards }) => sum + cards.length, 0);
-  const totalOptions = loaded.reduce((sum, { cards }) => sum + cards.reduce((n, card) => n + card.options.length, 0), 0);
-  assert.ok(totalCards >= 200, `expected 200+ decision cards across all eras, got ${totalCards}`);
-  assert.ok(totalOptions >= 500, `expected 500+ options across all eras, got ${totalOptions}`);
+test('every event ships enough content to be worth replaying', () => {
+  loaded.forEach(({ meta, cards }) => {
+    const options = cards.reduce((n, card) => n + card.options.length, 0);
+    assert.ok(cards.length >= 20 && options >= 55, `${meta.id}: ${cards.length} cards / ${options} options is too thin`);
+  });
 });
 
 export function playOneDay(era, cards, rng, pickOptionIndex) {
@@ -225,7 +277,7 @@ export function playOneDay(era, cards, rng, pickOptionIndex) {
   while (!isTimeUp(dayState) && !isCriticalDepleted(resourceState, era) && steps < 500) {
     steps++;
     const valid = getValidCards(cards, era, resourceState, dayState);
-    const card = valid.length ? pickWeightedCard(valid, rng) : { id: 'filler', options: [{ id: 'rest', traits: { prudent: 1 }, cost: { time: 1 }, successChance: { base: 1 }, success: { resources: { energy: 5 } } }] };
+    const card = openingCard(cards, era, dayState) || (valid.length ? pickWeightedCard(valid, rng) : null) || { id: 'filler', options: [{ id: 'rest', traits: { prudent: 1 }, cost: { time: 1 }, successChance: { base: 1 }, success: { resources: { energy: 5 } } }] };
     cardSequence.push(card.id);
     const option = card.options[pickOptionIndex(card, rng)];
     const { outcome } = resolveOption(option, { resourceState, era, traits: dayState.traits }, rng);

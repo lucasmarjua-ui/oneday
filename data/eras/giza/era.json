@@ -1,0 +1,482 @@
+{
+  "id": "giza",
+  "name": {
+    "en": "The Great Pyramid",
+    "es": "La Gran Pirámide"
+  },
+  "tagline": {
+    "en": "Giza, c. 2560 BC. The last granite beam goes up today.",
+    "es": "Giza, hacia 2560 a. C. Hoy se sube la última viga de granito."
+  },
+  "role": {
+    "en": "You are Nefer, overseer of a gang of builders who call themselves the Friends of Khufu. Before sunset, the last great granite beam must be set over the King's Chamber.",
+    "es": "Eres Nefer, capataz de una cuadrilla de constructores que se hacen llamar los Amigos de Keops. Antes de que se ponga el sol, la última gran viga de granito debe colocarse sobre la Cámara del Rey."
+  },
+  "history": {
+    "en": "The Great Pyramid was built for King Khufu over about twenty years, around 2560 BC, probably under his vizier Hemiunu. It was not built by slaves: archaeologists have found the town where paid workers lived, with bakeries, breweries and plenty of meat, and a cemetery where they were buried with honour. The King's Chamber is roofed with granite beams brought about 800 km down the Nile from Aswan, some weighing more than 50 tonnes. In 1837 explorers found, in the small chambers above it, red-painted marks left by the work gangs, among them 'Friends of Khufu'. At 146 m, the pyramid remained the tallest building on Earth for almost 4,000 years.",
+    "es": "La Gran Pirámide se construyó para el rey Keops durante unos veinte años, hacia 2560 a. C., probablemente bajo la dirección de su visir Hemiunu. No la construyeron esclavos: los arqueólogos han hallado el poblado donde vivían los trabajadores asalariados, con panaderías, cervecerías y abundante carne, y un cementerio donde fueron enterrados con honores. La Cámara del Rey tiene un techo de vigas de granito traídas unos 800 km por el Nilo desde Asuán, algunas de más de 50 toneladas. En 1837 unos exploradores encontraron, en las pequeñas cámaras de encima, marcas pintadas en rojo por las cuadrillas, entre ellas 'Amigos de Keops'. Con 146 m, la pirámide fue el edificio más alto de la Tierra durante casi 4.000 años."
+  },
+  "day": {
+    "totalTime": 14,
+    "startLabel": "06:00",
+    "endLabel": "20:00",
+    "openingCard": "giza-wake",
+    "slots": [
+      {
+        "id": "dawn",
+        "label": {
+          "en": "Dawn in the workers' town",
+          "es": "Amanecer en el poblado"
+        },
+        "from": 0,
+        "to": 3
+      },
+      {
+        "id": "morning",
+        "label": {
+          "en": "Harbour and quarry",
+          "es": "Puerto y cantera"
+        },
+        "from": 3,
+        "to": 7
+      },
+      {
+        "id": "midday",
+        "label": {
+          "en": "The ramp",
+          "es": "La rampa"
+        },
+        "from": 7,
+        "to": 10
+      },
+      {
+        "id": "afternoon",
+        "label": {
+          "en": "On the pyramid",
+          "es": "Sobre la pirámide"
+        },
+        "from": 10,
+        "to": 14
+      }
+    ]
+  },
+  "resources": {
+    "health": {
+      "label": {
+        "en": "Crew health",
+        "es": "Salud de la cuadrilla"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 90,
+      "critical": true
+    },
+    "morale": {
+      "label": {
+        "en": "Morale",
+        "es": "Ánimo"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 60,
+      "critical": true
+    },
+    "energy": {
+      "label": {
+        "en": "Strength",
+        "es": "Fuerza"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 80
+    },
+    "reputation": {
+      "label": {
+        "en": "Hemiunu's favour",
+        "es": "Favor de Hemiunu"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 30
+    },
+    "currency": {
+      "label": {
+        "en": "Bread & beer",
+        "es": "Pan y cerveza"
+      },
+      "min": 0,
+      "max": 999999,
+      "start": 20
+    }
+  },
+  "npcs": [
+    {
+      "id": "npc-hemiunu",
+      "name": {
+        "en": "Hemiunu",
+        "es": "Hemiunu"
+      },
+      "role": {
+        "en": "Vizier, Overseer of the King's Works",
+        "es": "Visir, supervisor de las obras del rey"
+      },
+      "portraitColor": "#d9a441",
+      "attitudeCounter": "hemiunuFavour"
+    },
+    {
+      "id": "npc-merer",
+      "name": {
+        "en": "Merer",
+        "es": "Merer"
+      },
+      "role": {
+        "en": "Inspector of a boat crew",
+        "es": "Inspector de una tripulación"
+      },
+      "portraitColor": "#3f8fc0",
+      "attitudeCounter": "mererTrust"
+    },
+    {
+      "id": "npc-tia",
+      "name": {
+        "en": "Tia",
+        "es": "Tia"
+      },
+      "role": {
+        "en": "Healer of the workers' town",
+        "es": "Sanadora del poblado"
+      },
+      "portraitColor": "#4fae7b",
+      "attitudeCounter": "tiaBond"
+    }
+  ],
+  "personas": [
+    {
+      "id": "hauler",
+      "trait": "bold",
+      "name": {
+        "en": "The Hauler",
+        "es": "El Arrastrador"
+      },
+      "description": {
+        "en": "More rope, more men, more pull. You moved stone the way the river moves silt: by refusing to stop.",
+        "es": "Más cuerda, más hombres, más tirón. Moviste la piedra como el río mueve el limo: negándote a parar."
+      }
+    },
+    {
+      "id": "steady-hand",
+      "trait": "prudent",
+      "name": {
+        "en": "The Steady Hand",
+        "es": "La Mano Firme"
+      },
+      "description": {
+        "en": "You checked the ramp, the ropes and the weather. Nobody in your gang went to Tia today.",
+        "es": "Revisaste la rampa, las cuerdas y el tiempo. Nadie de tu cuadrilla tuvo que ir hoy a ver a Tia."
+      }
+    },
+    {
+      "id": "friend-of-the-gang",
+      "trait": "generous",
+      "name": {
+        "en": "Friend of the Gang",
+        "es": "Amigo de la Cuadrilla"
+      },
+      "description": {
+        "en": "Extra bread, a hand on a shoulder, your own beer given away. Your gang would haul a mountain for you.",
+        "es": "Pan de más, una mano en el hombro, tu propia cerveza regalada. Tu cuadrilla arrastraría una montaña por ti."
+      }
+    },
+    {
+      "id": "bargainer",
+      "trait": "cunning",
+      "name": {
+        "en": "The Bargainer",
+        "es": "El Negociador"
+      },
+      "description": {
+        "en": "Beer for chisels, favours for men, plaster for cracks. You always found what the day was missing.",
+        "es": "Cerveza por cinceles, favores por hombres, yeso para las grietas. Siempre encontraste lo que le faltaba al día."
+      }
+    },
+    {
+      "id": "master-mason",
+      "trait": "diligent",
+      "name": {
+        "en": "The Master Mason",
+        "es": "El Maestro Cantero"
+      },
+      "description": {
+        "en": "Cubit by cubit, chant by chant. The stone went where it was meant to, because you made sure of it.",
+        "es": "Codo a codo, canto a canto. La piedra fue adonde debía, porque tú te encargaste."
+      }
+    },
+    {
+      "id": "engineer",
+      "trait": "curious",
+      "name": {
+        "en": "The Engineer",
+        "es": "El Ingeniero"
+      },
+      "description": {
+        "en": "You asked why: why wet the sand, why this angle, why north. Hemiunu noticed.",
+        "es": "Preguntaste por qué: por qué mojar la arena, por qué este ángulo, por qué el norte. Hemiunu se fijó."
+      }
+    },
+    {
+      "id": "one-of-many",
+      "trait": null,
+      "name": {
+        "en": "One of Twenty Thousand",
+        "es": "Uno entre veinte mil"
+      },
+      "description": {
+        "en": "The pyramid was built by thousands of days like yours. Nobody remembers them one by one, and every one of them mattered.",
+        "es": "La pirámide se construyó con miles de días como el tuyo. Nadie los recuerda uno a uno, y todos importaron."
+      }
+    }
+  ],
+  "endings": [
+    {
+      "id": "ramp-claims",
+      "when": {
+        "depleted": "health"
+      },
+      "title": {
+        "en": "The Ramp Claims the Day",
+        "es": "La rampa se cobra el día"
+      },
+      "description": {
+        "en": "Too many injuries, too much stone. Tia's courtyard fills with your gang and the beam waits at the foot of the ramp.",
+        "es": "Demasiados heridos, demasiada piedra. El patio de Tia se llena con tu cuadrilla y la viga espera al pie de la rampa."
+      }
+    },
+    {
+      "id": "walk-off",
+      "when": {
+        "depleted": "morale"
+      },
+      "title": {
+        "en": "A Strike, 1,400 Years Early",
+        "es": "Una huelga, 1.400 años antes"
+      },
+      "description": {
+        "en": "Your gang sits down by the ramp and refuses to pull. The first recorded strike in history would not happen for another fourteen centuries; yours just did.",
+        "es": "Tu cuadrilla se sienta junto a la rampa y se niega a tirar. La primera huelga registrada de la historia no ocurriría hasta catorce siglos después; la tuya acaba de pasar."
+      }
+    },
+    {
+      "id": "cracked-ceiling",
+      "when": {
+        "flagsRequired": [
+          "beam-set",
+          "cracked-beam"
+        ],
+        "flagsExcluded": [
+          "crack-patched"
+        ]
+      },
+      "title": {
+        "en": "A Crack in the Ceiling",
+        "es": "Una grieta en el techo"
+      },
+      "description": {
+        "en": "The beam is in place, and so is the crack you hid. When Hemiunu's inspectors find it, your gang is sent back to the quarry.",
+        "es": "La viga está en su sitio, y también la grieta que ocultaste. Cuando los inspectores de Hemiunu la encuentran, devuelven a tu cuadrilla a la cantera."
+      }
+    },
+    {
+      "id": "tomb",
+      "when": {
+        "flagsRequired": [
+          "beam-set",
+          "gang-mark",
+          "tomb-granted"
+        ]
+      },
+      "title": {
+        "en": "A Tomb at Giza",
+        "es": "Una tumba en Giza"
+      },
+      "description": {
+        "en": "Hemiunu grants your gang places in the builders' cemetery, in sight of the pyramid you raised. Four and a half thousand years later, archaeologists will read your names.",
+        "es": "Hemiunu concede a tu cuadrilla un lugar en el cementerio de los constructores, a la vista de la pirámide que levantasteis. Cuatro mil quinientos años después, los arqueólogos leerán vuestros nombres."
+      }
+    },
+    {
+      "id": "friends-of-khufu",
+      "historical": true,
+      "when": {
+        "flagsRequired": [
+          "beam-set",
+          "gang-mark"
+        ]
+      },
+      "title": {
+        "en": "Friends of Khufu",
+        "es": "Amigos de Keops"
+      },
+      "description": {
+        "en": "The beam is set and your gang's name is painted in red ochre where no one will see it, until explorers break in 4,400 years later. That is exactly what they found.",
+        "es": "La viga está colocada y el nombre de tu cuadrilla, pintado en ocre rojo donde nadie lo verá hasta que unos exploradores entren 4.400 años después. Es justo lo que encontraron."
+      }
+    },
+    {
+      "id": "nameless",
+      "when": {
+        "flagsRequired": [
+          "beam-set"
+        ]
+      },
+      "title": {
+        "en": "Nameless Stones",
+        "es": "Piedras sin nombre"
+      },
+      "description": {
+        "en": "The beam is set, and nothing says who set it. Your work will hold up the pyramid for millennia, anonymously.",
+        "es": "La viga está colocada y nada dice quién la puso. Tu trabajo sostendrá la pirámide durante milenios, de forma anónima."
+      }
+    },
+    {
+      "id": "tomorrow",
+      "when": {},
+      "title": {
+        "en": "Tomorrow, Perhaps",
+        "es": "Mañana, quizá"
+      },
+      "description": {
+        "en": "The sun sets over the western desert with the beam still waiting. Pyramids are built one slow day at a time.",
+        "es": "El sol se pone sobre el desierto occidental con la viga aún esperando. Las pirámides se construyen día a día, despacio."
+      }
+    }
+  ],
+  "objectivesPool": [
+    {
+      "id": "set-beam",
+      "description": {
+        "en": "Set the granite beam",
+        "es": "Coloca la viga de granito"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "beam-set"
+      }
+    },
+    {
+      "id": "gang-mark",
+      "description": {
+        "en": "Leave your gang's mark",
+        "es": "Deja la marca de tu cuadrilla"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "gang-mark"
+      }
+    },
+    {
+      "id": "tomb",
+      "description": {
+        "en": "Earn a tomb at Giza",
+        "es": "Gánate una tumba en Giza"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "tomb-granted"
+      }
+    },
+    {
+      "id": "no-injuries",
+      "description": {
+        "en": "Never let crew health drop below 60",
+        "es": "Que la salud de la cuadrilla nunca baje de 60"
+      },
+      "check": {
+        "type": "resourceNeverBelow",
+        "resource": "health",
+        "value": 60
+      }
+    },
+    {
+      "id": "happy-gang",
+      "description": {
+        "en": "End the day with morale at 70",
+        "es": "Termina el día con el ánimo en 70"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "morale",
+        "value": 70
+      }
+    },
+    {
+      "id": "favour",
+      "description": {
+        "en": "Earn 60 of Hemiunu's favour",
+        "es": "Gana 60 de favor de Hemiunu"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "reputation",
+        "value": 60
+      }
+    },
+    {
+      "id": "water-trick",
+      "description": {
+        "en": "Move the beam on wet sand",
+        "es": "Mueve la viga sobre arena mojada"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "wet-sand"
+      }
+    },
+    {
+      "id": "patched",
+      "description": {
+        "en": "Find and patch the crack",
+        "es": "Encuentra y repara la grieta"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "crack-patched"
+      }
+    }
+  ],
+  "metaAchievements": [
+    {
+      "id": "beloved-overseer",
+      "title": {
+        "en": "Beloved Overseer",
+        "es": "Capataz querido"
+      },
+      "description": {
+        "en": "Gather 300 morale across playthroughs.",
+        "es": "Acumula 300 de ánimo a lo largo de varias partidas."
+      },
+      "accumulates": "morale",
+      "threshold": 300
+    },
+    {
+      "id": "vizier-friend",
+      "title": {
+        "en": "Friend of the Vizier",
+        "es": "Amigo del visir"
+      },
+      "description": {
+        "en": "Earn 300 of Hemiunu's favour across playthroughs.",
+        "es": "Gana 300 de favor de Hemiunu a lo largo de varias partidas."
+      },
+      "accumulates": "reputation",
+      "threshold": 300
+    }
+  ],
+  "memories": {
+    "flags": [],
+    "counters": [
+      "hemiunuFavour",
+      "mererTrust",
+      "tiaBond"
+    ]
+  }
+}
