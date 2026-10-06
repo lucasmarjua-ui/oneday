@@ -13,6 +13,13 @@ const ICONS = {
   focus: { rows: ['..kkk..', '.kwwwk.', 'kwkbkwk', 'kwbbbwk', 'kwkbkwk', '.kwwwk.', '..kkk..'], pal: { k: '#14203a', w: '#e6f0ff', b: '#4f8cff' } },
   samples: { rows: ['..kkk..', '.kgggk.', 'kgwgggk', 'kgggGgk', 'kgGgggk', '.kkkkk.'], pal: { k: '#26262a', g: '#a9a9a4', G: '#7c7c78', w: '#e4e4e0' } },
   morale: { rows: ['.kkkkk.', 'kyyyyyk', 'kykykyk', 'kyyyyyk', 'kykkkyk', 'kyyyyyk', '.kkkkk.'], pal: { k: '#3a2a05', y: '#ffd84a' } },
+  peace: { rows: ['..kk...', '.kwwk..', 'kwwwwkk', '.kwwwwwk', '..kwwwk.', '...kkk..'], pal: { k: '#1d2a3a', w: '#f4f6ff' } },
+  voice: { rows: ['.kkkkkk.', 'kwwwwwwk', 'kwkwkwwk', 'kwwwwwwk', '.kkwkkk.', '..kk....'], pal: { k: '#2a2230', w: '#ffe9c4' } },
+  favour: { rows: ['....kk', '...kgk', '..kggk', '.kggk.', 'kgGk..', 'kGk...', 'kk....'], pal: { k: '#0f2a22', g: '#3fcf9a', G: '#2a9a72' } },
+  insight: { rows: ['kkkkkkk', 'kwwkwwk', 'kwbkwbk', 'kwwkwwk', 'kwbkwbk', 'kkkkkkk'], pal: { k: '#2a1e10', w: '#f3e3bf', b: '#8a6a45' } },
+  courage: { rows: ['kkkkkkk', 'kbbybbk', 'kbyyybk', 'kbbybbk', '.kbbbk.', '..kbk..', '...k...'], pal: { k: '#14203a', b: '#4f6fa8', y: '#ffd84a' } },
+  supplies: { rows: ['kkkkkkk', 'kwwrwwk', 'kwrrrwk', 'kwwrwwk', 'kwwwwwk', 'kkkkkkk'], pal: { k: '#3a0f1c', w: '#f4f4f1', r: '#e03a3a' } },
+  saved: { rows: ['..kkk..', '..kwk..', 'kkkwkkk', 'kwwwwwk', 'kkkwkkk', '..kwk..', '..kkk..'], pal: { k: '#0e2a16', w: '#7dff9b' } },
   scroll: { rows: ['kkkkkkk', 'kwwwwwk', '.kbbbk.', '.kwwwk.', '.kbbbk.', 'kwwwwwk', 'kkkkkkk'], pal: { k: '#3a2a10', w: '#f3e3bf', b: '#b08a52' } },
   cursor: { rows: ['k....', 'kk...', 'kyk..', 'kyyk.', 'kyyyk', 'kyyk.', 'kyk..', 'kk...', 'k....'], pal: { k: '#14111c', y: 'currentColor' } },
   menu: { rows: ['wwwwwww', '.......', 'wwwwwww', '.......', 'wwwwwww'], pal: { w: 'currentColor' } },
@@ -24,7 +31,7 @@ const ICONS = {
   next: { rows: ['wwwww', '.www.', '..w..'], pal: { w: 'currentColor' } },
 };
 
-const RESOURCE_ICON = { energy: 'energy', health: 'health', hunger: 'hunger', thirst: 'thirst', currency: 'currency', reputation: 'reputation', survival: 'survival', oxygen: 'oxygen', fuel: 'fuel', focus: 'focus', samples: 'samples', morale: 'morale' };
+const RESOURCE_ICON = { energy: 'energy', health: 'health', hunger: 'hunger', thirst: 'thirst', currency: 'currency', reputation: 'reputation', survival: 'survival', oxygen: 'oxygen', fuel: 'fuel', focus: 'focus', samples: 'samples', morale: 'morale', peace: 'peace', voice: 'voice', favour: 'favour', insight: 'insight', courage: 'courage', supplies: 'supplies', saved: 'saved' };
 
 /** An inline SVG for `name`, `scale` CSS pixels per icon pixel. */
 export function icon(name, scale = 2, className = 'px-icon') {

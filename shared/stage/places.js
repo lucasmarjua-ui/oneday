@@ -18,6 +18,18 @@ export const SCENES = {
     quarry: { kind: 'island', size: 9, entrance: [-3, 4], crowd: 3 },
     pyramid: { kind: 'island', size: 12, entrance: [-6, 5], crowd: 4, showcase: true },
   },
+  tenochtitlan: {
+    chamber: { kind: 'room', size: [7, 6], interior: true, entrance: [1.5, 1.5], cast: [] },
+    causeway: { kind: 'island', size: 11, entrance: [-6, 5], crowd: 4 },
+    city: { kind: 'island', size: 10, entrance: [-5, 4], crowd: 4, showcase: true },
+    palace: { kind: 'room', size: [8, 7], interior: true, entrance: [2, 2], cast: ['npc-aguilar'] },
+  },
+  'd-day': {
+    hold: { kind: 'room', size: [7, 6], interior: true, entrance: [1.5, 1.5], cast: ['npc-eddie', 'npc-sarge'] },
+    boat: { kind: 'island', size: 9, entrance: [0, 0], cast: ['npc-sarge', 'npc-eddie'], crowdColors: ['#6b6648'] },
+    beach: { kind: 'island', size: 12, entrance: [4, 4], crowd: 4, crowdColors: ['#6b6648', '#7a7556', '#5e5a40'], showcase: true },
+    bluff: { kind: 'island', size: 10, entrance: [-4, 4], crowd: 3, crowdColors: ['#6b6648', '#7a7556', '#5e5a40'] },
+  },
 };
 
 // Which NPCs are physically present in which scenes. Anyone else speaks over
@@ -25,6 +37,8 @@ export const SCENES = {
 export const NPC_SCENES = {
   'apollo-11': { 'npc-neil': ['columbia', 'eagle', 'surface'], 'npc-collins': ['columbia'], 'npc-houston': [] },
   giza: { 'npc-hemiunu': ['village', 'pyramid'], 'npc-merer': ['harbour'], 'npc-tia': ['village', 'pyramid', 'quarry'] },
+  tenochtitlan: { 'npc-cortes': ['chamber', 'causeway', 'city', 'palace'], 'npc-moctezuma': ['causeway', 'city', 'palace'], 'npc-aguilar': ['chamber', 'causeway', 'city', 'palace'] },
+  'd-day': { 'npc-sarge': ['hold', 'boat', 'beach', 'bluff'], 'npc-eddie': ['hold', 'boat', 'beach'], 'npc-cota': ['beach', 'bluff'] },
 };
 
 export const PLACES = {
@@ -43,6 +57,21 @@ export const PLACES = {
     { id: 'quarry', scene: 'quarry', label: { en: 'The quarry', es: 'La cantera' }, pos: [0, 1], keywords: ['quarry', 'cubit'] },
     { id: 'ramp-foot', scene: 'pyramid', label: { en: 'Foot of the ramp', es: 'Pie de la rampa' }, pos: [-3, 4], keywords: ['sledge', 'ramp', 'heat', 'north', 'boat-pit', 'accident'] },
     { id: 'summit', scene: 'pyramid', label: { en: 'Above the King\'s Chamber', es: 'Sobre la Cámara del Rey' }, pos: [2, -2], y: 5.5, via: [-2.4, 3.3], keywords: ['crack', 'set', 'graffiti', 'tomb', 'sunset'] },
+  ],
+  tenochtitlan: [
+    { id: 'chamber', scene: 'chamber', label: { en: 'Palace of Iztapalapa', es: 'Palacio de Iztapalapa' }, pos: [-1, -1], keywords: ['wake', 'allies', 'cortes-quetzal', 'aguilar-1', 'memory', 'envoy'] },
+    { id: 'causeway', scene: 'causeway', label: { en: 'The Iztapalapa causeway', es: 'La calzada de Iztapalapa' }, pos: [-1, 1], keywords: ['causeway', 'chinampas', 'canoes', 'horses', 'aguilar-2', 'retreat'] },
+    { id: 'xoloc', scene: 'causeway', label: { en: 'Xoloc, where the causeways meet', es: 'Xoloc, donde se unen las calzadas' }, pos: [2.5, -2], keywords: ['meeting', 'necklaces', 'painters', 'name'] },
+    { id: 'streets', scene: 'city', label: { en: 'The streets of Tenochtitlan', es: 'Las calles de Tenochtitlan' }, pos: [0, 1.5], keywords: ['templo', 'aqueduct', 'cholula'] },
+    { id: 'hall', scene: 'palace', label: { en: 'Palace of Axayacatl', es: 'Palacio de Axayácatl' }, pos: [-1, -1.2], keywords: ['lodged', 'speech', 'seize', 'cannons', 'cacao', 'feast', 'night'] },
+  ],
+  'd-day': [
+    { id: 'bunk', scene: 'hold', label: { en: 'Troopship, English Channel', es: 'Transporte de tropas, canal de la Mancha' }, pos: [-1, -1], keywords: ['wake', 'breakfast', 'order', 'sarge-brief', 'eddie-bedford', 'load'] },
+    { id: 'boat', scene: 'boat', label: { en: 'Landing craft, off Omaha', es: 'Lancha de desembarco, frente a Omaha' }, pos: [0, 0], keywords: ['run-in', 'tanks', 'bombers', 'ramp', 'swim-back'] },
+    { id: 'surf', scene: 'beach', label: { en: 'Dog Green, the tide line', es: 'Dog Green, la orilla' }, pos: [2.5, 2.5], keywords: ['obstacles', 'drowning', 'eddie-hit'] },
+    { id: 'bluff-top', scene: 'bluff', label: { en: 'Top of the bluffs', es: 'Lo alto de los acantilados' }, pos: [0, 1], keywords: ['climb', 'prisoners', 'rommel', 'vierville', 'hedgerow', 'dusk'] },
+    { id: 'shingle', scene: 'beach', label: { en: 'The shingle and the seawall', es: 'Los guijarros y el muro' }, pos: [-0.4, -0.4], keywords: ['seawall', 'cota', 'bangalore', 'destroyers', 'rangers'] },
+    { id: 'aid', scene: 'bluff', label: { en: 'Battalion aid station', es: 'Puesto de socorro del batallón' }, pos: [-2.5, -1.5], keywords: ['aid-station'] },
   ],
 };
 

@@ -6,7 +6,7 @@
 [![Live demo](https://img.shields.io/badge/demo-live-brightgreen)](https://lucasmarjua-ui.github.io/oneday/)
 ![Build step: none](https://img.shields.io/badge/build_step-none-orange)
 
-OneDay is a historical decision game played on a **3D pixel-art stage**. Each event is **one real day from history, lived from inside**: you are Buzz Aldrin waking up in lunar orbit on 20 July 1969, or Nefer, overseer of a work gang at Giza in 2560 BC, woken by a ram's horn on the day the last granite beam goes over the King's Chamber. Every day starts in your bedroom with the alarm ringing, then moves through the scenes of that day (a capsule, a lunar module, the Moon; a workers' town, a harbour, a quarry, the pyramid's ramp). Every option costs hours and resources and is acted out on stage.
+OneDay is a historical decision game played on a **3D pixel-art stage**. Each event is **one real day from history, lived from inside**: you are Buzz Aldrin waking up in lunar orbit on 20 July 1969; Nefer, overseer of a work gang at Giza in 2560 BC, woken by a ram's horn on the day the last granite beam goes over the King's Chamber; Malintzin, the interpreter on whose words the meeting of Cortés and Moctezuma hangs in 1519; or a combat medic woken by the klaxon of a troopship off Omaha Beach on D-Day. Every day starts in your bedroom with the alarm ringing, then moves through the scenes of that day (a capsule, a lunar module, the Moon; a workers' town, a harbour, a quarry, the pyramid's ramp; a causeway across a lake into the Mexica capital; a landing craft, the beach, the bluffs). Every option costs hours and resources and is acted out on stage.
 
 It is meant to **teach while you play**: almost every moment carries a short *historical note* about what really happened there, and the end of the day tells you the real story. And history is not fixed: each event has **one historical ending and several alternative ones** (run out of fuel over the boulders, abort the landing, hide a cracked beam...), to be found and collected, along with every fact.
 
@@ -32,6 +32,14 @@ Built with HTML, CSS and vanilla JavaScript plus [three.js](https://threejs.org)
   <tr>
     <td><sub>The workers' town at Giza: the vizier Hemiunu brings the day's orders. Today's objectives are tracked live on the left.</sub></td>
     <td><sub>Nightfall on the pyramid: one of seven endings, the real story behind the day, and your collection.</sub></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/causeway-tenochtitlan.png" alt="Malintzin and Aguilar on the causeway to Tenochtitlan, among canoes and floating gardens"></td>
+    <td><img src="screenshots/beach-d-day.png" alt="A combat medic among the obstacles of Omaha Beach"></td>
+  </tr>
+  <tr>
+    <td><sub>Tenochtitlan, 1519: on the causeway with Aguilar, between canoes and chinampas, deciding how to translate Cortés's greeting.</sub></td>
+    <td><sub>Omaha Beach, 1944: hedgehogs, mined stakes and the shingle ahead, the tide coming in behind.</sub></td>
   </tr>
 </table>
 
@@ -132,6 +140,8 @@ Events are added **one at a time**, each researched and written as a whole: a da
 |---|---|---|---|
 | **Apollo 11** | 20 July 1969, the Sea of Tranquility | Buzz Aldrin, Lunar Module Pilot | 8: the real landing at Tranquility Base, plus running out of fuel, losing oxygen, aborting, landing in West crater... |
 | **The Great Pyramid** | c. 2560 BC, Giza | Nefer, overseer of the "Friends of Khufu" gang | 7: the gang's name painted over the King's Chamber, plus a hidden crack, a walk-off, a tomb of your own... |
+| **Tenochtitlan** | 8 November 1519, Lake Texcoco | Malintzin, the interpreter between Cortés and Moctezuma | 6: the Spaniards lodged as guests in Axayacatl's palace, plus turning back, an honest peace, Moctezuma seized the same night, bloodshed on the causeway... |
+| **D-Day: Omaha Beach** | 6 June 1944, Normandy | Ray Novak, a combat medic of the 116th Infantry | 6: a toehold on the bluffs by nightfall, plus being swamped offshore, wounded, pinned at the shingle, a medal... |
 
 How an event is put together (`data/eras/<id>/`):
 
@@ -141,7 +151,7 @@ How an event is put together (`data/eras/<id>/`):
 
 ## The stage: a 3D pixel-art diorama
 
-Every event is told across **several scenes**, each its own diorama (`shared/stage/worlds.js`): cut-away **rooms** (Columbia's cabin with its couches, consoles and a floating pen; Eagle's cramped cockpit with the guidance computer; a mud-brick house at Giza) and floating voxel **islands** (the grey lunar surface with the gold-foil lander, the flag, the experiments and the Earth in a black sky; the workers' town with its bakery ovens; the harbour basin with the granite barge; the quarry terraces; the stepped pyramid with a mud-brick ramp the character actually climbs). The stage fades between scenes as the day moves on, the outfit changes (a helmet with a gold visor on the Moon), crewmates stand in the cabin, crowds of workers mill about, and anyone not physically there speaks as a voice (Houston on the radio).
+Every event is told across **several scenes**, each its own diorama (`shared/stage/worlds.js`): cut-away **rooms** (Columbia's cabin with its couches, consoles and a floating pen; Eagle's cramped cockpit with the guidance computer; a mud-brick house at Giza; a painted hall in Cuitlahuac's palace and the palace of Axayacatl; a troopship's hold with bunks five high) and floating voxel **islands** (the grey lunar surface with the gold-foil lander, the flag, the experiments and the Earth in a black sky; the workers' town with its bakery ovens; the harbour basin with the granite barge; the quarry terraces; the stepped pyramid with a mud-brick ramp the character actually climbs; the Iztapalapa causeway between floating gardens and canoes, with Moctezuma's feathered canopy at Xoloc; Tenochtitlan's streets under the twin shrines of the Templo Mayor; a landing craft pitching in the Channel; Omaha's hedgehogs, shingle and bluffs; hedgerows and an aid station above the beach). The stage fades between scenes as the day moves on, the outfit changes (a helmet with a gold visor on the Moon), crewmates stand in the cabin, crowds of workers mill about, and anyone not physically there speaks as a voice (Houston on the radio).
 
 **How it is made to look like hand-placed pixel art** (`shared/stage/stage.js`):
 
@@ -215,7 +225,7 @@ tests/*.test.js                Node's built-in test runner, no test framework
 
 ## Testing
 
-**174 tests**, zero test-framework dependencies, using Node's built-in test runner.
+**210 tests**, zero test-framework dependencies, using Node's built-in test runner.
 
 ```bash
 npm test
@@ -261,13 +271,13 @@ The Firebase SDK is loaded from Google's CDN with a dynamic `import()` (see `sha
 
 **Seeded RNG as a first-class dependency.** Every random draw takes an explicit `rng` argument; nothing calls `Math.random()`. That is what makes the Daily Challenge and the determinism tests possible.
 
-**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (56 decision cards across two events, 174 tests).
+**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (108 decision cards across four events, 210 tests).
 
 ## Known gaps
 
 - **Email/Password sign-in is not enabled yet in the live Firebase project**, so on the live site every account-gated feature silently behaves like guest mode.
 - **Walks are straight lines.** Characters do not pathfind around props, so on rare cards they brush through one.
-- **Two events so far.** More (Tenochtitlan 1519, D-Day, the fall of the Berlin Wall...) will be added one at a time.
+- **Four events so far.** More (the fall of the Berlin Wall, Columbus in 1492...) will be added one at a time.
 - **The downloadable result card still uses the previous print design**, not the pixel style.
 - **No global all-time leaderboard for free play** — only the Daily Challenge has one.
 - **No achievements showcase.** Meta-achievement progress is tracked and unlockable but there is no gallery view.

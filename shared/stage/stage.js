@@ -471,7 +471,8 @@ export async function createStage(container, { eraId, mode = 'play', onStep, npc
     if (!reducedMotion()) {
       const spots = [sceneConfig.entrance || [0, 0], ...scenePlaces.map(place => place.pos)];
       for (let i = 0; i < (sceneConfig.crowd || 0); i++) {
-        const palette = { ...npcPalette(crowdColors[i % crowdColors.length], eraId), ...SKIN_TONES[(i + 1) % SKIN_TONES.length] };
+        const colors = sceneConfig.crowdColors || crowdColors;
+        const palette = { ...npcPalette(colors[i % colors.length], eraId), ...SKIN_TONES[(i + 1) % SKIN_TONES.length] };
         const walker = new Actor(stage, palette, { parent: root });
         const [x, z] = spots[i % spots.length];
         walker.position.set(x + 1.6 - (i % 2) * 3, 0, z + 1.2);

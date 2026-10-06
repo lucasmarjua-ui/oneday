@@ -1,0 +1,3050 @@
+[
+  {
+    "id": "dday-wake",
+    "text": {
+      "en": "The alarm klaxon screams through the hold. Bunks five high, two hundred men, the smell of diesel and fear. A voice on the loudspeaker: \"Now hear this. All troops, breakfast.\" It is three in the morning.",
+      "es": "La sirena de alarma chilla en la bodega. Literas de cinco alturas, doscientos hombres, olor a gasoil y a miedo. Una voz por los altavoces: \"Atención. Todas las tropas, a desayunar\". Son las tres de la madrugada."
+    },
+    "timeSlots": [
+      "ship"
+    ],
+    "weight": 100,
+    "fact": {
+      "en": "D-Day had been planned for 5 June, but storms forced a delay. On the forecast of his meteorologist, Group Captain James Stagg, General Eisenhower gave the order to go on the 6th.",
+      "es": "El Día D estaba previsto para el 5 de junio, pero las tormentas obligaron a aplazarlo. Con el pronóstico de su meteorólogo, el capitán de grupo James Stagg, el general Eisenhower dio la orden para el día 6."
+    },
+    "options": [
+      {
+        "id": "check-kit",
+        "text": {
+          "en": "Check your medical kit, item by item",
+          "es": "Revisa el botiquín, pieza por pieza"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "supplies": 5
+          },
+          "text": {
+            "en": "Morphine syrettes, sulfa packets, field dressings, tourniquets, tags. All there. Your hands stop shaking.",
+            "es": "Jeringas de morfina, sobres de sulfamida, apósitos, torniquetes, etiquetas. Todo está. Tus manos dejan de temblar."
+          }
+        }
+      },
+      {
+        "id": "wake-eddie",
+        "text": {
+          "en": "Wake Eddie in the bunk above",
+          "es": "Despierta a Eddie en la litera de arriba"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "eddie-met"
+          ],
+          "countersAdd": {
+            "eddieBond": 1
+          },
+          "text": {
+            "en": "\"Doc. Is it today?\" It is today.",
+            "es": "\"Doc, ¿es hoy?\" Es hoy."
+          }
+        }
+      },
+      {
+        "id": "lie-still",
+        "text": {
+          "en": "Lie still another minute",
+          "es": "Quédate tumbado un minuto más"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 10
+          },
+          "text": {
+            "en": "One more minute of being nineteen and somewhere safe.",
+            "es": "Un minuto más de tener diecinueve años y estar a salvo."
+          }
+        }
+      }
+    ],
+    "alarm": true
+  },
+  {
+    "id": "dday-breakfast",
+    "text": {
+      "en": "In the mess, the cooks have made a big breakfast. Half the men cannot face it; the ship is rolling hard.",
+      "es": "En el comedor, los cocineros han preparado un gran desayuno. La mitad de los hombres no puede ni mirarlo; el barco se balancea mucho."
+    },
+    "timeSlots": [
+      "ship"
+    ],
+    "weight": 6,
+    "fact": {
+      "en": "Troops were issued seasickness pills before the crossing, but the sea was so rough that many men were violently sick in the landing craft, hours before reaching the beach.",
+      "es": "A las tropas se les dieron pastillas contra el mareo antes de la travesía, pero el mar estaba tan agitado que muchos hombres vomitaron en las lanchas horas antes de llegar a la playa."
+    },
+    "options": [
+      {
+        "id": "eat",
+        "text": {
+          "en": "Eat everything you can",
+          "es": "Come todo lo que puedas"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.6,
+          "resourceBonus": {
+            "resource": "courage",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "energy": 15
+          },
+          "text": {
+            "en": "It stays down. You will be glad of it by noon.",
+            "es": "Se queda dentro. A mediodía lo agradecerás."
+          }
+        },
+        "failure": {
+          "resources": {
+            "energy": -5,
+            "courage": -5
+          },
+          "text": {
+            "en": "It does not stay down.",
+            "es": "No se queda dentro."
+          }
+        }
+      },
+      {
+        "id": "coffee",
+        "text": {
+          "en": "Just coffee and a slice of bread",
+          "es": "Solo café y una rebanada de pan"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 8
+          },
+          "text": {
+            "en": "Enough to keep you going, not enough to lose.",
+            "es": "Suficiente para aguantar, no tanto como para perderlo."
+          }
+        }
+      },
+      {
+        "id": "pills",
+        "text": {
+          "en": "Hand out seasickness pills to your section",
+          "es": "Reparte pastillas contra el mareo a tu sección"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -5
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "countersAdd": {
+            "sargeTrust": 1
+          },
+          "text": {
+            "en": "Twenty grateful, green-faced men.",
+            "es": "Veinte hombres agradecidos, con la cara verde."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-order",
+    "text": {
+      "en": "Each man has been given a printed message from General Eisenhower. It begins: \"You are about to embark upon the Great Crusade, toward which we have striven these many months.\"",
+      "es": "Cada hombre ha recibido un mensaje impreso del general Eisenhower. Empieza: \"Estáis a punto de emprender la Gran Cruzada, por la que hemos luchado durante tantos meses\"."
+    },
+    "timeSlots": [
+      "ship"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "Eisenhower's 'Order of the Day' was handed to every soldier, sailor and airman of the invasion. He also wrote a note, never used, taking full blame in case the landings failed.",
+      "es": "La 'Orden del Día' de Eisenhower se entregó a cada soldado, marinero y aviador de la invasión. También escribió una nota, que nunca usó, asumiendo toda la culpa si el desembarco fracasaba."
+    },
+    "options": [
+      {
+        "id": "read-aloud",
+        "text": {
+          "en": "Read it aloud to the men around you",
+          "es": "Léelo en voz alta a los hombres de alrededor"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10,
+            "energy": -3
+          },
+          "text": {
+            "en": "\"The eyes of the world are upon you.\" Some men laugh. Most go quiet.",
+            "es": "\"Los ojos del mundo están puestos en vosotros\". Algunos se ríen. La mayoría se queda en silencio."
+          }
+        }
+      },
+      {
+        "id": "pocket",
+        "text": {
+          "en": "Fold it into your helmet liner",
+          "es": "Dóblalo dentro del casco"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "Something to read later, if there is a later.",
+            "es": "Algo para leer después, si hay un después."
+          }
+        }
+      },
+      {
+        "id": "letters",
+        "text": {
+          "en": "Write a last letter home on the back",
+          "es": "Escribe una última carta a casa en el reverso"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3,
+            "energy": 3
+          },
+          "text": {
+            "en": "\"Dear Mom.\" You stop there for a long time.",
+            "es": "\"Querida mamá\". Te quedas ahí mucho rato."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-sarge-brief",
+    "npcId": "npc-sarge",
+    "threadId": "sarge-thread",
+    "text": {
+      "en": "Sergeant Kowalski kneels beside you with the map. \"Dog Green. Bluffs here, a draw there to Vierville. Doc, when we hit the sand, nobody stops. You stop for nobody until we're at the seawall. Understood?\"",
+      "es": "El sargento Kowalski se arrodilla a tu lado con el mapa. \"Dog Green. Acantilados aquí, una vaguada allí hacia Vierville. Doc, cuando toquemos arena nadie se para. Tú no te paras por nadie hasta el muro. ¿Entendido?\""
+    },
+    "timeSlots": [
+      "ship",
+      "run-in"
+    ],
+    "weight": 6,
+    "fact": {
+      "en": "Omaha Beach was divided into sectors with code names such as Dog Green, Easy Red and Fox Green. Five valleys, called 'draws', were the only ways vehicles could leave the beach.",
+      "es": "Omaha Beach estaba dividida en sectores con nombres en clave como Dog Green, Easy Red o Fox Green. Cinco valles, llamados 'draws', eran las únicas salidas de la playa para los vehículos."
+    },
+    "options": [
+      {
+        "id": "yes-sarge",
+        "text": {
+          "en": "\"Understood, Sarge.\"",
+          "es": "\"Entendido, sargento\""
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "countersAdd": {
+            "sargeTrust": 2
+          },
+          "text": {
+            "en": "He claps your helmet. \"Good man.\"",
+            "es": "Te da una palmada en el casco. \"Buen chico\"."
+          }
+        }
+      },
+      {
+        "id": "argue",
+        "text": {
+          "en": "\"I'm a medic. I stop for the wounded.\"",
+          "es": "\"Soy sanitario. Me paro por los heridos\""
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "countersAdd": {
+            "sargeTrust": 1
+          },
+          "text": {
+            "en": "He looks at you a long time. \"Then don't get yourself killed doing it.\"",
+            "es": "Te mira un buen rato. \"Entonces no te mates haciéndolo\"."
+          }
+        }
+      },
+      {
+        "id": "study-map",
+        "text": {
+          "en": "Study the map: where's the cover?",
+          "es": "Estudia el mapa: ¿dónde hay cobertura?"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "knows-map"
+          ],
+          "countersAdd": {
+            "sargeTrust": 1
+          },
+          "text": {
+            "en": "The shingle bank, the seawall, the burned-out houses at the draw. You memorise them.",
+            "es": "El banco de guijarros, el muro, las casas quemadas de la vaguada. Te los aprendes."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-load",
+    "text": {
+      "en": "\"Away all boats!\" You climb down a rope net into a landing craft heaving on the black sea. It rises and drops two metres with every wave. You are eighteen kilometres from France.",
+      "es": "\"¡Arriad las lanchas!\" Bajas por una red de cuerda hasta una lancha de desembarco que se bambolea en el mar negro. Sube y baja dos metros con cada ola. Estás a dieciocho kilómetros de Francia."
+    },
+    "timeSlots": [
+      "ship",
+      "run-in"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsExcluded": [
+        "boarded"
+      ]
+    },
+    "fact": {
+      "en": "To stay out of range of German coastal guns, the American transports off Omaha anchored about 18 km (11 miles) offshore, so the run-in to the beach in small landing craft took around three hours.",
+      "es": "Para quedar fuera del alcance de los cañones costeros alemanes, los transportes estadounidenses frente a Omaha fondearon a unos 18 km (11 millas) de la costa, así que la aproximación en lanchas duraba unas tres horas."
+    },
+    "options": [
+      {
+        "id": "time-jump",
+        "text": {
+          "en": "Time the swell and jump",
+          "es": "Calcula la ola y salta"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.7,
+          "resourceBonus": {
+            "resource": "energy",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "boarded"
+          ],
+          "text": {
+            "en": "You land on your feet in the bottom of the boat.",
+            "es": "Caes de pie en el fondo de la lancha."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -10
+          },
+          "flagsSet": [
+            "boarded"
+          ],
+          "text": {
+            "en": "You land hard on the steel. Your knee screams.",
+            "es": "Caes de golpe sobre el acero. Tu rodilla grita."
+          }
+        }
+      },
+      {
+        "id": "help-down",
+        "text": {
+          "en": "Help the heavily loaded men down first",
+          "es": "Ayuda primero a bajar a los más cargados"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "boarded"
+          ],
+          "countersAdd": {
+            "sargeTrust": 1
+          },
+          "text": {
+            "en": "Thirty kilos of gear each. You steady every one of them.",
+            "es": "Treinta kilos de equipo cada uno. Los sujetas a todos."
+          }
+        }
+      },
+      {
+        "id": "climb-slow",
+        "text": {
+          "en": "Climb down slowly, three points of contact",
+          "es": "Baja despacio, siempre con tres apoyos"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": -5
+          },
+          "flagsSet": [
+            "boarded"
+          ],
+          "text": {
+            "en": "Slow is smooth, smooth is fast.",
+            "es": "Despacio es suave, suave es rápido."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-run-in",
+    "text": {
+      "en": "The landing craft pounds through the waves towards the dark line of the coast. Spray soaks everyone. Water is rising around your boots.",
+      "es": "La lancha golpea las olas rumbo a la línea oscura de la costa. La espuma empapa a todos. El agua sube alrededor de tus botas."
+    },
+    "timeSlots": [
+      "run-in",
+      "beach"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "boarded"
+      ],
+      "flagsExcluded": [
+        "run-in"
+      ]
+    },
+    "fact": {
+      "en": "Waves off Omaha were around 1.5 to 2 metres high. Several landing craft were swamped and sank on the way in, and the men on board, carrying heavy loads, struggled to stay afloat in their life belts.",
+      "es": "Las olas frente a Omaha medían entre 1,5 y 2 metros. Varias lanchas se anegaron y se hundieron en la aproximación, y los hombres a bordo, muy cargados, luchaban por mantenerse a flote con sus salvavidas."
+    },
+    "options": [
+      {
+        "id": "bail",
+        "text": {
+          "en": "Bail with your helmet, and get others bailing",
+          "es": "Achica con el casco y pon a otros a achicar"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 0.85,
+          "resourceBonus": {
+            "resource": "energy",
+            "scale": 0.2
+          }
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "run-in"
+          ],
+          "text": {
+            "en": "Twenty helmets going. The water level drops. The boat keeps going.",
+            "es": "Veinte cascos achicando. El nivel baja. La lancha sigue."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -15,
+            "courage": -10
+          },
+          "flagsSet": [
+            "run-in",
+            "swamped"
+          ],
+          "text": {
+            "en": "A wave breaks over the side, then another. The boat settles, and goes under.",
+            "es": "Una ola rompe por la borda, luego otra. La lancha se asienta y se hunde."
+          }
+        }
+      },
+      {
+        "id": "keep-dry",
+        "text": {
+          "en": "Keep your medical kit dry above your head",
+          "es": "Mantén el botiquín seco por encima de la cabeza"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "supplies": 5,
+            "energy": -5
+          },
+          "flagsSet": [
+            "run-in"
+          ],
+          "text": {
+            "en": "Everything else is soaked. The morphine is not.",
+            "es": "Todo lo demás está empapado. La morfina no."
+          }
+        }
+      },
+      {
+        "id": "sick-men",
+        "text": {
+          "en": "Help the seasick men",
+          "es": "Atiende a los mareados"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -3
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "run-in"
+          ],
+          "text": {
+            "en": "Not glamorous medicine, but medicine.",
+            "es": "No es una medicina gloriosa, pero es medicina."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-tanks",
+    "text": {
+      "en": "To your left, strange tanks wallow in the sea, held up by canvas screens. One by one, the waves fold the screens and the tanks vanish under the water.",
+      "es": "A tu izquierda, unos tanques extraños chapotean en el mar, sostenidos por pantallas de lona. Uno a uno, las olas doblan las lonas y los tanques desaparecen bajo el agua."
+    },
+    "timeSlots": [
+      "run-in"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "'DD' tanks floated with canvas screens and propellers. Off the eastern half of Omaha, 29 were launched in heavy seas and 27 sank. On the western half they were wisely landed straight onto the beach.",
+      "es": "Los tanques 'DD' flotaban con pantallas de lona y hélices. Frente a la mitad este de Omaha se botaron 29 con mar gruesa y 27 se hundieron. En la mitad oeste, con buen criterio, se desembarcaron directamente en la playa."
+    },
+    "options": [
+      {
+        "id": "shout",
+        "text": {
+          "en": "Yell at the coxswain to pick up the crews",
+          "es": "Grita al timonel que recoja a las tripulaciones"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 2,
+            "energy": -5,
+            "courage": 3
+          },
+          "text": {
+            "en": "He swerves and you haul two half-drowned tankers aboard.",
+            "es": "Da un volantazo y subís a bordo a dos tanquistas medio ahogados."
+          }
+        }
+      },
+      {
+        "id": "look-away",
+        "text": {
+          "en": "Look away; there is nothing you can do",
+          "es": "Aparta la vista; no puedes hacer nada"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": -3,
+            "energy": 3
+          },
+          "text": {
+            "en": "You fix your eyes on the bottom of the boat.",
+            "es": "Clavas la vista en el fondo de la lancha."
+          }
+        }
+      },
+      {
+        "id": "note-tanks",
+        "text": {
+          "en": "Count how many make it",
+          "es": "Cuenta cuántos lo consiguen"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": -5
+          },
+          "flagsSet": [
+            "knows-tanks"
+          ],
+          "text": {
+            "en": "Very few. The beach will have almost no tanks.",
+            "es": "Muy pocos. La playa casi no tendrá tanques."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-bombers",
+    "text": {
+      "en": "Hundreds of bombers roar overhead towards the coast. Thunder rolls back across the water. But through the clouds, you see the bombs falling far behind the bluffs.",
+      "es": "Cientos de bombarderos rugen sobre vuestras cabezas hacia la costa. El trueno vuelve rodando por el agua. Pero entre las nubes ves caer las bombas muy por detrás de los acantilados."
+    },
+    "timeSlots": [
+      "run-in"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "Because of low cloud, the heavy bombers over Omaha delayed their release to avoid hitting the landing craft. Most bombs landed several kilometres inland, leaving the beach defences almost untouched.",
+      "es": "Por las nubes bajas, los bombarderos pesados sobre Omaha retrasaron el lanzamiento para no alcanzar a las lanchas. La mayoría de las bombas cayeron varios kilómetros tierra adentro y las defensas de la playa quedaron casi intactas."
+    },
+    "options": [
+      {
+        "id": "cheer",
+        "text": {
+          "en": "Cheer with the others",
+          "es": "Vitorea con los demás"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8
+          },
+          "text": {
+            "en": "For a minute everyone believes the beach will be empty.",
+            "es": "Durante un minuto todos creen que la playa estará vacía."
+          }
+        }
+      },
+      {
+        "id": "say-nothing",
+        "text": {
+          "en": "Say nothing about where the bombs fell",
+          "es": "No digas nada de dónde caen las bombas"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "text": {
+            "en": "No point taking hope away now.",
+            "es": "No tiene sentido quitarles la esperanza ahora."
+          }
+        }
+      },
+      {
+        "id": "warn-sarge",
+        "text": {
+          "en": "Tell Kowalski quietly what you saw",
+          "es": "Cuéntale a Kowalski en voz baja lo que viste"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": -3
+          },
+          "countersAdd": {
+            "sargeTrust": 1
+          },
+          "text": {
+            "en": "He nods grimly. \"Then they're all still up there.\"",
+            "es": "Asiente sombrío. \"Entonces siguen todos ahí arriba\"."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-ramp",
+    "text": {
+      "en": "The craft grinds onto a sandbar. Bullets ring off the steel ramp like hail on a tin roof. The coxswain shouts. The ramp starts to drop.",
+      "es": "La lancha encalla en un banco de arena. Las balas resuenan en la rampa de acero como granizo sobre un tejado de chapa. El timonel grita. La rampa empieza a bajar."
+    },
+    "timeSlots": [
+      "run-in",
+      "beach"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "run-in"
+      ],
+      "flagsExcluded": [
+        "landed",
+        "swamped"
+      ]
+    },
+    "fact": {
+      "en": "Company A of the 116th Infantry landed at H-Hour, 06:30, on Dog Green in front of the Vierville draw, one of the most heavily defended points of the beach. Within minutes most of its men were killed or wounded.",
+      "es": "La Compañía A del 116.º de Infantería desembarcó a la hora H, las 06:30, en Dog Green, frente a la vaguada de Vierville, uno de los puntos más defendidos de la playa. En minutos la mayoría de sus hombres estaban muertos o heridos."
+    },
+    "options": [
+      {
+        "id": "straight-out",
+        "text": {
+          "en": "Run straight out down the ramp",
+          "es": "Sal corriendo por la rampa"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.55,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.04
+          }
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "energy": -10
+          },
+          "flagsSet": [
+            "landed"
+          ],
+          "text": {
+            "en": "Into chest-deep water, through it, onto the sand. You're alive.",
+            "es": "Al agua hasta el pecho, a través de ella, a la arena. Estás vivo."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -25,
+            "courage": -10
+          },
+          "flagsSet": [
+            "landed"
+          ],
+          "text": {
+            "en": "Something punches your shoulder and you go under. You come up coughing, bleeding, still moving.",
+            "es": "Algo te golpea el hombro y te hundes. Sales tosiendo, sangrando, aún en movimiento."
+          }
+        }
+      },
+      {
+        "id": "over-side",
+        "text": {
+          "en": "Go over the side instead",
+          "es": "Salta por el costado"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.8
+        },
+        "success": {
+          "resources": {
+            "energy": -15
+          },
+          "flagsSet": [
+            "landed"
+          ],
+          "text": {
+            "en": "Out of the line of fire at the ramp. The water is deep and cold, but you make it.",
+            "es": "Fuera de la línea de fuego de la rampa. El agua es profunda y fría, pero lo consigues."
+          }
+        },
+        "failure": {
+          "resources": {
+            "supplies": -30,
+            "energy": -10
+          },
+          "flagsSet": [
+            "landed"
+          ],
+          "text": {
+            "en": "Your kit drags you down. You cut a strap and lose half your supplies, but you reach the sand.",
+            "es": "El equipo te arrastra al fondo. Cortas una correa y pierdes la mitad del material, pero llegas a la arena."
+          }
+        }
+      },
+      {
+        "id": "drag-wounded",
+        "text": {
+          "en": "Drag the first wounded man out with you",
+          "es": "Saca contigo al primer herido"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -15
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 3
+          },
+          "flagsSet": [
+            "landed"
+          ],
+          "text": {
+            "en": "You pull him through the surf by his collar. He is breathing when you reach the sand.",
+            "es": "Lo arrastras por el cuello a través del oleaje. Respira cuando llegáis a la arena."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-swim-back",
+    "text": {
+      "en": "You are in the sea, your life belt inflated, the boat gone. Other heads bob around you. A landing craft heading back to the fleet is coming your way.",
+      "es": "Estás en el mar, con el salvavidas inflado, sin lancha. Otras cabezas asoman a tu alrededor. Una lancha que vuelve a la flota viene hacia ti."
+    },
+    "timeSlots": [
+      "run-in",
+      "beach",
+      "inland"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "swamped"
+      ],
+      "flagsExcluded": [
+        "picked-up"
+      ]
+    },
+    "fact": {
+      "en": "Many soldiers who went into the sea survived thanks to inflatable life belts. Navy and Coast Guard boats, some nicknamed the 'Matchbox Fleet', pulled hundreds of men out of the water off Normandy.",
+      "es": "Muchos soldados que cayeron al mar sobrevivieron gracias a los cinturones salvavidas hinchables. Embarcaciones de la Marina y de la Guardia Costera, algunas apodadas la 'flota de cajas de cerillas', sacaron del agua a cientos de hombres frente a Normandía."
+    },
+    "options": [
+      {
+        "id": "wave-boat",
+        "text": {
+          "en": "Wave and shout",
+          "es": "Agita los brazos y grita"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 17
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": -10
+          },
+          "flagsSet": [
+            "picked-up"
+          ],
+          "text": {
+            "en": "A hand grabs your collar and hauls you aboard. By evening you are back aboard a transport, wrapped in a blanket, watching the smoke over the beach.",
+            "es": "Una mano te agarra del cuello y te sube a bordo. Al anochecer estás de vuelta en un transporte, envuelto en una manta, mirando el humo sobre la playa."
+          }
+        }
+      },
+      {
+        "id": "hold-others",
+        "text": {
+          "en": "Hold up the man next to you until it arrives",
+          "es": "Sostén al hombre de al lado hasta que llegue"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 17,
+          "resources": {
+            "energy": -15
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 5
+          },
+          "flagsSet": [
+            "picked-up"
+          ],
+          "text": {
+            "en": "He cannot swim. You do not let go, not until you are both hauled aboard and taken back to the fleet.",
+            "es": "No sabe nadar. No lo sueltas, hasta que os suben a los dos y os llevan de vuelta a la flota."
+          }
+        }
+      },
+      {
+        "id": "float",
+        "text": {
+          "en": "Float calmly and save your strength",
+          "es": "Flota con calma y guarda fuerzas"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 17
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 5
+          },
+          "flagsSet": [
+            "picked-up"
+          ],
+          "text": {
+            "en": "The cold is the enemy now. You stay still and wait until a boat picks you up and takes you back out to the fleet.",
+            "es": "Ahora el enemigo es el frío. Te quedas quieto y esperas hasta que una lancha te recoge y te lleva de vuelta a la flota."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-obstacles",
+    "text": {
+      "en": "Between you and the shingle: two hundred metres of open sand, steel hedgehogs, wooden stakes topped with mines, and the tide coming in fast behind you.",
+      "es": "Entre tú y los guijarros: doscientos metros de arena al descubierto, erizos de acero, estacas de madera coronadas con minas y la marea subiendo rápido a tu espalda."
+    },
+    "timeSlots": [
+      "beach",
+      "inland"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "landed"
+      ],
+      "flagsExcluded": [
+        "crossing"
+      ]
+    },
+    "fact": {
+      "en": "Rommel had the beaches covered with obstacles: steel 'Czech hedgehogs', 'Belgian gates' and wooden stakes, many fitted with mines, designed to rip open landing craft at high tide.",
+      "es": "Rommel hizo cubrir las playas de obstáculos: 'erizos checos' de acero, 'puertas belgas' y estacas de madera, muchas con minas, pensados para destrozar las lanchas con la marea alta."
+    },
+    "options": [
+      {
+        "id": "sprint",
+        "text": {
+          "en": "Sprint from obstacle to obstacle",
+          "es": "Corre de obstáculo en obstáculo"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -15
+          }
+        },
+        "successChance": {
+          "base": 0.6,
+          "resourceBonus": {
+            "resource": "energy",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "crossing"
+          ],
+          "text": {
+            "en": "Hedgehog, stake, hedgehog, shingle. You throw yourself down behind the bank.",
+            "es": "Erizo, estaca, erizo, guijarros. Te lanzas al suelo tras el banco."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -25
+          },
+          "flagsSet": [
+            "crossing"
+          ],
+          "text": {
+            "en": "A burst of fire kicks up sand around you. Something hot rips your leg.",
+            "es": "Una ráfaga levanta la arena a tu alrededor. Algo caliente te desgarra la pierna."
+          }
+        }
+      },
+      {
+        "id": "crawl-treat",
+        "text": {
+          "en": "Crawl forward, treating men as you go",
+          "es": "Avanza arrastrándote, atendiendo heridos por el camino"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 2,
+          "resources": {
+            "supplies": -15
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 4,
+            "health": -10,
+            "courage": 5
+          },
+          "flagsSet": [
+            "crossing"
+          ],
+          "text": {
+            "en": "A tourniquet here, a dressing there, a morphine syrette and a mark on a forehead. You lose count.",
+            "es": "Un torniquete aquí, un apósito allá, una jeringa de morfina y una marca en una frente. Pierdes la cuenta."
+          }
+        }
+      },
+      {
+        "id": "tide",
+        "text": {
+          "en": "Watch the tide and the gaps, then move",
+          "es": "Observa la marea y los huecos, y entonces avanza"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "crossing"
+          ],
+          "text": {
+            "en": "The fire sweeps left to right. You go when it swings away.",
+            "es": "El fuego barre de izquierda a derecha. Vas cuando se aleja."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-drowning",
+    "text": {
+      "en": "In the rising surf behind you, wounded men are lying where the tide will reach them in minutes.",
+      "es": "En el oleaje que sube a tu espalda, hay heridos tendidos donde la marea los alcanzará en minutos."
+    },
+    "timeSlots": [
+      "beach"
+    ],
+    "weight": 7,
+    "conditions": {
+      "flagsRequired": [
+        "landed"
+      ]
+    },
+    "fact": {
+      "en": "The tide at Omaha rose about 30 cm every ten minutes that morning. Many wounded men on the open sand drowned before they could be moved; medics and riflemen dragged as many as they could to the shingle.",
+      "es": "La marea en Omaha subía unos 30 cm cada diez minutos aquella mañana. Muchos heridos en la arena se ahogaron antes de poder ser movidos; sanitarios y fusileros arrastraron a cuantos pudieron hasta los guijarros."
+    },
+    "options": [
+      {
+        "id": "go-back",
+        "text": {
+          "en": "Go back out and drag them up the beach",
+          "es": "Vuelve y arrástralos playa arriba"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -20
+          }
+        },
+        "successChance": {
+          "base": 0.6,
+          "traitBonus": {
+            "trait": "generous",
+            "perPoint": 0.03
+          }
+        },
+        "success": {
+          "resources": {
+            "saved": 3,
+            "courage": 5
+          },
+          "text": {
+            "en": "Three men, one at a time, above the waterline.",
+            "es": "Tres hombres, uno a uno, por encima de la línea del agua."
+          }
+        },
+        "failure": {
+          "resources": {
+            "saved": 1,
+            "health": -20
+          },
+          "text": {
+            "en": "You get one up the beach before a bullet grazes your ribs.",
+            "es": "Subes a uno antes de que una bala te roce las costillas."
+          }
+        }
+      },
+      {
+        "id": "shout-help",
+        "text": {
+          "en": "Shout for men to help you drag them",
+          "es": "Grita pidiendo ayuda para arrastrarlos"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 3,
+            "energy": -10,
+            "courage": 3
+          },
+          "text": {
+            "en": "Two riflemen crawl back with you. Together you clear the waterline.",
+            "es": "Dos fusileros vuelven a rastras contigo. Juntos despejáis la orilla."
+          }
+        }
+      },
+      {
+        "id": "stay-cover",
+        "text": {
+          "en": "Stay in cover; you can't save everyone",
+          "es": "Quédate a cubierto; no puedes salvar a todos"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": -15,
+            "energy": 5
+          },
+          "text": {
+            "en": "You will hear them for the rest of your life.",
+            "es": "Los oirás el resto de tu vida."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-eddie-hit",
+    "npcId": "npc-eddie",
+    "threadId": "eddie-thread",
+    "text": {
+      "en": "\"Doc! DOC!\" It's Eddie, curled behind a hedgehog, holding his leg. Blood is pumping between his fingers.",
+      "es": "\"¡Doc! ¡DOC!\" Es Eddie, encogido detrás de un erizo, sujetándose la pierna. La sangre le sale a borbotones entre los dedos."
+    },
+    "timeSlots": [
+      "beach"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "crossing",
+        "eddie-met"
+      ],
+      "flagsExcluded": [
+        "eddie-saved",
+        "eddie-down"
+      ]
+    },
+    "fact": {
+      "en": "Medics tied tourniquets, sprinkled sulfa powder on wounds against infection and injected morphine from small tube 'syrettes', then marked the time and dose on the patient, often on the forehead.",
+      "es": "Los sanitarios ponían torniquetes, espolvoreaban sulfamida en las heridas contra la infección e inyectaban morfina con pequeñas 'syrettes' de tubo, y después anotaban la hora y la dosis en el herido, a menudo en la frente."
+    },
+    "options": [
+      {
+        "id": "tourniquet",
+        "text": {
+          "en": "Tourniquet, high and tight, then sulfa",
+          "es": "Torniquete, alto y apretado, luego sulfamida"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -10
+          }
+        },
+        "successChance": {
+          "base": 0.7,
+          "resourceBonus": {
+            "resource": "supplies",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 10
+          },
+          "flagsSet": [
+            "eddie-saved"
+          ],
+          "countersAdd": {
+            "eddieBond": 2
+          },
+          "text": {
+            "en": "The bleeding stops. You write the time on his forehead. \"You're going home, Eddie.\"",
+            "es": "La hemorragia se detiene. Le escribes la hora en la frente. \"Te vas a casa, Eddie\"."
+          }
+        },
+        "failure": {
+          "resources": {
+            "courage": -15,
+            "supplies": -5
+          },
+          "flagsSet": [
+            "eddie-down"
+          ],
+          "countersAdd": {
+            "eddieBond": 1
+          },
+          "text": {
+            "en": "Your hands slip, the strap tears. You try again. And again.",
+            "es": "Te resbalan las manos, la correa se rompe. Lo intentas otra vez. Y otra."
+          }
+        }
+      },
+      {
+        "id": "drag-eddie",
+        "text": {
+          "en": "Drag him to the shingle first",
+          "es": "Arrástralo primero hasta los guijarros"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -15
+          }
+        },
+        "successChance": {
+          "base": 0.55
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 5
+          },
+          "flagsSet": [
+            "eddie-saved"
+          ],
+          "countersAdd": {
+            "eddieBond": 2
+          },
+          "text": {
+            "en": "Out of the fire, then the tourniquet. He makes it.",
+            "es": "Fuera del fuego, luego el torniquete. Lo consigue."
+          }
+        },
+        "failure": {
+          "resources": {
+            "courage": -20
+          },
+          "flagsSet": [
+            "eddie-down"
+          ],
+          "text": {
+            "en": "Halfway there, a bullet finds him again.",
+            "es": "A mitad de camino, otra bala lo alcanza."
+          }
+        }
+      },
+      {
+        "id": "morphine",
+        "text": {
+          "en": "Morphine first, talk to him, keep him calm",
+          "es": "Morfina primero, háblale, mantenlo tranquilo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -8
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 5
+          },
+          "flagsSet": [
+            "eddie-saved"
+          ],
+          "countersAdd": {
+            "eddieBond": 3
+          },
+          "text": {
+            "en": "\"Tell me about Bedford, Eddie.\" He talks. You work. The bleeding slows.",
+            "es": "\"Háblame de Bedford, Eddie\". Habla. Tú trabajas. La hemorragia afloja."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-eddie-bedford",
+    "npcId": "npc-eddie",
+    "threadId": "eddie-thread",
+    "text": {
+      "en": "On the troopship, Eddie shows you a photo of his street in Bedford. \"Thirty of us from one little town, Doc. All in the same regiment.\"",
+      "es": "En el barco, Eddie te enseña una foto de su calle en Bedford. \"Treinta de un mismo pueblecito, Doc. Todos en el mismo regimiento\"."
+    },
+    "timeSlots": [
+      "ship",
+      "run-in"
+    ],
+    "weight": 8,
+    "conditions": {
+      "flagsExcluded": [
+        "eddie-met"
+      ]
+    },
+    "fact": {
+      "en": "Company A of the 116th came from Bedford, Virginia, a town of about 3,200 people. Nineteen of its men were killed on D-Day and more in the following days; they are remembered as the 'Bedford Boys'.",
+      "es": "La Compañía A del 116.º procedía de Bedford, en Virginia, un pueblo de unos 3.200 habitantes. Diecinueve de sus hombres murieron el Día D y más en los días siguientes; se les recuerda como los 'Bedford Boys'."
+    },
+    "options": [
+      {
+        "id": "promise-eddie",
+        "text": {
+          "en": "Promise you'll look out for him",
+          "es": "Prométele que cuidarás de él"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "eddie-met"
+          ],
+          "countersAdd": {
+            "eddieBond": 2
+          },
+          "text": {
+            "en": "\"Same for you, Doc.\" You shake on it.",
+            "es": "\"Lo mismo digo, Doc\". Os dais la mano."
+          }
+        }
+      },
+      {
+        "id": "ask-town",
+        "text": {
+          "en": "Ask him about the town",
+          "es": "Pregúntale por el pueblo"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3,
+            "energy": 3
+          },
+          "flagsSet": [
+            "eddie-met"
+          ],
+          "countersAdd": {
+            "eddieBond": 1
+          },
+          "text": {
+            "en": "The drugstore, the church, the girl at the soda fountain. He talks until the klaxon.",
+            "es": "La farmacia, la iglesia, la chica de la heladería. Habla hasta que suena la sirena."
+          }
+        }
+      },
+      {
+        "id": "joke",
+        "text": {
+          "en": "Make a joke to break the mood",
+          "es": "Haz una broma para romper el ambiente"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "eddie-met"
+          ],
+          "countersAdd": {
+            "eddieBond": 1
+          },
+          "text": {
+            "en": "He laughs, too loudly. Everyone does, this morning.",
+            "es": "Se ríe demasiado fuerte. Hoy todos lo hacen."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-seawall",
+    "text": {
+      "en": "You reach the shingle bank and the low seawall behind it. Dozens of men are pressed against it, many wounded, many simply frozen. Nobody is moving forward.",
+      "es": "Llegas al banco de guijarros y al muro bajo que hay detrás. Decenas de hombres están pegados a él, muchos heridos, muchos simplemente paralizados. Nadie avanza."
+    },
+    "timeSlots": [
+      "beach",
+      "inland"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "crossing"
+      ],
+      "flagsExcluded": [
+        "at-seawall"
+      ]
+    },
+    "fact": {
+      "en": "A bank of round stones, the shingle, ran along much of Omaha, with a low seawall in places. It was the only cover on the beach, and by mid-morning thousands of men were pinned behind it.",
+      "es": "Un banco de cantos rodados recorría buena parte de Omaha, con un muro bajo en algunos tramos. Era la única cobertura de la playa y a media mañana miles de hombres estaban clavados detrás de él."
+    },
+    "options": [
+      {
+        "id": "treat-wall",
+        "text": {
+          "en": "Start treating the wounded along the wall",
+          "es": "Empieza a atender a los heridos a lo largo del muro"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 2,
+          "resources": {
+            "supplies": -20
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 5,
+            "courage": 5
+          },
+          "flagsSet": [
+            "at-seawall"
+          ],
+          "text": {
+            "en": "You work down the line, man after man. Somebody starts calling you 'Doc' and it sticks.",
+            "es": "Recorres la fila, hombre tras hombre. Alguien empieza a llamarte 'Doc' y se queda."
+          }
+        }
+      },
+      {
+        "id": "scrounge",
+        "text": {
+          "en": "Strip kits from the dead for supplies",
+          "es": "Coge material de los botiquines de los caídos"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "supplies": 25,
+            "courage": -5
+          },
+          "flagsSet": [
+            "at-seawall"
+          ],
+          "text": {
+            "en": "You feel like a thief. You have bandages again.",
+            "es": "Te sientes un ladrón. Vuelves a tener vendas."
+          }
+        }
+      },
+      {
+        "id": "catch-breath",
+        "text": {
+          "en": "Catch your breath behind the stones",
+          "es": "Recupera el aliento tras las piedras"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 15,
+            "courage": 3
+          },
+          "flagsSet": [
+            "at-seawall"
+          ],
+          "text": {
+            "en": "Your heart slows down. Bullets crack overhead, but not at you.",
+            "es": "El corazón se te calma. Las balas silban por encima, pero no contra ti."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-cota",
+    "npcId": "npc-cota",
+    "threadId": "cota-thread",
+    "text": {
+      "en": "An older officer walks along the seawall, upright, chewing an unlit cigar, as if bullets were rain. A general's star on his helmet. \"Who's in charge here? Get these men moving!\"",
+      "es": "Un oficial mayor camina erguido junto al muro, mascando un puro apagado, como si las balas fueran lluvia. Una estrella de general en el casco. \"¿Quién manda aquí? ¡Que se mueva esta gente!\""
+    },
+    "timeSlots": [
+      "beach",
+      "inland"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "at-seawall"
+      ],
+      "flagsExcluded": [
+        "rallied"
+      ]
+    },
+    "fact": {
+      "en": "Brigadier General Norman Cota landed with the 29th Division around 07:30 and walked the seawall under fire, rallying men to break through. Nearby, Colonel George Taylor told his men that only the dead and those about to die would stay on the beach.",
+      "es": "El general de brigada Norman Cota desembarcó con la 29.ª División hacia las 07:30 y recorrió el muro bajo el fuego, animando a los hombres a abrirse paso. Cerca de allí, el coronel George Taylor dijo a los suyos que en la playa solo se quedarían los muertos y los que iban a morir."
+    },
+    "options": [
+      {
+        "id": "follow-cota",
+        "text": {
+          "en": "Get up and follow him",
+          "es": "Levántate y síguelo"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.65,
+          "resourceBonus": {
+            "resource": "courage",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "courage": 15
+          },
+          "flagsSet": [
+            "rallied"
+          ],
+          "countersAdd": {
+            "cotaNotice": 2
+          },
+          "text": {
+            "en": "When you stand up, men around you stand up too.",
+            "es": "Cuando te levantas, los hombres de tu alrededor también se levantan."
+          }
+        },
+        "failure": {
+          "resources": {
+            "courage": -10,
+            "health": -5
+          },
+          "countersAdd": {
+            "cotaNotice": 1
+          },
+          "text": {
+            "en": "A burst of fire forces you back down. Cota keeps walking. Next time.",
+            "es": "Una ráfaga te obliga a tirarte otra vez. Cota sigue andando. La próxima vez."
+          }
+        }
+      },
+      {
+        "id": "report",
+        "text": {
+          "en": "Report the wounded and where the wire is thin",
+          "es": "Informa de los heridos y de dónde la alambrada es más débil"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10
+          },
+          "flagsSet": [
+            "rallied"
+          ],
+          "countersAdd": {
+            "cotaNotice": 2
+          },
+          "text": {
+            "en": "\"Good eyes, son.\" He sends a sergeant with Bangalores your way.",
+            "es": "\"Buen ojo, hijo\". Envía hacia ti a un sargento con torpedos Bangalore."
+          }
+        }
+      },
+      {
+        "id": "keep-treating",
+        "text": {
+          "en": "Keep treating the man in front of you",
+          "es": "Sigue atendiendo al hombre que tienes delante"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -5
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 8
+          },
+          "flagsSet": [
+            "rallied"
+          ],
+          "countersAdd": {
+            "cotaNotice": 1
+          },
+          "text": {
+            "en": "Cota glances at your armband and nods. \"Carry on, Doc.\" Around you, men start to move.",
+            "es": "Cota mira tu brazalete y asiente. \"Siga, Doc\". A tu alrededor, los hombres empiezan a moverse."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-bangalore",
+    "text": {
+      "en": "A sergeant slides a Bangalore torpedo, a long pipe packed with explosive, under the barbed wire beyond the seawall. \"Fire in the hole!\"",
+      "es": "Un sargento desliza un torpedo Bangalore, un tubo largo relleno de explosivo, bajo la alambrada de detrás del muro. \"¡Fuego en el agujero!\""
+    },
+    "timeSlots": [
+      "beach",
+      "inland"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "rallied"
+      ],
+      "flagsExcluded": [
+        "wire-breached"
+      ]
+    },
+    "fact": {
+      "en": "Bangalore torpedoes were metal tubes filled with explosive, pushed under barbed wire to blast a path. On Omaha they opened several of the gaps through which men finally reached the bluffs.",
+      "es": "Los torpedos Bangalore eran tubos metálicos llenos de explosivo que se metían bajo las alambradas para abrir un paso. En Omaha abrieron varias de las brechas por las que los hombres alcanzaron por fin los acantilados."
+    },
+    "options": [
+      {
+        "id": "first-through",
+        "text": {
+          "en": "Be among the first through the gap",
+          "es": "Sé de los primeros en cruzar la brecha"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.6,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.04
+          }
+        },
+        "success": {
+          "resources": {
+            "courage": 10,
+            "energy": -10
+          },
+          "flagsSet": [
+            "wire-breached"
+          ],
+          "text": {
+            "en": "Through the smoke, across the road, into the tall grass at the foot of the bluff.",
+            "es": "A través del humo, cruzando la carretera, hasta la hierba alta al pie del acantilado."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -20
+          },
+          "flagsSet": [
+            "wire-breached"
+          ],
+          "text": {
+            "en": "Through, but a mine goes off to your left. Shrapnel in your arm.",
+            "es": "Pasas, pero una mina estalla a tu izquierda. Metralla en el brazo."
+          }
+        }
+      },
+      {
+        "id": "treat-sapper",
+        "text": {
+          "en": "Stay by the sergeant; sappers get hurt",
+          "es": "Quédate junto al sargento; los zapadores acaban heridos"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -8
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 2,
+            "courage": 5
+          },
+          "flagsSet": [
+            "wire-breached"
+          ],
+          "text": {
+            "en": "When the second charge goes, two of them are hit. You are already there.",
+            "es": "Cuando estalla la segunda carga, dos caen heridos. Tú ya estás allí."
+          }
+        }
+      },
+      {
+        "id": "mark-path",
+        "text": {
+          "en": "Mark the safe path with tape for the others",
+          "es": "Marca con cinta el camino seguro para los demás"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "wire-breached"
+          ],
+          "text": {
+            "en": "White tape through the minefield. Hundreds will follow it today.",
+            "es": "Cinta blanca a través del campo de minas. Hoy la seguirán cientos."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-destroyers",
+    "text": {
+      "en": "A destroyer steams in so close to the shore it must be scraping the bottom, and starts firing point-blank at the German positions on the bluffs.",
+      "es": "Un destructor se acerca tanto a la orilla que debe de estar rozando el fondo, y empieza a disparar a quemarropa contra las posiciones alemanas de los acantilados."
+    },
+    "timeSlots": [
+      "beach",
+      "inland"
+    ],
+    "weight": 5,
+    "conditions": {
+      "flagsRequired": [
+        "landed"
+      ]
+    },
+    "fact": {
+      "en": "From about 08:00, US and British destroyers came within 1,000 metres of Omaha, some touching bottom, to fire directly at German strongpoints. Many veterans credited them with saving the landing.",
+      "es": "Desde las 08:00 aproximadamente, destructores estadounidenses y británicos se acercaron a menos de 1.000 metros de Omaha, algunos tocando fondo, para disparar directamente a los puntos fuertes alemanes. Muchos veteranos dijeron que salvaron el desembarco."
+    },
+    "options": [
+      {
+        "id": "signal",
+        "text": {
+          "en": "Point out a machine-gun nest to a signaller",
+          "es": "Señala un nido de ametralladoras a un señalero"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10
+          },
+          "text": {
+            "en": "Two shells later, the nest is silent.",
+            "es": "Dos proyectiles después, el nido calla."
+          }
+        }
+      },
+      {
+        "id": "use-lull",
+        "text": {
+          "en": "Use the lull to move the wounded",
+          "es": "Aprovecha la pausa para mover a los heridos"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 3
+          },
+          "text": {
+            "en": "Ten minutes of quiet. You get four men back to the aid point.",
+            "es": "Diez minutos de calma. Llevas a cuatro hombres al puesto de socorro."
+          }
+        }
+      },
+      {
+        "id": "rest-lull",
+        "text": {
+          "en": "Use the lull to rest",
+          "es": "Aprovecha la pausa para descansar"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 15
+          },
+          "text": {
+            "en": "You drink half your canteen and close your eyes for a moment.",
+            "es": "Te bebes media cantimplora y cierras los ojos un momento."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-rangers",
+    "text": {
+      "en": "A radio crackles: to the west, at Pointe du Hoc, Rangers have climbed the cliffs with ropes and ladders under fire.",
+      "es": "Una radio chisporrotea: al oeste, en Pointe du Hoc, los Rangers han escalado los acantilados con cuerdas y escaleras bajo el fuego."
+    },
+    "timeSlots": [
+      "beach",
+      "inland"
+    ],
+    "weight": 4,
+    "conditions": {
+      "flagsRequired": [
+        "landed"
+      ]
+    },
+    "fact": {
+      "en": "At Pointe du Hoc, about 225 men of the 2nd Ranger Battalion climbed 30-metre cliffs. The heavy guns had been moved inland; the Rangers found and destroyed them, then held the point for two days.",
+      "es": "En Pointe du Hoc, unos 225 hombres del 2.º Batallón de Rangers escalaron acantilados de 30 metros. Los cañones pesados se habían trasladado tierra adentro; los Rangers los encontraron y destruyeron, y defendieron la punta durante dos días."
+    },
+    "options": [
+      {
+        "id": "spread-news",
+        "text": {
+          "en": "Pass the news down the line",
+          "es": "Pasa la noticia por la fila"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10
+          },
+          "text": {
+            "en": "\"If they can climb that, we can climb this.\"",
+            "es": "\"Si ellos han subido eso, nosotros podemos subir esto\"."
+          }
+        }
+      },
+      {
+        "id": "ask-more",
+        "text": {
+          "en": "Ask the radioman for details",
+          "es": "Pide detalles al radiotelegrafista"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "The big guns weren't even there. Moved inland. The Rangers went and found them.",
+            "es": "Los cañones grandes ni siquiera estaban. Los habían llevado tierra adentro. Los Rangers fueron a buscarlos."
+          }
+        }
+      },
+      {
+        "id": "ignore-radio",
+        "text": {
+          "en": "Keep working",
+          "es": "Sigue trabajando"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -5
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 1
+          },
+          "text": {
+            "en": "News is for later. Bleeding is now.",
+            "es": "Las noticias, para luego. La hemorragia es ahora."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-climb",
+    "npcId": "npc-sarge",
+    "threadId": "sarge-thread",
+    "text": {
+      "en": "A narrow path zigzags up the bluff through gorse and smoke. Kowalski waves you on. \"Mines either side, Doc. Step where I step.\"",
+      "es": "Un sendero estrecho sube en zigzag por el acantilado entre aulagas y humo. Kowalski te hace señas. \"Minas a los lados, Doc. Pisa donde yo piso\"."
+    },
+    "timeSlots": [
+      "beach",
+      "inland"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "wire-breached"
+      ],
+      "flagsExcluded": [
+        "bluff-climbed"
+      ]
+    },
+    "fact": {
+      "en": "The bluffs behind Omaha rise about 30 to 50 metres. The first men to reach the top climbed between the German strongpoints, along paths through the minefields, rather than up the defended draws.",
+      "es": "Los acantilados tras Omaha se elevan entre 30 y 50 metros. Los primeros en llegar arriba subieron entre los puntos fuertes alemanes, por senderos a través de los campos de minas, en lugar de por las vaguadas defendidas."
+    },
+    "options": [
+      {
+        "id": "step",
+        "text": {
+          "en": "Step exactly where he steps",
+          "es": "Pisa exactamente donde él pisa"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -15
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10
+          },
+          "flagsSet": [
+            "bluff-climbed"
+          ],
+          "countersAdd": {
+            "sargeTrust": 2
+          },
+          "text": {
+            "en": "Thirty metres of climbing. At the top, France, flat and green.",
+            "es": "Treinta metros de subida. Arriba, Francia, llana y verde."
+          }
+        }
+      },
+      {
+        "id": "lead-climb",
+        "text": {
+          "en": "Go first with the wounded rifleman on your back",
+          "es": "Sube el primero con el fusilero herido a la espalda"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -25
+          }
+        },
+        "successChance": {
+          "base": 0.6,
+          "resourceBonus": {
+            "resource": "energy",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 10
+          },
+          "flagsSet": [
+            "bluff-climbed"
+          ],
+          "countersAdd": {
+            "sargeTrust": 2
+          },
+          "text": {
+            "en": "You crest the bluff carrying a man. Kowalski just shakes his head.",
+            "es": "Coronas el acantilado cargando con un hombre. Kowalski se limita a negar con la cabeza."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -15
+          },
+          "flagsSet": [
+            "bluff-climbed"
+          ],
+          "text": {
+            "en": "You slip and slide back ten metres. You try again, slower.",
+            "es": "Resbalas y caes diez metros. Lo intentas otra vez, más despacio."
+          }
+        }
+      },
+      {
+        "id": "help-wounded-up",
+        "text": {
+          "en": "Stay and send the walking wounded up first",
+          "es": "Quédate y manda subir primero a los heridos que pueden andar"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 2
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 3
+          },
+          "flagsSet": [
+            "bluff-climbed"
+          ],
+          "countersAdd": {
+            "sargeTrust": 1
+          },
+          "text": {
+            "en": "One by one they go up the taped path. You follow last.",
+            "es": "Uno a uno suben por el camino marcado. Tú subes el último."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-prisoners",
+    "text": {
+      "en": "Above the beach, a group of German soldiers come out of a trench with their hands up. One of them is badly wounded and very young.",
+      "es": "Sobre la playa, un grupo de soldados alemanes sale de una trinchera con las manos en alto. Uno de ellos está gravemente herido y es muy joven."
+    },
+    "timeSlots": [
+      "inland"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "bluff-climbed"
+      ]
+    },
+    "fact": {
+      "en": "Allied intelligence expected weak troops at Omaha, but the experienced German 352nd Infantry Division had moved into the area. Under the Geneva Conventions, medics on both sides were to treat wounded enemies too.",
+      "es": "La inteligencia aliada esperaba tropas débiles en Omaha, pero la experimentada 352.ª División de Infantería alemana se había desplegado en la zona. Según los Convenios de Ginebra, los sanitarios de ambos bandos debían atender también a los enemigos heridos."
+    },
+    "options": [
+      {
+        "id": "treat-german",
+        "text": {
+          "en": "Treat the wounded German",
+          "es": "Atiende al alemán herido"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -8
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 1,
+            "courage": 5
+          },
+          "flagsSet": [
+            "treated-enemy"
+          ],
+          "text": {
+            "en": "A wound is a wound. He whispers \"Danke\" again and again.",
+            "es": "Una herida es una herida. Él susurra \"Danke\" una y otra vez."
+          }
+        }
+      },
+      {
+        "id": "search",
+        "text": {
+          "en": "Search them for maps and papers",
+          "es": "Regístralos en busca de mapas y papeles"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "text": {
+            "en": "Paybooks from a division nobody told you was here.",
+            "es": "Libretas de pago de una división que nadie os dijo que estuviera aquí."
+          }
+        }
+      },
+      {
+        "id": "guard",
+        "text": {
+          "en": "Leave them to the riflemen and move on",
+          "es": "Déjalos a los fusileros y sigue"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 5
+          },
+          "text": {
+            "en": "Not your job. Your job is still down on the beach.",
+            "es": "No es tu trabajo. Tu trabajo sigue abajo, en la playa."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-rommel",
+    "text": {
+      "en": "One of the prisoners speaks some English. \"Rommel,\" he says, and laughs bitterly. \"Rommel is not here. He is in Germany. His wife's birthday.\"",
+      "es": "Uno de los prisioneros habla algo de inglés. \"Rommel\", dice, y se ríe con amargura. \"Rommel no está. Está en Alemania. El cumpleaños de su mujer\"."
+    },
+    "timeSlots": [
+      "inland"
+    ],
+    "weight": 3,
+    "conditions": {
+      "flagsRequired": [
+        "bluff-climbed"
+      ]
+    },
+    "fact": {
+      "en": "Field Marshal Erwin Rommel, in charge of the coastal defences, was at home in Germany on 6 June for his wife's birthday, convinced that bad weather made an invasion impossible.",
+      "es": "El mariscal de campo Erwin Rommel, responsable de las defensas costeras, estaba en su casa de Alemania el 6 de junio por el cumpleaños de su mujer, convencido de que el mal tiempo hacía imposible una invasión."
+    },
+    "options": [
+      {
+        "id": "translate-officer",
+        "text": {
+          "en": "Take him to an officer",
+          "es": "Llévalo ante un oficial"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "text": {
+            "en": "The intelligence officer writes down every word.",
+            "es": "El oficial de inteligencia anota cada palabra."
+          }
+        }
+      },
+      {
+        "id": "ask-him",
+        "text": {
+          "en": "Ask him more",
+          "es": "Pregúntale más"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "The storm, he says. They all thought nobody would come in a storm.",
+            "es": "La tormenta, dice. Todos pensaban que nadie vendría con tormenta."
+          }
+        }
+      },
+      {
+        "id": "cigarette",
+        "text": {
+          "en": "Give him a cigarette",
+          "es": "Dale un cigarrillo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3,
+            "energy": 3
+          },
+          "text": {
+            "en": "Two nineteen-year-olds smoking on a cliff in France.",
+            "es": "Dos chicos de diecinueve años fumando en un acantilado de Francia."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-cota-vierville",
+    "npcId": "npc-cota",
+    "threadId": "cota-thread",
+    "text": {
+      "en": "On the road to Vierville you meet General Cota again, walking towards the draw with a handful of men. \"Doc. The beach exit's still blocked. There are wounded in the village.\"",
+      "es": "En la carretera de Vierville vuelves a encontrar al general Cota, caminando hacia la vaguada con un puñado de hombres. \"Doc. La salida de la playa sigue bloqueada. Hay heridos en el pueblo\"."
+    },
+    "timeSlots": [
+      "inland"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "bluff-climbed",
+        "rallied"
+      ]
+    },
+    "fact": {
+      "en": "Cota reached Vierville-sur-Mer around midday and then walked back down the Vierville draw to the beach, helping to clear the exit so vehicles could finally leave the sand.",
+      "es": "Cota llegó a Vierville-sur-Mer hacia mediodía y luego bajó a pie por la vaguada de Vierville hasta la playa, ayudando a despejar la salida para que los vehículos pudieran por fin dejar la arena."
+    },
+    "options": [
+      {
+        "id": "go-village",
+        "text": {
+          "en": "Go with him into the village",
+          "es": "Ve con él al pueblo"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 3,
+            "courage": 5
+          },
+          "countersAdd": {
+            "cotaNotice": 2
+          },
+          "text": {
+            "en": "Stone houses, a church, a sniper in the steeple. And wounded men in a barn, waiting for you.",
+            "es": "Casas de piedra, una iglesia, un francotirador en el campanario. Y heridos en un granero, esperándote."
+          }
+        }
+      },
+      {
+        "id": "stay-aid",
+        "text": {
+          "en": "Stay at the aid station on the bluff",
+          "es": "Quédate en el puesto de socorro del acantilado"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 2,
+            "energy": 5
+          },
+          "text": {
+            "en": "Somebody has to be where the stretcher bearers can find him.",
+            "es": "Alguien tiene que estar donde los camilleros puedan encontrarlo."
+          }
+        }
+      },
+      {
+        "id": "ask-route",
+        "text": {
+          "en": "Ask him the safest route for stretchers",
+          "es": "Pregúntale la ruta más segura para las camillas"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "countersAdd": {
+            "cotaNotice": 1
+          },
+          "text": {
+            "en": "He sketches it in the dust with his cigar.",
+            "es": "Te la dibuja en el polvo con el puro."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-hedgerow",
+    "text": {
+      "en": "Beyond the bluffs, the fields are boxed in by hedgerows: banks of earth taller than a man, crowned with thick bushes. Any one of them could hide a machine gun.",
+      "es": "Más allá de los acantilados, los campos están cercados por setos: taludes de tierra más altos que un hombre, coronados de matorral espeso. Cualquiera puede esconder una ametralladora."
+    },
+    "timeSlots": [
+      "inland"
+    ],
+    "weight": 4,
+    "conditions": {
+      "flagsRequired": [
+        "bluff-climbed"
+      ]
+    },
+    "fact": {
+      "en": "The Normandy 'bocage' was a maze of small fields enclosed by ancient hedgerows. In the weeks after D-Day it made the advance slow and costly, field by field.",
+      "es": "El 'bocage' normando era un laberinto de pequeños campos cercados por setos centenarios. En las semanas posteriores al Día D hizo que el avance fuera lento y costoso, campo a campo."
+    },
+    "options": [
+      {
+        "id": "hedge-careful",
+        "text": {
+          "en": "Move along the hedge, low and slow",
+          "es": "Avanza junto al seto, agachado y despacio"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": -5,
+            "courage": 3
+          },
+          "text": {
+            "en": "A rabbit bolts. Nothing else. Your heart takes a minute to slow.",
+            "es": "Sale corriendo un conejo. Nada más. El corazón tarda un minuto en calmarse."
+          }
+        }
+      },
+      {
+        "id": "hedge-gap",
+        "text": {
+          "en": "Find the gaps farmers use",
+          "es": "Busca los huecos que usan los granjeros"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "A gate, a ditch, a cow path. Old France, showing you the way.",
+            "es": "Una cancela, una zanja, un paso de vacas. La vieja Francia te enseña el camino."
+          }
+        }
+      },
+      {
+        "id": "hedge-run",
+        "text": {
+          "en": "Run across the open field",
+          "es": "Cruza el campo abierto corriendo"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.6
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "energy": -10
+          },
+          "text": {
+            "en": "Nobody fires. You lie panting at the far hedge.",
+            "es": "Nadie dispara. Te quedas jadeando junto al seto del otro lado."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -10,
+            "courage": -10
+          },
+          "text": {
+            "en": "A shot cracks past your ear. You dive for the ditch.",
+            "es": "Un disparo te pasa rozando la oreja. Te lanzas a la zanja."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-aid-station",
+    "text": {
+      "en": "The battalion aid station is a ditch with a Red Cross flag. The doctor has run out of plasma and the wounded keep coming.",
+      "es": "El puesto de socorro del batallón es una zanja con una bandera de la Cruz Roja. El médico se ha quedado sin plasma y los heridos no dejan de llegar."
+    },
+    "timeSlots": [
+      "inland"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "bluff-climbed"
+      ]
+    },
+    "fact": {
+      "en": "Wounded men were treated by medics, carried to battalion aid stations, then evacuated to the beach and out to ships. Blood plasma, freeze-dried and mixed with water in the field, saved thousands of lives in the war.",
+      "es": "Los heridos eran atendidos por los sanitarios, llevados a los puestos de socorro del batallón y después evacuados a la playa y a los barcos. El plasma sanguíneo, liofilizado y mezclado con agua sobre el terreno, salvó miles de vidas en la guerra."
+    },
+    "options": [
+      {
+        "id": "triage",
+        "text": {
+          "en": "Sort them: who can wait, who cannot",
+          "es": "Clasifícalos: quién puede esperar y quién no"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 2,
+          "resources": {
+            "supplies": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 4
+          },
+          "countersAdd": {
+            "sargeTrust": 1
+          },
+          "text": {
+            "en": "Triage. The hardest word you learn today.",
+            "es": "Triaje. La palabra más dura que aprendes hoy."
+          }
+        }
+      },
+      {
+        "id": "plasma",
+        "text": {
+          "en": "Go back to the beach for plasma",
+          "es": "Vuelve a la playa a por plasma"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -15
+          }
+        },
+        "successChance": {
+          "base": 0.65
+        },
+        "success": {
+          "resources": {
+            "supplies": 30,
+            "courage": 5
+          },
+          "text": {
+            "en": "You come back up the bluff with a box of it on your shoulder.",
+            "es": "Vuelves acantilado arriba con una caja al hombro."
+          }
+        },
+        "failure": {
+          "resources": {
+            "supplies": 25,
+            "health": -20
+          },
+          "text": {
+            "en": "You get the plasma, and a shell splinter in your back.",
+            "es": "Consigues el plasma, y una esquirla de metralla en la espalda."
+          }
+        }
+      },
+      {
+        "id": "comfort",
+        "text": {
+          "en": "Sit with the men waiting for evacuation",
+          "es": "Siéntate con los hombres que esperan evacuación"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 2,
+            "courage": 5
+          },
+          "text": {
+            "en": "A cigarette, a sip of water, a hand to hold. Some of them make it because of it.",
+            "es": "Un cigarrillo, un sorbo de agua, una mano que apretar. Algunos lo consiguen gracias a eso."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "dday-dusk",
+    "text": {
+      "en": "Evening. From the top of the bluff you look down at Omaha: burning vehicles, wrecked boats, bodies on the sand, and ships to the horizon still unloading. Someone has started digging in.",
+      "es": "Atardece. Desde lo alto del acantilado miras Omaha: vehículos ardiendo, lanchas destrozadas, cuerpos en la arena y barcos hasta el horizonte que siguen descargando. Alguien ha empezado a cavar."
+    },
+    "timeSlots": [
+      "inland"
+    ],
+    "weight": 5,
+    "conditions": {
+      "flagsRequired": [
+        "bluff-climbed"
+      ]
+    },
+    "fact": {
+      "en": "By midnight on 6 June about 34,000 soldiers had landed at Omaha. The beachhead was only around 2 km deep, but it held, and within weeks more than a million Allied troops were in Normandy.",
+      "es": "A medianoche del 6 de junio habían desembarcado en Omaha unos 34.000 soldados. La cabeza de playa tenía solo unos 2 km de fondo, pero aguantó, y en pocas semanas había más de un millón de soldados aliados en Normandía."
+    },
+    "options": [
+      {
+        "id": "dig",
+        "text": {
+          "en": "Dig a foxhole for the night",
+          "es": "Cava un pozo de tirador para pasar la noche"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "A hole in France, your first home here.",
+            "es": "Un agujero en Francia, tu primer hogar aquí."
+          }
+        }
+      },
+      {
+        "id": "last-round",
+        "text": {
+          "en": "Make one last round of the wounded",
+          "es": "Haz una última ronda por los heridos"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "supplies": -5,
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "saved": 2
+          },
+          "text": {
+            "en": "Fresh dressings, a word for each. Then you sit down and cannot get up.",
+            "es": "Vendas limpias, una palabra para cada uno. Luego te sientas y no puedes levantarte."
+          }
+        }
+      },
+      {
+        "id": "look-sea",
+        "text": {
+          "en": "Just look at the sea for a while",
+          "es": "Quédate mirando el mar un rato"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "energy": 5
+          },
+          "text": {
+            "en": "The longest day is ending. You are still here.",
+            "es": "El día más largo termina. Sigues aquí."
+          }
+        }
+      }
+    ]
+  }
+]

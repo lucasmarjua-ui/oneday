@@ -135,6 +135,8 @@ const SKIN = { s: '#f2c79b', S: '#d39e74' };
 // (an astronaut without and with a helmet).
 export const OUTFITS = {
   'apollo-11': { h: '#6b4a2e', c: '#f2f1ec', C: '#c4c2bb', t: '#c8382c', p: '#f2f1ec', f: '#8d8f96' },
+  tenochtitlan: { s: '#b98057', S: '#946040', h: '#1a1410', c: '#efe8d8', C: '#cfc4ad', t: '#c0392b', p: '#efe8d8', f: '#6b4a2e' },
+  'd-day': { h: '#4f5638', H: '#3c4229', c: '#7a7556', C: '#5e5a40', t: '#f2f1ec', p: '#6b6648', f: '#3b2a1e' },
   giza: { s: '#c98b5a', S: '#a26a40', h: '#16120f', c: '#b9774a', C: '#93573a', t: '#f3ecd8', p: '#b9774a', f: '#9b6b3b' },
 };
 
@@ -142,6 +144,9 @@ const VARIANTS = {
   // A gold sun visor over the face, a white helmet over the hair.
   helmet: { h: '#f4f4f1', H: '#cfcfca', s: '#d9a63a', S: '#a8781f', e: '#fff3c4' },
 };
+
+// Events where everybody wears a helmet all day.
+const HELMETED = new Set(['d-day']);
 
 const DEFAULT_OUTFIT = { h: '#4a2f1d', c: '#efe8d8', C: '#c8bda4', t: '#3d6fb0', p: '#f2c79b', f: '#7a4a26' };
 
@@ -154,8 +159,9 @@ export function playerPalette(eraId, variant) {
 export function npcPalette(color, eraId, variant) {
   const base = playerPalette(eraId, variant);
   const tinted = { ...base, c: color, C: shade(color, 0.72), t: shade(color, 0.5), p: shade(color, 0.6) };
-  // A helmet stays a helmet; otherwise NPCs get darker hair in their own hue.
-  return variant === 'helmet' ? tinted : { ...tinted, h: shade(color, 0.35) };
+  // A helmet stays a helmet (on the Moon, on Omaha Beach); otherwise NPCs
+  // get darker hair in their own hue.
+  return variant === 'helmet' || HELMETED.has(eraId) ? tinted : { ...tinted, h: shade(color, 0.35) };
 }
 
 /** Skin tones for crowds, so a town is not full of twins. */

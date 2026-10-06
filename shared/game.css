@@ -32,6 +32,8 @@
 
 body[data-era="apollo-11"] { --accent-h: 215; }
 body[data-era="giza"] { --accent-h: 40; }
+body[data-era="tenochtitlan"] { --accent-h: 165; }
+body[data-era="d-day"] { --accent-h: 95; }
 
 * { box-sizing: border-box; }
 

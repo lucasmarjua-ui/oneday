@@ -1,0 +1,462 @@
+{
+  "id": "tenochtitlan",
+  "name": {
+    "en": "Tenochtitlan",
+    "es": "Tenochtitlan"
+  },
+  "tagline": {
+    "en": "8 November 1519. Two worlds meet on a causeway, and every word passes through you.",
+    "es": "8 de noviembre de 1519. Dos mundos se encuentran en una calzada, y cada palabra pasa por ti."
+  },
+  "role": {
+    "en": "You are Malintzin, a Nahua woman who speaks Nahuatl and Maya. Since March you have been the voice of Hernán Cortés, translating with the Spaniard Jerónimo de Aguilar. Today the Spaniards and their Tlaxcalan allies will walk into Tenochtitlan, the capital of the Mexica, to meet Moctezuma.",
+    "es": "Eres Malintzin, una mujer nahua que habla náhuatl y maya. Desde marzo eres la voz de Hernán Cortés, traduciendo junto al español Jerónimo de Aguilar. Hoy los españoles y sus aliados tlaxcaltecas entrarán en Tenochtitlan, la capital de los mexicas, para encontrarse con Moctezuma."
+  },
+  "history": {
+    "en": "On 8 November 1519 Hernán Cortés, a few hundred Spaniards and several thousand Tlaxcalan allies crossed the causeway from Iztapalapa into Tenochtitlan, a city of perhaps 200,000 people built on an island in Lake Texcoco. Moctezuma II came out to meet them in a litter beneath a canopy of feathers; the two men exchanged necklaces, and Moctezuma lodged the Spaniards in the palace of his father, Axayacatl. Malintzin translated, with Jerónimo de Aguilar, and the Mexica came to call Cortés 'Malinche' after her. Within a week the guests had taken their host prisoner. Moctezuma died in June 1520; the Spaniards were driven out on the 'Sad Night', returned with tens of thousands of indigenous allies while smallpox ravaged the city, and after a long siege Tenochtitlan fell on 13 August 1521. Mexico City stands on its ruins.",
+    "es": "El 8 de noviembre de 1519 Hernán Cortés, unos pocos cientos de españoles y varios miles de aliados tlaxcaltecas cruzaron la calzada de Iztapalapa hasta Tenochtitlan, una ciudad de quizá 200.000 habitantes construida sobre una isla del lago de Texcoco. Moctezuma II salió a recibirlos en andas bajo un palio de plumas; los dos hombres intercambiaron collares y Moctezuma alojó a los españoles en el palacio de su padre, Axayácatl. Malintzin tradujo, con Jerónimo de Aguilar, y los mexicas acabaron llamando a Cortés 'Malinche' por ella. En menos de una semana los invitados habían hecho prisionero a su anfitrión. Moctezuma murió en junio de 1520; los españoles fueron expulsados en la 'Noche Triste', volvieron con decenas de miles de aliados indígenas mientras la viruela asolaba la ciudad y, tras un largo asedio, Tenochtitlan cayó el 13 de agosto de 1521. La Ciudad de México se alza sobre sus ruinas."
+  },
+  "day": {
+    "totalTime": 16,
+    "startLabel": "05:00",
+    "endLabel": "21:00",
+    "openingCard": "tenoch-wake",
+    "slots": [
+      {
+        "id": "dawn",
+        "label": {
+          "en": "Dawn in Iztapalapa",
+          "es": "Amanecer en Iztapalapa"
+        },
+        "from": 0,
+        "to": 3
+      },
+      {
+        "id": "causeway",
+        "label": {
+          "en": "The causeway",
+          "es": "La calzada"
+        },
+        "from": 3,
+        "to": 7
+      },
+      {
+        "id": "meeting",
+        "label": {
+          "en": "The meeting",
+          "es": "El encuentro"
+        },
+        "from": 7,
+        "to": 10
+      },
+      {
+        "id": "palace",
+        "label": {
+          "en": "The palace of Axayacatl",
+          "es": "El palacio de Axayácatl"
+        },
+        "from": 10,
+        "to": 16
+      }
+    ]
+  },
+  "resources": {
+    "peace": {
+      "label": {
+        "en": "Peace",
+        "es": "Paz"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 60,
+      "critical": true
+    },
+    "voice": {
+      "label": {
+        "en": "Voice",
+        "es": "Voz"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 90
+    },
+    "reputation": {
+      "label": {
+        "en": "Cortés's reliance",
+        "es": "Confianza de Cortés"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 50
+    },
+    "favour": {
+      "label": {
+        "en": "Mexica goodwill",
+        "es": "Buena voluntad mexica"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 40
+    },
+    "insight": {
+      "label": {
+        "en": "What you know",
+        "es": "Lo que sabes"
+      },
+      "min": 0,
+      "max": 99,
+      "start": 0
+    }
+  },
+  "npcs": [
+    {
+      "id": "npc-cortes",
+      "name": {
+        "en": "Hernán Cortés",
+        "es": "Hernán Cortés"
+      },
+      "role": {
+        "en": "Captain of the Spaniards",
+        "es": "Capitán de los españoles"
+      },
+      "portraitColor": "#3b3f4a",
+      "attitudeCounter": "cortesTrust"
+    },
+    {
+      "id": "npc-moctezuma",
+      "name": {
+        "en": "Moctezuma",
+        "es": "Moctezuma"
+      },
+      "role": {
+        "en": "Huey tlatoani of the Mexica",
+        "es": "Huey tlatoani de los mexicas"
+      },
+      "portraitColor": "#2f9e7a",
+      "attitudeCounter": "moctezumaRegard"
+    },
+    {
+      "id": "npc-aguilar",
+      "name": {
+        "en": "Jerónimo de Aguilar",
+        "es": "Jerónimo de Aguilar"
+      },
+      "role": {
+        "en": "Interpreter, Maya to Spanish",
+        "es": "Intérprete, del maya al castellano"
+      },
+      "portraitColor": "#8a6a45",
+      "attitudeCounter": "aguilarBond"
+    }
+  ],
+  "personas": [
+    {
+      "id": "herald",
+      "trait": "bold",
+      "name": {
+        "en": "The Herald",
+        "es": "La Heraldo"
+      },
+      "description": {
+        "en": "You spoke first and loudest, and two empires had to listen to you.",
+        "es": "Hablaste la primera y la más alta, y dos imperios tuvieron que escucharte."
+      }
+    },
+    {
+      "id": "peacemaker",
+      "trait": "prudent",
+      "name": {
+        "en": "The Peacemaker",
+        "es": "La Pacificadora"
+      },
+      "description": {
+        "en": "Every word weighed twice. Today, at least, no blood was spilled because of something you said.",
+        "es": "Cada palabra, pesada dos veces. Hoy, al menos, no se derramó sangre por algo que tú dijeras."
+      }
+    },
+    {
+      "id": "go-between",
+      "trait": "generous",
+      "name": {
+        "en": "The Go-Between",
+        "es": "La Mediadora"
+      },
+      "description": {
+        "en": "You carried kindness across the language gap as carefully as meaning.",
+        "es": "Llevaste la amabilidad de una lengua a otra con el mismo cuidado que el significado."
+      }
+    },
+    {
+      "id": "double-tongue",
+      "trait": "cunning",
+      "name": {
+        "en": "The Double Tongue",
+        "es": "La Lengua Doble"
+      },
+      "description": {
+        "en": "You softened here, sharpened there. Only you knew what each side really heard.",
+        "es": "Suavizaste aquí, afilaste allá. Solo tú sabías lo que cada lado oía de verdad."
+      }
+    },
+    {
+      "id": "faithful-voice",
+      "trait": "diligent",
+      "name": {
+        "en": "The Faithful Voice",
+        "es": "La Voz Fiel"
+      },
+      "description": {
+        "en": "Word for word, without fear or favour. History would remember what was said because you said it exactly.",
+        "es": "Palabra por palabra, sin miedo ni favor. La historia recordaría lo que se dijo porque tú lo dijiste con exactitud."
+      }
+    },
+    {
+      "id": "witness",
+      "trait": "curious",
+      "name": {
+        "en": "The Witness",
+        "es": "La Testigo"
+      },
+      "description": {
+        "en": "You watched everything: the canoes, the gardens, the faces. You saw both worlds clearer than anyone.",
+        "es": "Lo miraste todo: las canoas, los jardines, los rostros. Viste ambos mundos con más claridad que nadie."
+      }
+    },
+    {
+      "id": "la-lengua",
+      "trait": null,
+      "name": {
+        "en": "La Lengua",
+        "es": "La Lengua"
+      },
+      "description": {
+        "en": "The Spaniards simply called you 'the tongue'. On the most important day of your life, you were exactly that.",
+        "es": "Los españoles te llamaban simplemente 'la lengua'. En el día más importante de tu vida, fuiste exactamente eso."
+      }
+    }
+  ],
+  "endings": [
+    {
+      "id": "blood-on-the-causeway",
+      "when": {
+        "depleted": "peace"
+      },
+      "title": {
+        "en": "Blood on the Causeway",
+        "es": "Sangre en la calzada"
+      },
+      "description": {
+        "en": "A misunderstanding, a drawn sword, a stone thrown from a canoe. The meeting becomes a battle on a narrow road over the water, and nobody reaches the city alive as a guest.",
+        "es": "Un malentendido, una espada desenvainada, una piedra lanzada desde una canoa. El encuentro se convierte en batalla en un camino estrecho sobre el agua, y nadie llega a la ciudad como invitado."
+      }
+    },
+    {
+      "id": "turned-back",
+      "when": {
+        "flagsRequired": [
+          "turned-back"
+        ]
+      },
+      "title": {
+        "en": "The Road Not Taken",
+        "es": "El camino no tomado"
+      },
+      "description": {
+        "en": "Moctezuma's warning, in your words, is enough: Cortés turns back towards the coast. The Mexica capital stays closed to the strangers, for now.",
+        "es": "La advertencia de Moctezuma, en tus palabras, basta: Cortés da media vuelta hacia la costa. La capital mexica sigue cerrada a los extranjeros, por ahora."
+      }
+    },
+    {
+      "id": "same-day-hostage",
+      "when": {
+        "flagsRequired": [
+          "seized"
+        ]
+      },
+      "title": {
+        "en": "A Guest Becomes a Gaoler",
+        "es": "El invitado se vuelve carcelero"
+      },
+      "description": {
+        "en": "Cortés does not wait a week. That very evening Moctezuma is held in his father's palace. The city learns of it before midnight, and nothing will be calm again.",
+        "es": "Cortés no espera una semana. Esa misma noche Moctezuma queda retenido en el palacio de su padre. La ciudad se entera antes de medianoche y ya nada volverá a estar en calma."
+      }
+    },
+    {
+      "id": "honest-peace",
+      "when": {
+        "flagsRequired": [
+          "lodged",
+          "honest-words",
+          "warned"
+        ],
+        "flagsExcluded": [
+          "seized"
+        ],
+        "resources": {
+          "favour": {
+            "min": 75
+          }
+        }
+      },
+      "title": {
+        "en": "An Honest Peace",
+        "es": "Una paz honesta"
+      },
+      "description": {
+        "en": "Because every word was translated true, and Moctezuma's people were warned, both sides understood what the other wanted, and feared. For a while, at least, the guests behave like guests. History could have turned here.",
+        "es": "Como cada palabra se tradujo con verdad y la gente de Moctezuma estaba avisada, ambos lados entendieron lo que el otro quería y temía. Durante un tiempo, al menos, los invitados se comportan como invitados. La historia pudo cambiar aquí."
+      }
+    },
+    {
+      "id": "guests-of-moctezuma",
+      "historical": true,
+      "when": {
+        "flagsRequired": [
+          "lodged"
+        ],
+        "flagsExcluded": [
+          "seized"
+        ]
+      },
+      "title": {
+        "en": "Guests of Moctezuma",
+        "es": "Huéspedes de Moctezuma"
+      },
+      "description": {
+        "en": "The Spaniards sleep in the palace of Axayacatl, surrounded by gold and by a city that does not trust them. In six days they will take Moctezuma prisoner. It went exactly like this.",
+        "es": "Los españoles duermen en el palacio de Axayácatl, rodeados de oro y de una ciudad que no se fía de ellos. En seis días harán prisionero a Moctezuma. Fue exactamente así."
+      }
+    },
+    {
+      "id": "outside-the-city",
+      "when": {},
+      "title": {
+        "en": "Outside the City",
+        "es": "A las puertas de la ciudad"
+      },
+      "description": {
+        "en": "Night falls before the strangers are inside. Tenochtitlan's lights shine across the water, still out of reach.",
+        "es": "Cae la noche antes de que los extranjeros entren. Las luces de Tenochtitlan brillan al otro lado del agua, aún fuera de su alcance."
+      }
+    }
+  ],
+  "objectivesPool": [
+    {
+      "id": "meet",
+      "description": {
+        "en": "Translate the first meeting",
+        "es": "Traduce el primer encuentro"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "met"
+      }
+    },
+    {
+      "id": "lodged",
+      "description": {
+        "en": "Reach the palace of Axayacatl",
+        "es": "Llega al palacio de Axayácatl"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "lodged"
+      }
+    },
+    {
+      "id": "honest",
+      "description": {
+        "en": "Translate Moctezuma's speech faithfully",
+        "es": "Traduce fielmente el discurso de Moctezuma"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "honest-words"
+      }
+    },
+    {
+      "id": "calm",
+      "description": {
+        "en": "Never let peace fall below 40",
+        "es": "Que la paz nunca baje de 40"
+      },
+      "check": {
+        "type": "resourceNeverBelow",
+        "resource": "peace",
+        "value": 40
+      }
+    },
+    {
+      "id": "goodwill",
+      "description": {
+        "en": "Earn 70 Mexica goodwill",
+        "es": "Gana 70 de buena voluntad mexica"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "favour",
+        "value": 70
+      }
+    },
+    {
+      "id": "learn",
+      "description": {
+        "en": "Learn 8 things about the city",
+        "es": "Aprende 8 cosas sobre la ciudad"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "insight",
+        "value": 8
+      }
+    },
+    {
+      "id": "warn",
+      "description": {
+        "en": "Warn Moctezuma's people of the danger",
+        "es": "Avisa a la gente de Moctezuma del peligro"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "warned"
+      }
+    }
+  ],
+  "metaAchievements": [
+    {
+      "id": "keeper-of-peace",
+      "title": {
+        "en": "Keeper of the Peace",
+        "es": "Guardiana de la paz"
+      },
+      "description": {
+        "en": "Gather 300 peace across playthroughs.",
+        "es": "Acumula 300 de paz a lo largo de varias partidas."
+      },
+      "accumulates": "peace",
+      "threshold": 300
+    },
+    {
+      "id": "chronicler",
+      "title": {
+        "en": "Chronicler",
+        "es": "Cronista"
+      },
+      "description": {
+        "en": "Learn 40 things about Tenochtitlan across playthroughs.",
+        "es": "Aprende 40 cosas sobre Tenochtitlan a lo largo de varias partidas."
+      },
+      "accumulates": "insight",
+      "threshold": 40
+    }
+  ],
+  "memories": {
+    "flags": [],
+    "counters": [
+      "cortesTrust",
+      "moctezumaRegard",
+      "aguilarBond"
+    ]
+  }
+}
