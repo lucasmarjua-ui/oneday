@@ -70,7 +70,21 @@
   "daily.leaderboardLoading": "Loading…",
   "daily.recapUnavailable": "Full recap only available on the device where you played.",
   "daily.streakLabel": "{count}-day streak",
-  "game.keysHint": "1–4 to choose · Enter to skip",
+  "game.keysHint": "↑↓ choose · Enter confirm · Esc menu",
   "game.until": "day ends",
-  "game.soundToggle": "Sound on or off"
+  "game.loading": "Building the world",
+  "menu.title": "Paused",
+  "menu.resume": "Resume",
+  "menu.music": "Music",
+  "menu.sound": "Sound effects",
+  "menu.textSpeed": "Text speed",
+  "menu.language": "Language",
+  "menu.quit": "Quit to title",
+  "menu.on": "On",
+  "menu.off": "Off",
+  "speed.slow": "Slow",
+  "speed.normal": "Normal",
+  "speed.fast": "Fast",
+  "home.presents": "presents",
+  "home.pressStart": "Choose your day"
 }

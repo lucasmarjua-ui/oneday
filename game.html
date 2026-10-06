@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="OneDay: live one decisive day, one decision at a time.">
-  <meta name="theme-color" content="#14111c">
+  <meta name="theme-color" content="#120e18">
   <title>OneDay — Playing</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,16 +18,16 @@
 
   <header class="topbar">
     <div class="chip-row">
-      <a class="chip panel" href="./index.html">◂ <span data-i18n="nav.eras"></span></a>
-      <div class="era-title panel">
-        <h1 id="era-title"></h1>
+      <a class="btn btn-icon" href="./index.html" id="back-link" aria-label="Eras"><span id="back-icon"></span><span class="sr-only" data-i18n="nav.eras"></span></a>
+      <div class="era-title frame-sm">
+        <h1 class="t16" id="era-title" style="margin:0;font-weight:400"></h1>
         <span class="badge" id="daily-badge" hidden data-i18n="daily.badge"></span>
       </div>
     </div>
 
-    <div class="clock panel" aria-live="polite">
+    <div class="clock frame-sm" aria-live="polite">
       <div class="clock-time" id="clock-time">--:--</div>
-      <div class="clock-slot label" id="slot-label"></div>
+      <div class="t8 soft" id="slot-label"></div>
       <div class="day-track" aria-hidden="true">
         <div class="day-fill" id="day-fill" style="width:0%"></div>
         <div class="day-sun" id="day-sun" style="left:0%"></div>
@@ -35,81 +35,107 @@
     </div>
 
     <div class="chip-row">
-      <button class="chip panel" type="button" id="sound-toggle" aria-pressed="true"></button>
-      <span class="chip panel lang-switch">
-        <button type="button" id="lang-en">EN</button>
-        <button type="button" id="lang-es">ES</button>
-      </span>
+      <button class="btn btn-icon" type="button" id="menu-open"><span id="menu-icon"></span><span class="sr-only" data-i18n="menu.title"></span></button>
     </div>
   </header>
 
-  <aside class="hud panel" id="hud" aria-label="Status"></aside>
+  <aside class="hud frame" id="hud" aria-label="Status"></aside>
 
-  <div id="place-banner-host" aria-live="polite"></div>
+  <div id="banner-host" aria-live="polite"></div>
 
   <main>
-    <section id="decision-screen" class="dialog panel" hidden aria-live="polite">
-      <div class="dialog-head">
+    <section id="decision-screen" class="dialog frame" hidden aria-live="polite">
+      <div class="nameplate frame-sm"><span class="t16" id="speaker"></span><span class="t8 soft" id="speaker-role"></span></div>
+      <div class="dialog-body">
         <canvas class="portrait" id="portrait" width="16" height="14" aria-hidden="true"></canvas>
-        <div>
-          <div class="speaker" id="speaker"></div>
-          <span class="label" id="card-meta"></span>
+        <div class="dialog-main">
+          <p class="dialog-text" id="card-text"></p>
+          <div class="choices revealing" id="options" role="listbox"></div>
+          <div class="dialog-foot t8"><span id="card-meta"></span><span>·</span><span data-i18n="game.keysHint"></span></div>
         </div>
-      </div>
-      <p class="dialog-text" id="card-text"></p>
-      <div class="choices revealing" id="options"></div>
-      <div class="hint" data-i18n="game.keysHint"></div>
-    </section>
-
-    <section id="outcome-screen" class="dialog panel" hidden aria-live="polite">
-      <span class="outcome-tag" id="outcome-tag"></span>
-      <p class="dialog-text" id="outcome-text"></p>
-      <div class="deltas" id="outcome-deltas"></div>
-      <div class="dialog-actions">
-        <button id="outcome-continue" class="btn btn-primary" type="button"><span data-i18n="game.continue"></span> <span class="kbd">↵</span></button>
       </div>
     </section>
 
-    <section id="summary-screen" class="results panel" hidden>
-      <div class="verdict">
-        <span class="label" id="verdict-kicker"></span>
-        <h2 id="persona-name"></h2>
-        <p class="verdict-desc" id="persona-desc"></p>
-        <p class="ending-line" id="ending-line"></p>
-        <p class="streak-line" id="summary-streak" hidden></p>
-      </div>
-
-      <div class="score-row" id="summary-score" hidden></div>
-
-      <div class="summary-cols">
-        <div>
-          <div class="col-head" data-i18n="game.objectivesHeading"></div>
-          <ul class="line-list" id="summary-objectives"></ul>
-          <div id="summary-achievements"></div>
-        </div>
-        <div>
-          <div class="col-head" data-i18n="game.resourcesHeading"></div>
-          <ul class="line-list" id="summary-resources"></ul>
-        </div>
-        <div>
-          <div class="col-head" data-i18n="game.recapHeading"></div>
-          <div class="recap" id="summary-log"></div>
-        </div>
-        <div id="summary-leaderboard-section" hidden>
-          <div class="col-head" data-i18n="daily.leaderboardHeading"></div>
-          <ul class="line-list leaderboard" id="summary-leaderboard"></ul>
+    <section id="outcome-screen" class="dialog frame" hidden aria-live="polite">
+      <div class="dialog-body" style="grid-template-columns:1fr">
+        <div class="dialog-main">
+          <span class="outcome-tag" id="outcome-tag"></span>
+          <p class="dialog-text" id="outcome-text"></p>
+          <div class="deltas" id="outcome-deltas"></div>
+          <div class="dialog-foot">
+            <button id="outcome-continue" class="btn btn-primary" type="button"><span data-i18n="game.continue"></span> <span class="next-indicator" id="next-icon"></span></button>
+          </div>
         </div>
       </div>
+    </section>
 
-      <p id="summary-comeback" class="muted small" hidden data-i18n="daily.comeBackTomorrow"></p>
-      <div class="actions-row">
-        <button id="play-again" class="btn btn-primary" type="button" data-i18n="game.playAgain"></button>
-        <button id="download-card" class="btn" type="button" hidden data-i18n="game.downloadCard"></button>
-        <a class="btn btn-quiet" href="./index.html" data-i18n="game.changeEra"></a>
+    <div id="reveal" class="reveal" hidden>
+      <div class="reveal-kicker t16" id="reveal-kicker"></div>
+      <div class="reveal-name" id="reveal-name"></div>
+    </div>
+
+    <section id="summary-screen" class="results frame" hidden>
+      <div class="results-scroll">
+        <div class="verdict">
+          <span class="t8 soft" id="verdict-kicker"></span>
+          <h2 id="persona-name"></h2>
+          <p class="verdict-desc" id="persona-desc"></p>
+          <p class="ending-line" id="ending-line"></p>
+          <p class="streak-line t16" id="summary-streak" hidden></p>
+        </div>
+
+        <div class="score-row" id="summary-score" hidden></div>
+
+        <div class="summary-cols">
+          <div>
+            <div class="col-head t8" data-i18n="game.objectivesHeading"></div>
+            <ul class="line-list" id="summary-objectives"></ul>
+            <div id="summary-achievements"></div>
+          </div>
+          <div>
+            <div class="col-head t8" data-i18n="game.resourcesHeading"></div>
+            <ul class="line-list" id="summary-resources"></ul>
+          </div>
+          <div>
+            <div class="col-head t8" data-i18n="game.recapHeading"></div>
+            <div class="recap" id="summary-log"></div>
+          </div>
+          <div id="summary-leaderboard-section" hidden>
+            <div class="col-head t8" data-i18n="daily.leaderboardHeading"></div>
+            <ul class="line-list leaderboard" id="summary-leaderboard"></ul>
+          </div>
+        </div>
+
+        <p id="summary-comeback" class="muted" hidden data-i18n="daily.comeBackTomorrow"></p>
+        <div class="actions-row">
+          <button id="play-again" class="btn btn-primary" type="button" data-i18n="game.playAgain"></button>
+          <button id="download-card" class="btn" type="button" hidden data-i18n="game.downloadCard"></button>
+          <a class="btn" href="./index.html" data-i18n="game.changeEra" data-transition></a>
+        </div>
+        <canvas id="share-canvas" hidden></canvas>
       </div>
-      <canvas id="share-canvas" hidden></canvas>
     </section>
   </main>
+
+  <div id="pause" class="modal-backdrop" hidden>
+    <div class="modal frame" role="dialog" aria-modal="true" aria-labelledby="pause-heading">
+      <h2 id="pause-heading" data-i18n="menu.title"></h2>
+      <div class="menu-list">
+        <button class="btn btn-primary" type="button" id="menu-resume" data-i18n="menu.resume"></button>
+        <button class="btn" type="button" id="menu-music"><span data-i18n="menu.music"></span><span class="menu-value" id="menu-music-value"></span></button>
+        <button class="btn" type="button" id="menu-sound"><span data-i18n="menu.sound"></span><span class="menu-value" id="menu-sound-value"></span></button>
+        <button class="btn" type="button" id="menu-speed"><span data-i18n="menu.textSpeed"></span><span class="menu-value" id="menu-speed-value"></span></button>
+        <button class="btn" type="button" id="menu-lang"><span data-i18n="menu.language"></span><span class="menu-value" id="menu-lang-value"></span></button>
+        <a class="btn" href="./index.html" data-transition data-i18n="menu.quit"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="t24" id="loading-era">OneDay</div>
+    <div class="loading-bar"><span id="loading-fill"></span></div>
+    <div class="t8 soft" data-i18n="game.loading"></div>
+  </div>
 
   <script type="module">
     import { getCurrentUser } from './shared/auth.js';
@@ -133,9 +159,13 @@
     import { getStreak, recordStreakForToday } from './shared/streaks.js';
     import { renderShareCardCanvas, downloadCanvasAsPng } from './shared/share-card.js';
     import { placeForCard } from './shared/stage/places.js';
-    import { actionForOption, reactionForOutcome, deltaPopups } from './shared/stage/direction.js';
+    import { actionForOption, reactionForOutcome, deltaPopups, skyAt } from './shared/stage/direction.js';
     import { buildFrame, playerPalette, npcPalette } from './shared/stage/sprites.js';
-    import { sfx, isMuted, setMuted } from './shared/stage/sfx.js';
+    import { sfx } from './shared/stage/sfx.js';
+    import { music } from './shared/stage/music.js';
+    import { icon, resourceIcon } from './shared/ui/icons.js';
+    import { getSettings, updateSettings, typingDelay } from './shared/ui/settings.js';
+    import { wipeIn, wipeOut, setLoading, finishLoading } from './shared/ui/screens.js';
 
     const FILLER_CARD = {
       id: 'filler-wait',
@@ -144,6 +174,7 @@
         { id: 'rest', text: { en: 'Take a moment', es: 'Tómate un momento' }, traits: { prudent: 1 }, cost: { time: 1 }, successChance: { base: 1 }, success: { resources: { energy: 5 }, text: { en: 'You catch your breath.', es: 'Recuperas el aliento.' } } },
       ],
     };
+    const SPEEDS = ['slow', 'normal', 'fast'];
 
     const params = new URLSearchParams(window.location.search);
     const eraId = params.get('era');
@@ -151,14 +182,18 @@
     if (!eraMeta) window.location.href = './index.html';
     document.body.dataset.era = eraId;
 
-    const eraTitle = document.querySelector('#era-title');
-    const slotLabel = document.querySelector('#slot-label');
-    const hud = document.querySelector('#hud');
-    const decisionScreen = document.querySelector('#decision-screen');
-    const outcomeScreen = document.querySelector('#outcome-screen');
-    const summaryScreen = document.querySelector('#summary-screen');
-    const cardText = document.querySelector('#card-text');
-    const optionsEl = document.querySelector('#options');
+    const $ = selector => document.querySelector(selector);
+    const hud = $('#hud');
+    const decisionScreen = $('#decision-screen');
+    const outcomeScreen = $('#outcome-screen');
+    const summaryScreen = $('#summary-screen');
+    const cardText = $('#card-text');
+    const optionsEl = $('#options');
+    const pause = $('#pause');
+
+    $('#back-icon').innerHTML = icon('back', 3);
+    $('#menu-icon').innerHTML = icon('menu', 3);
+    $('#next-icon').innerHTML = icon('next', 3);
 
     let era = null;
     let cards = [];
@@ -174,6 +209,7 @@
     let summaryData = null;
     let phase = 'loading';
     let busy = false;
+    let armed = 0;
     let isDaily = false;
     let dailyDateKeyValue = null;
     let lastLeaderboardEntries = null;
@@ -183,9 +219,8 @@
     const noStage = { goTo: async () => {}, act: async () => {}, react: async () => {}, setDayFraction() {}, setCritical() {}, finale() {}, reset() {} };
     let stage = noStage;
 
-    function withTimeout(promise, ms) {
-      return Promise.race([promise, new Promise(resolve => setTimeout(resolve, ms))]);
-    }
+    const withTimeout = (promise, ms) => Promise.race([promise, new Promise(resolve => setTimeout(resolve, ms))]);
+    const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
     function mergeDeltas(a = {}, b = {}) {
       const result = { ...a };
@@ -195,24 +230,25 @@
 
     function applyStaticI18n() {
       document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
-      document.querySelector('#lang-en').className = getLanguage() === 'en' ? 'active' : '';
-      document.querySelector('#lang-es').className = getLanguage() === 'es' ? 'active' : '';
-      document.querySelector('#daily-badge').hidden = !isDaily;
-      eraTitle.textContent = localize(era.name);
+      $('#daily-badge').hidden = !isDaily;
+      $('#era-title').textContent = localize(era.name);
+      $('#back-link').setAttribute('aria-label', t('nav.eras'));
+      $('#menu-open').setAttribute('aria-label', t('menu.title'));
       document.title = `OneDay — ${localize(era.name)}`;
-      renderSoundToggle();
+      renderMenuValues();
     }
 
-    function renderSoundToggle() {
-      const button = document.querySelector('#sound-toggle');
-      button.textContent = isMuted() ? '♪ OFF' : '♪ ON';
-      button.setAttribute('aria-pressed', String(!isMuted()));
-      button.setAttribute('aria-label', t('game.soundToggle'));
+    function renderMenuValues() {
+      const settings = getSettings();
+      $('#menu-music-value').textContent = settings.music ? t('menu.on') : t('menu.off');
+      $('#menu-sound-value').textContent = settings.sfx ? t('menu.on') : t('menu.off');
+      $('#menu-speed-value').textContent = t(`speed.${settings.textSpeed}`);
+      $('#menu-lang-value').textContent = getLanguage() === 'en' ? 'English' : 'Español';
     }
 
     // --- Pixel portraits for the dialog box ---
     function drawPortrait(palette) {
-      const canvas = document.querySelector('#portrait');
+      const canvas = $('#portrait');
       const ctx = canvas.getContext('2d');
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       buildFrame('stand').slice(0, 14).forEach((row, y) => {
@@ -228,8 +264,6 @@
     let skipTyping = null;
     function typeInto(el, text) {
       el.textContent = '';
-      const caret = document.createElement('span');
-      caret.className = 'caret';
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         el.textContent = text;
         return Promise.resolve();
@@ -237,6 +271,8 @@
       return new Promise(resolve => {
         let i = 0;
         const node = document.createTextNode('');
+        const caret = document.createElement('span');
+        caret.className = 'caret';
         el.append(node, caret);
         const finish = () => {
           clearInterval(id);
@@ -251,17 +287,16 @@
           node.textContent = text.slice(0, i);
           if (i % 3 === 0 && text[i] !== ' ') sfx.type();
           if (i >= text.length) finish();
-        }, 18);
+        }, typingDelay());
       });
     }
 
-    function showPlaceBanner(label) {
-      const host = document.querySelector('#place-banner-host');
-      host.innerHTML = '';
+    function showBanner(html, className) {
+      const host = $('#banner-host');
       const banner = document.createElement('div');
-      banner.className = 'place-banner';
-      banner.textContent = label;
-      host.appendChild(banner);
+      banner.className = className;
+      banner.innerHTML = html;
+      host.replaceChildren(banner);
     }
 
     function resetDay() {
@@ -277,11 +312,12 @@
 
     function renderClock() {
       const slot = getCurrentSlot(era, dayState.elapsed);
-      document.querySelector('#clock-time').textContent = formatClock(era, dayState.elapsed);
-      slotLabel.textContent = `${localize(slot.label)} · ${t('game.until')} ${era.day.endLabel}`;
+      $('#clock-time').textContent = formatClock(era, dayState.elapsed);
+      $('#slot-label').textContent = `${localize(slot.label)} · ${t('game.until')} ${era.day.endLabel}`;
       const pct = Math.round(dayFraction(dayState) * 100);
-      document.querySelector('#day-fill').style.width = `${pct}%`;
-      document.querySelector('#day-sun').style.left = `${pct}%`;
+      $('#day-fill').style.width = `${pct}%`;
+      $('#day-sun').style.left = `${pct}%`;
+      music.setNight(skyAt(eraId, dayFraction(dayState)).night);
     }
 
     function renderHUD() {
@@ -290,18 +326,12 @@
       const resourcesHtml = Object.entries(era.resources).map(([key, config]) => {
         const value = resourceState[key];
         const changed = previousResourceState !== null && previousResourceState[key] !== value;
-        if (!isBarResource(config)) {
-          return `<div class="res plain${changed ? ' tick' : ''}">
-            <div class="res-top"><span class="res-name">${localize(config.label)}</span><span class="res-value">${value}</span></div>
-          </div>`;
-        }
+        const head = `${resourceIcon(key, 2)}<span class="res-name">${localize(config.label)}</span><span class="res-value">${value}</span>`;
+        if (!isBarResource(config)) return `<div class="res plain${changed ? ' tick' : ''}">${head}</div>`;
         const fraction = resourceFraction(value, config);
         const level = resourceBarLevel(fraction);
         if (config.critical && level === 'critical') anyCritical = true;
-        return `<div class="res ${level}${changed ? ' tick' : ''}">
-          <div class="res-top"><span class="res-name">${localize(config.label)}</span><span class="res-value">${value}</span></div>
-          <div class="res-track"><div class="res-fill" style="width:${Math.round(fraction * 100)}%"></div></div>
-        </div>`;
+        return `<div class="res ${level}${changed ? ' tick' : ''}">${head}<div class="res-track"><div class="res-fill" style="width:${Math.round(fraction * 100)}%"></div></div></div>`;
       }).join('');
 
       // Which trait today's choices are adding up to, live: that decides the ending.
@@ -318,12 +348,12 @@
     }
 
     function formatCost(option) {
-      const parts = [`<b>${option.cost?.time || 0}h</b>`];
+      const parts = [`<span class="cost-item time">${option.cost?.time || 0}H</span>`];
       Object.entries(option.cost?.resources || {}).forEach(([key, delta]) => {
         if (!delta) return;
-        parts.push(`<span class="${delta > 0 ? 'pos' : 'neg'}">${localize(era.resources[key].label)} ${delta > 0 ? '+' : ''}${delta}</span>`);
+        parts.push(`<span class="cost-item ${delta > 0 ? 'pos' : 'neg'}">${resourceIcon(key, 1)}${delta > 0 ? '+' : ''}${delta} ${localize(era.resources[key].label)}</span>`);
       });
-      return `<span class="cost">${parts.join(' · ')}</span>`;
+      return `<span class="cost">${parts.join('')}</span>`;
     }
 
     function oddsHtml(option) {
@@ -348,11 +378,21 @@
     function renderDecisionHead() {
       const npc = currentCard.npcId ? findNpc(era, currentCard.npcId) : null;
       const place = placeForCard(eraId, currentCard);
-      document.querySelector('#speaker').innerHTML = npc
-        ? `${localize(npc.name)}<span class="speaker-role">${localize(npc.role)}</span>`
-        : `${localize(place.label)}`;
-      document.querySelector('#card-meta').textContent = `${Math.round(dayFraction(dayState) * 100)}% ${t('game.dayElapsed')}`;
+      $('#speaker').textContent = npc ? localize(npc.name) : localize(place.label);
+      $('#speaker-role').textContent = npc ? `${localize(npc.role)} · ${localize(place.label)}` : '';
+      $('#card-meta').textContent = `${Math.round(dayFraction(dayState) * 100)}% ${t('game.dayElapsed')}`;
       drawPortrait(npc ? npcPalette(npc.portraitColor, eraId) : playerPalette(eraId));
+    }
+
+    function armChoice(index, withSound = true) {
+      const buttons = [...optionsEl.querySelectorAll('.choice')];
+      if (!buttons.length) return;
+      armed = (index + buttons.length) % buttons.length;
+      buttons.forEach((button, i) => {
+        button.classList.toggle('armed', i === armed);
+        button.setAttribute('aria-selected', String(i === armed));
+      });
+      if (withSound) sfx.move();
     }
 
     function renderOptions() {
@@ -361,15 +401,18 @@
         const button = document.createElement('button');
         button.type = 'button';
         button.className = 'choice';
+        button.setAttribute('role', 'option');
         button.innerHTML = `
+          <span class="choice-cursor">${icon('cursor', 3)}</span>
           <span class="kbd choice-key">${index + 1}</span>
           <span class="choice-text">${localize(option.text)}</span>
           <span class="choice-foot">${formatCost(option)}${oddsHtml(option)}</span>
         `;
         button.addEventListener('click', () => chooseOption(option));
-        button.addEventListener('mouseenter', () => sfx.move());
+        button.addEventListener('mouseenter', () => { if (armed !== index) armChoice(index); });
         optionsEl.appendChild(button);
       });
+      armChoice(0, false);
     }
 
     // Re-render the decision without replaying the walk or the typing
@@ -392,8 +435,8 @@
       renderHUD();
       const place = placeForCard(eraId, currentCard);
       const npc = currentCard.npcId ? findNpc(era, currentCard.npcId) : null;
-      showPlaceBanner(npc ? `${localize(place.label)} · ${localize(npc.name)}` : localize(place.label));
-      await withTimeout(stage.goTo(place, npc ? { color: npc.portraitColor } : null), 6000);
+      showBanner(`<span class="t16">${localize(place.label)}</span>`, 'place-banner frame-sm');
+      await withTimeout(stage.goTo(place, npc ? { color: npc.portraitColor, name: localize(npc.name) } : null), 6000);
 
       phase = 'decision';
       decisionScreen.hidden = false;
@@ -403,14 +446,14 @@
       await typeInto(cardText, localize(currentCard.text));
       optionsEl.classList.remove('revealing');
       busy = false;
-      optionsEl.querySelector('.choice')?.focus({ preventScroll: true });
     }
 
     async function chooseOption(option) {
-      if (busy || phase !== 'decision') return;
+      if (busy || phase !== 'decision' || !pause.hidden) return;
       busy = true;
       sfx.select();
       optionsEl.querySelectorAll('.choice').forEach(button => { button.disabled = true; });
+      const slotBefore = getCurrentSlot(era, dayState.elapsed).id;
 
       const { success, chance, outcome } = resolveOption(option, { resourceState, era, traits: dayState.traits }, rng);
       const combined = mergeDeltas(option.cost?.resources, outcome.resources);
@@ -438,36 +481,64 @@
       if (reaction === 'cheer') sfx.good(); else if (reaction === 'stumble') sfx.bad(); else sfx.neutral();
       await withTimeout(stage.react(reaction, deltaPopups(combined, era.resources, localize)), 4000);
 
+      // A new part of the day gets its own title card.
+      const slotAfter = getCurrentSlot(era, dayState.elapsed);
+      if (slotAfter.id !== slotBefore && !isTimeUp(dayState)) {
+        sfx.chime();
+        showBanner(`${localize(slotAfter.label)}<small>${formatClock(era, dayState.elapsed)}</small>`, 'slot-banner');
+      }
+
       phase = 'outcome';
       renderHUD();
       renderOutcomeUI();
       busy = false;
-      document.querySelector('#outcome-continue').focus({ preventScroll: true });
+      $('#outcome-continue').focus({ preventScroll: true });
     }
 
     function renderOutcomeUI() {
       hideAll();
       outcomeScreen.hidden = false;
-      const tag = document.querySelector('#outcome-tag');
+      const tag = $('#outcome-tag');
       tag.textContent = currentOutcome.hasChance ? (currentOutcome.success ? t('outcome.success') : t('outcome.failure')) : '';
       tag.className = `outcome-tag ${currentOutcome.hasChance ? (currentOutcome.success ? 'ok' : 'bad') : ''}`;
-      document.querySelector('#outcome-text').textContent = currentOutcome.text ? localize(currentOutcome.text) : '';
-      document.querySelector('#outcome-deltas').innerHTML = Object.entries(currentOutcome.combined)
+      $('#outcome-text').textContent = currentOutcome.text ? localize(currentOutcome.text) : '';
+      $('#outcome-deltas').innerHTML = Object.entries(currentOutcome.combined)
         .filter(([, value]) => value !== 0)
-        .map(([key, value]) => `<span class="delta ${value > 0 ? 'up' : 'down'}">${localize(era.resources[key].label)} ${value > 0 ? '+' : ''}${value}</span>`)
+        .map(([key, value]) => `<span class="delta ${value > 0 ? 'up' : 'down'}">${resourceIcon(key, 1)}${value > 0 ? '+' : ''}${value} ${localize(era.resources[key].label)}</span>`)
         .join('');
     }
 
     function continueDay() {
-      if (busy || phase !== 'outcome') return;
+      if (busy || phase !== 'outcome' || !pause.hidden) return;
       sfx.move();
       if (isTimeUp(dayState) || isCriticalDepleted(resourceState, era)) endDay();
       else showDecision();
     }
 
-    document.querySelector('#outcome-continue').addEventListener('click', continueDay);
+    $('#outcome-continue').addEventListener('click', continueDay);
 
-    function endDay() {
+    // The end of the day is a short cinematic: letterbox, then the name the day
+    // gave you, then the results panel.
+    let skipReveal = null;
+    async function playReveal(persona, good) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      phase = 'reveal';
+      document.body.classList.add('letterbox');
+      const reveal = $('#reveal');
+      $('#reveal-kicker').textContent = t('game.summaryKicker');
+      $('#reveal-name').textContent = persona ? localize(persona.name) : t('game.summaryHeading');
+      reveal.hidden = false;
+      sfx.end(good);
+      await new Promise(resolve => {
+        const timer = setTimeout(resolve, 3200);
+        skipReveal = () => { clearTimeout(timer); resolve(); };
+      });
+      skipReveal = null;
+      reveal.hidden = true;
+      document.body.classList.remove('letterbox');
+    }
+
+    async function endDay() {
       const objectivesResults = dailyObjectives.map(objective => ({
         objective,
         complete: isObjectiveComplete(objective, { resourceState, dayState }),
@@ -499,9 +570,10 @@
       }
 
       summaryData = { objectivesResults, newlyUnlocked, criticalKey, persona, finalResources: { ...resourceState }, log: [...narrativeLog], score, streak: getStreak(), alreadyPlayed: false };
-      phase = 'summary';
+      hideAll();
       stage.finale(!criticalKey);
-      sfx.end(!criticalKey);
+      await playReveal(persona, !criticalKey);
+      phase = 'summary';
       renderSummaryUI();
 
       if (isDaily) {
@@ -550,56 +622,56 @@
       stage.setCritical(false);
 
       const persona = summaryData.persona;
-      document.querySelector('#verdict-kicker').textContent = summaryData.alreadyPlayed ? t('daily.alreadyPlayedHeading') : t('game.summaryKicker');
-      document.querySelector('#persona-name').textContent = persona ? localize(persona.name) : t('game.summaryHeading');
-      document.querySelector('#persona-desc').textContent = persona ? localize(persona.description) : '';
+      $('#verdict-kicker').textContent = summaryData.alreadyPlayed ? t('daily.alreadyPlayedHeading') : t('game.summaryKicker');
+      $('#persona-name').textContent = persona ? localize(persona.name) : t('game.summaryHeading');
+      $('#persona-desc').textContent = persona ? localize(persona.description) : '';
 
-      const endingEl = document.querySelector('#ending-line');
+      const endingEl = $('#ending-line');
       endingEl.textContent = summaryData.criticalKey ? localize(era.badEnding) : localize(era.goodEnding);
       endingEl.className = `ending-line ${summaryData.criticalKey ? 'bad' : ''}`;
 
-      document.querySelector('#summary-objectives').innerHTML = summaryData.objectivesResults.map((entry, index) => `
+      $('#summary-objectives').innerHTML = summaryData.objectivesResults.map((entry, index) => `
         <li class="${entry.complete ? 'done' : ''}" style="animation-delay:${index * 0.08}s"><span class="mark">${entry.complete ? '✓' : '✗'}</span> ${localize(entry.objective.description)}</li>
       `).join('');
 
-      document.querySelector('#summary-resources').innerHTML = Object.entries(era.resources).map(([key, config], index) => `
-        <li style="animation-delay:${index * 0.05}s">${localize(config.label)}<span class="val">${summaryData.finalResources[key] ?? '–'}</span></li>
+      $('#summary-resources').innerHTML = Object.entries(era.resources).map(([key, config], index) => `
+        <li style="animation-delay:${index * 0.05}s">${resourceIcon(key, 2)}${localize(config.label)}<span class="val">${summaryData.finalResources[key] ?? '–'}</span></li>
       `).join('');
 
-      document.querySelector('#summary-achievements').innerHTML = (summaryData.newlyUnlocked || []).map((achievement, index) => `
-        <div class="unlock" style="animation-delay:${0.3 + index * 0.12}s"><strong>${localize(achievement.title)}</strong><br><span class="muted small">${localize(achievement.description)}</span></div>
+      $('#summary-achievements').innerHTML = (summaryData.newlyUnlocked || []).map((achievement, index) => `
+        <div class="unlock" style="animation-delay:${0.3 + index * 0.12}s"><strong class="t16">${localize(achievement.title)}</strong><br><span class="muted">${localize(achievement.description)}</span></div>
       `).join('');
 
-      document.querySelector('#summary-log').innerHTML = summaryData.log
+      $('#summary-log').innerHTML = summaryData.log
         ? (summaryData.log.map(line => `<p>${localize(line)}</p>`).join('') || `<p>${t('game.recapEmpty')}</p>`)
         : `<p>${t('daily.recapUnavailable')}</p>`;
 
-      const scoreSection = document.querySelector('#summary-score');
+      const scoreSection = $('#summary-score');
       if (summaryData.score) {
         scoreSection.hidden = false;
         scoreSection.innerHTML = `
-          <div class="score"><div class="score-value">${summaryData.score.objectivesScore}</div><div class="score-label">${t('daily.scoreObjectives')}</div></div>
-          <div class="score"><div class="score-value">${summaryData.score.tiebreakScore}</div><div class="score-label">${t('daily.scoreTiebreak')}</div></div>
-          <div class="score total"><div class="score-value">${summaryData.score.total}</div><div class="score-label">${t('daily.scoreTotal')}</div></div>
+          <div class="score"><div class="score-value">${summaryData.score.objectivesScore}</div><div class="t8 muted">${t('daily.scoreObjectives')}</div></div>
+          <div class="score"><div class="score-value">${summaryData.score.tiebreakScore}</div><div class="t8 muted">${t('daily.scoreTiebreak')}</div></div>
+          <div class="score total"><div class="score-value">${summaryData.score.total}</div><div class="t8 muted">${t('daily.scoreTotal')}</div></div>
         `;
       } else {
         scoreSection.hidden = true;
         scoreSection.innerHTML = '';
       }
 
-      const streakEl = document.querySelector('#summary-streak');
+      const streakEl = $('#summary-streak');
       const hasStreak = isDaily && summaryData.streak && summaryData.streak.currentStreak > 1;
       streakEl.hidden = !hasStreak;
       if (hasStreak) streakEl.textContent = t('daily.streakLabel', { count: summaryData.streak.currentStreak });
 
-      document.querySelector('#play-again').hidden = isDaily;
-      document.querySelector('#summary-comeback').hidden = !isDaily;
-      document.querySelector('#summary-leaderboard-section').hidden = !isDaily;
-      document.querySelector('#download-card').hidden = !isDaily || !summaryData.score;
+      $('#play-again').hidden = isDaily;
+      $('#summary-comeback').hidden = !isDaily;
+      $('#summary-leaderboard-section').hidden = !isDaily;
+      $('#download-card').hidden = !isDaily || !summaryData.score;
     }
 
     function renderLeaderboardHtml() {
-      const list = document.querySelector('#summary-leaderboard');
+      const list = $('#summary-leaderboard');
       if (lastLeaderboardEntries === null) {
         list.innerHTML = `<li>${t('daily.leaderboardLoading')}</li>`;
         return;
@@ -612,7 +684,7 @@
               <span class="rank">${String(index + 1).padStart(2, '0')}</span>${entry.username}<span class="val">${entry.score}</span>
             </li>
           `).join('');
-      if (!getCurrentUser()) html += `<li class="muted small">${t('daily.leaderboardLoginToAppear')}</li>`;
+      if (!getCurrentUser()) html += `<li class="muted">${t('daily.leaderboardLoginToAppear')}</li>`;
       list.innerHTML = html;
     }
 
@@ -628,14 +700,15 @@
       renderLeaderboardHtml();
     }
 
-    document.querySelector('#play-again').addEventListener('click', () => {
+    $('#play-again').addEventListener('click', () => {
+      sfx.select();
       resetDay();
       stage.reset();
       showDecision();
     });
 
-    document.querySelector('#download-card').addEventListener('click', async () => {
-      const canvas = document.querySelector('#share-canvas');
+    $('#download-card').addEventListener('click', async () => {
+      const canvas = $('#share-canvas');
       await renderShareCardCanvas(canvas, {
         eraName: localize(era.name),
         accentHue: eraMeta.accent,
@@ -650,28 +723,69 @@
       downloadCanvasAsPng(canvas, `oneday-${eraId}-${dailyDateKeyValue}.png`);
     });
 
-    // Keyboard: 1-4 (or A-D) choose, Enter/Space continues or skips the typing.
+    // --- Pause menu ---
+    function openPause() {
+      if (phase === 'loading') return;
+      skipTyping?.();
+      pause.hidden = false;
+      sfx.select();
+      $('#menu-resume').focus();
+    }
+    function closePause() {
+      pause.hidden = true;
+      sfx.back();
+    }
+    $('#menu-open').addEventListener('click', openPause);
+    $('#menu-resume').addEventListener('click', closePause);
+    pause.addEventListener('click', event => { if (event.target === pause) closePause(); });
+    $('#menu-music').addEventListener('click', () => { updateSettings({ music: !getSettings().music }); renderMenuValues(); sfx.move(); });
+    $('#menu-sound').addEventListener('click', () => { updateSettings({ sfx: !getSettings().sfx }); renderMenuValues(); sfx.move(); });
+    $('#menu-speed').addEventListener('click', () => {
+      const next = SPEEDS[(SPEEDS.indexOf(getSettings().textSpeed) + 1) % SPEEDS.length];
+      updateSettings({ textSpeed: next });
+      renderMenuValues();
+      sfx.move();
+    });
+    $('#menu-lang').addEventListener('click', () => { setLanguage(getLanguage() === 'en' ? 'es' : 'en'); sfx.move(); });
+
+    // Leaving the page plays the pixel wipe first.
+    document.querySelectorAll('[data-transition], #back-link').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        sfx.back();
+        wipeIn().then(() => { window.location.href = link.href; });
+      });
+    });
+
+    // Keyboard: arrows (or 1-4) choose, Enter/Space confirms or skips the typing, Esc pauses.
     document.addEventListener('keydown', event => {
       if (event.target.closest('input, textarea')) return;
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        if (pause.hidden) openPause(); else closePause();
+        return;
+      }
+      if (!pause.hidden) return;
+      const confirm = event.key === 'Enter' || event.key === ' ';
+      if (phase === 'reveal' && (confirm || event.key === 'Escape')) { event.preventDefault(); skipReveal?.(); return; }
       if (phase === 'decision') {
-        if (skipTyping && (event.key === 'Enter' || event.key === ' ')) { event.preventDefault(); skipTyping(); return; }
-        const index = '1234'.indexOf(event.key) >= 0 ? '1234'.indexOf(event.key) : 'abcd'.indexOf(event.key.toLowerCase());
-        if (index >= 0 && currentCard.options[index] && !skipTyping) { event.preventDefault(); chooseOption(currentCard.options[index]); }
-      } else if (phase === 'outcome' && (event.key === 'Enter' || event.key === ' ') && event.target.id !== 'outcome-continue') {
+        if (skipTyping && confirm) { event.preventDefault(); skipTyping(); return; }
+        if (skipTyping) return;
+        const index = ['1', '2', '3', '4'].indexOf(event.key);
+        if (index >= 0 && currentCard.options[index]) { event.preventDefault(); chooseOption(currentCard.options[index]); return; }
+        const columns = 1;
+        if (event.key === 'ArrowDown' || event.key === 'ArrowRight') { event.preventDefault(); armChoice(armed + columns); }
+        else if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') { event.preventDefault(); armChoice(armed - columns); }
+        else if (confirm && event.target.closest('.choice') === null) { event.preventDefault(); chooseOption(currentCard.options[armed]); }
+      } else if (phase === 'outcome' && confirm && event.target.id !== 'outcome-continue') {
         event.preventDefault();
         continueDay();
       }
     });
     cardText.addEventListener('click', () => skipTyping?.());
+    $('#reveal').addEventListener('click', () => skipReveal?.());
+    document.addEventListener('click', event => { if (phase === 'reveal' && !event.target.closest('button')) skipReveal?.(); });
 
-    document.querySelector('#sound-toggle').addEventListener('click', () => {
-      setMuted(!isMuted());
-      renderSoundToggle();
-      sfx.select();
-    });
-
-    document.querySelector('#lang-en').addEventListener('click', () => setLanguage('en'));
-    document.querySelector('#lang-es').addEventListener('click', () => setLanguage('es'));
     onLanguageChange(() => {
       applyStaticI18n();
       if (phase === 'decision') { skipTyping?.(); renderDecisionUI(); }
@@ -681,21 +795,32 @@
     });
 
     (async function init() {
+      $('#loading-era').textContent = eraMeta ? localize(eraMeta.name) : 'OneDay';
+      setLoading(0.15);
       await loadStrings();
+      applyStaticFallback();
+      setLoading(0.35);
       const loaded = await loadEra(eraId);
       era = loaded.era;
       cards = loaded.cards;
       isDaily = params.get('daily') === '1';
       dailyDateKeyValue = todayDateKey();
       applyStaticI18n();
+      setLoading(0.6);
 
       try {
         const { createStage } = await import('./shared/stage/stage.js');
-        stage = await createStage(document.querySelector('#stage'), { eraId, mode: 'play' });
+        setLoading(0.8);
+        stage = await createStage($('#stage'), { eraId, mode: 'play', onStep: () => sfx.step() });
       } catch (error) {
         console.warn('OneDay: 3D stage unavailable, playing without it', error);
         document.body.classList.add('no-stage');
       }
+      setLoading(1);
+      await wait(250);
+      finishLoading();
+      wipeOut();
+      music.play(eraId);
 
       if (isDaily) {
         const local = getLocalDailyResult(eraId);
@@ -711,6 +836,11 @@
       resetDay();
       showDecision();
     })();
+
+    // The loading screen's caption is localised as soon as the strings arrive.
+    function applyStaticFallback() {
+      document.querySelectorAll('.loading [data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    }
   </script>
 </body>
 </html>

@@ -246,6 +246,52 @@ export function buildWorld(THREE, stage, { eraId, island, places, burst }) {
   groundMesh.instanceColor.needsUpdate = true;
   scene.add(groundMesh);
 
+  // Ground detail: grass tufts and flowers (pebbles on Mars) on open tiles.
+  const DETAIL = {
+    greece: { tuft: ['#7fa144', '#b5d46e'], flowers: ['#f4f1e8', '#e3c23c', '#c9573f'] },
+    cordoba: { tuft: ['#959245', '#cfc77c'], flowers: ['#e8833a', '#f3ead6'] },
+    edo: { tuft: ['#5f8f48', '#9ccb7c'], flowers: ['#f2a7c3', '#ffffff'] },
+    neanderthal: { tuft: ['#5d7c40', '#9cb873'], flowers: ['#e9d9a6', '#b35c3a'] },
+    mars: { tuft: ['#8e4228', '#a95434'], flowers: [] },
+  }[eraId];
+  if (DETAIL) {
+    const spots = [];
+    tiles.forEach(([cx, cz]) => {
+      const key = `${Math.round(cx - 0.5)},${Math.round(cz - 0.5)}`;
+      if (waterCells.has(key) || onPath(cx, cz, 0.9)) return;
+      if (places.some(p => Math.hypot(p.pos[0] - cx, p.pos[1] - cz) < 1.4)) return;
+      const h = Math.abs(Math.sin(cx * 91.7 + cz * 47.3) * 9301.17) % 1;
+      if (h < 0.55) spots.push([cx + (h - 0.3) * 0.8, cz + (((h * 7) % 1) - 0.5) * 0.7, h]);
+    });
+    const tuftMesh = new THREE.InstancedMesh(new THREE.BoxGeometry(0.0625, 0.19, 0.0625), new THREE.MeshLambertMaterial({ flatShading: true }), spots.length * 3);
+    const flowerMesh = new THREE.InstancedMesh(new THREE.BoxGeometry(0.125, 0.125, 0.125), new THREE.MeshLambertMaterial({ flatShading: true }), spots.length);
+    let tn = 0;
+    let fn = 0;
+    spots.forEach(([x, z, h]) => {
+      const blades = eraId === 'mars' ? 1 : 3;
+      for (let b = 0; b < blades; b++) {
+        m4.makeTranslation(x + (b - 1) * 0.09, eraId === 'mars' ? 0.04 : 0.09 + (b % 2) * 0.03, z + ((b * 3) % 2) * 0.06);
+        tuftMesh.setMatrixAt(tn, m4);
+        tuftMesh.setColorAt(tn++, color.set(DETAIL.tuft[(b + Math.floor(h * 10)) % DETAIL.tuft.length]));
+      }
+      if (DETAIL.flowers.length && h > 0.43) {
+        m4.makeTranslation(x + 0.18, 0.2, z - 0.12);
+        flowerMesh.setMatrixAt(fn, m4);
+        flowerMesh.setColorAt(fn++, color.set(DETAIL.flowers[Math.floor(h * 100) % DETAIL.flowers.length]));
+      }
+    });
+    tuftMesh.count = tn;
+    flowerMesh.count = fn;
+    [tuftMesh, flowerMesh].forEach(mesh => {
+      mesh.receiveShadow = true;
+      mesh.instanceMatrix.needsUpdate = true;
+      if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
+      // Too small to outline: keep them out of the edge-detection pass.
+      mesh.userData.isSprite = true;
+      if (mesh.count) scene.add(mesh);
+    });
+  }
+
   // A rock cone under the island so it reads as floating.
   const under = new THREE.Mesh(new THREE.ConeGeometry(island * 0.85, island * 0.9, 7), new THREE.MeshLambertMaterial({ color: palette.rock, flatShading: true }));
   under.rotation.x = Math.PI;

@@ -135,13 +135,27 @@ Each era has three recurring NPCs with their own multi-card threads and attitude
 
 ## The stage: a 3D pixel-art diorama
 
-Every era is a floating island built from voxel tiles, with its landmarks modelled from boxes, cylinders and cones: the Parthenon and the agora's striped stalls, the Great Mosque's red-and-white arches and a turning waterwheel, Sensoji's pagoda and a torii gate, a cave and a grazing mammoth, a neon tower with flying cars, habitat domes and a greenhouse on Mars. It is rendered by three.js at roughly 300 pixel rows and scaled up with hard edges, so the 3D scene reads as pixel art, with crisp one-pixel shadows.
+Every era is a floating island built from voxel tiles, with its landmarks modelled from boxes, cylinders and cones: the Parthenon and the agora's striped stalls, the Great Mosque's red-and-white arches and a turning waterwheel, Sensoji's pagoda and a torii gate, a cave and a grazing mammoth, a neon tower with flying cars, habitat domes and a greenhouse on Mars. Grass tufts and flowers (pebbles on Mars) cover the open ground.
+
+**How it is made to look like hand-placed pixel art** (`shared/stage/stage.js`):
+
+- **One sprite texel is one render pixel.** The world is drawn at 16 pixels per unit, and the render is upscaled by a *whole* number of device pixels (aware of `devicePixelRatio`), so every pixel on screen is the same size, on a laptop or a 3x phone.
+- **The camera snaps to the pixel grid**, so the world never shimmers as the camera follows the character.
+- **A post pass inks the scene**: dark outlines where the depth buffer jumps (silhouettes) and light rims where the normal buffer turns (convex edges), then a colour grade (saturation, contrast, warm highlights, cool shadows).
+- **Clouds cast shadows without hiding anything**: over the island they are invisible shadow-casters, so patches of shade sweep across the ground; visible clouds drift around the edge of the view.
+- **Text is never a texture.** Floating resource changes and NPC name tags are browser text positioned over the canvas, so they stay sharp at any size.
 
 - **The character is a pixel-art sprite** (16x24) assembled from text grids in `shared/stage/sprites.js`: a head, a torso, an arm pose and a leg pose, dressed by an era palette (a chiton in Athens, a spacesuit on Mars). NPCs reuse the body in their own portrait colour, and a few villagers wander between landmarks.
 - **Cards happen somewhere.** `shared/stage/places.js` gives each era 5-7 landmarks; a card goes to the one its id names (`temple`, `souk`, `canal`), or where its NPC lives, or, failing both, to a landmark picked by a stable hash. The character walks there along the island's paths and the NPC is waiting.
 - **Choices are acted out.** `shared/stage/direction.js` maps the option's trait to body language: bold dashes, prudent sits down, generous gives (hearts), cunning crouches out of sight, diligent works (sparks), curious inspects (a question mark). A real gamble then gets a cheer and confetti or a stumble and a dust cloud; a sure thing gets a nod. Resource changes float up over the character's head.
 - **The day passes on screen.** The sun travels across the sky with the clock and the light warms, fades and turns blue; lamps, lanterns and windows switch on as night falls. Low health desaturates the world and pulses a red vignette.
-- **It is a game, not a page.** A pixel HUD, a typewriter dialog box with portraits, keyboard play, chiptune sound effects synthesised with WebAudio (`shared/stage/sfx.js`, mutable), and a finale where the camera circles the character while the results panel names them.
+- **It is a game, not a page.**
+  - A boot sequence: a studio card, a loading bar and pixel-wipe transitions between screens (`shared/ui/screens.js`).
+  - A pixel HUD with drawn resource icons (`shared/ui/icons.js`), 9-slice frames with notched corners, and two pixel fonts used only at sizes where their pixels land on whole screen pixels (Silkscreen at multiples of 8 px, Pixelify Sans at 16 and 24 px).
+  - A dialog box with a name plate, a portrait and typewriter text; choices are picked with the arrow keys and Enter (or 1-4, or a click), with a cursor.
+  - Title cards when the day moves into a new part ("Midday", "Night"), and an end-of-day cinematic: letterbox bars, the name the day gave you, then the results panel while the camera circles the character.
+  - A pause menu (Esc) with music, sound effects, text speed and language, remembered between visits (`shared/ui/settings.js`).
+  - Generative chiptune music with its own mode, tempo and progression for each era, which darkens as night falls (`shared/stage/music.js`), plus synthesised sound effects, footsteps included (`shared/stage/sfx.js`). Nothing is pre-recorded.
 
 The rules never wait on the stage: every stage call has a timeout, and if WebGL or the module is unavailable the game falls back to the same HUD and dialog over a plain backdrop. Reduced-motion players get instant moves and no particles.
 
@@ -178,7 +192,11 @@ shared/
   stage/sprites.js             Pixel-art character frames and palettes (pure)
   stage/places.js              Each era's landmarks and which card plays where (pure)
   stage/direction.js           Trait -> action, outcome -> reaction, sky colours by time (pure)
-  stage/sfx.js                 WebAudio chiptune sound effects
+  stage/sfx.js                 WebAudio sound effects and the shared audio context
+  stage/music.js               Generative per-era chiptune music
+  ui/icons.js                  Pixel-art interface and resource icons as crisp SVG (pure)
+  ui/settings.js               Music, sound and text-speed settings (persisted)
+  ui/screens.js                Pixel-wipe transitions and the loading bar
 vendor/three/                  three.js r169, MIT
 data/
   i18n/en.json, es.json        Interface strings
@@ -189,7 +207,7 @@ tests/*.test.js                Node's built-in test runner, no test framework
 
 ## Testing
 
-**203 tests**, zero test-framework dependencies, using Node's built-in test runner.
+**207 tests**, zero test-framework dependencies, using Node's built-in test runner.
 
 ```bash
 npm test
@@ -200,6 +218,8 @@ The engine's rules are covered directly (card filtering, weighted draw, both bon
 `tests/era-data.test.js` is the one that scales: it reads `shared/era-registry.js` and runs the **same twelve checks against every era**, so a new era inherits them by existing. Per era it asserts that every player-facing field is bilingual, that personas cover all six traits plus a fallback, that every option declares a valid trait, that every trait is actually reachable through that era's cards, that success bonuses only reference resources and traits that exist, that NPC/thread references resolve and chain, that every flag-based objective is reachable by some card, that declared memories are really produced, and that a simulated day terminates and stays deterministic across 60 seeds. It also checks globally that card ids are unique *across* eras and that eras use genuinely different resource sets rather than being reskins.
 
 `tests/stage.test.js` covers the stage's pure layer for every era: every sprite pose is a full frame with a colour for every pixel in every palette, every card and every NPC lands on a real landmark (and always the same one), every option maps to a known action, and the day cycle ends in night with the lamps on.
+
+`tests/ui.test.js` checks that every resource of every era has its own HUD icon, that icons are drawn at whole-pixel scales, and that settings default sensibly.
 
 `tests/i18n.test.js` enforces the bilingual contract mechanically: both bundles must declare the same keys, no string may be empty, placeholders must match between languages, every `data-i18n` attribute and every `t()` lookup in both pages must resolve, and no key may be dead.
 
@@ -233,7 +253,7 @@ The Firebase SDK is loaded from Google's CDN with a dynamic `import()` (see `sha
 
 **Seeded RNG as a first-class dependency.** Every random draw takes an explicit `rng` argument; nothing calls `Math.random()`. That is what makes the Daily Challenge and the determinism tests possible.
 
-**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (211 decision cards across six eras, 203 tests).
+**Every number shown on the site is real.** The era count is read from the registry at runtime; the card and test counts are the actual totals (211 decision cards across six eras, 207 tests).
 
 ## Known gaps
 

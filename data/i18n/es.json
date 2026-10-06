@@ -70,7 +70,21 @@
   "daily.leaderboardLoading": "Cargando…",
   "daily.recapUnavailable": "El resumen completo solo está disponible en el dispositivo donde jugaste.",
   "daily.streakLabel": "Racha de {count} días",
-  "game.keysHint": "1–4 para elegir · Intro para saltar",
+  "game.keysHint": "↑↓ elegir · Intro confirmar · Esc menú",
   "game.until": "fin del día",
-  "game.soundToggle": "Activar o silenciar el sonido"
+  "game.loading": "Construyendo el mundo",
+  "menu.title": "Pausa",
+  "menu.resume": "Continuar",
+  "menu.music": "Música",
+  "menu.sound": "Efectos de sonido",
+  "menu.textSpeed": "Velocidad del texto",
+  "menu.language": "Idioma",
+  "menu.quit": "Volver al título",
+  "menu.on": "Sí",
+  "menu.off": "No",
+  "speed.slow": "Lenta",
+  "speed.normal": "Normal",
+  "speed.fast": "Rápida",
+  "home.presents": "presenta",
+  "home.pressStart": "Elige tu día"
 }

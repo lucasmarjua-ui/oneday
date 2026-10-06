@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="OneDay: pick an era, live one day of decisions, and find out who they turn you into.">
-  <meta name="theme-color" content="#14111c">
+  <meta name="theme-color" content="#120e18">
   <meta property="og:type" content="website">
   <meta property="og:title" content="OneDay">
   <meta property="og:description" content="Pick an era, live one day of decisions, and find out who they turn you into.">
@@ -28,14 +28,14 @@
   <div class="vignette"></div>
 
   <header class="topbar">
-    <span class="chip panel label" data-i18n="home.kicker"></span>
+    <span class="t8 frame-sm" style="padding:8px 10px" data-i18n="home.kicker"></span>
     <div class="chip-row">
-      <button class="chip panel" type="button" id="how-open" data-i18n="nav.howItWorks"></button>
-      <button class="chip panel" type="button" id="profile-open" data-i18n="nav.profile"></button>
-      <span class="chip panel player-name" id="player-name" hidden></span>
-      <button class="chip panel" type="button" id="login-open" data-i18n="nav.login"></button>
-      <button class="chip panel" type="button" id="logout" hidden data-i18n="nav.logout"></button>
-      <span class="chip panel lang-switch">
+      <button class="btn" type="button" id="how-open" data-i18n="nav.howItWorks"></button>
+      <button class="btn" type="button" id="profile-open" data-i18n="nav.profile"></button>
+      <span class="frame-sm t16 player-name" style="padding:8px 10px" id="player-name" hidden></span>
+      <button class="btn" type="button" id="login-open" data-i18n="nav.login"></button>
+      <button class="btn" type="button" id="logout" hidden data-i18n="nav.logout"></button>
+      <span class="frame-sm lang-switch">
         <button type="button" id="lang-en">EN</button>
         <button type="button" id="lang-es">ES</button>
       </span>
@@ -47,36 +47,36 @@
       <h1 class="logo">OneDay</h1>
       <p class="logo-sub" id="hero-title"></p>
     </div>
-
-    <section class="picker panel" id="eras" aria-labelledby="picker-heading">
+    <div></div>
+    <section class="picker frame" id="eras" aria-labelledby="picker-heading">
       <h2 class="sr-only" id="picker-heading" data-i18n="home.indexHeading"></h2>
       <div class="picker-row">
-        <button class="btn arrow" type="button" id="prev-era" aria-label="Previous era">◂</button>
+        <button class="btn btn-icon" type="button" id="prev-era" aria-label="Previous era"><span class="flip" id="prev-icon"></span></button>
         <div class="picker-era" aria-live="polite">
-          <span class="label picker-year" id="picker-year"></span>
+          <span class="t8 soft" data-i18n="home.pressStart"></span> <span class="t8" style="color:var(--gold)" id="picker-year"></span>
           <h3 class="picker-name" id="picker-name"></h3>
           <p class="picker-tagline" id="picker-tagline"></p>
         </div>
-        <button class="btn arrow" type="button" id="next-era" aria-label="Next era">▸</button>
+        <button class="btn btn-icon" type="button" id="next-era" aria-label="Next era"><span id="next-icon"></span></button>
       </div>
       <div class="dots" id="era-dots" role="tablist" aria-label="Eras"></div>
       <div class="menu">
-        <button class="btn btn-primary" type="button" id="play-era">▶ <span data-i18n="era.live"></span></button>
-        <button class="btn" type="button" id="play-daily">★ <span id="daily-label" data-i18n="era.daily"></span></button>
+        <button class="btn btn-primary" type="button" id="play-era"><span id="play-icon"></span><span data-i18n="era.live"></span></button>
+        <button class="btn" type="button" id="play-daily"><span id="star-icon"></span><span id="daily-label" data-i18n="era.daily"></span></button>
       </div>
-      <p class="stats-line">
+      <p class="stats-line t8">
         <b id="stat-eras">–</b> <span data-i18n="home.statsEras"></span> ·
         <b id="stat-cards">211</b> <span data-i18n="home.statsCards"></span> ·
-        <b id="stat-tests">203</b> <span data-i18n="home.statsTests"></span> ·
+        <b id="stat-tests">207</b> <span data-i18n="home.statsTests"></span> ·
         <span data-i18n="home.indexHint"></span>
       </p>
     </section>
   </main>
 
   <div id="how-modal" class="modal-backdrop" hidden>
-    <div class="modal panel" role="dialog" aria-modal="true" aria-labelledby="how-heading">
+    <div class="modal frame" role="dialog" aria-modal="true" aria-labelledby="how-heading">
       <h2 id="how-heading" data-i18n="home.howHeading"></h2>
-      <p class="muted" data-i18n="home.lede"></p>
+      <p class="soft" data-i18n="home.lede"></p>
       <div class="how-step">
         <div class="how-step-n">01</div>
         <h3 data-i18n="home.step1Title"></h3>
@@ -92,7 +92,7 @@
         <h3 data-i18n="home.step3Title"></h3>
         <p data-i18n="home.step3Desc"></p>
       </div>
-      <p class="muted small" data-i18n="home.footer"></p>
+      <p class="muted t8" data-i18n="home.footer"></p>
       <div class="modal-actions">
         <button id="how-close" class="btn" type="button" data-i18n="profile.close"></button>
       </div>
@@ -100,20 +100,20 @@
   </div>
 
   <div id="login-modal" class="modal-backdrop" hidden>
-    <div class="modal panel" role="dialog" aria-modal="true">
+    <div class="modal frame" role="dialog" aria-modal="true">
       <h2 data-i18n="login.heading"></h2>
-      <p class="muted small" data-i18n="login.description"></p>
+      <p class="soft" data-i18n="login.description"></p>
       <div class="field">
-        <label for="login-username" data-i18n="login.username"></label>
+        <label class="t8 soft" for="login-username" data-i18n="login.username"></label>
         <input id="login-username" type="text" autocomplete="username" maxlength="16">
       </div>
       <div class="field">
-        <label for="login-password" data-i18n="login.password"></label>
+        <label class="t8 soft" for="login-password" data-i18n="login.password"></label>
         <input id="login-password" type="password" autocomplete="current-password">
       </div>
       <p class="form-error" id="login-error"></p>
       <div class="modal-actions">
-        <button id="login-close" class="btn btn-quiet" type="button" data-i18n="login.cancel"></button>
+        <button id="login-close" class="btn" type="button" data-i18n="login.cancel"></button>
         <button id="login-register" class="btn" type="button" data-i18n="login.register"></button>
         <button id="login-submit" class="btn btn-primary" type="button" data-i18n="login.submit"></button>
       </div>
@@ -121,13 +121,24 @@
   </div>
 
   <div id="profile-modal" class="modal-backdrop" hidden>
-    <div class="modal panel" role="dialog" aria-modal="true">
+    <div class="modal frame" role="dialog" aria-modal="true">
       <h2 data-i18n="profile.heading"></h2>
       <div id="profile-body"></div>
       <div class="modal-actions">
         <button id="profile-close" class="btn" type="button" data-i18n="profile.close"></button>
       </div>
     </div>
+  </div>
+
+  <div class="loading" id="loading">
+    <div class="t24">OneDay</div>
+    <div class="loading-bar"><span id="loading-fill"></span></div>
+  </div>
+
+  <div class="studio" id="studio" hidden>
+    <div class="studio-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+    <div class="t16">Lucas Martinez</div>
+    <div class="t8 soft" data-i18n="home.presents"></div>
   </div>
 
   <script type="module">
@@ -139,6 +150,9 @@
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
     import { sfx } from './shared/stage/sfx.js';
+    import { music } from './shared/stage/music.js';
+    import { icon } from './shared/ui/icons.js';
+    import { wipeIn, wipeOut, setLoading, finishLoading } from './shared/ui/screens.js';
 
     const availableEras = ERAS.filter(era => era.available);
     const SELECTED_KEY = 'oneday.selectedEra';
@@ -162,8 +176,15 @@
       document.querySelector('#hero-title').innerHTML = `${t('home.heroTitlePart1')} <em>${t('home.heroTitlePart2')}</em>`;
     }
 
-    function play(eraId, daily = false) {
+    document.querySelector('#prev-icon').innerHTML = icon('play', 3);
+    document.querySelector('#next-icon').innerHTML = icon('play', 3);
+    document.querySelector('#play-icon').innerHTML = icon('play', 3);
+    document.querySelector('#star-icon').innerHTML = icon('star', 3);
+
+    async function play(eraId, daily = false) {
       sfx.select();
+      music.stop();
+      await wipeIn();
       window.location.href = `./game.html?era=${eraId}${daily ? '&daily=1' : ''}`;
     }
 
@@ -296,16 +317,37 @@
       if (event.key === 'Escape') document.querySelectorAll('.modal-backdrop').forEach(backdrop => { backdrop.hidden = true; });
     });
 
+    // A studio card on the first visit of a session, like a game boot.
+    function showStudioCard() {
+      let seen = false;
+      try { seen = sessionStorage.getItem('oneday.studio') === '1'; sessionStorage.setItem('oneday.studio', '1'); } catch { /* show it */ }
+      if (seen || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const studio = document.querySelector('#studio');
+      studio.hidden = false;
+      const close = () => studio.remove();
+      studio.addEventListener('click', close);
+      setTimeout(close, 2700);
+    }
+
     (async function init() {
+      setLoading(0.2);
       await loadStrings();
       applyStaticI18n();
+      showStudioCard();
+      setLoading(0.5);
       try {
         ({ createStage } = await import('./shared/stage/stage.js'));
       } catch (error) {
         console.warn('OneDay: 3D stage unavailable', error);
         document.body.classList.add('no-stage');
       }
+      setLoading(0.8);
       renderPicker();
+      await stageQueue;
+      setLoading(1);
+      finishLoading();
+      wipeOut();
+      music.play('title');
     })();
   </script>
 </body>
