@@ -5,6 +5,9 @@
 // stable hash, so the same card always plays out in the same place.
 // The first place of every event is where the day starts: waking up.
 
+// Anoraks, parkas and denim: what Berlin wore in November 1989.
+const EIGHTIES = ['#6a7a8a', '#8a6a4a', '#4a5a6a', '#9a8a6a', '#7a4a4a', '#3d5a8a'];
+
 export const SCENES = {
   'apollo-11': {
     columbia: { kind: 'room', size: [7, 6], interior: true, entrance: [1, 1], cast: ['npc-neil', 'npc-collins'], outfit: 'cabin' },
@@ -30,6 +33,13 @@ export const SCENES = {
     beach: { kind: 'island', size: 12, entrance: [4, 4], crowd: 4, crowdColors: ['#6b6648', '#7a7556', '#5e5a40'], showcase: true },
     bluff: { kind: 'island', size: 10, entrance: [-4, 4], crowd: 3, crowdColors: ['#6b6648', '#7a7556', '#5e5a40'] },
   },
+  'berlin-wall': {
+    flat: { kind: 'room', size: [7, 6], interior: true, entrance: [1.5, 1.5], cast: [] },
+    street: { kind: 'island', size: 10, entrance: [3, 4], crowd: 4, crowdColors: EIGHTIES },
+    press: { kind: 'room', size: [8, 7], interior: true, entrance: [2.6, 2.6], cast: [], crowd: 2, crowdColors: ['#3a3f48', '#4a4a52', '#5a4a3a'] },
+    checkpoint: { kind: 'island', size: 12, entrance: [2, 6], crowd: 6, crowdColors: EIGHTIES },
+    west: { kind: 'island', size: 11, entrance: [3, 4], crowd: 5, crowdColors: [...EIGHTIES, '#c8302c', '#2f6f9e'], showcase: true },
+  },
 };
 
 // Which NPCs are physically present in which scenes. Anyone else speaks over
@@ -39,6 +49,7 @@ export const NPC_SCENES = {
   giza: { 'npc-hemiunu': ['village', 'pyramid'], 'npc-merer': ['harbour'], 'npc-tia': ['village', 'pyramid', 'quarry'] },
   tenochtitlan: { 'npc-cortes': ['chamber', 'causeway', 'city', 'palace'], 'npc-moctezuma': ['causeway', 'city', 'palace'], 'npc-aguilar': ['chamber', 'causeway', 'city', 'palace'] },
   'd-day': { 'npc-sarge': ['hold', 'boat', 'beach', 'bluff'], 'npc-eddie': ['hold', 'boat', 'beach'], 'npc-cota': ['beach', 'bluff'] },
+  'berlin-wall': { 'npc-brandt': ['street'], 'npc-schabowski': ['press'], 'npc-jaeger': ['checkpoint'], 'npc-micha': ['west'] },
 };
 
 export const PLACES = {
@@ -72,6 +83,20 @@ export const PLACES = {
     { id: 'bluff-top', scene: 'bluff', label: { en: 'Top of the bluffs', es: 'Lo alto de los acantilados' }, pos: [0, 1], keywords: ['climb', 'prisoners', 'rommel', 'vierville', 'hedgerow', 'dusk', 'civilians', 'tags'] },
     { id: 'shingle', scene: 'beach', label: { en: 'The shingle and the seawall', es: 'Los guijarros y el muro' }, pos: [-0.4, -0.4], keywords: ['seawall', 'cota', 'bangalore', 'destroyers', 'rangers', 'k-ration', 'luftwaffe'] },
     { id: 'aid', scene: 'bluff', label: { en: 'Battalion aid station', es: 'Puesto de socorro del batallón' }, pos: [-2.5, -1.5], keywords: ['aid-station'] },
+  ],
+  'berlin-wall': [
+    { id: 'flat', scene: 'flat', label: { en: 'Your flat, Prenzlauer Berg', es: 'Tu piso, Prenzlauer Berg' }, pos: [0.4, 0.3], keywords: ['wake', 'radio', 'kuhn', 'micha-letter', 'east-night', 'east-window', 'east-charlie'] },
+    { id: 'kaufhalle', scene: 'street', label: { en: 'Outside the Kaufhalle', es: 'Ante la Kaufhalle' }, pos: [-2.6, -3.4], keywords: ['berlin-queue', 'trabant', 'stasi-car', 'krenz', 'travel-draft', 'ampelmann'] },
+    { id: 'agency', scene: 'street', label: { en: 'ADN, the state news agency', es: 'ADN, la agencia oficial de noticias' }, pos: [3.4, -3.6], keywords: ['brandt-assign', 'leipzig', 'prague', 'alexanderplatz', 'palace-of-tears'] },
+    { id: 'church', scene: 'street', label: { en: 'Gethsemane Church', es: 'Iglesia de Getsemaní' }, pos: [-4.4, 3.2], keywords: ['gethsemane'] },
+    { id: 'kneipe', scene: 'street', label: { en: 'A pub on Schönhauser Allee', es: 'Una Kneipe en Schönhauser Allee' }, pos: [-5.4, -0.4], keywords: ['tagesschau'] },
+    { id: 'press', scene: 'press', label: { en: 'International Press Centre', es: 'Centro de Prensa Internacional' }, pos: [-0.3, -1.25], keywords: ['press-hall', 'press-note', 'press-rush'] },
+    { id: 'gate', scene: 'checkpoint', label: { en: 'Bornholmer Straße crossing', es: 'Paso de Bornholmer Straße' }, pos: [1.7, 0.6], keywords: ['bornholmer-crowd', 'flood', 'stamps', 'trabi-queue'] },
+    { id: 'booth', scene: 'checkpoint', label: { en: 'The passport control hut', es: 'La caseta de pasaportes' }, pos: [-0.4, 1.6], keywords: ['jaeger', 'death-strip'] },
+    { id: 'bridge', scene: 'checkpoint', label: { en: 'The Bösebrücke', es: 'El Bösebrücke' }, pos: [1.6, -6.2], keywords: ['bridge'] },
+    { id: 'gate-west', scene: 'west', label: { en: 'Brandenburg Gate, West Berlin', es: 'Puerta de Brandeburgo, Berlín Oeste' }, pos: [0.9, 0.2], keywords: ['brandenburg', 'micha', 'reagan', 'gorbachev', 'welcome', 'money', 'dawn'] },
+    { id: 'wall-top', scene: 'west', label: { en: 'On top of the Wall', es: 'Encima del Muro' }, pos: [-0.3, -1.6], y: 1.55, via: [1.5, -1.6], keywords: ['on-the-wall'] },
+    { id: 'graffiti', scene: 'west', label: { en: 'The painted Wall', es: 'El Muro pintado' }, pos: [-5.8, 1.6], keywords: ['woodpeckers', 'graffiti'] },
   ],
 };
 

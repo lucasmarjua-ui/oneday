@@ -18,3 +18,7 @@ export function recordDayResult(eraId, { objectivesCompleted = 0 } = {}) {
   write(all);
   return all[eraId];
 }
+
+export function getAllStats() {
+  return read();
+}

@@ -1,8 +1,10 @@
 import { loadFirebase } from './firebase-config.js';
 import { mergeMemories } from './memories-logic.js';
 import { mergeStreak } from './streaks-logic.js';
+import { mergeCollections } from './progress-logic.js';
+import { mergeCareer } from './career-logic.js';
 
-const DATA_KEYS = ['oneday.character', 'oneday.progress', 'oneday.stats', 'oneday.achievements', 'oneday.memories', 'oneday.streak'];
+const DATA_KEYS = ['oneday.character', 'oneday.progress', 'oneday.stats', 'oneday.challenges', 'oneday.memories', 'oneday.streak', 'oneday.career'];
 const USERNAME_PATTERN = /^[a-zA-Z0-9_]{3,16}$/;
 let currentUser = null;
 let listeners = [];
@@ -27,7 +29,7 @@ function mergeJson(local, cloud, merger) {
   try { return JSON.stringify(merger(JSON.parse(local ?? '{}'), JSON.parse(cloud ?? '{}'))); }
   catch { return cloud ?? local ?? '{}'; }
 }
-function mergeProgress(local, cloud) {
+function mergeChallenges(local, cloud) {
   const eraIds = new Set([...Object.keys(local || {}), ...Object.keys(cloud || {})]);
   const result = {};
   eraIds.forEach(eraId => {
@@ -48,15 +50,15 @@ function mergeStats(local, cloud) {
   });
   return result;
 }
-function mergeAchievements(local, cloud) { return [...new Set([...(Array.isArray(cloud) ? cloud : []), ...(Array.isArray(local) ? local : [])])]; }
 function mergeData(local, cloud) {
   return {
     'oneday.character': mergeJson(local['oneday.character'], cloud['oneday.character'], mergeCharacter),
-    'oneday.progress': mergeJson(local['oneday.progress'], cloud['oneday.progress'], mergeProgress),
+    'oneday.progress': mergeJson(local['oneday.progress'], cloud['oneday.progress'], mergeCollections),
     'oneday.stats': mergeJson(local['oneday.stats'], cloud['oneday.stats'], mergeStats),
-    'oneday.achievements': mergeJson(local['oneday.achievements'] ?? '[]', cloud['oneday.achievements'] ?? '[]', mergeAchievements),
+    'oneday.challenges': mergeJson(local['oneday.challenges'], cloud['oneday.challenges'], mergeChallenges),
     'oneday.memories': mergeJson(local['oneday.memories'], cloud['oneday.memories'], mergeMemories),
     'oneday.streak': mergeJson(local['oneday.streak'], cloud['oneday.streak'], mergeStreak),
+    'oneday.career': mergeJson(local['oneday.career'], cloud['oneday.career'], mergeCareer),
   };
 }
 async function loadUserData(user) {
@@ -109,6 +111,7 @@ window.addEventListener('statschange', () => saveUserData());
 window.addEventListener('achievementchange', () => saveUserData());
 window.addEventListener('memorieschange', () => saveUserData());
 window.addEventListener('streakchange', () => saveUserData());
+window.addEventListener('careerchange', () => saveUserData());
 loadFirebase().then(firebase => {
   if (!firebase) return;
   firebase.authApi.onAuthStateChanged(firebase.auth, async user => {

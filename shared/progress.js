@@ -21,8 +21,14 @@ export function saveDay(eventId, day) {
   all[eventId] = result.progress;
   try {
     localStorage.setItem(KEY, JSON.stringify(all));
+    window.dispatchEvent(new CustomEvent('progresschange', { detail: all }));
   } catch {
     // Not remembered this time.
   }
   return result;
+}
+
+/** Every event's collection, for the career's medals. */
+export function getAllProgress() {
+  return readAll();
 }

@@ -458,5 +458,271 @@
       "moctezumaRegard",
       "aguilarBond"
     ]
-  }
+  },
+  "quiz": [
+    {
+      "id": "tenochtitlan-q1",
+      "factId": "tenoch-allies",
+      "q": {
+        "en": "Which independent state sent thousands of warriors with Cortés?",
+        "es": "¿Qué estado independiente envió miles de guerreros con Cortés?"
+      },
+      "options": [
+        {
+          "en": "Tlaxcala",
+          "es": "Tlaxcala"
+        },
+        {
+          "en": "Texcoco",
+          "es": "Texcoco"
+        },
+        {
+          "en": "Tenochtitlan",
+          "es": "Tenochtitlan"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q2",
+      "factId": "tenoch-cortes-quetzal",
+      "q": {
+        "en": "What do most historians think of the \"Cortés as Quetzalcoatl\" story?",
+        "es": "¿Qué piensan hoy la mayoría de los historiadores de que tomaran a Cortés por Quetzalcóatl?"
+      },
+      "options": [
+        {
+          "en": "It was written decades later and is doubtful",
+          "es": "Se escribió décadas después y es dudosa"
+        },
+        {
+          "en": "It is proven by Moctezuma's letters",
+          "es": "La prueban las cartas de Moctezuma"
+        },
+        {
+          "en": "Cortés invented it on the day",
+          "es": "Cortés se la inventó ese mismo día"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q3",
+      "factId": "tenoch-aguilar-1",
+      "q": {
+        "en": "How did translation work before Malintzin learned Spanish?",
+        "es": "¿Cómo se traducía antes de que Malintzin aprendiera español?"
+      },
+      "options": [
+        {
+          "en": "Nahuatl → Maya → Spanish, with Aguilar",
+          "es": "Náhuatl → maya → español, con Aguilar"
+        },
+        {
+          "en": "With written signs",
+          "es": "Con signos escritos"
+        },
+        {
+          "en": "Cortés spoke Nahuatl",
+          "es": "Cortés hablaba náhuatl"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q4",
+      "factId": "tenoch-chinampas",
+      "q": {
+        "en": "What were chinampas?",
+        "es": "¿Qué eran las chinampas?"
+      },
+      "options": [
+        {
+          "en": "Fields built from lake mud and reeds",
+          "es": "Campos hechos de lodo del lago y juncos"
+        },
+        {
+          "en": "War canoes",
+          "es": "Canoas de guerra"
+        },
+        {
+          "en": "Stone temples",
+          "es": "Templos de piedra"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q5",
+      "factId": "tenoch-horses",
+      "q": {
+        "en": "Why did horses terrify Mexica warriors?",
+        "es": "¿Por qué aterraban los caballos a los guerreros mexicas?"
+      },
+      "options": [
+        {
+          "en": "Horses had been extinct in the Americas for millennia",
+          "es": "Los caballos llevaban milenios extintos en América"
+        },
+        {
+          "en": "They were trained to bite",
+          "es": "Estaban entrenados para morder"
+        },
+        {
+          "en": "They were painted red",
+          "es": "Estaban pintados de rojo"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q6",
+      "factId": "tenoch-meeting",
+      "q": {
+        "en": "Where did Cortés and Moctezuma meet?",
+        "es": "¿Dónde se encontraron Cortés y Moctezuma?"
+      },
+      "options": [
+        {
+          "en": "At Xoloc, where two causeways join",
+          "es": "En Xoloc, donde se unen dos calzadas"
+        },
+        {
+          "en": "At the Templo Mayor",
+          "es": "En el Templo Mayor"
+        },
+        {
+          "en": "On the coast at Veracruz",
+          "es": "En la costa, en Veracruz"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q7",
+      "factId": "tenoch-necklaces",
+      "q": {
+        "en": "What did Cortés give Moctezuma?",
+        "es": "¿Qué le regaló Cortés a Moctezuma?"
+      },
+      "options": [
+        {
+          "en": "A necklace of pearls and cut glass",
+          "es": "Un collar de perlas y vidrio tallado"
+        },
+        {
+          "en": "A Spanish sword",
+          "es": "Una espada española"
+        },
+        {
+          "en": "A horse",
+          "es": "Un caballo"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q8",
+      "factId": "tenoch-templo",
+      "q": {
+        "en": "When were the remains of the Templo Mayor rediscovered?",
+        "es": "¿Cuándo se redescubrieron los restos del Templo Mayor?"
+      },
+      "options": [
+        {
+          "en": "1978",
+          "es": "1978"
+        },
+        {
+          "en": "1821",
+          "es": "1821"
+        },
+        {
+          "en": "1910",
+          "es": "1910"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q9",
+      "factId": "tenoch-cacao",
+      "q": {
+        "en": "What else were cacao beans used for, besides drinking?",
+        "es": "¿Para qué más se usaban los granos de cacao, además de beberlos?"
+      },
+      "options": [
+        {
+          "en": "As money in markets",
+          "es": "Como dinero en los mercados"
+        },
+        {
+          "en": "As paint for codices",
+          "es": "Como pintura para códices"
+        },
+        {
+          "en": "As fuel",
+          "es": "Como combustible"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q10",
+      "factId": "tenoch-lodged",
+      "q": {
+        "en": "Where were the Spaniards lodged in the city?",
+        "es": "¿Dónde se alojó a los españoles en la ciudad?"
+      },
+      "options": [
+        {
+          "en": "The palace of Axayacatl",
+          "es": "El palacio de Axayácatl"
+        },
+        {
+          "en": "Tents on the causeway",
+          "es": "Tiendas en la calzada"
+        },
+        {
+          "en": "The Templo Mayor",
+          "es": "El Templo Mayor"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q11",
+      "factId": "tenoch-seize",
+      "q": {
+        "en": "What did Cortés do six days after the meeting?",
+        "es": "¿Qué hizo Cortés seis días después del encuentro?"
+      },
+      "options": [
+        {
+          "en": "Took Moctezuma prisoner",
+          "es": "Tomó prisionero a Moctezuma"
+        },
+        {
+          "en": "Sailed back to Cuba",
+          "es": "Volvió en barco a Cuba"
+        },
+        {
+          "en": "Was crowned king",
+          "es": "Fue coronado rey"
+        }
+      ]
+    },
+    {
+      "id": "tenochtitlan-q12",
+      "factId": "tenoch-night",
+      "q": {
+        "en": "How did Tenochtitlan compare with Seville, Spain's largest city?",
+        "es": "¿Cómo era Tenochtitlan comparada con Sevilla, la mayor ciudad de España?"
+      },
+      "options": [
+        {
+          "en": "About three times bigger",
+          "es": "Unas tres veces más grande"
+        },
+        {
+          "en": "About the same",
+          "es": "Más o menos igual"
+        },
+        {
+          "en": "Much smaller",
+          "es": "Mucho más pequeña"
+        }
+      ]
+    }
+  ]
 }

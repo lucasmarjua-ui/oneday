@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-import { hasPlayedToday } from '../shared/daily-challenge-logic.js';
+import { hasPlayedToday, featuredEventFor } from '../shared/daily-challenge-logic.js';
 import { dailySeed, dateKey, mulberry32 } from '../shared/rng.js';
 import { createResourceState, applyResourceDeltas, isCriticalDepleted } from '../shared/resources.js';
 import { createDayState, isTimeUp, trackMinSeen, advanceTime } from '../shared/day-engine.js';
@@ -109,4 +109,12 @@ test('firestore.rules makes daily leaderboard entries create-only (no update or 
   const dailySection = rules.slice(rules.indexOf('dailyLeaderboards'));
   assert.match(dailySection, /allow create:/);
   assert.match(dailySection, /allow update, delete: if false/);
+});
+
+test('the featured event is the same for everyone and turns day by day', () => {
+  const ids = ['a', 'b', 'c', 'd'];
+  assert.equal(featuredEventFor('2026-10-06', ids), featuredEventFor('2026-10-06', ids));
+  const week = ['2026-10-06', '2026-10-07', '2026-10-08', '2026-10-09'].map(day => featuredEventFor(day, ids));
+  assert.deepEqual([...week].sort(), ids);
+  assert.equal(featuredEventFor('2026-10-06', []), null);
 });

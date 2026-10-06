@@ -1,12 +1,12 @@
 import { loadFirebase } from './firebase-config.js';
 import { getCurrentUser } from './auth.js';
 import { dateKey } from './rng.js';
-import { hasPlayedToday } from './daily-challenge-logic.js';
+import { hasPlayedToday, featuredEventFor } from './daily-challenge-logic.js';
 
 const LOCAL_KEY = 'oneday.dailyChallenge';
 
 export const todayDateKey = dateKey;
-export { hasPlayedToday };
+export { hasPlayedToday, featuredEventFor };
 
 function readAllLocal() {
   try {

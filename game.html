@@ -68,7 +68,7 @@
         <div class="dialog-main">
           <p class="dialog-text" id="card-text"></p>
           <aside class="fact-note in-dialog" id="card-fact" hidden>
-            <span class="fact-head t8"><span id="fact-icon"></span><span data-i18n="game.factHeading"></span></span>
+            <span class="fact-head t8"><span id="fact-icon"></span><span data-i18n="game.factHeading"></span><span class="new-tag t8" id="fact-new" hidden data-i18n="game.factNew"></span></span>
             <p id="card-fact-text"></p>
           </aside>
           <div class="choices revealing" id="options" role="listbox"></div>
@@ -95,6 +95,30 @@
       <div class="reveal-name" id="reveal-name"></div>
     </div>
 
+    <section id="quiz-screen" class="dialog frame quiz" hidden aria-labelledby="quiz-heading">
+      <div class="quiz-body">
+        <div class="quiz-top">
+          <span class="t8 soft" data-i18n="quiz.kicker"></span>
+          <span class="quiz-pips" id="quiz-pips" aria-hidden="true"></span>
+        </div>
+        <h2 class="quiz-heading" id="quiz-heading" data-i18n="quiz.heading"></h2>
+        <p class="t8 soft" id="quiz-progress"></p>
+        <p class="quiz-question" id="quiz-question"></p>
+        <div class="choices" id="quiz-options" role="listbox"></div>
+        <div class="quiz-feedback" id="quiz-feedback" hidden>
+          <span class="outcome-tag" id="quiz-verdict"></span>
+          <aside class="fact-note">
+            <span class="fact-head t8"><span id="quiz-fact-icon"></span><span data-i18n="game.factHeading"></span></span>
+            <p id="quiz-fact"></p>
+          </aside>
+        </div>
+        <div class="dialog-foot">
+          <span class="t8" data-i18n="quiz.hint"></span>
+          <button id="quiz-next" class="btn btn-primary" type="button" hidden><span id="quiz-next-label"></span> <span class="next-indicator" id="quiz-next-icon"></span></button>
+        </div>
+      </div>
+    </section>
+
     <section id="summary-screen" class="results frame" hidden>
       <div class="results-scroll">
         <div class="verdict">
@@ -106,6 +130,8 @@
           <p class="ending-line" id="persona-line"></p>
           <p class="streak-line t16" id="summary-streak" hidden></p>
         </div>
+
+        <div class="career-box" id="summary-career" hidden></div>
 
         <div class="score-row" id="summary-score" hidden></div>
 
@@ -203,6 +229,11 @@
     import { icon, resourceIcon } from './shared/ui/icons.js';
     import { getSettings, updateSettings, typingDelay } from './shared/ui/settings.js';
     import { wipeIn, wipeOut, setLoading, finishLoading } from './shared/ui/screens.js';
+    import { ERAS } from './shared/era-registry.js';
+    import { pickQuiz, scoreQuiz } from './shared/quiz-logic.js';
+    import { eventCatalogue } from './shared/career-logic.js';
+    import { getCareer, recordCareerDay } from './shared/career.js';
+    import { medalTile, rankBlock, animateXpBars } from './shared/ui/career-ui.js';
 
     const FILLER_CARD = {
       id: 'filler-wait',
@@ -233,6 +264,8 @@
     $('#next-icon').innerHTML = icon('next', 3);
     $('#brief-icon').innerHTML = icon('next', 3);
     $('#fact-icon').innerHTML = icon('scroll', 2);
+    $('#quiz-fact-icon').innerHTML = icon('scroll', 2);
+    $('#quiz-next-icon').innerHTML = icon('next', 3);
 
     let era = null;
     let cards = [];
@@ -255,6 +288,10 @@
     let objectivesDone = new Set();
     let factsToday = [];
     let alarmTimer = null;
+    let quizQuestions = [];
+    let quizIndex = 0;
+    let quizAnswers = [];
+    let finishQuiz = null;
 
     // --- The 3D stage. If WebGL or the module is unavailable the game is still
     // fully playable: every stage call becomes a no-op and the HUD carries it.
@@ -435,6 +472,9 @@
       const fact = currentCard?.fact;
       $('#card-fact').hidden = !fact || !show;
       $('#card-fact-text').textContent = fact ? localize(fact) : '';
+      // Not in the collection yet: this note is new to the player.
+      const factId = currentCard?.factSource || currentCard?.id;
+      $('#fact-new').hidden = !fact || getProgress(eraId).facts.includes(factId) || factsToday.includes(factId);
     }
 
     function startAlarm() {
@@ -502,6 +542,7 @@
     $('#brief-start').addEventListener('click', beginDay);
 
     function hideAll() {
+      $('#quiz-screen').hidden = true;
       decisionScreen.hidden = true;
       outcomeScreen.hidden = true;
       summaryScreen.hidden = true;
@@ -689,7 +730,7 @@
       recordDayResult(eraId, { objectivesCompleted: completedCount });
       recordDayGains(eraId, gainsThisDay);
       if (getCurrentUser()) recordEraMemories(eraId, extractMemorableState(era, dayState));
-      if (isDaily && getCurrentUser()) recordStreakForToday(dailyDateKeyValue);
+      if (isDaily) recordStreakForToday(dailyDateKeyValue);
       const newlyUnlocked = checkAndUnlockMetaAchievements(eraId, era);
       const criticalKey = getCriticalResourceKey(resourceState, era);
       const persona = resolvePersona(era, dayState.traits);
@@ -720,8 +761,15 @@
       stopAlarm();
       stage.finale(!criticalKey);
       await playReveal(ending, !criticalKey);
+
+      // A short exam on the history the day just showed, then the career.
+      quizQuestions = pickQuiz(era.quiz, factsToday, rng, 3);
+      if (quizQuestions.length) await runQuiz();
+      summaryData.quiz = quizQuestions.length ? scoreQuiz(quizQuestions, quizAnswers) : null;
+      summaryData.career = await recordCareer({ ending, newEnding, newFacts, completedCount, quiz: summaryData.quiz });
       phase = 'summary';
       renderSummaryUI();
+      if (summaryData.career?.newMedals.length || summaryData.career?.rankUp) sfx.chime();
 
       if (isDaily) {
         (async () => {
@@ -738,6 +786,125 @@
           await refreshLeaderboard();
         })();
       }
+    }
+
+    // --- The historian's exam ---
+    function runQuiz() {
+      phase = 'quiz';
+      quizIndex = 0;
+      quizAnswers = quizQuestions.map(() => null);
+      renderQuizUI();
+      return new Promise(resolve => { finishQuiz = resolve; });
+    }
+
+    function renderQuizUI() {
+      hideAll();
+      $('#quiz-screen').hidden = false;
+      const question = quizQuestions[quizIndex];
+      const answered = quizAnswers[quizIndex] !== null;
+      $('#quiz-pips').innerHTML = quizQuestions.map((entry, index) => {
+        const state = quizAnswers[index] === null ? (index === quizIndex ? 'now' : '') : (quizAnswers[index] === entry.answer ? 'right' : 'wrong');
+        return `<span class="${state}"></span>`;
+      }).join('');
+      $('#quiz-progress').textContent = t('quiz.progress', { n: quizIndex + 1, total: quizQuestions.length });
+      $('#quiz-question').textContent = localize(question.q);
+      const list = $('#quiz-options');
+      list.innerHTML = '';
+      question.options.forEach((option, index) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'choice';
+        if (answered) {
+          button.disabled = true;
+          if (index === question.answer) button.classList.add('right');
+          else if (index === quizAnswers[quizIndex]) button.classList.add('wrong');
+        }
+        button.innerHTML = `<span class="kbd choice-key">${index + 1}</span><span class="choice-text">${localize(option)}</span>`;
+        button.addEventListener('click', () => answerQuiz(index));
+        list.appendChild(button);
+      });
+      const feedback = $('#quiz-feedback');
+      feedback.hidden = !answered;
+      if (answered) {
+        const right = quizAnswers[quizIndex] === question.answer;
+        const verdict = $('#quiz-verdict');
+        verdict.textContent = right ? t('quiz.right') : t('quiz.wrong');
+        verdict.className = `outcome-tag ${right ? 'ok' : 'bad'}`;
+        const card = cards.find(entry => entry.id === question.factId);
+        $('#quiz-fact').textContent = card?.fact ? localize(card.fact) : '';
+      }
+      const next = $('#quiz-next');
+      next.hidden = !answered;
+      $('#quiz-next-label').textContent = quizIndex + 1 < quizQuestions.length ? t('quiz.next') : t('quiz.finish');
+      if (answered) next.focus({ preventScroll: true });
+    }
+
+    function answerQuiz(index) {
+      if (phase !== 'quiz' || quizAnswers[quizIndex] !== null || !pause.hidden) return;
+      quizAnswers[quizIndex] = index;
+      if (index === quizQuestions[quizIndex].answer) sfx.good(); else sfx.bad();
+      renderQuizUI();
+    }
+
+    function nextQuiz() {
+      if (phase !== 'quiz' || quizAnswers[quizIndex] === null || !pause.hidden) return;
+      sfx.move();
+      if (quizIndex + 1 < quizQuestions.length) {
+        quizIndex += 1;
+        renderQuizUI();
+      } else {
+        $('#quiz-screen').hidden = true;
+        finishQuiz?.();
+        finishQuiz = null;
+      }
+    }
+    $('#quiz-next').addEventListener('click', nextQuiz);
+
+    // --- The career: experience, rank and medals across every event ---
+    let catalogue = null;
+    async function recordCareer({ ending, newEnding, newFacts, completedCount, quiz }) {
+      try {
+        if (!catalogue) {
+          const loaded = await Promise.all(ERAS.filter(meta => meta.available).map(meta => loadEra(meta.id).then(data => ({ id: meta.id, ...data }))));
+          catalogue = eventCatalogue(loaded);
+        }
+        return recordCareerDay({
+          eventId: eraId,
+          endingId: ending?.id || null,
+          historical: !!ending?.historical,
+          newEnding,
+          newFacts: newFacts.length,
+          objectivesCompleted: completedCount,
+          objectivesTotal: dailyObjectives.length,
+          quiz,
+        }, { eras: catalogue, streak: getStreak() });
+      } catch (error) {
+        console.warn('OneDay: could not record the career', error);
+        return null;
+      }
+    }
+
+    function renderCareerBox() {
+      const box = $('#summary-career');
+      const career = summaryData.career;
+      box.hidden = !career && !summaryData.quiz;
+      if (box.hidden) return;
+      const strings = { localize, t };
+      const quizLine = summaryData.quiz ? `<p class="quiz-result t16">${icon('book', 2)}${t('quiz.result', { correct: summaryData.quiz.correct, total: summaryData.quiz.total })}</p>` : '';
+      if (!career) { box.innerHTML = quizLine; return; }
+      const from = career.rankUp ? 0 : career.rankBefore.progress;
+      box.innerHTML = `
+        <div class="career-head">
+          <span class="col-head t8">${t('career.heading')}</span>
+          <span class="xp-gain t16">${t('career.gained', { xp: career.gained.total })}</span>
+        </div>
+        ${career.rankUp ? `<p class="rank-up t16">${t('career.newRank')}</p>` : ''}
+        ${rankBlock(career.career.xp, strings, { from })}
+        <ul class="xp-items">${career.gained.items.map((item, index) => `<li style="animation-delay:${0.2 + index * 0.08}s"><span>${t(`career.item.${item.key}`)}</span><b>+${item.amount}</b></li>`).join('')}</ul>
+        ${quizLine}
+        ${career.newMedals.length ? `<div class="col-head t8">${t('medals.new')}</div><div class="medal-grid">${career.newMedals.map(medal => medalTile(medal, true, strings)).join('')}</div>` : ''}
+      `;
+      animateXpBars(box);
     }
 
     function showAlreadyPlayed(saved) {
@@ -783,6 +950,7 @@
       $('#ending-new').hidden = !summaryData.newEnding;
       $('#persona-line').textContent = persona ? t('game.personaLine', { name: localize(persona.name) }) : '';
 
+      renderCareerBox();
       $('#summary-history').textContent = localize(era.history);
       const factCards = summaryData.facts.map(id => cards.find(card => card.id === id)).filter(card => card?.fact);
       $('#summary-facts').innerHTML = factCards.length
@@ -934,6 +1102,12 @@
       const confirm = event.key === 'Enter' || event.key === ' ';
       if (phase === 'reveal' && (confirm || event.key === 'Escape')) { event.preventDefault(); skipReveal?.(); return; }
       if (phase === 'briefing' && confirm && event.target.id !== 'brief-start') { event.preventDefault(); beginDay(); return; }
+      if (phase === 'quiz') {
+        const index = ['1', '2', '3'].indexOf(event.key);
+        if (index >= 0) { event.preventDefault(); answerQuiz(index); return; }
+        if (confirm && event.target.id !== 'quiz-next') { event.preventDefault(); nextQuiz(); }
+        return;
+      }
       if (phase === 'decision') {
         if (skipTyping && confirm) { event.preventDefault(); skipTyping(); return; }
         if (skipTyping) return;
@@ -958,6 +1132,7 @@
       else if (phase === 'outcome') { renderHUD(); renderOutcomeUI(); }
       else if (phase === 'summary') { renderSummaryUI(); if (isDaily) renderLeaderboardHtml(); }
       else if (phase === 'briefing') { renderHUD(); renderBriefingUI(); }
+      else if (phase === 'quiz') renderQuizUI();
       else if (dayState) renderHUD();
     });
 
@@ -971,6 +1146,7 @@
       era = loaded.era;
       cards = loaded.cards;
       isDaily = params.get('daily') === '1';
+      getCareer();
       dailyDateKeyValue = todayDateKey();
       applyStaticI18n();
       setLoading(0.6);

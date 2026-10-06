@@ -138,6 +138,8 @@ export const OUTFITS = {
   tenochtitlan: { s: '#b98057', S: '#946040', h: '#1a1410', c: '#efe8d8', C: '#cfc4ad', t: '#c0392b', p: '#efe8d8', f: '#6b4a2e' },
   'd-day': { h: '#4f5638', H: '#3c4229', c: '#7a7556', C: '#5e5a40', t: '#f2f1ec', p: '#6b6648', f: '#3b2a1e' },
   giza: { s: '#c98b5a', S: '#a26a40', h: '#16120f', c: '#b9774a', C: '#93573a', t: '#f3ecd8', p: '#b9774a', f: '#9b6b3b' },
+  // A parka over a jumper, a red scarf, stonewashed jeans: East Berlin, 1989.
+  'berlin-wall': { h: '#6b4a2e', c: '#5f7286', C: '#4a5a6a', t: '#c8302c', p: '#5a7aa0', f: '#3a2a1e' },
 };
 
 const VARIANTS = {
