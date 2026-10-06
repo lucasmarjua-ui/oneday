@@ -449,5 +449,271 @@
       "eddieBond",
       "cotaNotice"
     ]
-  }
+  },
+  "quiz": [
+    {
+      "id": "d-day-q1",
+      "factId": "dday-wake",
+      "q": {
+        "en": "Why was D-Day moved from 5 to 6 June?",
+        "es": "¿Por qué se aplazó el Día D del 5 al 6 de junio?"
+      },
+      "options": [
+        {
+          "en": "Storms; a forecast showed a gap",
+          "es": "Tormentas; un pronóstico vio una tregua"
+        },
+        {
+          "en": "The tanks were late",
+          "es": "Los tanques llegaron tarde"
+        },
+        {
+          "en": "Eisenhower was ill",
+          "es": "Eisenhower estaba enfermo"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q2",
+      "factId": "dday-order",
+      "q": {
+        "en": "What did Eisenhower write in case the landings failed?",
+        "es": "¿Qué escribió Eisenhower por si fracasaba el desembarco?"
+      },
+      "options": [
+        {
+          "en": "A note taking full blame",
+          "es": "Una nota asumiendo toda la culpa"
+        },
+        {
+          "en": "A surrender letter",
+          "es": "Una carta de rendición"
+        },
+        {
+          "en": "Nothing at all",
+          "es": "Nada"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q3",
+      "factId": "dday-sarge-brief",
+      "q": {
+        "en": "What were the \"draws\" on Omaha Beach?",
+        "es": "¿Qué eran los «draws» de Omaha Beach?"
+      },
+      "options": [
+        {
+          "en": "Valleys, the only vehicle exits",
+          "es": "Valles, las únicas salidas para vehículos"
+        },
+        {
+          "en": "German bunkers",
+          "es": "Búnkeres alemanes"
+        },
+        {
+          "en": "Landing craft",
+          "es": "Lanchas de desembarco"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q4",
+      "factId": "dday-tanks",
+      "q": {
+        "en": "What happened to most DD tanks launched off eastern Omaha?",
+        "es": "¿Qué les pasó a la mayoría de tanques DD lanzados frente al este de Omaha?"
+      },
+      "options": [
+        {
+          "en": "27 of 29 sank",
+          "es": "Se hundieron 27 de 29"
+        },
+        {
+          "en": "All reached the beach",
+          "es": "Todos llegaron a la playa"
+        },
+        {
+          "en": "They were never used",
+          "es": "Nunca se usaron"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q5",
+      "factId": "dday-bombers",
+      "q": {
+        "en": "Where did most of the bombs meant for Omaha fall?",
+        "es": "¿Dónde cayeron la mayoría de bombas destinadas a Omaha?"
+      },
+      "options": [
+        {
+          "en": "Several km inland",
+          "es": "Varios kilómetros tierra adentro"
+        },
+        {
+          "en": "Right on the bunkers",
+          "es": "Justo sobre los búnkeres"
+        },
+        {
+          "en": "In the sea",
+          "es": "En el mar"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q6",
+      "factId": "dday-obstacles",
+      "q": {
+        "en": "What were \"Belgian gates\" and \"Czech hedgehogs\"?",
+        "es": "¿Qué eran las «puertas belgas» y los «erizos checos»?"
+      },
+      "options": [
+        {
+          "en": "Beach obstacles against landing craft",
+          "es": "Obstáculos contra las lanchas"
+        },
+        {
+          "en": "Types of tank",
+          "es": "Tipos de tanque"
+        },
+        {
+          "en": "Allied code names",
+          "es": "Nombres en clave aliados"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q7",
+      "factId": "dday-eddie-bedford",
+      "q": {
+        "en": "Who were the \"Bedford Boys\"?",
+        "es": "¿Quiénes fueron los «Bedford Boys»?"
+      },
+      "options": [
+        {
+          "en": "Men from one small Virginia town",
+          "es": "Hombres de un pueblo de Virginia"
+        },
+        {
+          "en": "A British commando unit",
+          "es": "Una unidad de comandos británica"
+        },
+        {
+          "en": "A band that played for troops",
+          "es": "Una banda que tocaba para las tropas"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q8",
+      "factId": "dday-bangalore",
+      "q": {
+        "en": "What was a Bangalore torpedo used for?",
+        "es": "¿Para qué servía un torpedo Bangalore?"
+      },
+      "options": [
+        {
+          "en": "Blasting gaps in barbed wire",
+          "es": "Abrir huecos en las alambradas"
+        },
+        {
+          "en": "Sinking ships",
+          "es": "Hundir barcos"
+        },
+        {
+          "en": "Lighting the beach at night",
+          "es": "Iluminar la playa de noche"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q9",
+      "factId": "dday-destroyers",
+      "q": {
+        "en": "How close did destroyers come to Omaha to fire at strongpoints?",
+        "es": "¿A qué distancia de Omaha se acercaron los destructores para disparar?"
+      },
+      "options": [
+        {
+          "en": "Within about 1,000 metres",
+          "es": "A unos 1.000 metros"
+        },
+        {
+          "en": "No closer than 20 km",
+          "es": "No más cerca de 20 km"
+        },
+        {
+          "en": "They stayed in England",
+          "es": "Se quedaron en Inglaterra"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q10",
+      "factId": "dday-rommel",
+      "q": {
+        "en": "Where was Rommel on 6 June 1944?",
+        "es": "¿Dónde estaba Rommel el 6 de junio de 1944?"
+      },
+      "options": [
+        {
+          "en": "At home for his wife's birthday",
+          "es": "En casa, por el cumpleaños de su mujer"
+        },
+        {
+          "en": "On the bluffs above Omaha",
+          "es": "En los acantilados de Omaha"
+        },
+        {
+          "en": "In Berlin with Hitler",
+          "es": "En Berlín con Hitler"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q11",
+      "factId": "dday-dusk",
+      "q": {
+        "en": "How many soldiers had landed at Omaha by midnight?",
+        "es": "¿Cuántos soldados habían desembarcado en Omaha a medianoche?"
+      },
+      "options": [
+        {
+          "en": "About 34,000",
+          "es": "Unos 34.000"
+        },
+        {
+          "en": "About 3,000",
+          "es": "Unos 3.000"
+        },
+        {
+          "en": "About 300,000",
+          "es": "Unos 300.000"
+        }
+      ]
+    },
+    {
+      "id": "d-day-q12",
+      "factId": "dday-eddie-hit",
+      "q": {
+        "en": "Where did medics often mark the morphine dose?",
+        "es": "¿Dónde solían anotar los sanitarios la dosis de morfina?"
+      },
+      "options": [
+        {
+          "en": "On the patient's forehead",
+          "es": "En la frente del herido"
+        },
+        {
+          "en": "On their own helmet",
+          "es": "En su propio casco"
+        },
+        {
+          "en": "Nowhere",
+          "es": "En ningún sitio"
+        }
+      ]
+    }
+  ]
 }

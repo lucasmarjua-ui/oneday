@@ -28,10 +28,17 @@
   <div class="vignette"></div>
 
   <header class="topbar">
-    <span class="t8 frame-sm" style="padding:8px 10px" data-i18n="home.kicker"></span>
+    <button class="rank-chip frame-sm" type="button" id="rank-chip">
+      <span class="rank-chip-medal" id="rank-chip-medal"></span>
+      <span class="rank-chip-text">
+        <span class="t8 soft" id="rank-chip-xp"></span>
+        <span class="t8 rank-chip-name" id="rank-chip-name"></span>
+        <span class="rank-chip-bar"><span id="rank-chip-fill"></span></span>
+      </span>
+    </button>
     <div class="chip-row">
       <button class="btn" type="button" id="how-open" data-i18n="nav.howItWorks"></button>
-      <button class="btn" type="button" id="profile-open" data-i18n="nav.profile"></button>
+      <button class="btn" type="button" id="archive-open"><span id="archive-icon"></span><span data-i18n="nav.archive"></span></button>
       <span class="frame-sm t16 player-name" style="padding:8px 10px" id="player-name" hidden></span>
       <button class="btn" type="button" id="login-open" data-i18n="nav.login"></button>
       <button class="btn" type="button" id="logout" hidden data-i18n="nav.logout"></button>
@@ -60,15 +67,20 @@
         </div>
         <button class="btn btn-icon" type="button" id="next-era" aria-label="Next era"><span id="next-icon"></span></button>
       </div>
-      <div class="dots" id="era-dots" role="tablist" aria-label="Eras"></div>
+      <div class="timeline" id="timeline" role="tablist" aria-label="Events"></div>
       <div class="menu">
         <button class="btn btn-primary" type="button" id="play-era"><span id="play-icon"></span><span data-i18n="era.live"></span></button>
-        <button class="btn" type="button" id="play-daily"><span id="star-icon"></span><span id="daily-label" data-i18n="era.daily"></span></button>
+        <button class="btn daily-btn" type="button" id="play-daily">
+          <span id="star-icon"></span>
+          <span class="daily-text"><span data-i18n="daily.featured"></span> <span class="daily-event" id="daily-event"></span></span>
+          <span class="daily-streak" id="daily-streak" hidden><span id="flame-icon"></span><span id="daily-streak-count"></span></span>
+        </button>
       </div>
+      <p class="t8 daily-hint" id="daily-hint"></p>
       <p class="stats-line t8">
         <b id="stat-eras">–</b> <span data-i18n="home.statsEras"></span> ·
         <b id="stat-cards">108</b> <span data-i18n="home.statsCards"></span> ·
-        <b id="stat-tests">219</b> <span data-i18n="home.statsTests"></span> ·
+        <b id="stat-tests">229</b> <span data-i18n="home.statsTests"></span> ·
         <span data-i18n="home.indexHint"></span>
       </p>
     </section>
@@ -92,6 +104,11 @@
         <div class="how-step-n">03</div>
         <h3 data-i18n="home.step3Title"></h3>
         <p data-i18n="home.step3Desc"></p>
+      </div>
+      <div class="how-step">
+        <div class="how-step-n">04</div>
+        <h3 data-i18n="home.step4Title"></h3>
+        <p data-i18n="home.step4Desc"></p>
       </div>
       <p class="muted t8" data-i18n="home.footer"></p>
       <div class="modal-actions">
@@ -121,12 +138,19 @@
     </div>
   </div>
 
-  <div id="profile-modal" class="modal-backdrop" hidden>
-    <div class="modal frame" role="dialog" aria-modal="true">
-      <h2 data-i18n="profile.heading"></h2>
-      <div id="profile-body"></div>
+  <div id="archive-modal" class="modal-backdrop" hidden>
+    <div class="modal modal-wide frame" role="dialog" aria-modal="true" aria-labelledby="archive-heading">
+      <div class="archive-head">
+        <h2 id="archive-heading" data-i18n="nav.archive"></h2>
+        <div class="tabs" role="tablist">
+          <button type="button" role="tab" data-tab="career" data-i18n="archive.tabCareer"></button>
+          <button type="button" role="tab" data-tab="events" data-i18n="archive.tabEvents"></button>
+          <button type="button" role="tab" data-tab="facts" data-i18n="archive.tabFacts"></button>
+        </div>
+      </div>
+      <div id="archive-body" class="archive-body"></div>
       <div class="modal-actions">
-        <button id="profile-close" class="btn" type="button" data-i18n="profile.close"></button>
+        <button id="archive-close" class="btn" type="button" data-i18n="profile.close"></button>
       </div>
     </div>
   </div>
@@ -143,7 +167,7 @@
   </div>
 
   <script type="module">
-    import { ERAS, loadEra } from './shared/era-registry.js';
+    import { erasByDate, loadEra } from './shared/era-registry.js';
     import { getCurrentUser, onUserChange, registerUser, loginUser, logoutUser } from './shared/auth.js';
     import { getEraProgress } from './shared/achievements.js';
     import { getEraStats } from './shared/stats.js';
@@ -151,13 +175,17 @@
     import { getProgress } from './shared/progress.js';
     import { completion } from './shared/progress-logic.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
-    import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
+    import { getLocalDailyResult, todayDateKey, hasPlayedToday, featuredEventFor } from './shared/daily-challenge.js';
+    import { getCareer } from './shared/career.js';
+    import { rankFor, MEDALS } from './shared/career-logic.js';
+    import { medalTile, rankBlock, animateXpBars } from './shared/ui/career-ui.js';
     import { sfx } from './shared/stage/sfx.js';
     import { music } from './shared/stage/music.js';
     import { icon } from './shared/ui/icons.js';
     import { wipeIn, wipeOut, setLoading, finishLoading } from './shared/ui/screens.js';
 
-    const availableEras = ERAS.filter(era => era.available);
+    // The events in the order they happened, as a timeline.
+    const availableEras = erasByDate();
     const SELECTED_KEY = 'oneday.selectedEra';
 
     // The era count is read from the registry rather than typed in, so the
@@ -183,6 +211,33 @@
     document.querySelector('#next-icon').innerHTML = icon('play', 3);
     document.querySelector('#play-icon').innerHTML = icon('play', 3);
     document.querySelector('#star-icon').innerHTML = icon('star', 3);
+    document.querySelector('#flame-icon').innerHTML = icon('flame', 2);
+    document.querySelector('#archive-icon').innerHTML = icon('book', 2);
+    document.querySelector('#rank-chip-medal').innerHTML = icon('medal', 3);
+
+    // --- The player's rank, top left: always in sight, one click to the archive ---
+    function renderRankChip() {
+      const career = getCareer();
+      const { rank, progress } = rankFor(career.xp);
+      document.querySelector('#rank-chip-name').textContent = localize(rank.name);
+      document.querySelector('#rank-chip-xp').textContent = t('career.xp', { xp: career.xp });
+      document.querySelector('#rank-chip-fill').style.width = `${Math.round(progress * 100)}%`;
+    }
+
+    // --- Today's challenge: one featured event, the same for everyone ---
+    const featuredId = () => featuredEventFor(todayDateKey(), availableEras.map(era => era.id));
+    function renderDaily() {
+      const id = featuredId();
+      const meta = availableEras.find(era => era.id === id);
+      const played = hasPlayedToday(getLocalDailyResult(id), todayDateKey());
+      document.querySelector('#daily-event').textContent = meta ? `· ${localize(meta.name)}` : '';
+      document.querySelector('#play-daily').classList.toggle('played', played);
+      document.querySelector('#daily-hint').textContent = played ? t('daily.featuredDone') : t('daily.featuredHint');
+      const streak = getStreak();
+      document.querySelector('#daily-streak').hidden = !streak.currentStreak;
+      document.querySelector('#daily-streak-count').textContent = streak.currentStreak;
+      document.querySelector('#daily-streak').title = t('daily.streakShort', { count: streak.currentStreak });
+    }
 
     async function play(eraId, daily = false) {
       sfx.select();
@@ -223,6 +278,7 @@
         const { era, cards } = await eventData(eraId);
         if (availableEras[selected].id !== eraId) return;
         const done = completion(getProgress(eraId), era, cards);
+        completionCache.set(eraId, done);
         el.textContent = t('home.progress', { found: done.endings, total: done.totalEndings, facts: done.facts, totalFacts: done.totalFacts });
       } catch {
         el.textContent = '';
@@ -236,11 +292,7 @@
       renderProgress(era.id);
       document.querySelector('#picker-name').textContent = localize(era.name);
       document.querySelector('#picker-tagline').textContent = localize(era.tagline);
-      const playedToday = hasPlayedToday(getLocalDailyResult(era.id), todayDateKey());
-      document.querySelector('#play-daily').classList.toggle('played', playedToday);
-      document.querySelector('#era-dots').innerHTML = availableEras.map((entry, index) => `
-        <button type="button" role="tab" aria-selected="${index === selected}" class="${index === selected ? 'active' : ''}" data-index="${index}" aria-label="${localize(entry.name)}"></button>
-      `).join('');
+      renderTimeline();
       try { localStorage.setItem(SELECTED_KEY, era.id); } catch { /* not remembered */ }
       showStage(era.id);
     }
@@ -253,12 +305,26 @@
 
     document.querySelector('#prev-era').addEventListener('click', () => select(selected - 1));
     document.querySelector('#next-era').addEventListener('click', () => select(selected + 1));
-    document.querySelector('#era-dots').addEventListener('click', event => {
+    // One stop per event on the timeline, with how much of it is uncovered.
+    function renderTimeline() {
+      document.querySelector('#timeline').innerHTML = availableEras.map((entry, index) => {
+        const done = completionCache.get(entry.id);
+        const pct = done ? Math.round(((done.endings + done.facts) / Math.max(1, done.totalEndings + done.totalFacts)) * 100) : 0;
+        return `<button type="button" role="tab" aria-selected="${index === selected}" class="stop${index === selected ? ' active' : ''}" data-index="${index}">
+          <span class="t8 stop-year">${entry.sortYear < 0 ? localize(entry.year) : entry.sortYear}</span>
+          <span class="t8 stop-name">${localize(entry.name)}</span>
+          <span class="stop-bar"><span style="width:${pct}%"></span></span>
+        </button>`;
+      }).join('');
+    }
+    const completionCache = new Map();
+
+    document.querySelector('#timeline').addEventListener('click', event => {
       const dot = event.target.closest('[data-index]');
       if (dot) select(Number(dot.dataset.index));
     });
     document.querySelector('#play-era').addEventListener('click', () => play(availableEras[selected].id));
-    document.querySelector('#play-daily').addEventListener('click', () => play(availableEras[selected].id, true));
+    document.querySelector('#play-daily').addEventListener('click', () => play(featuredId(), true));
 
     document.addEventListener('keydown', event => {
       if (event.target.closest('input') || document.querySelector('.modal-backdrop:not([hidden])')) return;
@@ -269,7 +335,7 @@
 
     document.querySelector('#lang-en').addEventListener('click', () => setLanguage('en'));
     document.querySelector('#lang-es').addEventListener('click', () => setLanguage('es'));
-    onLanguageChange(() => { applyStaticI18n(); renderPicker(); });
+    onLanguageChange(() => { applyStaticI18n(); renderPicker(); renderRankChip(); renderDaily(); if (!archiveModal.hidden) renderArchive(); });
 
     const howModal = document.querySelector('#how-modal');
     document.querySelector('#how-open').addEventListener('click', () => { howModal.hidden = false; });
@@ -302,35 +368,99 @@
       document.querySelector('#logout').hidden = !user;
     });
 
-    const profileModal = document.querySelector('#profile-modal');
-    const profileBody = document.querySelector('#profile-body');
-    document.querySelector('#profile-open').addEventListener('click', async () => {
-      profileBody.innerHTML = `<p class="muted small">…</p>`;
-      profileModal.hidden = false;
-      const streak = getStreak();
-      const streakHtml = streak.currentStreak > 0
-        ? `<p class="streak-line">${t('profile.streak', { count: streak.currentStreak, best: streak.longestStreak })}</p>`
-        : `<p class="muted small">${t('profile.streakNone')}</p>`;
-      const sections = await Promise.all(availableEras.map(async meta => {
-        const { era } = await loadEra(meta.id);
-        const progress = getEraProgress(meta.id);
-        const stats = getEraStats(meta.id);
-        const achievements = (era.metaAchievements || []).map(achievement => {
-          const unlocked = progress.achievementsUnlocked.includes(achievement.id);
-          const total = progress.accumulated[achievement.accumulates] || 0;
-          return `<li class="${unlocked ? 'done' : ''}"><span class="mark">${unlocked ? '✓' : '·'}</span> ${localize(achievement.title)}<span class="val">${Math.min(total, achievement.threshold)}/${achievement.threshold}</span></li>`;
-        }).join('');
-        return `
-          <div class="profile-era">
-            <h4>${localize(era.name)}</h4>
-            <p class="muted small">${t('profile.daysPlayed', { count: stats.daysPlayed, objectives: stats.objectivesCompleted })}</p>
-            <ul class="line-list">${achievements}</ul>
+    // --- The archive: career and medals, every event's endings, every fact ---
+    const archiveModal = document.querySelector('#archive-modal');
+    const archiveBody = document.querySelector('#archive-body');
+    let archiveTab = 'career';
+    let factsEvent = null;
+
+    async function renderArchive() {
+      document.querySelectorAll('#archive-modal [data-tab]').forEach(button => {
+        button.classList.toggle('active', button.dataset.tab === archiveTab);
+        button.setAttribute('aria-selected', String(button.dataset.tab === archiveTab));
+      });
+      const strings = { localize, t };
+      const all = await Promise.all(availableEras.map(async meta => ({ meta, ...(await eventData(meta.id)), progress: getProgress(meta.id) })));
+      if (archiveTab === 'career') {
+        const career = getCareer();
+        const streak = getStreak();
+        const endings = all.reduce((total, entry) => total + completion(entry.progress, entry.era, entry.cards).endings, 0);
+        const totalEndings = all.reduce((total, entry) => total + (entry.era.endings || []).length, 0);
+        const facts = all.reduce((total, entry) => total + completion(entry.progress, entry.era, entry.cards).facts, 0);
+        const totalFacts = all.reduce((total, entry) => total + entry.cards.filter(card => card.fact).length, 0);
+        const stat = (label, value) => `<div class="stat-tile"><span class="stat-value">${value}</span><span class="t8 soft">${label}</span></div>`;
+        archiveBody.innerHTML = `
+          ${rankBlock(career.xp, strings, { from: 0 })}
+          <div class="stat-grid">
+            ${stat(t('archive.statDays'), career.days)}
+            ${stat(t('archive.statEndings'), `${endings}/${totalEndings}`)}
+            ${stat(t('archive.statFacts'), `${facts}/${totalFacts}`)}
+            ${stat(t('archive.statQuiz'), `${career.quizCorrect}/${career.quizAnswered}`)}
+            ${stat(t('archive.statStreak'), streak.longestStreak || 0)}
           </div>
+          <div class="col-head t8">${t('medals.heading')} · ${t('medals.count', { n: career.medals.length, total: MEDALS.length })}</div>
+          <div class="medal-grid">${MEDALS.map(medal => medalTile(medal, career.medals.includes(medal.id), strings)).join('')}</div>
         `;
-      }));
-      profileBody.innerHTML = streakHtml + sections.join('');
+        animateXpBars(archiveBody);
+      } else if (archiveTab === 'events') {
+        archiveBody.innerHTML = `<div class="event-grid">${all.map(({ meta, era, cards, progress }) => {
+          const done = completion(progress, era, cards);
+          const stats = getEraStats(meta.id);
+          const endings = (era.endings || []).map(ending => progress.endings.includes(ending.id)
+            ? `<li class="found"><span class="mark">${ending.historical ? '★' : '◆'}</span>${localize(ending.title)}${ending.historical ? ` <span class="new-tag t8 hist">${t('archive.historical')}</span>` : ''}</li>`
+            : `<li class="locked"><span class="mark">·</span>${t('archive.locked')}</li>`).join('');
+          return `<section class="event-card" style="--accent-h:${meta.accent}">
+            <span class="t8 event-year">${localize(meta.year)} · ${localize(meta.place)}</span>
+            <h3>${localize(meta.name)}</h3>
+            <p class="t8 soft">${t('archive.daysHere', { count: stats.daysPlayed })} · ${t('archive.factsCount', { found: done.facts, total: done.totalFacts })}</p>
+            <span class="stop-bar"><span style="width:${Math.round((done.facts / Math.max(1, done.totalFacts)) * 100)}%"></span></span>
+            <div class="t8 soft event-sub">${t('archive.endings')} · ${done.endings}/${done.totalEndings}</div>
+            <ul class="ending-list">${endings}</ul>
+            ${(era.metaAchievements || []).length ? `<div class="t8 soft event-sub">${t('archive.challenges')}</div><ul class="challenge-list">${era.metaAchievements.map(achievement => {
+              const record = getEraProgress(meta.id);
+              const won = record.achievementsUnlocked.includes(achievement.id);
+              const total = Math.min(record.accumulated[achievement.accumulates] || 0, achievement.threshold);
+              return `<li class="${won ? 'won' : ''}" title="${localize(achievement.description)}"><span>${won ? '✓' : '·'} ${localize(achievement.title)}</span><span class="stop-bar"><span style="width:${Math.round((total / achievement.threshold) * 100)}%"></span></span><b>${total}/${achievement.threshold}</b></li>`;
+            }).join('')}</ul>` : ''}
+          </section>`;
+        }).join('')}</div>`;
+      } else {
+        factsEvent = factsEvent || availableEras[selected].id;
+        const entry = all.find(item => item.meta.id === factsEvent) || all[0];
+        const chips = all.map(item => `<button type="button" class="chip${item.meta.id === entry.meta.id ? ' active' : ''}" data-facts="${item.meta.id}">${localize(item.meta.name)}</button>`).join('');
+        const withFacts = entry.cards.filter(card => card.fact);
+        const found = withFacts.filter(card => entry.progress.facts.includes(card.id));
+        const hidden = withFacts.length - found.length;
+        const list = found.map(card => `<li><span class="mark">${icon('scroll', 1)}</span><span>${localize(card.fact)}</span></li>`).join('');
+        const locks = hidden ? `<div class="codex-hidden"><div class="lock-row">${Array.from({ length: hidden }, () => icon('lock', 2)).join('')}</div><p class="t8 soft">${t('archive.hiddenFacts', { count: hidden })}</p></div>` : '';
+        archiveBody.innerHTML = `<div class="chip-row wrap">${chips}</div><p class="t8 soft">${t('archive.factsCount', { found: found.length, total: withFacts.length })}</p><ul class="codex">${list}</ul>${locks}`;
+      }
+    }
+
+    function openArchive(tab = 'career') {
+      archiveTab = tab;
+      archiveModal.hidden = false;
+      archiveBody.innerHTML = `<p class="muted small">…</p>`;
+      sfx.select();
+      renderArchive();
+    }
+    document.querySelector('#archive-open').addEventListener('click', () => openArchive('career'));
+    document.querySelector('#rank-chip').addEventListener('click', () => openArchive('career'));
+    document.querySelector('#archive-close').addEventListener('click', () => { archiveModal.hidden = true; });
+    document.querySelector('#archive-modal .tabs').addEventListener('click', event => {
+      const tab = event.target.closest('[data-tab]');
+      if (!tab) return;
+      archiveTab = tab.dataset.tab;
+      sfx.move();
+      renderArchive();
     });
-    document.querySelector('#profile-close').addEventListener('click', () => { profileModal.hidden = true; });
+    archiveBody.addEventListener('click', event => {
+      const chip = event.target.closest('[data-facts]');
+      if (!chip) return;
+      factsEvent = chip.dataset.facts;
+      sfx.move();
+      renderArchive();
+    });
 
     document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
       backdrop.addEventListener('click', event => { if (event.target === backdrop) backdrop.hidden = true; });
@@ -365,8 +495,14 @@
       }
       setLoading(0.8);
       renderPicker();
+      renderRankChip();
+      renderDaily();
       Promise.all(availableEras.map(era => eventData(era.id)))
-        .then(all => { document.querySelector('#stat-cards').textContent = all.reduce((sum, { cards }) => sum + cards.length, 0); })
+        .then(all => {
+          document.querySelector('#stat-cards').textContent = all.reduce((sum, { cards }) => sum + cards.length, 0);
+          all.forEach(({ era, cards }, index) => completionCache.set(availableEras[index].id, completion(getProgress(availableEras[index].id), era, cards)));
+          renderTimeline();
+        })
         .catch(() => {});
       await stageQueue;
       setLoading(1);

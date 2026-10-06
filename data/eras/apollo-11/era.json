@@ -489,5 +489,271 @@
       "neilTrust",
       "collinsBond"
     ]
-  }
+  },
+  "quiz": [
+    {
+      "id": "apollo-11-q1",
+      "factId": "apollo-alarm-1202",
+      "q": {
+        "en": "What did the 1202 alarm during Eagle's descent mean?",
+        "es": "¿Qué significaba la alarma 1202 durante el descenso del Eagle?"
+      },
+      "options": [
+        {
+          "en": "The guidance computer was overloaded",
+          "es": "El ordenador de guiado estaba sobrecargado"
+        },
+        {
+          "en": "The fuel tanks were leaking",
+          "es": "Los tanques de combustible perdían"
+        },
+        {
+          "en": "The radar had lost the Moon",
+          "es": "El radar había perdido la Luna"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q2",
+      "factId": "apollo-boulders",
+      "q": {
+        "en": "Why did Armstrong take semi-manual control before landing?",
+        "es": "¿Por qué tomó Armstrong el control semimanual antes de alunizar?"
+      },
+      "options": [
+        {
+          "en": "The computer was heading for a boulder field",
+          "es": "El ordenador iba hacia un campo de rocas"
+        },
+        {
+          "en": "The computer had switched itself off",
+          "es": "El ordenador se había apagado"
+        },
+        {
+          "en": "Houston ordered him to",
+          "es": "Houston se lo ordenó"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q3",
+      "factId": "apollo-contact",
+      "q": {
+        "en": "Who was the CAPCOM answering from Houston when Eagle landed?",
+        "es": "¿Quién era el CAPCOM que respondió desde Houston al alunizar el Eagle?"
+      },
+      "options": [
+        {
+          "en": "Charlie Duke",
+          "es": "Charlie Duke"
+        },
+        {
+          "en": "Gene Kranz",
+          "es": "Gene Kranz"
+        },
+        {
+          "en": "John Glenn",
+          "es": "John Glenn"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q4",
+      "factId": "apollo-first-step",
+      "q": {
+        "en": "About how many people watched the first step live?",
+        "es": "¿Unas cuántas personas vieron el primer paso en directo?"
+      },
+      "options": [
+        {
+          "en": "600 million",
+          "es": "600 millones"
+        },
+        {
+          "en": "60 million",
+          "es": "60 millones"
+        },
+        {
+          "en": "2 billion",
+          "es": "2.000 millones"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q5",
+      "factId": "apollo-flag",
+      "q": {
+        "en": "What happened to the flag when Eagle lifted off?",
+        "es": "¿Qué le pasó a la bandera cuando despegó el Eagle?"
+      },
+      "options": [
+        {
+          "en": "The engine blast knocked it over",
+          "es": "El chorro del motor la derribó"
+        },
+        {
+          "en": "It was taken back to Earth",
+          "es": "Se la llevaron de vuelta a la Tierra"
+        },
+        {
+          "en": "It stood perfectly still",
+          "es": "Se quedó perfectamente de pie"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q6",
+      "factId": "apollo-experiments",
+      "q": {
+        "en": "What is the laser reflector left by Apollo 11 used for today?",
+        "es": "¿Para qué se usa hoy el reflector láser que dejó el Apolo 11?"
+      },
+      "options": [
+        {
+          "en": "Measuring the Earth–Moon distance",
+          "es": "Medir la distancia Tierra-Luna"
+        },
+        {
+          "en": "Talking to the ISS",
+          "es": "Comunicarse con la ISS"
+        },
+        {
+          "en": "Detecting moonquakes",
+          "es": "Detectar terremotos lunares"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q7",
+      "factId": "apollo-samples",
+      "q": {
+        "en": "How much lunar rock and soil did Apollo 11 bring back?",
+        "es": "¿Cuánta roca y suelo lunar trajo el Apolo 11?"
+      },
+      "options": [
+        {
+          "en": "21.5 kg",
+          "es": "21,5 kg"
+        },
+        {
+          "en": "2 kg",
+          "es": "2 kg"
+        },
+        {
+          "en": "380 kg",
+          "es": "380 kg"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q8",
+      "factId": "apollo-breaker",
+      "q": {
+        "en": "What did Aldrin use to push in the broken engine-arm breaker?",
+        "es": "¿Qué usó Aldrin para pulsar el interruptor roto del motor?"
+      },
+      "options": [
+        {
+          "en": "A felt-tip pen",
+          "es": "Un rotulador"
+        },
+        {
+          "en": "A spoon",
+          "es": "Una cuchara"
+        },
+        {
+          "en": "His glove",
+          "es": "Su guante"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q9",
+      "factId": "apollo-dust",
+      "q": {
+        "en": "What did astronauts say lunar dust smelled like?",
+        "es": "¿A qué decían los astronautas que olía el polvo lunar?"
+      },
+      "options": [
+        {
+          "en": "Spent gunpowder",
+          "es": "Pólvora quemada"
+        },
+        {
+          "en": "Wet sand",
+          "es": "Arena mojada"
+        },
+        {
+          "en": "Nothing at all",
+          "es": "A nada"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q10",
+      "factId": "apollo-transfer",
+      "q": {
+        "en": "How did the crew fly the Lunar Module?",
+        "es": "¿Cómo pilotaba la tripulación el módulo lunar?"
+      },
+      "options": [
+        {
+          "en": "Standing, held by cables",
+          "es": "De pie, sujetos con cables"
+        },
+        {
+          "en": "Lying on couches",
+          "es": "Tumbados en asientos"
+        },
+        {
+          "en": "Sitting on bucket seats",
+          "es": "Sentados en asientos de coche"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q11",
+      "factId": "apollo-collins-alone",
+      "q": {
+        "en": "Where was Michael Collins during the landing?",
+        "es": "¿Dónde estaba Michael Collins durante el alunizaje?"
+      },
+      "options": [
+        {
+          "en": "Alone in orbit in Columbia",
+          "es": "Solo en órbita en el Columbia"
+        },
+        {
+          "en": "On the surface with Neil",
+          "es": "En la superficie con Neil"
+        },
+        {
+          "en": "In Mission Control",
+          "es": "En el control de la misión"
+        }
+      ]
+    },
+    {
+      "id": "apollo-11-q12",
+      "factId": "apollo-earthrise",
+      "q": {
+        "en": "Which mission took the famous \"Earthrise\" photograph?",
+        "es": "¿Qué misión tomó la famosa foto «Salida de la Tierra»?"
+      },
+      "options": [
+        {
+          "en": "Apollo 8",
+          "es": "Apolo 8"
+        },
+        {
+          "en": "Apollo 11",
+          "es": "Apolo 11"
+        },
+        {
+          "en": "Apollo 13",
+          "es": "Apolo 13"
+        }
+      ]
+    }
+  ]
 }

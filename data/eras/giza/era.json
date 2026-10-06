@@ -478,5 +478,271 @@
       "mererTrust",
       "tiaBond"
     ]
-  }
+  },
+  "quiz": [
+    {
+      "id": "giza-q1",
+      "factId": "giza-bread",
+      "q": {
+        "en": "How were the pyramid builders mostly paid?",
+        "es": "¿Cómo se pagaba sobre todo a los constructores de la pirámide?"
+      },
+      "options": [
+        {
+          "en": "In bread and beer",
+          "es": "Con pan y cerveza"
+        },
+        {
+          "en": "In gold coins",
+          "es": "Con monedas de oro"
+        },
+        {
+          "en": "They were not paid: they were slaves",
+          "es": "No cobraban: eran esclavos"
+        }
+      ]
+    },
+    {
+      "id": "giza-q2",
+      "factId": "giza-orders",
+      "q": {
+        "en": "Who is thought to have directed the building of the Great Pyramid?",
+        "es": "¿Quién se cree que dirigió la construcción de la Gran Pirámide?"
+      },
+      "options": [
+        {
+          "en": "Hemiunu, Khufu's vizier",
+          "es": "Hemiunu, visir de Keops"
+        },
+        {
+          "en": "Imhotep",
+          "es": "Imhotep"
+        },
+        {
+          "en": "Ramesses II",
+          "es": "Ramsés II"
+        }
+      ]
+    },
+    {
+      "id": "giza-q3",
+      "factId": "giza-harbour",
+      "q": {
+        "en": "Where did the King's Chamber granite come from?",
+        "es": "¿De dónde venía el granito de la Cámara del Rey?"
+      },
+      "options": [
+        {
+          "en": "Aswan, about 800 km up the Nile",
+          "es": "Asuán, a unos 800 km Nilo arriba"
+        },
+        {
+          "en": "The Giza plateau itself",
+          "es": "La propia meseta de Giza"
+        },
+        {
+          "en": "Lebanon",
+          "es": "El Líbano"
+        }
+      ]
+    },
+    {
+      "id": "giza-q4",
+      "factId": "giza-sledge",
+      "q": {
+        "en": "Why did a worker pour water in front of the sledge?",
+        "es": "¿Por qué un obrero echaba agua delante del trineo?"
+      },
+      "options": [
+        {
+          "en": "Wet sand halves the pulling force",
+          "es": "La arena mojada reduce a la mitad la fuerza"
+        },
+        {
+          "en": "To cool the stone",
+          "es": "Para enfriar la piedra"
+        },
+        {
+          "en": "As a religious offering",
+          "es": "Como ofrenda religiosa"
+        }
+      ]
+    },
+    {
+      "id": "giza-q5",
+      "factId": "giza-graffiti",
+      "q": {
+        "en": "What did Vyse find in the relieving chambers in 1837?",
+        "es": "¿Qué encontró Vyse en las cámaras de descarga en 1837?"
+      },
+      "options": [
+        {
+          "en": "Work-gang graffiti in red paint",
+          "es": "Pintadas de las cuadrillas en rojo"
+        },
+        {
+          "en": "Khufu's mummy",
+          "es": "La momia de Keops"
+        },
+        {
+          "en": "A hidden treasure",
+          "es": "Un tesoro escondido"
+        }
+      ]
+    },
+    {
+      "id": "giza-q6",
+      "factId": "giza-tomb-offer",
+      "q": {
+        "en": "What does the builders' cemetery show about them?",
+        "es": "¿Qué muestra el cementerio de los constructores?"
+      },
+      "options": [
+        {
+          "en": "They were respected, not slaves",
+          "es": "Eran respetados, no esclavos"
+        },
+        {
+          "en": "They were prisoners of war",
+          "es": "Eran prisioneros de guerra"
+        },
+        {
+          "en": "They came from Greece",
+          "es": "Venían de Grecia"
+        }
+      ]
+    },
+    {
+      "id": "giza-q7",
+      "factId": "giza-merer-log",
+      "q": {
+        "en": "What is the Diary of Merer?",
+        "es": "¿Qué es el Diario de Merer?"
+      },
+      "options": [
+        {
+          "en": "The oldest inscribed papyrus ever found",
+          "es": "El papiro escrito más antiguo encontrado"
+        },
+        {
+          "en": "A pharaoh's love letters",
+          "es": "Cartas de amor de un faraón"
+        },
+        {
+          "en": "A map of the pyramid",
+          "es": "Un mapa de la pirámide"
+        }
+      ]
+    },
+    {
+      "id": "giza-q8",
+      "factId": "giza-casing",
+      "q": {
+        "en": "What happened to the pyramid's white limestone casing?",
+        "es": "¿Qué pasó con el revestimiento de caliza blanca de la pirámide?"
+      },
+      "options": [
+        {
+          "en": "It was reused to build Cairo",
+          "es": "Se reutilizó para construir El Cairo"
+        },
+        {
+          "en": "It was painted gold",
+          "es": "Lo pintaron de oro"
+        },
+        {
+          "en": "It is still all in place",
+          "es": "Sigue entero en su sitio"
+        }
+      ]
+    },
+    {
+      "id": "giza-q9",
+      "factId": "giza-north",
+      "q": {
+        "en": "How precisely is the Great Pyramid aligned to true north?",
+        "es": "¿Con qué precisión está la Gran Pirámide alineada con el norte?"
+      },
+      "options": [
+        {
+          "en": "About a fifteenth of a degree",
+          "es": "Alrededor de una quinceava parte de grado"
+        },
+        {
+          "en": "About 5 degrees",
+          "es": "Unos 5 grados"
+        },
+        {
+          "en": "It is not aligned",
+          "es": "No está alineada"
+        }
+      ]
+    },
+    {
+      "id": "giza-q10",
+      "factId": "giza-cubit",
+      "q": {
+        "en": "How long was the royal cubit?",
+        "es": "¿Cuánto medía el codo real?"
+      },
+      "options": [
+        {
+          "en": "About 52.4 cm",
+          "es": "Unos 52,4 cm"
+        },
+        {
+          "en": "About 1 metre",
+          "es": "Alrededor de 1 metro"
+        },
+        {
+          "en": "About 10 cm",
+          "es": "Unos 10 cm"
+        }
+      ]
+    },
+    {
+      "id": "giza-q11",
+      "factId": "giza-boat-pit",
+      "q": {
+        "en": "What was found in a sealed pit beside the pyramid in 1954?",
+        "es": "¿Qué se encontró en una fosa sellada junto a la pirámide en 1954?"
+      },
+      "options": [
+        {
+          "en": "A 43-metre cedar boat",
+          "es": "Un barco de cedro de 43 metros"
+        },
+        {
+          "en": "A golden chariot",
+          "es": "Un carro de oro"
+        },
+        {
+          "en": "The builders' tools",
+          "es": "Las herramientas de los constructores"
+        }
+      ]
+    },
+    {
+      "id": "giza-q12",
+      "factId": "giza-accident",
+      "q": {
+        "en": "What do the builders' skeletons reveal?",
+        "es": "¿Qué revelan los esqueletos de los constructores?"
+      },
+      "options": [
+        {
+          "en": "They had real medical care",
+          "es": "Tenían atención médica de verdad"
+        },
+        {
+          "en": "They never got hurt",
+          "es": "Nunca se lesionaban"
+        },
+        {
+          "en": "They lived to 100",
+          "es": "Vivían hasta los 100 años"
+        }
+      ]
+    }
+  ]
 }

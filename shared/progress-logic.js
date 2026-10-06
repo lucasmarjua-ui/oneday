@@ -27,3 +27,15 @@ export function completion(progress, era, cards) {
   const facts = (progress?.facts || []).filter(id => cards.some(card => card.id === id && card.fact)).length;
   return { endings, totalEndings, facts, totalFacts };
 }
+
+/** Two devices' collections together: every ending and fact found on either. */
+export function mergeCollections(local, cloud) {
+  const ids = new Set([...Object.keys(local || {}), ...Object.keys(cloud || {})]);
+  const result = {};
+  ids.forEach(id => {
+    const l = { ...emptyProgress(), ...(local?.[id] || {}) };
+    const c = { ...emptyProgress(), ...(cloud?.[id] || {}) };
+    result[id] = { endings: [...new Set([...c.endings, ...l.endings])], facts: [...new Set([...c.facts, ...l.facts])] };
+  });
+  return result;
+}

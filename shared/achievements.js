@@ -1,4 +1,7 @@
-const KEY = 'oneday.progress';
+// Its own key: the endings-and-facts collection lives in 'oneday.progress'
+// and is rewritten every day, which used to wipe these running totals.
+const KEY = 'oneday.challenges';
+const EMPTY = { accumulated: {}, achievementsUnlocked: [] };
 
 function read() {
   try { const value = JSON.parse(localStorage.getItem(KEY) || '{}'); return typeof value === 'object' && value ? value : {}; }
@@ -8,12 +11,12 @@ function write(value) { localStorage.setItem(KEY, JSON.stringify(value)); window
 
 export function getEraProgress(eraId) {
   const all = read();
-  return all[eraId] || { accumulated: {}, achievementsUnlocked: [] };
+  return { ...EMPTY, ...(all[eraId] || {}) };
 }
 
 export function recordDayGains(eraId, gains) {
   const all = read();
-  const progress = all[eraId] || { accumulated: {}, achievementsUnlocked: [] };
+  const progress = { ...EMPTY, ...(all[eraId] || {}) };
   const accumulated = { ...progress.accumulated };
   Object.entries(gains).forEach(([resource, amount]) => {
     if (amount > 0) accumulated[resource] = (accumulated[resource] || 0) + amount;
@@ -25,7 +28,7 @@ export function recordDayGains(eraId, gains) {
 
 export function checkAndUnlockMetaAchievements(eraId, era) {
   const all = read();
-  const progress = all[eraId] || { accumulated: {}, achievementsUnlocked: [] };
+  const progress = { ...EMPTY, ...(all[eraId] || {}) };
   const unlocked = [...progress.achievementsUnlocked];
   const newlyUnlocked = [];
   (era.metaAchievements || []).forEach(achievement => {

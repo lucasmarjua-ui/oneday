@@ -155,7 +155,8 @@ How an event is put together (`data/eras/<id>/`):
 
 - **`era.json`** declares the resources (fuel and oxygen are both *critical* on the Moon; crew health and morale at Giza), the day's time slots, the opening card, the cast, personas, objectives, the `role` and `history` texts, and the **endings**. An ending has a `when` (`depleted` resource, `flagsRequired`, `flagsExcluded`, `resources`, `counters`); `shared/endings.js` picks the first that holds, exactly one is `historical`, and the last is a catch-all.
 - **`cards.json`**: the key story beats (undocking, the 1202 alarm, the boulder field, the first step; the sledge, the ramp, setting the beam) carry a high weight and are chained by flags, so the day follows history unless your choices break the chain. Every card carries a `fact`, the historical note shown in the dialogue, and every option an `act`, what the character physically does.
-- **Collections** (`shared/progress-logic.js`, stored by `shared/progress.js`) remember the endings and facts each player has found per event.
+- **Collections** (`shared/progress-logic.js`, stored by `shared/progress.js`) remember the endings and facts each player has found per event. Each event's own long-running challenges (`metaAchievements`) are kept apart, in `oneday.challenges`.
+- **`quiz`** in `era.json`: the end-of-day exam (see below).
 
 ## The stage: a 3D pixel-art diorama
 
@@ -256,17 +257,27 @@ The engine's rules are covered directly (card filtering, weighted draw, both bon
 
 Firestore-touching code, `<canvas>` rendering and the WebGL stage are verified in a real browser rather than unit tested.
 
+## The historian's career: exam, ranks and medals
+
+Playing is meant to leave something behind, and to bring the player back.
+
+- **An exam at nightfall.** When the day ends, three quick questions on the history it just showed (`shared/quiz-logic.js`): each event's `era.json` has a `quiz` of 12 questions, each tied to one card's historical note, and the exam asks first about the notes seen today. The right answer is always the first option in the data and is shuffled on screen; after each answer the note itself is shown again.
+- **Experience and eight ranks** (`shared/career-logic.js`, stored by `shared/career.js`), from *Curious Visitor* to *Witness of the Ages*. A day earns XP for being lived, for each objective (and a bonus for all three), for each new fact, for a new ending (more for the historical one) and for each right answer in the exam. The summary shows the breakdown and the bar filling; a player who played before careers existed starts with the XP their collection is worth.
+- **14 medals** in bronze, silver and gold across every event: the first historical ending, five alternative ones, a perfect exam, a flawless day, 25 and 75 facts, every ending or every fact of one event, a day in every event, 3- and 7-day streaks...
+- **The archive** on the title screen: the rank and its stats, the medal case, every event's endings (the undiscovered ones as `???`) and its own challenges, and a codex of every historical fact the player has learned, with the ones still hidden counted.
+- **A "new" stamp** on a dialogue's historical note while it is not yet in the collection.
+
 ## Daily Challenge
 
-Each era's "Today's Challenge" plays the same engine seeded from `dailySeed(eraId, today)` instead of a random seed, so every player gets the identical card sequence, rolls and objective set that day; only their choices differ. One attempt per player per era per day, enforced locally by cache and server-side by `firestore.rules` allowing a `dailyLeaderboards/{eraId}-{date}/entries/{uid}` document to be **created but never updated or deleted**.
+The title screen features one event a day, the same for every player and a different one each day in turn (`featuredEventFor`). Today's challenge plays the same engine seeded from `dailySeed(eraId, today)` instead of a random seed, so every player gets the identical card sequence, rolls and objective set that day; only their choices differ. One attempt per player per era per day, enforced locally by cache and server-side by `firestore.rules` allowing a `dailyLeaderboards/{eraId}-{date}/entries/{uid}` document to be **created but never updated or deleted**.
 
 Scoring: 100 points per completed objective, plus a 0-10 tiebreak from final health and currency — capped well below one objective on purpose, so it can only rank players who completed the same number of objectives.
 
-Finishing a challenge while signed in keeps one global **streak** alive across all events, and offers a **downloadable result card**: a PNG drawn on `<canvas>`, headlined with the ending that day reached.
+Finishing a challenge keeps one global **streak** alive (shown with a flame on the title screen) across all events, and offers a **downloadable result card**: a PNG drawn on `<canvas>`, headlined with the ending that day reached.
 
 ## Accounts and progress (Firebase)
 
-The game is fully playable as a guest; progress lives in `localStorage`. Logging in uses a **username and password** (mapped internally to `username@oneday.local`; a real email is never requested), merges local progress into a `users/{uid}` Firestore document, and keeps it in sync. Account-gated features are cross-playthrough NPC memory, the streak, and leaderboard participation.
+The game is fully playable as a guest; progress lives in `localStorage`. Logging in uses a **username and password** (mapped internally to `username@oneday.local`; a real email is never requested), merges local progress into a `users/{uid}` Firestore document, and keeps it in sync. Account-gated features are cross-playthrough NPC memory and leaderboard participation; the collection, the career and the streak sync with the account.
 
 The Firebase SDK is loaded from Google's CDN with a dynamic `import()` (see `shared/firebase-config.js`), never a static one. If the CDN is blocked by an ad blocker, a corporate proxy or a lost connection, the game still loads and plays as a guest; only accounts, cloud sync and leaderboards are switched off.
 
@@ -293,7 +304,6 @@ The Firebase SDK is loaded from Google's CDN with a dynamic `import()` (see `sha
 - **Four events so far.** More (the fall of the Berlin Wall, Columbus in 1492...) will be added one at a time.
 - **The downloadable result card still uses the previous print design**, not the pixel style.
 - **No global all-time leaderboard for free play** — only the Daily Challenge has one.
-- **No achievements showcase.** Meta-achievement progress is tracked and unlockable but there is no gallery view.
 
 ## License
 

@@ -29,6 +29,10 @@ const ICONS = {
   play: { rows: ['w....', 'www..', 'wwwww', 'www..', 'w....'], pal: { w: 'currentColor' } },
   star: { rows: ['..w..', '.www.', 'wwwww', '.www.', 'w...w'], pal: { w: 'currentColor' } },
   next: { rows: ['wwwww', '.www.', '..w..'], pal: { w: 'currentColor' } },
+  medal: { rows: ['.kr.bk.', '.kr.bk.', '..krk..', '.kkkkk.', 'kyywyyk', 'kywyyyk', 'kyyyyyk', 'kyyyyyk', '.kkkkk.'], pal: { k: '#14111c', r: '#e03a3a', b: '#4f8cff', y: 'currentColor', w: '#fff8dc' } },
+  lock: { rows: ['.kkk.', 'k...k', 'k...k', 'kkkkk', 'kwwwk', 'kwkwk', 'kwwwk', 'kkkkk'], pal: { k: '#14111c', w: '#6a6178' } },
+  flame: { rows: ['..k...', '.kok..', '.kook.', 'koyyok', 'koyyok', 'kooyok', '.kkkk.'], pal: { k: '#3a1405', o: '#ff7a1a', y: '#ffe28a' } },
+  book: { rows: ['kkkkkkk', 'kwwkwwk', 'kwwkwwk', 'kwwkwwk', 'kwwkwwk', 'kkkkkkk', '.kbbbk.'], pal: { k: '#2a1e10', w: '#f3e3bf', b: '#b08a52' } },
 };
 
 const RESOURCE_ICON = { energy: 'energy', health: 'health', hunger: 'hunger', thirst: 'thirst', currency: 'currency', reputation: 'reputation', survival: 'survival', oxygen: 'oxygen', fuel: 'fuel', focus: 'focus', samples: 'samples', morale: 'morale', peace: 'peace', voice: 'voice', favour: 'favour', insight: 'insight', courage: 'courage', supplies: 'supplies', saved: 'saved' };

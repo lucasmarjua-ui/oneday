@@ -11,7 +11,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const read = relativePath => readFileSync(join(here, '..', relativePath), 'utf8');
 const en = JSON.parse(read('data/i18n/en.json'));
 const es = JSON.parse(read('data/i18n/es.json'));
-const pages = ['index.html', 'game.html'].map(name => ({ name, source: read(name) }));
+const pages = ['index.html', 'game.html', 'shared/ui/career-ui.js'].map(name => ({ name, source: read(name) }));
 
 test('both language bundles declare exactly the same keys', () => {
   assert.deepEqual(Object.keys(en).sort(), Object.keys(es).sort());
@@ -34,6 +34,7 @@ test('a string with placeholders keeps the same placeholders in both languages',
 test('every data-i18n attribute in the pages resolves to a real key', () => {
   pages.forEach(({ name, source }) => {
     const used = [...source.matchAll(/data-i18n="([^"]+)"/g)].map(match => match[1]);
+    if (!name.endsWith('.html')) return;
     assert.ok(used.length > 0, `${name} should localize something`);
     used.forEach(key => assert.ok(key in en, `${name} uses missing key "${key}"`));
   });
