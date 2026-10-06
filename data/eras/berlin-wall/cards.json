@@ -1,0 +1,4384 @@
+[
+  {
+    "id": "berlin-wake",
+    "text": {
+      "en": "The alarm clock rattles on the chair. It is cold: the tiled stove went out in the night. Through the window, the grey courtyard, a line of washing, and a sky that cannot decide whether to rain.",
+      "es": "El despertador traquetea sobre la silla. Hace frío: la estufa de azulejos se apagó por la noche. Por la ventana, el patio gris, una cuerda de ropa tendida y un cielo que no se decide a llover."
+    },
+    "timeSlots": [
+      "morning"
+    ],
+    "weight": 100,
+    "fact": {
+      "en": "Many flats in old tenement districts like Prenzlauer Berg were still heated with coal-fired tiled stoves in 1989, and some shared a toilet on the stairwell landing. Briquettes were carried up from the cellar by the bucket.",
+      "es": "En 1989 muchos pisos de barrios antiguos como Prenzlauer Berg aún se calentaban con estufas de azulejos de carbón, y algunos compartían el retrete en el rellano de la escalera. Las briquetas se subían del sótano a cubos."
+    },
+    "options": [
+      {
+        "id": "coal",
+        "text": {
+          "en": "Fetch briquettes from the cellar and light the stove",
+          "es": "Sube briquetas del sótano y enciende la estufa"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -5
+          }
+        },
+        "act": "carry",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "stove"
+          ],
+          "text": {
+            "en": "Four floors down, four floors up with the bucket. By breakfast the tiles are warm.",
+            "es": "Cuatro pisos abajo, cuatro arriba con el cubo. A la hora del desayuno los azulejos ya están calientes."
+          }
+        }
+      },
+      {
+        "id": "camera",
+        "text": {
+          "en": "Check your camera and load a fresh film",
+          "es": "Revisa la cámara y carga un carrete nuevo"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "inspect",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "text": {
+            "en": "A Praktica, 36 exposures of ORWO black and white. Something tells you to bring a spare.",
+            "es": "Una Praktica, 36 exposiciones de ORWO en blanco y negro. Algo te dice que lleves uno de repuesto."
+          }
+        }
+      },
+      {
+        "id": "blanket",
+        "text": {
+          "en": "Stay under the blanket five more minutes",
+          "es": "Quédate cinco minutos más bajo la manta"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sleep",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 10
+          },
+          "text": {
+            "en": "Five minutes become ten. It is worth it.",
+            "es": "Cinco minutos se convierten en diez. Merece la pena."
+          }
+        }
+      }
+    ],
+    "alarm": true
+  },
+  {
+    "id": "berlin-radio",
+    "text": {
+      "en": "You switch on the radio over breakfast. Not the GDR station: RIAS, from West Berlin, like everybody does. The news is all about the East: more people leaving, more people protesting.",
+      "es": "Enciendes la radio mientras desayunas. No la emisora de la RDA: RIAS, desde Berlín Oeste, como hace todo el mundo. Las noticias hablan del Este: más gente que se va, más gente que protesta."
+    },
+    "timeSlots": [
+      "morning"
+    ],
+    "weight": 8,
+    "fact": {
+      "en": "Most East Germans watched West German TV and listened to Western radio every day, although officially it was frowned upon. The area around Dresden, where the signal did not reach, was jokingly called the 'Valley of the Clueless'.",
+      "es": "La mayoría de los alemanes del Este veía la televisión y escuchaba la radio del Oeste a diario, aunque oficialmente estaba mal visto. La zona de Dresde, adonde no llegaba la señal, se llamaba en broma el 'Valle de los Despistados'."
+    },
+    "options": [
+      {
+        "id": "listen",
+        "text": {
+          "en": "Listen closely to every report",
+          "es": "Escucha con atención cada noticia"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "informed"
+          ],
+          "text": {
+            "en": "Thousands leaving through Czechoslovakia every day now. The government seems to have no plan at all.",
+            "es": "Miles saliendo cada día por Checoslovaquia. El Gobierno parece no tener ningún plan."
+          }
+        }
+      },
+      {
+        "id": "volume",
+        "text": {
+          "en": "Turn it down: the walls are thin",
+          "es": "Bájale el volumen: las paredes son finas"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "crouch",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 5
+          },
+          "text": {
+            "en": "Old habits. Everybody listens; nobody says so.",
+            "es": "Viejas costumbres. Todo el mundo escucha; nadie lo dice."
+          }
+        }
+      },
+      {
+        "id": "coffee",
+        "text": {
+          "en": "Make real coffee, not 'Kaffee-Mix'",
+          "es": "Prepara café de verdad, no 'Kaffee-Mix'"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "drink",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 10
+          },
+          "text": {
+            "en": "The good packet from Micha's last parcel. You drink it slowly.",
+            "es": "El paquete bueno del último envío de Micha. Te lo tomas despacio."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-kuhn",
+    "text": {
+      "en": "On the stairs, Frau Kuhn from the ground floor is sweeping, as she does every morning at exactly this time. \"Your brother still in the West, Fräulein Vogel? Such a pity. Such a nice boy.\"",
+      "es": "En la escalera, Frau Kuhn, la vecina del bajo, barre como cada mañana a esta misma hora. \"¿Su hermano sigue en el Oeste, señorita Vogel? Qué pena. Un chico tan majo\"."
+    },
+    "timeSlots": [
+      "morning"
+    ],
+    "weight": 8,
+    "fact": {
+      "en": "In 1989 the Stasi, East Germany's secret police, had about 91,000 full-time employees and around 189,000 'unofficial collaborators': ordinary people who secretly reported on neighbours, colleagues and even their own families.",
+      "es": "En 1989 la Stasi, la policía secreta de la RDA, tenía unos 91.000 empleados y unos 189.000 'colaboradores no oficiales': gente corriente que informaba en secreto sobre vecinos, compañeros e incluso su propia familia."
+    },
+    "options": [
+      {
+        "id": "polite",
+        "text": {
+          "en": "Smile and say nothing about Micha",
+          "es": "Sonríe y no digas nada de Micha"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "nod",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 5
+          },
+          "countersAdd": {
+            "kuhnTrust": 1
+          },
+          "text": {
+            "en": "\"Well. Give him my regards, if you ever write.\" She keeps sweeping.",
+            "es": "\"Bueno. Dele recuerdos si alguna vez le escribe\". Sigue barriendo."
+          }
+        }
+      },
+      {
+        "id": "honest",
+        "text": {
+          "en": "\"He's fine. He writes every week.\"",
+          "es": "\"Está bien. Me escribe cada semana\""
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "cover": -10
+          },
+          "text": {
+            "en": "Her broom stops for a second. Then it goes on.",
+            "es": "Su escoba se detiene un segundo. Luego sigue."
+          }
+        }
+      },
+      {
+        "id": "help",
+        "text": {
+          "en": "Offer to carry her shopping up later",
+          "es": "Ofrécete a subirle la compra luego"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 3
+          },
+          "countersAdd": {
+            "kuhnTrust": 2
+          },
+          "text": {
+            "en": "\"You are a good girl, Katrin.\" Maybe she is just lonely.",
+            "es": "\"Eres una buena chica, Katrin\". Quizá solo esté sola."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-micha-letter",
+    "text": {
+      "en": "In the letterbox, a postcard from West Berlin. Micha's handwriting: \"I'm fine. Work at a garage in Wedding. I miss Mama's dumplings. Someday you'll come over. M.\" Someone has opened it and glued it shut again.",
+      "es": "En el buzón, una postal de Berlín Oeste. La letra de Micha: \"Estoy bien. Trabajo en un taller en Wedding. Echo de menos las albóndigas de mamá. Algún día vendrás. M.\" Alguien la ha abierto y la ha vuelto a pegar."
+    },
+    "timeSlots": [
+      "morning"
+    ],
+    "weight": 10,
+    "fact": {
+      "en": "On 2 May 1989 Hungary began taking down its border fence with Austria. On 11 September it let East Germans leave freely, and within weeks tens of thousands drove their Trabants west through Hungary.",
+      "es": "El 2 de mayo de 1989 Hungría empezó a desmontar su valla fronteriza con Austria. El 11 de septiembre dejó salir libremente a los alemanes del Este, y en pocas semanas decenas de miles cruzaron al Oeste por Hungría con sus Trabant."
+    },
+    "options": [
+      {
+        "id": "keep",
+        "text": {
+          "en": "Keep it in your camera bag",
+          "es": "Guárdala en la bolsa de la cámara"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "pickup",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "micha-letter"
+          ],
+          "countersAdd": {
+            "michaBond": 1
+          },
+          "text": {
+            "en": "Wedding. Just across the Wall from Bornholmer Straße.",
+            "es": "Wedding. Justo al otro lado del Muro desde Bornholmer Straße."
+          }
+        }
+      },
+      {
+        "id": "reread",
+        "text": {
+          "en": "Read it again for clues",
+          "es": "Reléela buscando pistas"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "inspect",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "micha-letter",
+            "knows-garage"
+          ],
+          "countersAdd": {
+            "michaBond": 1
+          },
+          "text": {
+            "en": "A garage on Osloer Straße, a phone number in the corner. He planned this.",
+            "es": "Un taller en Osloer Straße, un número de teléfono en una esquina. Lo tenía pensado."
+          }
+        }
+      },
+      {
+        "id": "burn",
+        "text": {
+          "en": "Burn it in the stove: it has been read",
+          "es": "Quémala en la estufa: ya la han leído"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "crouch",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 8
+          },
+          "flagsSet": [
+            "micha-letter"
+          ],
+          "text": {
+            "en": "You memorise the address first. Then it is ash.",
+            "es": "Primero te aprendes la dirección. Luego es ceniza."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-queue",
+    "text": {
+      "en": "Outside the Kaufhalle, a queue. Nobody knows exactly what for, but a queue in the GDR always means something worth having. Somebody whispers: bananas.",
+      "es": "Ante la Kaufhalle hay una cola. Nadie sabe bien para qué, pero en la RDA una cola siempre significa algo que merece la pena. Alguien susurra: plátanos."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 6,
+    "fact": {
+      "en": "Tropical fruit like bananas was rare in East German shops. After the Wall opened, East Germans bought them by the bagful in the West, and the banana became a joke and a symbol of the change.",
+      "es": "La fruta tropical, como los plátanos, escaseaba en las tiendas de la RDA. Cuando se abrió el Muro, los alemanes del Este los compraban por bolsas en el Oeste, y el plátano se convirtió en chiste y símbolo del cambio."
+    },
+    "options": [
+      {
+        "id": "join",
+        "text": {
+          "en": "Join the queue",
+          "es": "Ponte a la cola"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -5
+          }
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 10,
+            "courage": 3
+          },
+          "text": {
+            "en": "Forty minutes. Two bananas and a tin of pineapple from Cuba. A triumph.",
+            "es": "Cuarenta minutos. Dos plátanos y una lata de piña de Cuba. Un triunfo."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the queue",
+          "es": "Fotografía la cola"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2,
+            "cover": -5
+          },
+          "text": {
+            "en": "Twenty faces, all looking at the same closed door. ADN will never print it.",
+            "es": "Veinte caras mirando la misma puerta cerrada. ADN nunca la publicará."
+          }
+        }
+      },
+      {
+        "id": "place",
+        "text": {
+          "en": "Give your place to an old man",
+          "es": "Cédele tu sitio a un anciano"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "\"Danke, junge Frau.\" He saved for that banana for a week.",
+            "es": "\"Danke, junge Frau\". Llevaba una semana esperando ese plátano."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-trabant",
+    "text": {
+      "en": "A neighbour is polishing his brand-new Trabant, sky blue, still smelling of the factory. He ordered it in 1976. \"Thirteen years,\" he says. \"And I'm one of the lucky ones.\"",
+      "es": "Un vecino abrillanta su Trabant recién estrenado, azul cielo, con olor a fábrica todavía. Lo encargó en 1976. \"Trece años\", dice. \"Y soy de los afortunados\"."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "East Germans could wait 10 years or more for a new Trabant, so many families ordered one as soon as a child was born. Its body was made of Duroplast, a hard plastic reinforced with cotton waste.",
+      "es": "En la RDA había que esperar 10 años o más para tener un Trabant nuevo, así que muchas familias lo encargaban en cuanto nacía un hijo. Su carrocería era de Duroplast, un plástico duro reforzado con restos de algodón."
+    },
+    "options": [
+      {
+        "id": "congrats",
+        "text": {
+          "en": "Congratulate him",
+          "es": "Felicítale"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "wave",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "lift-offered"
+          ],
+          "text": {
+            "en": "He beams, and offers you a lift anywhere, any time.",
+            "es": "Sonríe de oreja a oreja y te ofrece llevarte donde quieras, cuando quieras."
+          }
+        }
+      },
+      {
+        "id": "snap",
+        "text": {
+          "en": "Take his picture with the car",
+          "es": "Hazle una foto con el coche"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 1,
+            "courage": 2
+          },
+          "text": {
+            "en": "A proud man and a plastic car. One of your best frames today.",
+            "es": "Un hombre orgulloso y un coche de plástico. Uno de tus mejores fotogramas de hoy."
+          }
+        }
+      },
+      {
+        "id": "knock",
+        "text": {
+          "en": "Knock on the body: is it really plastic?",
+          "es": "Da un golpecito a la carrocería: ¿de verdad es de plástico?"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "inspect",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 3
+          },
+          "text": {
+            "en": "Duroplast, he says, offended. \"Stronger than steel. Practically.\"",
+            "es": "Duroplast, dice ofendido. \"Más fuerte que el acero. Casi\"."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-gethsemane",
+    "text": {
+      "en": "You pass the Gethsemane Church. Candles still burn on the steps, dozens of them, left since October. A hand-painted banner on the railings: \"Wachet und betet\" — keep watch and pray.",
+      "es": "Pasas por la iglesia de Getsemaní. En la escalinata aún arden velas, decenas, que la gente deja desde octubre. Una pancarta pintada a mano en la verja: \"Wachet und betet\", velad y orad."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 8,
+    "fact": {
+      "en": "From October 1989 the Gethsemane Church in Prenzlauer Berg held round-the-clock vigils with candles for people arrested at protests. Candles became the symbol of a revolution that stayed peaceful; one party official later said they had planned for everything except candles and prayers.",
+      "es": "Desde octubre de 1989 la iglesia de Getsemaní de Prenzlauer Berg celebró vigilias día y noche con velas por los detenidos en las protestas. Las velas se convirtieron en el símbolo de una revolución que siguió siendo pacífica; un dirigente del partido dijo después que lo tenían todo previsto, salvo las velas y las oraciones."
+    },
+    "options": [
+      {
+        "id": "candle",
+        "text": {
+          "en": "Light a candle on the steps",
+          "es": "Enciende una vela en la escalinata"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "pray",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8
+          },
+          "flagsSet": [
+            "candle"
+          ],
+          "text": {
+            "en": "For Micha. For all of them. The flame shakes, then holds.",
+            "es": "Por Micha. Por todos ellos. La llama tiembla y luego aguanta."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the candles",
+          "es": "Fotografía las velas"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2,
+            "cover": -3
+          },
+          "text": {
+            "en": "A long exposure: the steps glow like a river.",
+            "es": "Una exposición larga: la escalinata brilla como un río."
+          }
+        }
+      },
+      {
+        "id": "pass",
+        "text": {
+          "en": "Walk on: there's a man in a parked Wartburg watching",
+          "es": "Sigue andando: hay un hombre vigilando en un Wartburg aparcado"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "crouch",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 5
+          },
+          "text": {
+            "en": "You keep your eyes down and your camera in the bag.",
+            "es": "Bajas la mirada y guardas la cámara en la bolsa."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-stasi-car",
+    "text": {
+      "en": "A grey Wartburg with two men inside has been parked across the street all morning. When you lift your camera to photograph the trams, one of them gets out.",
+      "es": "Un Wartburg gris con dos hombres dentro lleva toda la mañana aparcado enfrente. Cuando levantas la cámara para fotografiar los tranvías, uno de ellos se baja."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "The Stasi kept files on about a third of East Germany's population. After the fall of the Wall, citizens occupied its offices to stop the files being destroyed; since 1992 anyone can ask to read the file kept on them.",
+      "es": "La Stasi tenía expedientes de alrededor de un tercio de la población de la RDA. Tras la caída del Muro, los ciudadanos ocuparon sus oficinas para impedir que se destruyeran; desde 1992 cualquiera puede pedir leer el expediente que tenían sobre él."
+    },
+    "options": [
+      {
+        "id": "show-pass",
+        "text": {
+          "en": "Show your ADN press pass",
+          "es": "Enséñale tu pase de prensa de ADN"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 3
+          },
+          "text": {
+            "en": "He reads it twice, hands it back. \"Photograph the trams, then. Only the trams.\"",
+            "es": "Lo lee dos veces y te lo devuelve. \"Pues fotografíe los tranvías. Solo los tranvías\"."
+          }
+        }
+      },
+      {
+        "id": "walk",
+        "text": {
+          "en": "Put the camera away and walk off",
+          "es": "Guarda la cámara y vete"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "crouch",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 5,
+            "courage": -3
+          },
+          "text": {
+            "en": "You feel his eyes on your back for two streets.",
+            "es": "Sientes su mirada en la espalda durante dos calles."
+          }
+        }
+      },
+      {
+        "id": "shoot",
+        "text": {
+          "en": "Take one more picture: of him",
+          "es": "Haz una foto más: de él"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 0.4,
+          "traitBonus": {
+            "trait": "cunning",
+            "perPoint": 0.05
+          }
+        },
+        "success": {
+          "resources": {
+            "photos": 1,
+            "courage": 8,
+            "cover": -10
+          },
+          "text": {
+            "en": "Click. You are round the corner before he reacts. A Stasi man, on film.",
+            "es": "Clic. Doblas la esquina antes de que reaccione. Un hombre de la Stasi, en el carrete."
+          }
+        },
+        "failure": {
+          "resources": {
+            "cover": -30,
+            "photos": -4
+          },
+          "text": {
+            "en": "He takes your name, your address and your film. He knows your brother's name already.",
+            "es": "Te toma el nombre, la dirección y el carrete. El nombre de tu hermano ya lo sabe."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-brandt-assign",
+    "npcId": "npc-brandt",
+    "text": {
+      "en": "At the agency, Herr Brandt throws a press card on your desk. \"Six o'clock, International Press Centre, Mohrenstraße. Schabowski is briefing on the Central Committee. Nobody important wants to go, so you go. Bring back faces, not opinions.\"",
+      "es": "En la agencia, Herr Brandt tira una acreditación sobre tu mesa. \"A las seis, Centro de Prensa Internacional, Mohrenstraße. Schabowski informa sobre el Comité Central. Nadie importante quiere ir, así que vas tú. Trae caras, no opiniones\"."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 40,
+    "conditions": {
+      "flagsExcluded": [
+        "assigned"
+      ]
+    },
+    "fact": {
+      "en": "ADN was East Germany's only official news agency. Its photos and reports followed the party line, and in the autumn of 1989 its own journalists were among those starting to ask for freedom of the press.",
+      "es": "ADN era la única agencia oficial de noticias de la RDA. Sus fotos y crónicas seguían la línea del partido, y en otoño de 1989 sus propios periodistas estaban entre los que empezaban a pedir libertad de prensa."
+    },
+    "options": [
+      {
+        "id": "yes",
+        "text": {
+          "en": "\"Faces. Understood.\"",
+          "es": "\"Caras. Entendido\""
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "nod",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "assigned"
+          ],
+          "countersAdd": {
+            "brandtTrust": 2
+          },
+          "text": {
+            "en": "He nods without looking up. From Brandt, that is praise.",
+            "es": "Asiente sin levantar la vista. Viniendo de Brandt, es un elogio."
+          }
+        }
+      },
+      {
+        "id": "ask",
+        "text": {
+          "en": "Ask what the briefing is really about",
+          "es": "Pregunta de qué va de verdad la rueda de prensa"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "assigned",
+            "informed"
+          ],
+          "countersAdd": {
+            "brandtTrust": 1
+          },
+          "text": {
+            "en": "\"A travel law, they say. Nobody knows. Nobody knows anything this month.\"",
+            "es": "\"Una ley de viajes, dicen. Nadie sabe nada. Este mes nadie sabe nada\"."
+          }
+        }
+      },
+      {
+        "id": "two-films",
+        "text": {
+          "en": "Ask for two extra films",
+          "es": "Pide dos carretes extra"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "flagsSet": [
+            "assigned",
+            "spare-film"
+          ],
+          "countersAdd": {
+            "brandtTrust": 1
+          },
+          "text": {
+            "en": "He sighs and opens the locked drawer. \"Don't waste them on Schabowski's tie.\"",
+            "es": "Suspira y abre el cajón con llave. \"No los gastes en la corbata de Schabowski\"."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-leipzig",
+    "text": {
+      "en": "In the canteen, a colleague just back from Leipzig talks in a low voice: every Monday, more people. Seventy thousand on 9 October, with the police lined up and the hospitals told to prepare blood. Nobody fired.",
+      "es": "En la cantina, un compañero recién llegado de Leipzig habla en voz baja: cada lunes, más gente. Setenta mil el 9 de octubre, con la policía formada y los hospitales avisados de preparar sangre. Nadie disparó."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 6,
+    "fact": {
+      "en": "On 9 October 1989 about 70,000 people marched around Leipzig's ring road chanting 'Wir sind das Volk' ('We are the people'). Thousands of armed police and soldiers were ready, but no order to shoot came, and from then on the protests could not be stopped.",
+      "es": "El 9 de octubre de 1989 unas 70.000 personas recorrieron la avenida de circunvalación de Leipzig coreando 'Wir sind das Volk' ('Nosotros somos el pueblo'). Miles de policías y soldados armados estaban preparados, pero no llegó la orden de disparar, y desde entonces las protestas ya no pudieron pararse."
+    },
+    "options": [
+      {
+        "id": "ask",
+        "text": {
+          "en": "Ask him what they chanted",
+          "es": "Pregúntale qué coreaban"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8
+          },
+          "flagsSet": [
+            "informed"
+          ],
+          "text": {
+            "en": "\"'Wir sind das Volk.' We are the people. And 'keine Gewalt': no violence.\"",
+            "es": "\"'Wir sind das Volk'. Nosotros somos el pueblo. Y 'keine Gewalt': sin violencia\"."
+          }
+        }
+      },
+      {
+        "id": "hush",
+        "text": {
+          "en": "Warn him to lower his voice",
+          "es": "Avísale de que baje la voz"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "point",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 5
+          },
+          "text": {
+            "en": "He glances at the next table and changes the subject to football.",
+            "es": "Mira de reojo la mesa de al lado y cambia de tema al fútbol."
+          }
+        }
+      },
+      {
+        "id": "share",
+        "text": {
+          "en": "Share your coffee and listen",
+          "es": "Comparte tu café y escucha"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "energy": 3
+          },
+          "text": {
+            "en": "He shows you photos he could never publish. Candles, banners, children on shoulders.",
+            "es": "Te enseña fotos que nunca podrá publicar. Velas, pancartas, niños a hombros."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-alexanderplatz",
+    "text": {
+      "en": "At Alexanderplatz the World Clock turns slowly. Five days ago this square was full from wall to wall: half a million people, actors and writers on a truck, banners everywhere. Today, pigeons and a tram.",
+      "es": "En Alexanderplatz el Reloj Mundial gira despacio. Hace cinco días esta plaza estaba llena de punta a punta: medio millón de personas, actores y escritores sobre un camión, pancartas por todas partes. Hoy, palomas y un tranvía."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 6,
+    "fact": {
+      "en": "On 4 November 1989 hundreds of thousands of people, perhaps half a million, gathered at Alexanderplatz for the largest demonstration in East German history, demanding free speech, free elections and the right to travel.",
+      "es": "El 4 de noviembre de 1989 cientos de miles de personas, quizá medio millón, se reunieron en Alexanderplatz en la mayor manifestación de la historia de la RDA, exigiendo libertad de expresión, elecciones libres y derecho a viajar."
+    },
+    "options": [
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the empty square",
+          "es": "Fotografía la plaza vacía"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2
+          },
+          "text": {
+            "en": "The emptiness says more than a crowd would.",
+            "es": "El vacío dice más de lo que diría una multitud."
+          }
+        }
+      },
+      {
+        "id": "remember",
+        "text": {
+          "en": "Remember the banners you saw",
+          "es": "Recuerda las pancartas que viste"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "think",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8
+          },
+          "text": {
+            "en": "'Visa-free to Hawaii!' and 'Egon, what now?' People laughing at the state, out loud.",
+            "es": "'¡Sin visado a Hawái!' y 'Egon, ¿y ahora qué?'. La gente riéndose del Estado en voz alta."
+          }
+        }
+      },
+      {
+        "id": "tower",
+        "text": {
+          "en": "Look up at the TV Tower",
+          "es": "Mira la Torre de Televisión"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 3,
+            "courage": 3
+          },
+          "text": {
+            "en": "When the sun hits its ball, it makes a cross. Berliners call it the Pope's revenge.",
+            "es": "Cuando el sol da en su bola, forma una cruz. Los berlineses lo llaman la venganza del Papa."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-krenz",
+    "text": {
+      "en": "On a newsstand, Neues Deutschland: a front-page photo of Egon Krenz, the new party leader, promising 'a turn'. Three weeks ago the face on every front page was Erich Honecker's.",
+      "es": "En un quiosco, el Neues Deutschland: en portada, una foto de Egon Krenz, el nuevo líder del partido, prometiendo 'un giro'. Hace tres semanas la cara de todas las portadas era la de Erich Honecker."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "Erich Honecker, who had led East Germany since 1971, was forced out by his own Politburo on 18 October 1989 and replaced by Egon Krenz. Krenz lasted less than two months.",
+      "es": "Erich Honecker, que dirigía la RDA desde 1971, fue apartado por su propio Politburó el 18 de octubre de 1989 y sustituido por Egon Krenz. Krenz duró menos de dos meses."
+    },
+    "options": [
+      {
+        "id": "buy",
+        "text": {
+          "en": "Buy a copy and read it on the tram",
+          "es": "Compra un ejemplar y léelo en el tranvía"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "write",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 2
+          },
+          "flagsSet": [
+            "informed"
+          ],
+          "text": {
+            "en": "A lot of words, and none of them is 'travel'.",
+            "es": "Muchas palabras, y ninguna es 'viajar'."
+          }
+        }
+      },
+      {
+        "id": "joke",
+        "text": {
+          "en": "Tell the newsagent the Krenz joke",
+          "es": "Cuéntale al quiosquero el chiste de Krenz"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "cover": -5
+          },
+          "text": {
+            "en": "He laughs so hard he has to sit down. Then he looks around, quickly.",
+            "es": "Se ríe tanto que tiene que sentarse. Luego mira alrededor, rápido."
+          }
+        }
+      },
+      {
+        "id": "skip",
+        "text": {
+          "en": "Walk past: it changes nothing",
+          "es": "Pasa de largo: no cambia nada"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "nod",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 3
+          },
+          "text": {
+            "en": "Same paper, new face.",
+            "es": "Mismo periódico, cara nueva."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-travel-draft",
+    "text": {
+      "en": "Everybody is talking about the draft travel law published on Monday: thirty days abroad a year, but only with permission, which can be refused. \"So, nothing,\" says the tram driver. \"They give us nothing.\"",
+      "es": "Todo el mundo habla del borrador de la ley de viajes publicado el lunes: treinta días al año en el extranjero, pero con permiso, que te pueden denegar. \"O sea, nada\", dice el conductor del tranvía. \"No nos dan nada\"."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "On 6 November 1989 the government published a draft travel law. It still required permission and limited trips to 30 days a year, and it was rejected by almost everyone, including the People's Chamber. A new, simpler rule was rushed out three days later.",
+      "es": "El 6 de noviembre de 1989 el Gobierno publicó un borrador de ley de viajes. Seguía exigiendo permiso y limitaba los viajes a 30 días al año, y casi todo el mundo lo rechazó, incluida la Cámara Popular. Tres días después se redactó a toda prisa una norma nueva y más sencilla."
+    },
+    "options": [
+      {
+        "id": "agree",
+        "text": {
+          "en": "Agree out loud",
+          "es": "Dale la razón en voz alta"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8,
+            "cover": -5
+          },
+          "text": {
+            "en": "Half the tram agrees with you. Out loud. A month ago that was unthinkable.",
+            "es": "Medio tranvía te da la razón. En voz alta. Hace un mes era impensable."
+          }
+        }
+      },
+      {
+        "id": "think",
+        "text": {
+          "en": "Wonder what they will try next",
+          "es": "Piensa qué intentarán ahora"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "think",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "informed"
+          ],
+          "text": {
+            "en": "They have to give something. People are leaving by the thousand.",
+            "es": "Tienen que dar algo. La gente se va por miles."
+          }
+        }
+      },
+      {
+        "id": "quiet",
+        "text": {
+          "en": "Look out of the window and keep quiet",
+          "es": "Mira por la ventana y calla"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 3
+          },
+          "text": {
+            "en": "Grey façades, a slogan on a wall: 'The GDR, my fatherland'.",
+            "es": "Fachadas grises, una consigna en una pared: 'La RDA, mi patria'."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-palace-of-tears",
+    "text": {
+      "en": "Near Friedrichstraße station you pass the glass departure hall that Berliners call the Palace of Tears. A woman stands outside, waving at the door long after the door has closed.",
+      "es": "Cerca de la estación de Friedrichstraße pasas por el pabellón de salidas de cristal que los berlineses llaman el Palacio de las Lágrimas. Una mujer sigue fuera, saludando a la puerta mucho después de que se haya cerrado."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "The departure hall at Friedrichstraße station, where West German visitors went back through border control, was nicknamed the Tränenpalast, the 'Palace of Tears', for the goodbyes said outside it. Today it is a museum.",
+      "es": "El pabellón de salidas de la estación de Friedrichstraße, por donde los visitantes de la RFA volvían a pasar el control fronterizo, se apodaba Tränenpalast, el 'Palacio de las Lágrimas', por las despedidas que había a su puerta. Hoy es un museo."
+    },
+    "options": [
+      {
+        "id": "talk",
+        "text": {
+          "en": "Ask her if she is all right",
+          "es": "Pregúntale si está bien"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "Her daughter, visiting from Hamburg. \"Every time, I think it's the last.\"",
+            "es": "Su hija, de visita desde Hamburgo. \"Cada vez pienso que es la última\"."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the hall from across the road",
+          "es": "Fotografía el pabellón desde la otra acera"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2,
+            "cover": -3
+          },
+          "text": {
+            "en": "Glass, steel and a long queue of goodbyes.",
+            "es": "Cristal, acero y una larga cola de despedidas."
+          }
+        }
+      },
+      {
+        "id": "micha",
+        "text": {
+          "en": "Think of the day Micha left",
+          "es": "Piensa en el día que se fue Micha"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "think",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "countersAdd": {
+            "michaBond": 1
+          },
+          "text": {
+            "en": "He didn't say goodbye. He couldn't. You understand now.",
+            "es": "No se despidió. No podía. Ahora lo entiendes."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-prague",
+    "text": {
+      "en": "In the darkroom, a colleague develops photos from Prague: the West German embassy garden full of tents, families, children asleep on the lawn. \"Five weeks ago. They all got out.\"",
+      "es": "En el laboratorio, un compañero revela fotos de Praga: el jardín de la embajada de la RFA lleno de tiendas, familias, niños dormidos en el césped. \"Hace cinco semanas. Salieron todos\"."
+    },
+    "timeSlots": [
+      "day"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "By late September 1989 thousands of East Germans were camped in the West German embassy in Prague. On 30 September foreign minister Hans-Dietrich Genscher told them from the balcony that they could leave for the West; the cheering drowned out the end of his sentence.",
+      "es": "A finales de septiembre de 1989 miles de alemanes del Este acampaban en la embajada de la RFA en Praga. El 30 de septiembre el ministro de Exteriores Hans-Dietrich Genscher les anunció desde el balcón que podían salir al Oeste; los vítores taparon el final de su frase."
+    },
+    "options": [
+      {
+        "id": "study",
+        "text": {
+          "en": "Study every frame",
+          "es": "Estudia cada fotograma"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "inspect",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "informed"
+          ],
+          "text": {
+            "en": "In one, a man is climbing the embassy fence with a baby on his back.",
+            "es": "En uno, un hombre trepa la verja de la embajada con un bebé a la espalda."
+          }
+        }
+      },
+      {
+        "id": "help",
+        "text": {
+          "en": "Help him hang the prints to dry",
+          "es": "Ayúdale a colgar las copias a secar"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "work",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": -3,
+            "courage": 3
+          },
+          "countersAdd": {
+            "brandtTrust": 1
+          },
+          "text": {
+            "en": "Pegs, wet paper, the red light. You work in silence.",
+            "es": "Pinzas, papel mojado, la luz roja. Trabajáis en silencio."
+          }
+        }
+      },
+      {
+        "id": "warn",
+        "text": {
+          "en": "Tell him to lock those away",
+          "es": "Dile que guarde eso bajo llave"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "point",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 5
+          },
+          "text": {
+            "en": "He nods and slides them into an unmarked envelope.",
+            "es": "Asiente y las mete en un sobre sin rotular."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-press-hall",
+    "text": {
+      "en": "The International Press Centre, a few minutes before six. Rows of chairs, foreign accents, TV cameras on tripods. On the podium, four men sit down behind microphones. In the middle, Günter Schabowski shuffles his papers.",
+      "es": "Centro de Prensa Internacional, pocos minutos antes de las seis. Filas de sillas, acentos extranjeros, cámaras de televisión en trípodes. En la tarima, cuatro hombres se sientan tras los micrófonos. En el centro, Günter Schabowski ordena sus papeles."
+    },
+    "timeSlots": [
+      "press"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsExcluded": [
+        "in-press"
+      ]
+    },
+    "fact": {
+      "en": "On 9 November 1989 Politburo spokesman Günter Schabowski held an hour-long press conference at the International Press Centre in East Berlin, broadcast live on East German television, to report on the Central Committee's meeting.",
+      "es": "El 9 de noviembre de 1989 el portavoz del Politburó Günter Schabowski dio una rueda de prensa de una hora en el Centro de Prensa Internacional de Berlín Este, emitida en directo por la televisión de la RDA, para informar de la reunión del Comité Central."
+    },
+    "options": [
+      {
+        "id": "front",
+        "text": {
+          "en": "Push to the front row with your camera",
+          "es": "Abrete paso hasta la primera fila con la cámara"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -5
+          }
+        },
+        "act": "run",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2
+          },
+          "flagsSet": [
+            "in-press"
+          ],
+          "text": {
+            "en": "An Italian journalist moves his bag so you can sit. \"Prego.\"",
+            "es": "Un periodista italiano aparta su bolsa para que te sientes. \"Prego\"."
+          }
+        }
+      },
+      {
+        "id": "back",
+        "text": {
+          "en": "Stand at the back, by the door",
+          "es": "Quédate al fondo, junto a la puerta"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 3
+          },
+          "flagsSet": [
+            "in-press"
+          ],
+          "text": {
+            "en": "A good view of the whole room, and of the way out.",
+            "es": "Buena vista de toda la sala, y de la salida."
+          }
+        }
+      },
+      {
+        "id": "notes",
+        "text": {
+          "en": "Take out your notebook as well",
+          "es": "Saca también tu cuaderno"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "write",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 2
+          },
+          "flagsSet": [
+            "in-press",
+            "notes"
+          ],
+          "text": {
+            "en": "18:00. Hall full. Mood: bored. You will cross out 'bored' later.",
+            "es": "18:00. Sala llena. Ambiente: aburrido. Más tarde tacharás 'aburrido'."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-press-note",
+    "npcId": "npc-schabowski",
+    "text": {
+      "en": "Nearly seven o'clock. A question about travel. Schabowski puts on his glasses, reads a note he has clearly never seen before: private trips abroad may be applied for without preconditions... permanent exits through all border crossings... \"When does it take effect?\" someone calls. He leafs through his papers.",
+      "es": "Casi las siete. Una pregunta sobre los viajes. Schabowski se pone las gafas y lee una nota que claramente no ha visto nunca: se podrán solicitar viajes privados al extranjero sin requisitos... salidas definitivas por todos los pasos fronterizos... \"¿Cuándo entra en vigor?\", grita alguien. Él hojea sus papeles."
+    },
+    "timeSlots": [
+      "press"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "in-press"
+      ],
+      "flagsExcluded": [
+        "heard-note"
+      ]
+    },
+    "fact": {
+      "en": "At about 18:53 Schabowski read out new travel rules from a note handed to him before the conference, without having been told they were meant to start the next day. Asked when they took effect, he leafed through his papers and said: 'As far as I know... immediately, without delay.'",
+      "es": "Hacia las 18:53 Schabowski leyó unas nuevas normas de viaje de una nota que le habían dado antes de la rueda de prensa, sin que le dijeran que debían entrar en vigor al día siguiente. Cuando le preguntaron desde cuándo, hojeó sus papeles y dijo: 'Según tengo entendido... inmediatamente, sin demora'."
+    },
+    "options": [
+      {
+        "id": "shoot",
+        "text": {
+          "en": "Photograph his face as he answers",
+          "es": "Fotografía su cara mientras responde"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 3,
+            "courage": 5
+          },
+          "flagsSet": [
+            "heard-note"
+          ],
+          "countersAdd": {
+            "schabowskiNotice": 1
+          },
+          "text": {
+            "en": "\"As far as I know... immediately, without delay.\" Click. The face of a man who does not know what he has just done.",
+            "es": "\"Según tengo entendido... inmediatamente, sin demora\". Clic. La cara de un hombre que no sabe lo que acaba de hacer."
+          }
+        }
+      },
+      {
+        "id": "ask",
+        "text": {
+          "en": "Call out: \"Does that include Berlin?\"",
+          "es": "Grita: \"¿Eso incluye Berlín?\""
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10,
+            "cover": -10
+          },
+          "flagsSet": [
+            "heard-note",
+            "asked"
+          ],
+          "countersAdd": {
+            "schabowskiNotice": 2
+          },
+          "text": {
+            "en": "He looks up, frowns, reads again. \"...Also through the border crossings from the GDR to West Berlin.\" The room erupts.",
+            "es": "Levanta la vista, frunce el ceño, vuelve a leer. \"...También por los pasos fronterizos de la RDA a Berlín Oeste\". La sala estalla."
+          }
+        }
+      },
+      {
+        "id": "write",
+        "text": {
+          "en": "Write down every word, exactly",
+          "es": "Apunta cada palabra, exactamente"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "write",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "heard-note",
+            "notes"
+          ],
+          "text": {
+            "en": "'Sofort, unverzüglich.' You underline it twice. Your hand is shaking.",
+            "es": "'Sofort, unverzüglich'. Lo subrayas dos veces. Te tiembla la mano."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-press-rush",
+    "text": {
+      "en": "The conference ends at seven. Foreign journalists run for the telephones. An American correspondent grabs your arm: \"Did he just open the Wall? Did he?\"",
+      "es": "La rueda de prensa termina a las siete. Los periodistas extranjeros corren a los teléfonos. Un corresponsal estadounidense te agarra del brazo: \"¿Acaba de abrir el Muro? ¿Lo ha hecho?\""
+    },
+    "timeSlots": [
+      "press",
+      "night"
+    ],
+    "weight": 8,
+    "conditions": {
+      "flagsRequired": [
+        "heard-note"
+      ]
+    },
+    "fact": {
+      "en": "The note had been drafted that day for a rule meant to start on 10 November, with orderly visa applications. Nobody told Schabowski, and nobody told the border guards that anything had changed.",
+      "es": "La nota se había redactado ese mismo día para una norma que debía empezar el 10 de noviembre, con solicitudes de visado ordenadas. Nadie se lo dijo a Schabowski, y nadie avisó a los guardias fronterizos de que algo hubiera cambiado."
+    },
+    "options": [
+      {
+        "id": "yes",
+        "text": {
+          "en": "\"I think he did.\"",
+          "es": "\"Creo que sí\""
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8,
+            "energy": -3
+          },
+          "text": {
+            "en": "He whoops and runs. You start running too, without knowing where.",
+            "es": "Da un grito y echa a correr. Tú también empiezas a correr, sin saber adónde."
+          }
+        }
+      },
+      {
+        "id": "phone",
+        "text": {
+          "en": "Phone Brandt at the agency",
+          "es": "Llama a Brandt a la agencia"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "countersAdd": {
+            "brandtTrust": 2
+          },
+          "text": {
+            "en": "\"Develop everything tonight,\" he says. His voice is strange. \"Everything.\"",
+            "es": "\"Revela todo esta noche\", dice. Tiene una voz extraña. \"Todo\"."
+          }
+        }
+      },
+      {
+        "id": "bornholmer",
+        "text": {
+          "en": "Head straight for Bornholmer Straße",
+          "es": "Ve directa a Bornholmer Straße"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -5
+          }
+        },
+        "act": "run",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "heading-north"
+          ],
+          "text": {
+            "en": "The crossing nearest home. And nearest Micha.",
+            "es": "El paso más cercano a casa. Y a Micha."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-tagesschau",
+    "text": {
+      "en": "In a pub near Schönhauser Allee, everyone is staring at the TV above the bar, tuned to the West. Eight o'clock: the Tagesschau. The newsreader says it plainly: the GDR is opening its borders.",
+      "es": "En una Kneipe cerca de Schönhauser Allee, todos miran la tele que hay sobre la barra, sintonizada en el Oeste. Las ocho: el Tagesschau. El presentador lo dice sin rodeos: la RDA abre sus fronteras."
+    },
+    "timeSlots": [
+      "night"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsExcluded": [
+        "at-bornholmer"
+      ]
+    },
+    "fact": {
+      "en": "At 20:00 the West German TV news, the Tagesschau, reported that the GDR was opening its borders. Since most East Berliners watched Western TV, thousands set off for the crossings that very night to see if it was true.",
+      "es": "A las 20:00 el telediario de la RFA, el Tagesschau, informó de que la RDA abría sus fronteras. Como la mayoría de los berlineses del Este veía la televisión del Oeste, miles se dirigieron esa misma noche a los pasos fronterizos para comprobar si era verdad."
+    },
+    "options": [
+      {
+        "id": "go",
+        "text": {
+          "en": "\"Then let's go and see!\"",
+          "es": "\"¡Pues vamos a verlo!\""
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "wave",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10,
+            "energy": -3
+          },
+          "flagsSet": [
+            "heading-north"
+          ],
+          "text": {
+            "en": "Half the pub stands up with you. Beer glasses left on the tables.",
+            "es": "Media Kneipe se levanta contigo. Las cervezas se quedan en las mesas."
+          }
+        }
+      },
+      {
+        "id": "doubt",
+        "text": {
+          "en": "\"It's a trick. They'll take names.\"",
+          "es": "\"Es una trampa. Apuntarán nombres\""
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 5,
+            "courage": -5
+          },
+          "text": {
+            "en": "Some nod. Most are already putting on their coats.",
+            "es": "Algunos asienten. La mayoría ya se está poniendo el abrigo."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the faces watching the screen",
+          "es": "Fotografía las caras que miran la pantalla"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 3
+          },
+          "text": {
+            "en": "Open mouths, a hand over a heart, a man crying into his beer.",
+            "es": "Bocas abiertas, una mano en el pecho, un hombre llorando sobre su cerveza."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-bornholmer-crowd",
+    "text": {
+      "en": "Bornholmer Straße. Under the floodlights, the barrier, the guard huts and, beyond them, the steel arch of the bridge. Hundreds of people are already here, then thousands. Someone starts a chant: \"Tor auf! Tor auf!\" Open the gate!",
+      "es": "Bornholmer Straße. Bajo los focos, la barrera, las garitas y, detrás, el arco de acero del puente. Ya hay cientos de personas, luego miles. Alguien empieza a corear: \"Tor auf! Tor auf!\" ¡Abrid la puerta!"
+    },
+    "timeSlots": [
+      "night"
+    ],
+    "weight": 60,
+    "conditions": {
+      "flagsExcluded": [
+        "at-bornholmer"
+      ]
+    },
+    "fact": {
+      "en": "By late evening some 20,000 people had gathered at the Bornholmer Straße crossing. The guards had no orders: their superiors, when they could be reached, told them to wait.",
+      "es": "A última hora de la tarde unas 20.000 personas se habían reunido en el paso de Bornholmer Straße. Los guardias no tenían órdenes: sus superiores, cuando se les localizaba, les decían que esperaran."
+    },
+    "options": [
+      {
+        "id": "chant",
+        "text": {
+          "en": "Chant with them",
+          "es": "Corea con ellos"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "wave",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10,
+            "cover": -5
+          },
+          "flagsSet": [
+            "at-bornholmer"
+          ],
+          "text": {
+            "en": "Your voice disappears into ten thousand others. It feels like flying.",
+            "es": "Tu voz se pierde entre diez mil más. Es como volar."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Climb on a wall and photograph the crowd",
+          "es": "Súbete a un murete y fotografía a la multitud"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "climb",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 3,
+            "energy": -3
+          },
+          "flagsSet": [
+            "at-bornholmer"
+          ],
+          "text": {
+            "en": "A sea of heads under the floodlights, the barrier at the far end.",
+            "es": "Un mar de cabezas bajo los focos, la barrera al fondo."
+          }
+        }
+      },
+      {
+        "id": "edge",
+        "text": {
+          "en": "Stay at the edge of the crowd",
+          "es": "Quédate en el borde de la multitud"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 5
+          },
+          "flagsSet": [
+            "at-bornholmer"
+          ],
+          "text": {
+            "en": "Close enough to see, far enough to leave.",
+            "es": "Lo bastante cerca para ver, lo bastante lejos para irte."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-jaeger",
+    "npcId": "npc-jaeger",
+    "text": {
+      "en": "Near the passport hut, an officer with a tired face is shouting into a telephone. \"What am I supposed to do? Shoot them?\" He hangs up. For a moment he looks at you, at your camera, at the crowd behind you.",
+      "es": "Junto a la caseta de pasaportes, un oficial con cara de cansancio grita al teléfono. \"¿Y qué hago? ¿Les disparo?\". Cuelga. Por un momento te mira a ti, a tu cámara, a la multitud que tienes detrás."
+    },
+    "timeSlots": [
+      "night",
+      "after"
+    ],
+    "weight": 45,
+    "conditions": {
+      "flagsRequired": [
+        "at-bornholmer"
+      ],
+      "flagsExcluded": [
+        "jaeger-met",
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "The officer in charge at Bornholmer Straße, Lieutenant Colonel Harald Jäger of the Stasi's passport control, phoned his superiors again and again that evening. Nobody would take responsibility or give him an order.",
+      "es": "El oficial al mando en Bornholmer Straße, el teniente coronel Harald Jäger, del control de pasaportes de la Stasi, llamó una y otra vez a sus superiores aquella noche. Nadie quiso asumir la responsabilidad ni darle una orden."
+    },
+    "options": [
+      {
+        "id": "calm",
+        "text": {
+          "en": "\"Nobody here wants trouble. Just let us see.\"",
+          "es": "\"Aquí nadie quiere problemas. Solo déjenos ver\""
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "jaeger-met"
+          ],
+          "countersAdd": {
+            "jaegerNotice": 2
+          },
+          "text": {
+            "en": "He rubs his eyes. \"Nobody wants trouble,\" he repeats, like a man making a decision.",
+            "es": "Se frota los ojos. \"Nadie quiere problemas\", repite, como quien toma una decisión."
+          }
+        }
+      },
+      {
+        "id": "lower",
+        "text": {
+          "en": "Lower your camera",
+          "es": "Baja la cámara"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "nod",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 5
+          },
+          "flagsSet": [
+            "jaeger-met"
+          ],
+          "countersAdd": {
+            "jaegerNotice": 1
+          },
+          "text": {
+            "en": "He nods, almost grateful, and turns back to his men.",
+            "es": "Asiente, casi agradecido, y se vuelve hacia sus hombres."
+          }
+        }
+      },
+      {
+        "id": "shoot",
+        "text": {
+          "en": "Photograph him",
+          "es": "Fotografíale"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2,
+            "cover": -8
+          },
+          "flagsSet": [
+            "jaeger-met"
+          ],
+          "text": {
+            "en": "The flash makes him blink. A man alone with a decision nobody else will take.",
+            "es": "El flash le hace parpadear. Un hombre solo ante una decisión que nadie más quiere tomar."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-stamps",
+    "text": {
+      "en": "A side gate opens and closes. The guards are letting a few people through, one by one, the loudest first. They stamp each ID card over the photo. \"They'll never get back,\" whispers a man next to you. \"Those stamps mean: expelled.\"",
+      "es": "Una puerta lateral se abre y se cierra. Los guardias dejan pasar a unos pocos, uno a uno, primero a los que más gritan. Les sellan el carné de identidad encima de la foto. \"No podrán volver\", susurra un hombre a tu lado. \"Ese sello significa: expulsado\"."
+    },
+    "timeSlots": [
+      "night"
+    ],
+    "weight": 25,
+    "conditions": {
+      "flagsRequired": [
+        "at-bornholmer"
+      ],
+      "flagsExcluded": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "From about 21:20 the guards at Bornholmer Straße let the most insistent people through, secretly stamping their ID cards over the photo so they could not return. It was meant to relieve the pressure. It did not.",
+      "es": "Desde las 21:20 aproximadamente, los guardias de Bornholmer Straße dejaron pasar a los más insistentes, sellando en secreto su carné encima de la foto para que no pudieran volver. Pretendían aliviar la presión. No funcionó."
+    },
+    "options": [
+      {
+        "id": "warn",
+        "text": {
+          "en": "Warn the people in front",
+          "es": "Avisa a los de delante"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "point",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "warned-stamps"
+          ],
+          "text": {
+            "en": "Word spreads back through the crowd. Nobody wants to be first any more.",
+            "es": "La voz corre por la multitud. Ya nadie quiere ser el primero."
+          }
+        }
+      },
+      {
+        "id": "go-now",
+        "text": {
+          "en": "Hand over your ID and go through now",
+          "es": "Entrega tu carné y pasa ya"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "run",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10,
+            "cover": -10
+          },
+          "flagsSet": [
+            "crossed",
+            "stamped"
+          ],
+          "text": {
+            "en": "A stamp lands on your photo. The side gate opens. You are in West Berlin, and you may never be allowed back.",
+            "es": "Un sello cae sobre tu foto. La puerta lateral se abre. Estás en Berlín Oeste, y puede que nunca te dejen volver."
+          }
+        }
+      },
+      {
+        "id": "wait",
+        "text": {
+          "en": "Wait: if it's real, the main gate will open",
+          "es": "Espera: si es verdad, se abrirá la barrera"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 3,
+            "energy": -3
+          },
+          "text": {
+            "en": "You stamp your feet against the cold and wait.",
+            "es": "Pateas el suelo contra el frío y esperas."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-death-strip",
+    "text": {
+      "en": "Between the guard huts you can see down into the border strip: raked sand, a lamp every few metres, a watchtower, a second wall beyond. Twenty-eight years of it.",
+      "es": "Entre las garitas se ve la franja fronteriza: arena rastrillada, una farola cada pocos metros, una torre de vigilancia, un segundo muro detrás. Veintiocho años de esto."
+    },
+    "timeSlots": [
+      "night"
+    ],
+    "weight": 10,
+    "conditions": {
+      "flagsRequired": [
+        "at-bornholmer"
+      ]
+    },
+    "fact": {
+      "en": "The Berlin Wall ran for about 155 km around West Berlin, with a guarded 'death strip' between its walls. At least 140 people were killed at it between 1961 and 1989; the last to be shot, Chris Gueffroy, died in February 1989.",
+      "es": "El Muro de Berlín rodeaba Berlín Oeste a lo largo de unos 155 km, con una 'franja de la muerte' vigilada entre sus dos muros. Al menos 140 personas murieron en él entre 1961 y 1989; el último abatido, Chris Gueffroy, murió en febrero de 1989."
+    },
+    "options": [
+      {
+        "id": "remember",
+        "text": {
+          "en": "Remember Chris Gueffroy",
+          "es": "Recuerda a Chris Gueffroy"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "think",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "text": {
+            "en": "Twenty years old, shot in February trying to cross a canal. Nine months ago.",
+            "es": "Veinte años, abatido en febrero al intentar cruzar un canal. Hace nueve meses."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the empty strip",
+          "es": "Fotografía la franja vacía"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2,
+            "cover": -5
+          },
+          "text": {
+            "en": "Floodlit sand with no footprints. It looks like the Moon.",
+            "es": "Arena iluminada sin una huella. Parece la Luna."
+          }
+        }
+      },
+      {
+        "id": "away",
+        "text": {
+          "en": "Look away from the tower",
+          "es": "Aparta la vista de la torre"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "crouch",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 3
+          },
+          "text": {
+            "en": "The guard in it is watching the crowd, not you. You hope.",
+            "es": "El guardia de arriba mira a la multitud, no a ti. Eso esperas."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-trabi-queue",
+    "text": {
+      "en": "Behind the crowd, a queue of Trabants and Wartburgs stretches back into the dark, engines running, two-stroke smoke hanging under the street lamps. A driver honks, then another, then all of them.",
+      "es": "Detrás de la multitud, una fila de Trabant y Wartburg se pierde en la oscuridad, con los motores en marcha y el humo de dos tiempos flotando bajo las farolas. Un conductor pita, luego otro, luego todos."
+    },
+    "timeSlots": [
+      "night"
+    ],
+    "weight": 8,
+    "conditions": {
+      "flagsRequired": [
+        "at-bornholmer"
+      ],
+      "flagsExcluded": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "The Trabant's two-stroke engine burned a mix of petrol and oil and left a blue cloud with a smell everyone recognised. In the weeks after 9 November, West Berlin streets filled with 'Trabis' and their smoke.",
+      "es": "El motor de dos tiempos del Trabant quemaba una mezcla de gasolina y aceite y dejaba una nube azul con un olor que todo el mundo reconocía. En las semanas posteriores al 9 de noviembre, las calles de Berlín Oeste se llenaron de 'Trabis' y de su humo."
+    },
+    "options": [
+      {
+        "id": "lift",
+        "text": {
+          "en": "Accept a lift in a Trabi near the front",
+          "es": "Acepta subir a un Trabi de las primeras filas"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 8
+          },
+          "flagsSet": [
+            "in-trabi"
+          ],
+          "text": {
+            "en": "A family of four and you, squashed in, the heater roaring.",
+            "es": "Una familia de cuatro y tú, apretujados, con la calefacción a tope."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the headlights",
+          "es": "Fotografía los faros"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2
+          },
+          "text": {
+            "en": "A river of round yellow lights.",
+            "es": "Un río de luces redondas y amarillas."
+          }
+        }
+      },
+      {
+        "id": "hot-tea",
+        "text": {
+          "en": "Share your flask of tea with the drivers",
+          "es": "Comparte tu termo de té con los conductores"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5,
+            "energy": -3
+          },
+          "text": {
+            "en": "\"You're an angel.\" A thermos lid passes from window to window.",
+            "es": "\"Eres un ángel\". La tapa del termo pasa de ventanilla en ventanilla."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-flood",
+    "npcId": "npc-jaeger",
+    "text": {
+      "en": "Half past eleven. The crowd presses against the barrier. Jäger walks out of the hut, looks at his men, at the thousands of faces, and says something you will read in history books: \"Wir fluten jetzt.\" We're opening the floodgates. The barrier goes up.",
+      "es": "Las once y media. La multitud empuja contra la barrera. Jäger sale de la caseta, mira a sus hombres, a los miles de caras, y dice algo que leerás en los libros de historia: \"Wir fluten jetzt\". Abrimos las compuertas. La barrera se levanta."
+    },
+    "timeSlots": [
+      "night",
+      "after"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "jaeger-met"
+      ],
+      "flagsExcluded": [
+        "crossed"
+      ],
+      "resources": {
+        "courage": {
+          "min": 20
+        }
+      }
+    },
+    "fact": {
+      "en": "At about 23:30, with no orders and fearing people would be crushed, Harald Jäger told his men to open the gate. Thousands crossed in the next hour. The other crossings in Berlin opened during the night. Nobody fired a shot.",
+      "es": "Hacia las 23:30, sin órdenes y temiendo que la gente muriera aplastada, Harald Jäger ordenó a sus hombres abrir la barrera. Miles de personas cruzaron en la hora siguiente. Los demás pasos de Berlín se abrieron durante la noche. Nadie disparó."
+    },
+    "options": [
+      {
+        "id": "run",
+        "text": {
+          "en": "Run for the bridge",
+          "es": "Corre hacia el puente"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "act": "run",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 15
+          },
+          "flagsSet": [
+            "crossed"
+          ],
+          "text": {
+            "en": "You are among the first onto the bridge, running, laughing, the steel ringing under a thousand feet.",
+            "es": "Estás entre los primeros en el puente, corriendo, riendo, con el acero resonando bajo mil pies."
+          }
+        }
+      },
+      {
+        "id": "shoot",
+        "text": {
+          "en": "Photograph the barrier going up",
+          "es": "Fotografía la barrera levantándose"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 5,
+            "courage": 8
+          },
+          "flagsSet": [
+            "crossed"
+          ],
+          "text": {
+            "en": "Click, wind, click, wind. Then you let the crowd carry you across.",
+            "es": "Clic, avanzar, clic, avanzar. Luego dejas que la multitud te lleve al otro lado."
+          }
+        }
+      },
+      {
+        "id": "walk",
+        "text": {
+          "en": "Walk across slowly, savouring every step",
+          "es": "Cruza despacio, saboreando cada paso"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "nod",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10,
+            "energy": 3
+          },
+          "flagsSet": [
+            "crossed"
+          ],
+          "text": {
+            "en": "Nobody checks anything. Nobody asks for anything. You are walking to the West.",
+            "es": "Nadie revisa nada. Nadie pide nada. Estás caminando hacia el Oeste."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-bridge",
+    "text": {
+      "en": "The Bösebrücke, the steel bridge over the railway, packed with people in both directions. Halfway across, West Berliners are waiting with flowers, bottles of sparkling wine and open arms.",
+      "es": "El Bösebrücke, el puente de acero sobre las vías, abarrotado de gente en ambas direcciones. A mitad de camino, los berlineses del Oeste esperan con flores, botellas de cava y los brazos abiertos."
+    },
+    "timeSlots": [
+      "night",
+      "after"
+    ],
+    "weight": 60,
+    "conditions": {
+      "flagsRequired": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "The Bösebrücke at Bornholmer Straße was the first crossing in the Wall to open on 9 November 1989. Around 20,000 people crossed it within a few hours.",
+      "es": "El Bösebrücke de Bornholmer Straße fue el primer paso del Muro que se abrió el 9 de noviembre de 1989. Unas 20.000 personas lo cruzaron en pocas horas."
+    },
+    "options": [
+      {
+        "id": "hug",
+        "text": {
+          "en": "Hug the first stranger who opens their arms",
+          "es": "Abraza al primer desconocido que abra los brazos"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10
+          },
+          "text": {
+            "en": "A woman from Wedding, crying. \"Willkommen! Willkommen!\"",
+            "es": "Una mujer de Wedding, llorando. \"Willkommen! Willkommen!\""
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the meeting in the middle",
+          "es": "Fotografía el encuentro en el centro"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 3
+          },
+          "text": {
+            "en": "East and West, the line between them gone.",
+            "es": "Este y Oeste, sin línea entre ellos."
+          }
+        }
+      },
+      {
+        "id": "micha",
+        "text": {
+          "en": "Look for Micha's face in the crowd",
+          "es": "Busca la cara de Micha entre la multitud"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "searching"
+          ],
+          "countersAdd": {
+            "michaBond": 1
+          },
+          "text": {
+            "en": "Not here. But Wedding is here. His garage is somewhere close.",
+            "es": "Aquí no. Pero Wedding está aquí. Su taller está cerca."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-welcome",
+    "text": {
+      "en": "West Berlin at one in the morning: neon signs, shop windows full of things you have only seen on TV, car horns everywhere. A bar owner is giving out free beer to anyone with an East German accent.",
+      "es": "Berlín Oeste a la una de la madrugada: letreros de neón, escaparates llenos de cosas que solo habías visto por la tele, bocinas por todas partes. El dueño de un bar regala cerveza a cualquiera con acento del Este."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 10,
+    "conditions": {
+      "flagsRequired": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "That night West Berliners welcomed the visitors from the East on the streets and on the Kurfürstendamm with flowers, sparkling wine and car horns. Bars served free drinks, and strangers hugged each other until morning.",
+      "es": "Aquella noche los berlineses del Oeste recibieron a los visitantes del Este en las calles y en la Kurfürstendamm con flores, cava y bocinazos. Los bares sirvieron copas gratis y desconocidos se abrazaron hasta el amanecer."
+    },
+    "options": [
+      {
+        "id": "beer",
+        "text": {
+          "en": "Accept the beer and toast",
+          "es": "Acepta la cerveza y brinda"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "drink",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 8,
+            "courage": 5
+          },
+          "text": {
+            "en": "\"To the Wall!\" \"Against the Wall!\" Everybody laughs.",
+            "es": "\"¡Por el Muro!\" \"¡Contra el Muro!\" Todo el mundo se ríe."
+          }
+        }
+      },
+      {
+        "id": "windows",
+        "text": {
+          "en": "Photograph the shop windows",
+          "es": "Fotografía los escaparates"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2
+          },
+          "text": {
+            "en": "Twenty kinds of coffee. You count them twice.",
+            "es": "Veinte clases de café. Las cuentas dos veces."
+          }
+        }
+      },
+      {
+        "id": "phone",
+        "text": {
+          "en": "Find a phone box and call Micha's garage",
+          "es": "Busca una cabina y llama al taller de Micha"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "micha-lead"
+          ],
+          "text": {
+            "en": "A sleepy voice: \"He went to the Brandenburg Gate. Everyone did!\"",
+            "es": "Una voz adormilada: \"Se ha ido a la Puerta de Brandeburgo. ¡Todo el mundo se ha ido!\""
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-money",
+    "text": {
+      "en": "Someone tells you about the welcome money: a hundred Deutsche Mark for every visitor from the East, just show your ID at a bank or post office. A hundred! That is a month's wages, in real money.",
+      "es": "Alguien te habla del dinero de bienvenida: cien marcos alemanes para cada visitante del Este, solo hay que enseñar el carné en un banco o en Correos. ¡Cien! Es el sueldo de un mes, en dinero de verdad."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 8,
+    "conditions": {
+      "flagsRequired": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "West Germany gave every East German visitor 100 Deutsche Mark of 'welcome money' (Begrüßungsgeld). Banks and post offices opened over the weekend after 9 November, and the queues stretched round entire blocks.",
+      "es": "La RFA daba a cada visitante de la RDA 100 marcos de 'dinero de bienvenida' (Begrüßungsgeld). Bancos y oficinas de Correos abrieron el fin de semana siguiente al 9 de noviembre, y las colas daban la vuelta a manzanas enteras."
+    },
+    "options": [
+      {
+        "id": "plan",
+        "text": {
+          "en": "Plan what to buy for Mama",
+          "es": "Planea qué comprarle a mamá"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "think",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "text": {
+            "en": "Real coffee, a pair of tights, oranges. Tomorrow.",
+            "es": "Café de verdad, unas medias, naranjas. Mañana."
+          }
+        }
+      },
+      {
+        "id": "ask",
+        "text": {
+          "en": "Ask how long the banks will stay open",
+          "es": "Pregunta cuánto tiempo abrirán los bancos"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 2
+          },
+          "flagsSet": [
+            "informed"
+          ],
+          "text": {
+            "en": "\"All weekend, they're saying. They'll open specially.\"",
+            "es": "\"Todo el fin de semana, dicen. Abrirán solo para esto\"."
+          }
+        }
+      },
+      {
+        "id": "skip",
+        "text": {
+          "en": "\"I didn't come for the money.\"",
+          "es": "\"No he venido por el dinero\""
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 3
+          },
+          "text": {
+            "en": "But you will queue on Saturday like everybody else.",
+            "es": "Pero el sábado harás cola como todo el mundo."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-brandenburg",
+    "text": {
+      "en": "The Brandenburg Gate, lit up behind the Wall. Here the Wall is thick and flat-topped, and hundreds of people are standing on it, dancing, waving sparklers. Below, a West Berliner offers you his hands: \"Hoch! Up you come!\"",
+      "es": "La Puerta de Brandeburgo, iluminada detrás del Muro. Aquí el Muro es grueso y de techo plano, y cientos de personas están de pie encima, bailando, agitando bengalas. Abajo, un berlinés del Oeste te ofrece las manos: \"¡Arriba! ¡Sube!\""
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 40,
+    "conditions": {
+      "flagsRequired": [
+        "crossed"
+      ],
+      "flagsExcluded": [
+        "on-wall"
+      ]
+    },
+    "fact": {
+      "en": "The Brandenburg Gate stood inside the border strip. On the night of 9 November people climbed onto the thick wall in front of it and stayed there all night. The Gate itself only opened as a crossing on 22 December 1989.",
+      "es": "La Puerta de Brandeburgo estaba dentro de la franja fronteriza. La noche del 9 de noviembre la gente se subió al grueso muro que había delante y se quedó allí toda la noche. La propia Puerta no se abrió como paso fronterizo hasta el 22 de diciembre de 1989."
+    },
+    "options": [
+      {
+        "id": "climb",
+        "text": {
+          "en": "Climb onto the Wall",
+          "es": "Súbete al Muro"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "act": "climb",
+        "successChance": {
+          "base": 0.8,
+          "resourceBonus": {
+            "resource": "energy",
+            "scale": 0.2
+          }
+        },
+        "success": {
+          "resources": {
+            "courage": 15
+          },
+          "flagsSet": [
+            "on-wall"
+          ],
+          "text": {
+            "en": "Hands pull you up. You are standing on the Berlin Wall, and nobody is shooting.",
+            "es": "Unas manos tiran de ti. Estás de pie sobre el Muro de Berlín, y nadie dispara."
+          }
+        },
+        "failure": {
+          "resources": {
+            "energy": -5
+          },
+          "text": {
+            "en": "Your foot slips on the concrete. Someone catches you. \"Next time!\"",
+            "es": "Te resbala el pie en el hormigón. Alguien te sujeta. \"¡La próxima vez!\""
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the people on the Wall against the Gate",
+          "es": "Fotografía a la gente sobre el Muro ante la Puerta"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 5
+          },
+          "text": {
+            "en": "Silhouettes, sparklers and the Quadriga. The picture of the night.",
+            "es": "Siluetas, bengalas y la Cuadriga. La foto de la noche."
+          }
+        }
+      },
+      {
+        "id": "search",
+        "text": {
+          "en": "Search the crowd for Micha",
+          "es": "Busca a Micha entre la multitud"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": -5
+          },
+          "flagsSet": [
+            "searching"
+          ],
+          "countersAdd": {
+            "michaBond": 1
+          },
+          "text": {
+            "en": "You walk the length of the crowd, calling his name.",
+            "es": "Recorres la multitud de punta a punta, llamándole."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-on-the-wall",
+    "text": {
+      "en": "You are standing on the Berlin Wall. Below you, on one side, West Berlin; on the other, the death strip and the Brandenburg Gate, lit up and empty. Someone hands you a sparkler. On the eastern side, a row of border guards looks up at you, not knowing what to do.",
+      "es": "Estás de pie sobre el Muro de Berlín. Abajo, a un lado, Berlín Oeste; al otro, la franja de la muerte y la Puerta de Brandeburgo, iluminada y vacía. Alguien te da una bengala. En el lado este, una fila de guardias fronterizos te mira desde abajo sin saber qué hacer."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 30,
+    "conditions": {
+      "flagsRequired": [
+        "on-wall"
+      ]
+    },
+    "fact": {
+      "en": "The wall in front of the Brandenburg Gate was a thick, flat-topped barrier, and on the night of 9 November hundreds of people climbed onto it. The next morning East German border guards used water cannon to try to clear it, but people kept coming back.",
+      "es": "El muro ante la Puerta de Brandeburgo era una barrera gruesa de techo plano, y la noche del 9 de noviembre cientos de personas se subieron a él. A la mañana siguiente los guardias de la RDA usaron cañones de agua para intentar despejarlo, pero la gente seguía volviendo."
+    },
+    "options": [
+      {
+        "id": "dance",
+        "text": {
+          "en": "Dance with the strangers around you",
+          "es": "Baila con los desconocidos que te rodean"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -5
+          }
+        },
+        "act": "cheer",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10
+          },
+          "text": {
+            "en": "Someone has a radio. Everyone is singing, nobody knows the words.",
+            "es": "Alguien lleva una radio. Todo el mundo canta, nadie se sabe la letra."
+          }
+        }
+      },
+      {
+        "id": "guards",
+        "text": {
+          "en": "Wave down at the border guards",
+          "es": "Saluda desde arriba a los guardias"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "wave",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8
+          },
+          "text": {
+            "en": "One of them, very young, hesitates. Then he waves back.",
+            "es": "Uno de ellos, muy joven, duda. Luego te devuelve el saludo."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the Gate from the top of the Wall",
+          "es": "Fotografía la Puerta desde lo alto del Muro"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 4
+          },
+          "text": {
+            "en": "A picture nobody in the East was ever allowed to take.",
+            "es": "Una foto que a nadie en el Este le habían dejado hacer nunca."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-micha",
+    "npcId": "npc-micha",
+    "text": {
+      "en": "Somebody shouts your name. \"Katrin! KATRIN!\" A figure pushes through the crowd, jacket open, hair longer than you remember. Micha.",
+      "es": "Alguien grita tu nombre. \"¡Katrin! ¡KATRIN!\" Una figura se abre paso entre la gente, con la chaqueta abierta y el pelo más largo de lo que recuerdas. Micha."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 60,
+    "conditions": {
+      "flagsRequired": [
+        "crossed",
+        "searching"
+      ],
+      "flagsExcluded": [
+        "micha-found"
+      ]
+    },
+    "fact": {
+      "en": "Families had been split by the Wall since 13 August 1961, when it went up overnight. In the days after 9 November, millions of Germans crossed in both directions to see relatives they had not met for years, or ever.",
+      "es": "El Muro separaba familias desde el 13 de agosto de 1961, cuando se levantó en una sola noche. En los días posteriores al 9 de noviembre, millones de alemanes cruzaron en ambos sentidos para ver a parientes a los que no veían desde hacía años, o nunca habían visto."
+    },
+    "options": [
+      {
+        "id": "run",
+        "text": {
+          "en": "Run to him",
+          "es": "Corre hacia él"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "run",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 15
+          },
+          "flagsSet": [
+            "micha-found"
+          ],
+          "countersAdd": {
+            "michaBond": 3
+          },
+          "text": {
+            "en": "You nearly knock each other over. He smells of engine oil and the West.",
+            "es": "Casi os tiráis al suelo. Huele a aceite de motor y a Oeste."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph him first, then hug him",
+          "es": "Primero fotografíale, luego abrázale"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 1,
+            "courage": 10
+          },
+          "flagsSet": [
+            "micha-found"
+          ],
+          "countersAdd": {
+            "michaBond": 2
+          },
+          "text": {
+            "en": "The one picture you will never sell.",
+            "es": "La única foto que nunca venderás."
+          }
+        }
+      },
+      {
+        "id": "words",
+        "text": {
+          "en": "Say the thing you rehearsed for two months",
+          "es": "Dile lo que llevas dos meses ensayando"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 12
+          },
+          "flagsSet": [
+            "micha-found"
+          ],
+          "countersAdd": {
+            "michaBond": 3
+          },
+          "text": {
+            "en": "You forget all of it. \"Mama's dumplings,\" you say instead, and both of you laugh until you cry.",
+            "es": "Lo olvidas todo. \"Las albóndigas de mamá\", dices, y os reís hasta llorar."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-micha-lead",
+    "text": {
+      "en": "The garage owner was right: the whole of Wedding seems to be walking south towards the Brandenburg Gate. If Micha is anywhere, he is there.",
+      "es": "El dueño del taller tenía razón: todo Wedding parece ir hacia el sur, a la Puerta de Brandeburgo. Si Micha está en algún sitio, es allí."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 40,
+    "conditions": {
+      "flagsRequired": [
+        "micha-lead"
+      ],
+      "flagsExcluded": [
+        "searching"
+      ]
+    },
+    "fact": {
+      "en": "On the night of 9 November and the following days, the streets around the Wall were packed for kilometres. By the weekend about two million East Germans had visited West Berlin and West Germany.",
+      "es": "La noche del 9 de noviembre y los días siguientes, las calles junto al Muro estaban abarrotadas durante kilómetros. Ese fin de semana unos dos millones de alemanes del Este habían visitado Berlín Oeste y la RFA."
+    },
+    "options": [
+      {
+        "id": "walk",
+        "text": {
+          "en": "Follow the crowd south",
+          "es": "Sigue a la multitud hacia el sur"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -8
+          }
+        },
+        "act": "run",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "flagsSet": [
+            "searching"
+          ],
+          "text": {
+            "en": "You walk along the Wall on the western side for the first time in your life.",
+            "es": "Caminas junto al Muro por el lado oeste por primera vez en tu vida."
+          }
+        }
+      },
+      {
+        "id": "taxi",
+        "text": {
+          "en": "Share a taxi with three strangers",
+          "es": "Comparte un taxi con tres desconocidos"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 5
+          },
+          "flagsSet": [
+            "searching"
+          ],
+          "text": {
+            "en": "The driver refuses to take your money. \"Not tonight.\"",
+            "es": "El taxista se niega a cobrarte. \"Esta noche no\"."
+          }
+        }
+      },
+      {
+        "id": "note",
+        "text": {
+          "en": "Leave a note at the garage for him",
+          "es": "Déjale una nota en el taller"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "write",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "searching"
+          ],
+          "text": {
+            "en": "'I'm here. Brandenburg Gate. K.' Just in case.",
+            "es": "'Estoy aquí. Puerta de Brandeburgo. K.' Por si acaso."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-woodpeckers",
+    "text": {
+      "en": "A man with a hammer and a chisel is hacking at the painted concrete, sending flakes of colour flying. \"A souvenir,\" he grins. \"Want one?\"",
+      "es": "Un hombre con un martillo y un cincel golpea el hormigón pintado y hace saltar esquirlas de colores. \"Un recuerdo\", sonríe. \"¿Quieres uno?\""
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "Within days, people called 'Mauerspechte' (wall woodpeckers) were chipping pieces off the Wall with hammers and chisels as souvenirs. The official demolition began in June 1990.",
+      "es": "En pocos días, los llamados 'Mauerspechte' (pájaros carpinteros del Muro) arrancaban trozos del Muro con martillos y cinceles como recuerdo. La demolición oficial empezó en junio de 1990."
+    },
+    "options": [
+      {
+        "id": "take",
+        "text": {
+          "en": "Take a piece with graffiti on it",
+          "es": "Coge un trozo con grafiti"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "pickup",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "A chip of red and blue paint on grey concrete. It fits in your palm.",
+            "es": "Una esquirla de pintura roja y azul sobre hormigón gris. Te cabe en la palma."
+          }
+        }
+      },
+      {
+        "id": "hammer",
+        "text": {
+          "en": "Borrow the hammer and strike it yourself",
+          "es": "Pídele el martillo y golpea tú"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -8
+          }
+        },
+        "act": "work",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 10
+          },
+          "text": {
+            "en": "Three blows. The Wall is harder than it looks. The fourth goes through.",
+            "es": "Tres golpes. El Muro es más duro de lo que parece. El cuarto lo atraviesa."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph him at work",
+          "es": "Fotografíale trabajando"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2
+          },
+          "text": {
+            "en": "Sparks, dust, a grin. A 'wall woodpecker'.",
+            "es": "Chispas, polvo, una sonrisa. Un 'pájaro carpintero del Muro'."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-graffiti",
+    "text": {
+      "en": "On this side, the Wall is a riot of colour: faces, slogans, cartoons, names, layer on layer. You have only ever seen its other side, bare and white-grey.",
+      "es": "Por este lado, el Muro es una explosión de color: caras, consignas, dibujos, nombres, capa sobre capa. Tú solo habías visto el otro lado, desnudo y gris."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "The western face of the Wall was covered in graffiti by artists and passers-by. The eastern face, inside the guarded border strip, was painted plain white so that anyone trying to cross would stand out.",
+      "es": "La cara occidental del Muro estaba cubierta de grafitis de artistas y transeúntes. La cara oriental, dentro de la franja vigilada, se pintaba de blanco liso para que cualquiera que intentara cruzar destacara."
+    },
+    "options": [
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the paintings",
+          "es": "Fotografía las pinturas"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 3
+          },
+          "text": {
+            "en": "A whole roll could go on this wall alone.",
+            "es": "Podrías gastar un carrete entero solo en este muro."
+          }
+        }
+      },
+      {
+        "id": "write",
+        "text": {
+          "en": "Borrow a spray can and write Micha's name",
+          "es": "Pide un espray y escribe el nombre de Micha"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "write",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8
+          },
+          "countersAdd": {
+            "michaBond": 1
+          },
+          "text": {
+            "en": "MICHA + KATRIN, 9.11.89. In letters a metre high.",
+            "es": "MICHA + KATRIN, 9.11.89. En letras de un metro."
+          }
+        }
+      },
+      {
+        "id": "read",
+        "text": {
+          "en": "Read the slogans one by one",
+          "es": "Lee las consignas una a una"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "inspect",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "'Who laughs last, laughs best.' Someone has already added: 'We laughed today.'",
+            "es": "'Quien ríe el último ríe mejor'. Alguien ya ha añadido: 'Hoy hemos reído'."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-reagan",
+    "text": {
+      "en": "An American soldier on the Wall is handing out cans of Coke. \"Two years ago,\" he says, pointing at the Gate, \"right there, our President said: tear down this wall. Guess you guys did it yourselves.\"",
+      "es": "Un soldado estadounidense sobre el Muro reparte latas de Coca-Cola. \"Hace dos años\", dice señalando la Puerta, \"justo ahí, nuestro presidente dijo: derribe este muro. Parece que lo habéis hecho vosotros solos\"."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 5,
+    "conditions": {
+      "flagsRequired": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "On 12 June 1987, speaking in front of the Brandenburg Gate, US President Ronald Reagan said: 'Mr. Gorbachev, open this gate! Mr. Gorbachev, tear down this wall!' At the time, few people thought it would happen so soon.",
+      "es": "El 12 de junio de 1987, ante la Puerta de Brandeburgo, el presidente estadounidense Ronald Reagan dijo: '¡Señor Gorbachov, abra esta puerta! ¡Señor Gorbachov, derribe este muro!'. Entonces pocos pensaban que ocurriría tan pronto."
+    },
+    "options": [
+      {
+        "id": "thanks",
+        "text": {
+          "en": "Thank him and take a can",
+          "es": "Dale las gracias y coge una lata"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "drink",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 8
+          },
+          "text": {
+            "en": "Sweet, cold, foreign. It tastes of tonight.",
+            "es": "Dulce, fría, extranjera. Sabe a esta noche."
+          }
+        }
+      },
+      {
+        "id": "reply",
+        "text": {
+          "en": "\"We did. With candles.\"",
+          "es": "\"Sí. Con velas\""
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8
+          },
+          "text": {
+            "en": "He thinks about it, and salutes you. Half joking. Half not.",
+            "es": "Se lo piensa y te hace el saludo militar. Medio en broma. Medio en serio."
+          }
+        }
+      },
+      {
+        "id": "ask",
+        "text": {
+          "en": "Ask him what else Reagan said",
+          "es": "Pregúntale qué más dijo Reagan"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "text": {
+            "en": "\"'Mr. Gorbachev, open this gate.' Well. Somebody did.\"",
+            "es": "\"'Señor Gorbachov, abra esta puerta'. Bueno. Alguien la ha abierto\"."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-gorbachev",
+    "text": {
+      "en": "A student from the East shouts a name over the crowd: \"Gorbi! Gorbi!\" Others take it up. On this side of the Wall, the Soviet leader is the most popular man in Berlin.",
+      "es": "Un estudiante del Este grita un nombre sobre la multitud: \"¡Gorbi! ¡Gorbi!\". Otros se le unen. A este lado del Muro, el líder soviético es el hombre más popular de Berlín."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 5,
+    "conditions": {
+      "flagsRequired": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "Soviet leader Mikhail Gorbachev's reforms, glasnost (openness) and perestroika (restructuring), and his decision not to send in Soviet troops, as they had been in 1953, made the peaceful changes of 1989 across Eastern Europe possible.",
+      "es": "Las reformas del líder soviético Mijaíl Gorbachov, la glásnost (transparencia) y la perestroika (reestructuración), y su decisión de no enviar tropas soviéticas como en 1953, hicieron posibles los cambios pacíficos de 1989 en toda Europa del Este."
+    },
+    "options": [
+      {
+        "id": "chant",
+        "text": {
+          "en": "Join the chant",
+          "es": "Únete al coro"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "wave",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "\"Gorbi! Gorbi!\" You never thought you would cheer for a Soviet leader.",
+            "es": "\"¡Gorbi! ¡Gorbi!\" Nunca pensaste que vitorearías a un líder soviético."
+          }
+        }
+      },
+      {
+        "id": "think",
+        "text": {
+          "en": "Wonder why the tanks never came",
+          "es": "Piensa por qué nunca vinieron los tanques"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "think",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "flagsSet": [
+            "informed"
+          ],
+          "text": {
+            "en": "In 1953 they came. In 1989, they stayed in their barracks.",
+            "es": "En 1953 vinieron. En 1989 se quedaron en los cuarteles."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph the banner someone unrolls",
+          "es": "Fotografía la pancarta que alguien despliega"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2
+          },
+          "text": {
+            "en": "'Gorbi, help us!' Painted on a bedsheet.",
+            "es": "'¡Gorbi, ayúdanos!'. Pintado en una sábana."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-dawn",
+    "text": {
+      "en": "Three in the morning. The crowd at the Gate is still singing. Somewhere a church bell rings. Somebody has written on the Wall in chalk: 'Today the war is really over.'",
+      "es": "Las tres de la madrugada. La multitud de la Puerta sigue cantando. En algún sitio suena una campana. Alguien ha escrito en el Muro con tiza: 'Hoy se ha acabado de verdad la guerra'."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 4,
+    "conditions": {
+      "flagsRequired": [
+        "crossed"
+      ]
+    },
+    "fact": {
+      "en": "Less than a year later, on 3 October 1990, East Germany joined the Federal Republic and Germany was reunified. 9 November had seen other turning points in German history, so the national holiday became 3 October.",
+      "es": "Menos de un año después, el 3 de octubre de 1990, la RDA se unió a la República Federal y Alemania se reunificó. El 9 de noviembre había visto otros momentos oscuros de la historia alemana, así que la fiesta nacional pasó a ser el 3 de octubre."
+    },
+    "options": [
+      {
+        "id": "last-frame",
+        "text": {
+          "en": "Take the last frame on your film",
+          "es": "Haz la última foto del carrete"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 1,
+            "courage": 5
+          },
+          "text": {
+            "en": "You save it for the sky over the Gate, getting lighter.",
+            "es": "La guardas para el cielo sobre la Puerta, que empieza a clarear."
+          }
+        }
+      },
+      {
+        "id": "sit",
+        "text": {
+          "en": "Sit on the kerb and let it sink in",
+          "es": "Siéntate en el bordillo y asimílalo"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 15
+          },
+          "text": {
+            "en": "A stranger passes you a blanket and a sausage. You are asleep in minutes.",
+            "es": "Un desconocido te pasa una manta y una salchicha. Te duermes en minutos."
+          }
+        }
+      },
+      {
+        "id": "home",
+        "text": {
+          "en": "Walk home through the open crossing",
+          "es": "Vuelve a casa por el paso abierto"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "run",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "You want to tell Mama before she hears it on the radio.",
+            "es": "Quieres contárselo a mamá antes de que lo oiga por la radio."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-east-night",
+    "text": {
+      "en": "Back in Prenzlauer Berg, every window in the courtyard is lit and every TV is on. Through the walls you hear West German news, then cheering, then somebody's radio playing a song from 1961.",
+      "es": "De vuelta en Prenzlauer Berg, todas las ventanas del patio están encendidas y todas las teles puestas. A través de las paredes oyes las noticias del Oeste, luego vítores, luego la radio de alguien con una canción de 1961."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 10,
+    "conditions": {
+      "flagsExcluded": [
+        "crossed"
+      ],
+      "resources": {
+        "courage": {
+          "max": 19
+        }
+      }
+    },
+    "fact": {
+      "en": "On the morning of 10 November the crossings stayed open and East German border guards started to remove parts of the Wall to make new crossing points. On the first weekend, about two million East Germans visited the West.",
+      "es": "La mañana del 10 de noviembre los pasos siguieron abiertos y los guardias de la RDA empezaron a quitar trozos del Muro para abrir nuevos pasos. El primer fin de semana, unos dos millones de alemanes del Este visitaron el Oeste."
+    },
+    "options": [
+      {
+        "id": "kuhn",
+        "text": {
+          "en": "Knock on Frau Kuhn's door",
+          "es": "Llama a la puerta de Frau Kuhn"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8
+          },
+          "countersAdd": {
+            "kuhnTrust": 2
+          },
+          "text": {
+            "en": "She opens in her dressing gown, eyes red. \"My sister lives in Spandau,\" she says. \"Twenty-eight years.\"",
+            "es": "Abre en bata, con los ojos rojos. \"Mi hermana vive en Spandau\", dice. \"Veintiocho años\"."
+          }
+        }
+      },
+      {
+        "id": "tv",
+        "text": {
+          "en": "Watch the pictures from the crossings",
+          "es": "Mira las imágenes de los pasos fronterizos"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "Bornholmer Straße, crowds on a bridge, a gate wide open. A kilometre away.",
+            "es": "Bornholmer Straße, multitudes en un puente, una barrera abierta de par en par. A un kilómetro."
+          }
+        }
+      },
+      {
+        "id": "develop",
+        "text": {
+          "en": "Develop today's film in the bathroom",
+          "es": "Revela el carrete de hoy en el baño"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "work",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 1,
+            "energy": -3
+          },
+          "text": {
+            "en": "Schabowski's face appears in the developer, slowly, like a ghost.",
+            "es": "La cara de Schabowski aparece en el revelador, despacio, como un fantasma."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-east-window",
+    "text": {
+      "en": "From your window you watch people walking north in the dark, in twos and threes, some still in slippers, all heading for the border. A man shouts up: \"Come on! They've opened it!\"",
+      "es": "Desde la ventana ves a gente que camina hacia el norte en la oscuridad, de dos en dos, de tres en tres, algunos aún en zapatillas, todos hacia la frontera. Un hombre grita hacia arriba: \"¡Venga! ¡Lo han abierto!\""
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 10,
+    "conditions": {
+      "flagsExcluded": [
+        "crossed"
+      ],
+      "resources": {
+        "courage": {
+          "max": 19
+        }
+      }
+    },
+    "fact": {
+      "en": "During the night of 9 to 10 November, one after another, the border crossings in Berlin opened after Bornholmer Straße: Invalidenstraße, Sonnenallee, Checkpoint Charlie and the others.",
+      "es": "Durante la noche del 9 al 10 de noviembre, uno tras otro, se abrieron los pasos fronterizos de Berlín después de Bornholmer Straße: Invalidenstraße, Sonnenallee, Checkpoint Charlie y los demás."
+    },
+    "options": [
+      {
+        "id": "coat",
+        "text": {
+          "en": "Grab your coat and follow them",
+          "es": "Coge el abrigo y síguelos"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -5
+          }
+        },
+        "act": "run",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 8
+          },
+          "text": {
+            "en": "Too late for tonight's gate, maybe. Not for tomorrow.",
+            "es": "Quizá tarde para la barrera de esta noche. No para la de mañana."
+          }
+        }
+      },
+      {
+        "id": "shoot",
+        "text": {
+          "en": "Photograph them from the window",
+          "es": "Fotografíalos desde la ventana"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 2
+          },
+          "text": {
+            "en": "Grainy shapes under a street lamp. Walking out of a country.",
+            "es": "Siluetas granulosas bajo una farola. Saliendo de un país."
+          }
+        }
+      },
+      {
+        "id": "stay",
+        "text": {
+          "en": "Stay inside: tomorrow is another day",
+          "es": "Quédate dentro: mañana será otro día"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 8,
+            "cover": 3
+          },
+          "text": {
+            "en": "The cheering carries all the way from the bridge.",
+            "es": "Los vítores llegan hasta aquí desde el puente."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-east-charlie",
+    "text": {
+      "en": "A neighbour back from the city centre says Checkpoint Charlie is open too, the crossing for foreigners and the Allies, where the tanks once stood nose to nose.",
+      "es": "Un vecino que vuelve del centro dice que Checkpoint Charlie también está abierto, el paso de los extranjeros y los aliados, donde una vez los tanques estuvieron frente a frente."
+    },
+    "timeSlots": [
+      "after"
+    ],
+    "weight": 10,
+    "conditions": {
+      "flagsExcluded": [
+        "crossed"
+      ],
+      "resources": {
+        "courage": {
+          "max": 19
+        }
+      }
+    },
+    "fact": {
+      "en": "Checkpoint Charlie, in the American sector, was the crossing for foreigners and Allied personnel. In October 1961, soon after the Wall went up, Soviet and American tanks faced each other there for sixteen hours.",
+      "es": "Checkpoint Charlie, en el sector estadounidense, era el paso para extranjeros y personal aliado. En octubre de 1961, poco después de levantarse el Muro, tanques soviéticos y estadounidenses estuvieron frente a frente allí durante dieciséis horas."
+    },
+    "options": [
+      {
+        "id": "ask",
+        "text": {
+          "en": "Ask him what he saw",
+          "es": "Pregúntale qué ha visto"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "talk",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 5
+          },
+          "text": {
+            "en": "\"American soldiers taking pictures of us. Us! Like we were the sights.\"",
+            "es": "\"Soldados americanos haciéndonos fotos. ¡A nosotros! Como si fuéramos el monumento\"."
+          }
+        }
+      },
+      {
+        "id": "share",
+        "text": {
+          "en": "Share your last coffee with him",
+          "es": "Comparte con él tu último café"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "give",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 5,
+            "courage": 3
+          },
+          "text": {
+            "en": "You sit on the stairs and talk until the coffee is cold.",
+            "es": "Os sentáis en la escalera y habláis hasta que el café se enfría."
+          }
+        }
+      },
+      {
+        "id": "note",
+        "text": {
+          "en": "Write it all down for tomorrow",
+          "es": "Apúntalo todo para mañana"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "write",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 2
+          },
+          "countersAdd": {
+            "brandtTrust": 1
+          },
+          "text": {
+            "en": "Brandt will want every detail.",
+            "es": "Brandt querrá cada detalle."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "berlin-ampelmann",
+    "text": {
+      "en": "Waiting at a crossing, you notice the little green man on the traffic light: the East German one with the hat, striding along. On the other side of the Wall, the little men have no hats.",
+      "es": "Esperando en un semáforo, te fijas en el hombrecillo verde: el de la RDA, con sombrero, dando zancadas. Al otro lado del Muro, los hombrecillos no llevan sombrero."
+    },
+    "timeSlots": [
+      "day",
+      "morning"
+    ],
+    "weight": 3,
+    "fact": {
+      "en": "East Germany's traffic-light man, the 'Ampelmännchen' with his hat, was designed in 1961. When reunified Germany began replacing him with the western figure, a public campaign saved him, and he still walks across Berlin's crossings today.",
+      "es": "El hombrecillo de los semáforos de la RDA, el 'Ampelmännchen' con sombrero, se diseñó en 1961. Cuando la Alemania reunificada empezó a sustituirlo por la figura occidental, una campaña popular lo salvó, y aún hoy cruza los semáforos de Berlín."
+    },
+    "options": [
+      {
+        "id": "smile",
+        "text": {
+          "en": "Wave at the little green man",
+          "es": "Saluda al hombrecillo verde"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "wave",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "courage": 3
+          },
+          "text": {
+            "en": "A child next to you waves too.",
+            "es": "Un niño a tu lado también saluda."
+          }
+        }
+      },
+      {
+        "id": "photo",
+        "text": {
+          "en": "Photograph it for the archive",
+          "es": "Fotografíalo para el archivo"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "look",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "photos": 1
+          },
+          "text": {
+            "en": "Who would ever want a picture of a traffic light?",
+            "es": "¿Quién iba a querer una foto de un semáforo?"
+          }
+        }
+      },
+      {
+        "id": "wait",
+        "text": {
+          "en": "Wait for green like a good citizen",
+          "es": "Espera al verde como una buena ciudadana"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "act": "sit",
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "cover": 3,
+            "energy": 3
+          },
+          "text": {
+            "en": "Some rules are worth keeping.",
+            "es": "Algunas normas merece la pena cumplirlas."
+          }
+        }
+      }
+    ]
+  }
+]

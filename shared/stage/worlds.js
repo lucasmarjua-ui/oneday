@@ -11,6 +11,8 @@ const GROUND = {
   plaza: { top: ['#d9cdb4', '#cfc3a8', '#e2d7bf'], path: '#bfae8a', dirt: '#8a7a5c', rock: '#6e6250' },
   beach: { top: ['#d8c9a0', '#d0c095', '#ddd0ab'], path: '#c4b386', dirt: '#a89670', rock: '#7d7468' },
   grass: { top: ['#6f8f45', '#678740', '#78984c'], path: '#a8946a', dirt: '#6e5236', rock: '#57524a' },
+  // Berlin: cobbles and asphalt, granite kerbs, pavement slabs along the way.
+  street: { top: ['#6f7175', '#77797d', '#686a6e'], path: '#a29e94', dirt: '#55524c', rock: '#45423d' },
 };
 
 const ROOMS = {
@@ -325,7 +327,7 @@ export function buildWorld(THREE, stage, { eraId, sceneId, scene: config, places
     }
 
     // Ground detail on open tiles: grass and reeds in Egypt, pebbles on the Moon.
-    const detail = { sand: ['#b9a26a', '#9c8a55'], moon: ['#7b7b77', '#6a6a66'], limestone: ['#c2b592', '#b0a27d'], plaza: ['#b8a888', '#a8977a'], beach: ['#8f8a7c', '#a59c86'], grass: ['#8fb35a', '#4f6e30', '#d9d26a'] }[groundKind];
+    const detail = { sand: ['#b9a26a', '#9c8a55'], moon: ['#7b7b77', '#6a6a66'], limestone: ['#c2b592', '#b0a27d'], plaza: ['#b8a888', '#a8977a'], beach: ['#8f8a7c', '#a59c86'], grass: ['#8fb35a', '#4f6e30', '#d9d26a'], street: ['#5c5e62', '#8a8780', '#4f5054'] }[groundKind];
     const tufts = [];
     tiles.forEach(([cx, cz]) => {
       if (waterCells.has(`${Math.round(cx - 0.5)},${Math.round(cz - 0.5)}`) || onPath(cx, cz, 0.9)) return;
@@ -758,6 +760,115 @@ SCENES['d-day'] = {
       [[1.5, -3], [-2, 2.5]].forEach(([x, z]) => k.box(x, -0.04, z, 1.2, 0.06, 1.2, '#6e5236', { cast: false }));
       k.tree(6, 2, 'round', { leaf: '#4f6e30', leaf2: '#5f8a3a' });
       k.lamp(ax + 0.6, 1.2, az - 0.6, '#ffd7a0');
+    },
+  },
+};
+
+SCENES['berlin-wall'] = {
+  flat: {
+    // A room in a Prenzlauer Berg tenement, modelled in Blender
+    // (tools/blender/berlin.py): the tiled stove, the TV, the sofa.
+    set: true,
+    build(k) {
+      k.model('flat_interior', 0, 0, 0, { solid: false });
+      k.blocker({ type: 'rect', x: -2.85, z: -2.35, w: 1.0, d: 0.9 });
+      k.blocker({ type: 'circle', x: -2.15, z: -2.0, r: 0.2 });
+      k.blocker({ type: 'rect', x: -2.95, z: 0.9, w: 0.9, d: 2.1 });
+      k.blocker({ type: 'rect', x: 1.4, z: -2.5, w: 2.2, d: 0.6 });
+      k.blocker({ type: 'rect', x: -1.3, z: -2.62, w: 1.3, d: 0.35 });
+      k.blocker({ type: 'circle', x: -0.6, z: 1.6, r: 0.5 });
+      [-1.32, 0.12].forEach(x => k.blocker({ type: 'rect', x, z: 1.6, w: 0.45, d: 0.45 }));
+      k.lamp(0.5, 2.4, -0.2, '#ffd7a0', { strength: 3 });
+      k.alarm(-2.0, 1.0, 2.2, '#ffcf5a');
+    },
+  },
+  street: {
+    ground: 'street',
+    build(k) {
+      // Tenements round a crossroads: the Kaufhalle, the corner pub; the
+      // agency's prefab block; the Gethsemane Church with its candles.
+      k.model('tenement_shop', -2.8, 0, -6, { footprint: 0.95 });
+      k.model('tenement', 1.8, 0, -7.2);
+      k.model('plattenbau', 4.2, 0, -5.4, { rotY: -0.25 });
+      k.model('tenement_pub', -7, 0, -1.5, { rotY: Math.PI / 2 });
+      k.model('gethsemane', -6.6, 0, 3.6, { rotY: Math.PI / 2 });
+      // Cars at the kerb: a new Trabant, a cream one, the grey Wartburg.
+      k.model('trabant', 0.6, 0, -3.6, { rotY: Math.PI / 2, scale: 0.9 });
+      k.model('trabant_cream', 5.2, 0, 0.8, { scale: 0.9 });
+      k.model('wartburg', -2.6, 0, 5.2, { rotY: Math.PI / 2, scale: 0.9 });
+      k.model('kiosk', 2.4, 0, -0.8, { rotY: Math.PI / 4 });
+      k.model('traffic_light', 0.9, 0, 1.8, { rotY: Math.PI / 4 });
+      [[-1.2, -3.4], [3.6, 2.6], [-4.2, 1.2]].forEach(([x, z]) => {
+        k.model('street_lamp', x, 0, z, { rotY: Math.PI / 4, footprint: 0.3 });
+        k.lamp(x + 0.4, 3.2, z + 0.4, '#ffd08a', { strength: 3 });
+      });
+      // The TV Tower over the rooftops.
+      const tower = k.model('tv_tower', -14, -2, -16, { solid: false, scale: 1.3 });
+      tower?.traverse(obj => { obj.userData.isSprite = true; });
+      k.tree(4.8, 4.2, 'round', { leaf: '#6a7a3a', leaf2: '#8a7a3a' });
+      k.tree(-3.2, -0.6, 'round', { leaf: '#7a6a3a', leaf2: '#8a8a3a' });
+    },
+  },
+  press: {
+    // The hall of the International Press Centre on Mohrenstraße.
+    set: true,
+    build(k) {
+      k.model('press_room', 0, 0, 0, { solid: false });
+      k.blocker({ type: 'rect', x: 0.4, z: -2.55, w: 6.0, d: 1.6 });
+      [-0.6, 0.25, 1.1, 1.95].forEach(z => {
+        k.blocker({ type: 'rect', x: -1.95, z, w: 1.8, d: 0.5 });
+        k.blocker({ type: 'rect', x: 1.78, z, w: 2.45, d: 0.5 });
+      });
+      [[-3.1, -1.2], [3.3, 1.8], [-2.8, 2.6]].forEach(([x, z]) => k.blocker({ type: 'circle', x, z, r: 0.4 }));
+      k.lamp(0.4, 2.8, -1.2, '#fff2d0', { always: true, strength: 4 });
+    },
+  },
+  checkpoint: {
+    ground: 'street',
+    build(k) {
+      // The Wall across the street, a gap for the road, the striped barrier.
+      [-8.3, -4.9, 6.2, 9.6].forEach(x => k.model('wall_run', x, 0, -3.4));
+      k.model('boom_barrier', 0, 0, -1.2, { footprint: 0.1 });
+      k.model('control_booth', -1.9, 0, 0.2, { rotY: Math.PI / 2 });
+      k.model('watchtower', -6, 0, -5.6);
+      // Floodlights over the crossing, glaring white all night.
+      [[-2.6, -2.4], [4.8, -2.4], [-3.4, 3.2]].forEach(([x, z]) => {
+        k.model('floodlight', x, 0, z, { rotY: Math.PI / 4, footprint: 0.3 });
+        k.lamp(x + 0.3, 4.2, z + 0.3, '#f4f0ff', { strength: 12, range: 12 });
+      });
+      // The Bösebrücke over the railway, leading north into Wedding.
+      k.model('bose_bridge', 1.6, -0.32, -8.2, { solid: false });
+      [-1, 1].forEach(side => k.blocker({ type: 'rect', x: 1.6 + side * 1.45, z: -8.2, w: 0.2, d: 9 }));
+      // The queue of cars waiting to cross.
+      k.model('trabant', 1.6, 0, 3.6, { rotY: Math.PI, scale: 0.9 });
+      k.model('trabant_cream', 1.6, 0, 6.4, { rotY: Math.PI, scale: 0.9 });
+      k.model('wartburg', 4.4, 0, 4.4, { rotY: Math.PI, scale: 0.9 });
+      k.model('street_lamp', 4.6, 0, 1.4, { rotY: Math.PI / 4, footprint: 0.3 });
+      k.lamp(5, 3.2, 1.8, '#ffd08a', { strength: 3 });
+      k.tree(-7.5, 2.5, 'round', { leaf: '#5a6a3a', leaf2: '#6a6a3a' });
+    },
+  },
+  west: {
+    ground: 'street',
+    build(k) {
+      // The Brandenburg Gate behind the thick wall that people danced on.
+      k.model('brandenburg_gate', -2.4, 0, -3.7, { scale: 0.75 });
+      k.model('wall_flat', -2.5, 0, -1.6);
+      k.model('wall_flat', -7.6, 0, -1.6, { rotY: Math.PI });
+      // The painted western face of the Wall, running towards the camera.
+      [-1.2, 2.2].forEach(z => k.model('wall_painted', -7.4, 0, z, { rotY: Math.PI / 2 }));
+      // Lamps, a kiosk, and sparklers fizzing on top of the Wall.
+      [[3.6, -1.4], [-4.6, 3.6]].forEach(([x, z]) => {
+        k.model('street_lamp', x, 0, z, { rotY: Math.PI / 4, footprint: 0.3 });
+        k.lamp(x + 0.4, 3.2, z + 0.4, '#ffd08a', { strength: 3 });
+      });
+      k.model('kiosk', 4.6, 0, 2.2, { rotY: Math.PI / 4 });
+      k.model('trabant', 5.6, 0, -2.4, { rotY: 0.6, scale: 0.9 });
+      [[-4, -1.6], [-1.4, -1.6], [-3, -1.3]].forEach(([x, z], i) => k.fire(x, z, { y: 1.6, scale: 0.25 + i * 0.03 }));
+      // The Gate floodlit, as it was every night.
+      k.lamp(-2.4, 1.75, -1.6, '#ffe2a0', { strength: 12, range: 10 });
+      k.lamp(-6, 3, -2.2, '#ffe2a0', { strength: 6, range: 8 });
+      k.tree(5.4, 5, 'round', { leaf: '#6a7a3a', leaf2: '#8a7a3a' });
     },
   },
 };

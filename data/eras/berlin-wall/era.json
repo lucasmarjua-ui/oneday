@@ -1,0 +1,748 @@
+{
+  "id": "berlin-wall",
+  "name": {
+    "en": "The Fall of the Berlin Wall",
+    "es": "La caída del Muro de Berlín"
+  },
+  "tagline": {
+    "en": "9 November 1989. The day a mumbled sentence opened the Wall.",
+    "es": "9 de noviembre de 1989. El día que una frase titubeante abrió el Muro."
+  },
+  "role": {
+    "en": "You are Katrin Vogel, 22, a trainee photographer at ADN, the East German state news agency. You live in an old tenement in Prenzlauer Berg, a short walk from the Wall. Your brother Micha fled to the West through Hungary in September; you have not seen him since. This evening your editor is sending you to a government press conference.",
+    "es": "Eres Katrin Vogel, 22 años, fotógrafa en prácticas en ADN, la agencia oficial de noticias de la RDA. Vives en un viejo edificio de Prenzlauer Berg, a un paseo del Muro. Tu hermano Micha huyó al Oeste por Hungría en septiembre; no lo has vuelto a ver. Esta tarde tu jefe te manda a una rueda de prensa del Gobierno."
+  },
+  "history": {
+    "en": "In 1989 East Germany was falling apart from the inside. Hungary opened its border with Austria and tens of thousands of East Germans fled through it; at home, peaceful protests grew from Leipzig to East Berlin, half a million people filled Alexanderplatz on 4 November, and the long-time leader Erich Honecker was forced out. To calm the country, the government drafted new rules allowing travel abroad. On the evening of 9 November, Politburo spokesman Günter Schabowski announced them at a live press conference without having been told they were meant to start the next day. Asked when, he said: 'immediately, without delay.' West German television reported that the border was open, and thousands of East Berliners went to the crossings. At Bornholmer Straße, with no orders and a crowd of some 20,000, Lieutenant Colonel Harald Jäger opened the gate at about 23:30. By morning the other crossings had opened and people were dancing on the Wall at the Brandenburg Gate. Nobody was shot. Less than a year later, on 3 October 1990, Germany was reunified.",
+    "es": "En 1989 la RDA se desmoronaba por dentro. Hungría abrió su frontera con Austria y decenas de miles de alemanes del Este huyeron por ella; en casa, las protestas pacíficas crecieron de Leipzig a Berlín Este, medio millón de personas llenaron Alexanderplatz el 4 de noviembre y el veterano dirigente Erich Honecker fue apartado del poder. Para calmar al país, el Gobierno preparó unas normas nuevas que permitían viajar al extranjero. La tarde del 9 de noviembre, el portavoz del Politburó Günter Schabowski las anunció en una rueda de prensa en directo sin saber que debían entrar en vigor al día siguiente. Cuando le preguntaron desde cuándo, respondió: «inmediatamente, sin demora». La televisión de la RFA informó de que la frontera estaba abierta y miles de berlineses del Este fueron a los pasos fronterizos. En Bornholmer Straße, sin órdenes y ante unas 20.000 personas, el teniente coronel Harald Jäger abrió la barrera hacia las 23:30. Al amanecer se habían abierto los demás pasos y la gente bailaba sobre el Muro ante la Puerta de Brandeburgo. Nadie disparó. Menos de un año después, el 3 de octubre de 1990, Alemania se reunificó."
+  },
+  "day": {
+    "totalTime": 20,
+    "startLabel": "07:00",
+    "endLabel": "03:00",
+    "openingCard": "berlin-wake",
+    "slots": [
+      {
+        "id": "morning",
+        "label": {
+          "en": "Morning in Prenzlauer Berg",
+          "es": "Mañana en Prenzlauer Berg"
+        },
+        "from": 0,
+        "to": 3
+      },
+      {
+        "id": "day",
+        "label": {
+          "en": "A Thursday in East Berlin",
+          "es": "Un jueves en Berlín Este"
+        },
+        "from": 3,
+        "to": 11
+      },
+      {
+        "id": "press",
+        "label": {
+          "en": "The press conference",
+          "es": "La rueda de prensa"
+        },
+        "from": 11,
+        "to": 13
+      },
+      {
+        "id": "night",
+        "label": {
+          "en": "Bornholmer Straße",
+          "es": "Bornholmer Straße"
+        },
+        "from": 13,
+        "to": 17
+      },
+      {
+        "id": "after",
+        "label": {
+          "en": "The other side",
+          "es": "Al otro lado"
+        },
+        "from": 17,
+        "to": 20
+      }
+    ]
+  },
+  "resources": {
+    "courage": {
+      "label": {
+        "en": "Courage",
+        "es": "Valor"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 60,
+      "critical": true
+    },
+    "cover": {
+      "label": {
+        "en": "Low profile",
+        "es": "Discreción"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 80,
+      "critical": true
+    },
+    "energy": {
+      "label": {
+        "en": "Stamina",
+        "es": "Aguante"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 80
+    },
+    "photos": {
+      "label": {
+        "en": "Photos taken",
+        "es": "Fotos tomadas"
+      },
+      "min": 0,
+      "max": 36,
+      "start": 0
+    }
+  },
+  "npcs": [
+    {
+      "id": "npc-brandt",
+      "name": {
+        "en": "Herr Brandt",
+        "es": "Herr Brandt"
+      },
+      "role": {
+        "en": "Chief photographer, ADN",
+        "es": "Fotógrafo jefe, ADN"
+      },
+      "portraitColor": "#5a6a7a",
+      "attitudeCounter": "brandtTrust"
+    },
+    {
+      "id": "npc-schabowski",
+      "name": {
+        "en": "Günter Schabowski",
+        "es": "Günter Schabowski"
+      },
+      "role": {
+        "en": "Politburo spokesman",
+        "es": "Portavoz del Politburó"
+      },
+      "portraitColor": "#4a4a52",
+      "attitudeCounter": "schabowskiNotice"
+    },
+    {
+      "id": "npc-jaeger",
+      "name": {
+        "en": "Lt. Col. Harald Jäger",
+        "es": "Tte. coronel Harald Jäger"
+      },
+      "role": {
+        "en": "Head of passport control, Bornholmer Straße",
+        "es": "Jefe del control de pasaportes, Bornholmer Straße"
+      },
+      "portraitColor": "#5f6b4e",
+      "attitudeCounter": "jaegerNotice"
+    },
+    {
+      "id": "npc-micha",
+      "name": {
+        "en": "Micha",
+        "es": "Micha"
+      },
+      "role": {
+        "en": "Your brother, now in West Berlin",
+        "es": "Tu hermano, ahora en Berlín Oeste"
+      },
+      "portraitColor": "#3d6fb0",
+      "attitudeCounter": "michaBond"
+    }
+  ],
+  "personas": [
+    {
+      "id": "first-across",
+      "trait": "bold",
+      "name": {
+        "en": "First Across the Bridge",
+        "es": "La Primera en Cruzar"
+      },
+      "description": {
+        "en": "When the gate swung open, you were already moving. Somebody had to be first; it was you.",
+        "es": "Cuando se abrió la barrera, ya estabas en marcha. Alguien tenía que ser la primera; fuiste tú."
+      }
+    },
+    {
+      "id": "careful",
+      "trait": "prudent",
+      "name": {
+        "en": "The Careful One",
+        "es": "La Prudente"
+      },
+      "description": {
+        "en": "Twenty-eight years of the Wall had taught everyone caution. You kept yours, and kept out of trouble.",
+        "es": "Veintiocho años de Muro habían enseñado prudencia a todos. Tú la conservaste y te mantuviste lejos de los problemas."
+      }
+    },
+    {
+      "id": "good-neighbour",
+      "trait": "generous",
+      "name": {
+        "en": "The Good Neighbour",
+        "es": "La Buena Vecina"
+      },
+      "description": {
+        "en": "You shared your coffee, your news and your place in the queue. On a night like this, it mattered.",
+        "es": "Compartiste tu café, tus noticias y tu sitio en la cola. En una noche así, importaba."
+      }
+    },
+    {
+      "id": "operator",
+      "trait": "cunning",
+      "name": {
+        "en": "The Operator",
+        "es": "La Lista"
+      },
+      "description": {
+        "en": "A word here, a quiet favour there. You knew how the GDR worked, and made it work for you.",
+        "es": "Una palabra aquí, un favor discreto allá. Sabías cómo funcionaba la RDA y lo hiciste funcionar a tu favor."
+      }
+    },
+    {
+      "id": "witness",
+      "trait": "diligent",
+      "name": {
+        "en": "The Witness",
+        "es": "La Testigo"
+      },
+      "description": {
+        "en": "Focus, exposure, click. You kept working all night, and your pictures will outlive the state that trained you.",
+        "es": "Enfoque, exposición, clic. Trabajaste toda la noche, y tus fotos sobrevivirán al Estado que te formó."
+      }
+    },
+    {
+      "id": "reporter",
+      "trait": "curious",
+      "name": {
+        "en": "The Reporter",
+        "es": "La Reportera"
+      },
+      "description": {
+        "en": "You asked, listened and noticed. By morning you understood what had happened better than the Politburo.",
+        "es": "Preguntaste, escuchaste y te fijaste. Al amanecer entendías lo ocurrido mejor que el Politburó."
+      }
+    },
+    {
+      "id": "berliner",
+      "trait": null,
+      "name": {
+        "en": "One of Thousands",
+        "es": "Una entre miles"
+      },
+      "description": {
+        "en": "One of the thousands of Berliners who walked through the Wall that night. Every one of them remembers where they were.",
+        "es": "Una de los miles de berlineses que atravesaron el Muro aquella noche. Todos recuerdan dónde estaban."
+      }
+    }
+  ],
+  "endings": [
+    {
+      "id": "detained",
+      "when": {
+        "depleted": "cover"
+      },
+      "title": {
+        "en": "In the Back of a Stasi Van",
+        "es": "En una furgoneta de la Stasi"
+      },
+      "description": {
+        "en": "Two men in grey jackets take you away for questioning. They let you go at dawn, into a city where the Wall is already open. Nobody will ever ask them about it.",
+        "es": "Dos hombres con chaqueta gris te llevan para interrogarte. Te sueltan al amanecer, en una ciudad donde el Muro ya está abierto. Nadie les preguntará nunca por ello."
+      }
+    },
+    {
+      "id": "stayed-home",
+      "when": {
+        "depleted": "courage"
+      },
+      "title": {
+        "en": "Watching It on Television",
+        "es": "Viéndolo por televisión"
+      },
+      "description": {
+        "en": "You stay home and watch the crowds on West German TV, a kilometre from your window. Tomorrow you will go. Tonight belongs to braver people.",
+        "es": "Te quedas en casa viendo a la multitud en la televisión del Oeste, a un kilómetro de tu ventana. Mañana irás. Esta noche es de los más valientes."
+      }
+    },
+    {
+      "id": "stamped",
+      "when": {
+        "flagsRequired": [
+          "stamped"
+        ]
+      },
+      "title": {
+        "en": "A Stamp Over Your Photo",
+        "es": "Un sello sobre tu foto"
+      },
+      "description": {
+        "en": "You crossed early, through the side gate, with a stamp that secretly made your ID worthless. You spend the night in the West wondering if you have just emigrated. By the weekend nobody cares about stamps any more.",
+        "es": "Cruzaste antes de hora, por la puerta lateral, con un sello que invalidaba en secreto tu carné. Pasas la noche en el Oeste preguntándote si acabas de emigrar. Ese fin de semana a nadie le importan ya los sellos."
+      }
+    },
+    {
+      "id": "reunion",
+      "when": {
+        "flagsRequired": [
+          "crossed",
+          "micha-found"
+        ]
+      },
+      "title": {
+        "en": "Micha",
+        "es": "Micha"
+      },
+      "description": {
+        "en": "You find your brother in the crowd at the Brandenburg Gate, on the wrong side of a wall that no longer works. Neither of you can say anything for a long time.",
+        "es": "Encuentras a tu hermano entre la multitud de la Puerta de Brandeburgo, al otro lado de un muro que ya no sirve. Ninguno de los dos puede decir nada durante mucho rato."
+      }
+    },
+    {
+      "id": "the-photo",
+      "when": {
+        "flagsRequired": [
+          "crossed"
+        ],
+        "resources": {
+          "photos": {
+            "min": 16
+          }
+        }
+      },
+      "title": {
+        "en": "The Photograph",
+        "es": "La fotografía"
+      },
+      "description": {
+        "en": "One of your frames, the gate at Bornholmer Straße swinging open, is printed around the world. The agency that trained you will not exist a year from now. The picture will.",
+        "es": "Uno de tus fotogramas, la barrera de Bornholmer Straße abriéndose, se publica en todo el mundo. La agencia que te formó no existirá dentro de un año. La foto sí."
+      }
+    },
+    {
+      "id": "the-gate-opens",
+      "historical": true,
+      "when": {
+        "flagsRequired": [
+          "crossed"
+        ]
+      },
+      "title": {
+        "en": "The Night the Wall Opened",
+        "es": "La noche en que se abrió el Muro"
+      },
+      "description": {
+        "en": "At half past eleven the gate at Bornholmer Straße opens, and you walk across the bridge into West Berlin with thousands of others. Nobody shoots. Strangers hug you. That is how it went.",
+        "es": "A las once y media se abre la barrera de Bornholmer Straße y cruzas el puente hacia Berlín Oeste con miles de personas. Nadie dispara. Desconocidos te abrazan. Así fue."
+      }
+    },
+    {
+      "id": "east-side",
+      "when": {},
+      "title": {
+        "en": "Still in the East",
+        "es": "Todavía en el Este"
+      },
+      "description": {
+        "en": "The night ends with you still on the eastern side, hearing the cheering from the bridges. By the weekend, two million East Germans will have visited the West. You will be one of them.",
+        "es": "La noche termina contigo aún en el lado este, oyendo los vítores en los puentes. Ese fin de semana, dos millones de alemanes del Este visitarán el Oeste. Tú serás una de ellos."
+      }
+    }
+  ],
+  "objectivesPool": [
+    {
+      "id": "cross",
+      "description": {
+        "en": "Cross into West Berlin",
+        "es": "Cruza a Berlín Oeste"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "crossed"
+      }
+    },
+    {
+      "id": "photos-15",
+      "description": {
+        "en": "Take 15 photographs of the day",
+        "es": "Toma 15 fotografías del día"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "photos",
+        "value": 15
+      }
+    },
+    {
+      "id": "micha",
+      "description": {
+        "en": "Find Micha in the West",
+        "es": "Encuentra a Micha en el Oeste"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "micha-found"
+      }
+    },
+    {
+      "id": "note",
+      "description": {
+        "en": "Be in the room when the note is read",
+        "es": "Estar en la sala cuando se lee la nota"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "heard-note"
+      }
+    },
+    {
+      "id": "candle",
+      "description": {
+        "en": "Light a candle at the Gethsemane Church",
+        "es": "Enciende una vela en la iglesia de Getsemaní"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "candle"
+      }
+    },
+    {
+      "id": "low-profile",
+      "description": {
+        "en": "Never let your low profile drop below 40",
+        "es": "Que tu discreción nunca baje de 40"
+      },
+      "check": {
+        "type": "resourceNeverBelow",
+        "resource": "cover",
+        "value": 40
+      }
+    },
+    {
+      "id": "on-wall",
+      "description": {
+        "en": "Stand on the Wall at the Brandenburg Gate",
+        "es": "Súbete al Muro en la Puerta de Brandeburgo"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "on-wall"
+      }
+    }
+  ],
+  "metaAchievements": [
+    {
+      "id": "chronicler-89",
+      "title": {
+        "en": "Chronicler of '89",
+        "es": "Cronista del 89"
+      },
+      "description": {
+        "en": "Take 150 photographs across playthroughs.",
+        "es": "Toma 150 fotografías a lo largo de varias partidas."
+      },
+      "accumulates": "photos",
+      "threshold": 150
+    },
+    {
+      "id": "civil-courage",
+      "title": {
+        "en": "Civil Courage",
+        "es": "Valor cívico"
+      },
+      "description": {
+        "en": "Gather 300 courage across playthroughs.",
+        "es": "Acumula 300 de valor a lo largo de varias partidas."
+      },
+      "accumulates": "courage",
+      "threshold": 300
+    }
+  ],
+  "memories": {
+    "flags": [],
+    "counters": [
+      "kuhnTrust",
+      "brandtTrust",
+      "michaBond"
+    ]
+  },
+  "quiz": [
+    {
+      "id": "berlin-wall-q1",
+      "factId": "berlin-press-note",
+      "q": {
+        "en": "What did Schabowski say when asked when the new travel rules took effect?",
+        "es": "¿Qué dijo Schabowski cuando le preguntaron cuándo entraban en vigor las nuevas normas de viaje?"
+      },
+      "options": [
+        {
+          "en": "'Immediately, without delay'",
+          "es": "'Inmediatamente, sin demora'"
+        },
+        {
+          "en": "'Next year'",
+          "es": "'El año que viene'"
+        },
+        {
+          "en": "'Never, it was a joke'",
+          "es": "'Nunca, era una broma'"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q2",
+      "factId": "berlin-flood",
+      "q": {
+        "en": "At which crossing did the gate open first, around 23:30?",
+        "es": "¿En qué paso se abrió primero la barrera, hacia las 23:30?"
+      },
+      "options": [
+        {
+          "en": "Bornholmer Straße",
+          "es": "Bornholmer Straße"
+        },
+        {
+          "en": "Checkpoint Charlie",
+          "es": "Checkpoint Charlie"
+        },
+        {
+          "en": "The Brandenburg Gate",
+          "es": "La Puerta de Brandeburgo"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q3",
+      "factId": "berlin-jaeger",
+      "q": {
+        "en": "Who decided to open the gate at Bornholmer Straße?",
+        "es": "¿Quién decidió abrir la barrera de Bornholmer Straße?"
+      },
+      "options": [
+        {
+          "en": "Harald Jäger, the officer in charge, without orders",
+          "es": "Harald Jäger, el oficial al mando, sin órdenes"
+        },
+        {
+          "en": "Erich Honecker",
+          "es": "Erich Honecker"
+        },
+        {
+          "en": "The American army",
+          "es": "El ejército estadounidense"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q4",
+      "factId": "berlin-tagesschau",
+      "q": {
+        "en": "What made thousands of East Berliners head for the crossings that night?",
+        "es": "¿Qué hizo que miles de berlineses del Este fueran a los pasos aquella noche?"
+      },
+      "options": [
+        {
+          "en": "West German TV news reporting the border was open",
+          "es": "El telediario de la RFA diciendo que la frontera estaba abierta"
+        },
+        {
+          "en": "A speech by Gorbachev",
+          "es": "Un discurso de Gorbachov"
+        },
+        {
+          "en": "Leaflets dropped from planes",
+          "es": "Octavillas lanzadas desde aviones"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q5",
+      "factId": "berlin-micha-letter",
+      "q": {
+        "en": "Which country opened its border, letting East Germans flee in 1989?",
+        "es": "¿Qué país abrió su frontera y dejó huir a los alemanes del Este en 1989?"
+      },
+      "options": [
+        {
+          "en": "Hungary",
+          "es": "Hungría"
+        },
+        {
+          "en": "Poland",
+          "es": "Polonia"
+        },
+        {
+          "en": "Switzerland",
+          "es": "Suiza"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q6",
+      "factId": "berlin-leipzig",
+      "q": {
+        "en": "What did protesters in Leipzig chant?",
+        "es": "¿Qué coreaban los manifestantes de Leipzig?"
+      },
+      "options": [
+        {
+          "en": "'We are the people'",
+          "es": "'Nosotros somos el pueblo'"
+        },
+        {
+          "en": "'Long live the party'",
+          "es": "'Viva el partido'"
+        },
+        {
+          "en": "'Down with Hungary'",
+          "es": "'Abajo Hungría'"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q7",
+      "factId": "berlin-gethsemane",
+      "q": {
+        "en": "What became the symbol of East Germany's peaceful revolution?",
+        "es": "¿Qué se convirtió en símbolo de la revolución pacífica de la RDA?"
+      },
+      "options": [
+        {
+          "en": "Candles",
+          "es": "Las velas"
+        },
+        {
+          "en": "Red flags",
+          "es": "Las banderas rojas"
+        },
+        {
+          "en": "Hammers",
+          "es": "Los martillos"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q8",
+      "factId": "berlin-trabant",
+      "q": {
+        "en": "What was the Trabant's body made of?",
+        "es": "¿De qué estaba hecha la carrocería del Trabant?"
+      },
+      "options": [
+        {
+          "en": "Duroplast, a plastic reinforced with cotton waste",
+          "es": "Duroplast, un plástico reforzado con restos de algodón"
+        },
+        {
+          "en": "Aluminium",
+          "es": "Aluminio"
+        },
+        {
+          "en": "Wood",
+          "es": "Madera"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q9",
+      "factId": "berlin-money",
+      "q": {
+        "en": "How much 'welcome money' did West Germany give each East German visitor?",
+        "es": "¿Cuánto 'dinero de bienvenida' daba la RFA a cada visitante del Este?"
+      },
+      "options": [
+        {
+          "en": "100 Deutsche Mark",
+          "es": "100 marcos alemanes"
+        },
+        {
+          "en": "10 Deutsche Mark",
+          "es": "10 marcos alemanes"
+        },
+        {
+          "en": "1,000 Deutsche Mark",
+          "es": "1.000 marcos alemanes"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q10",
+      "factId": "berlin-death-strip",
+      "q": {
+        "en": "Roughly how long was the Wall around West Berlin?",
+        "es": "¿Cuánto medía aproximadamente el Muro alrededor de Berlín Oeste?"
+      },
+      "options": [
+        {
+          "en": "About 155 km",
+          "es": "Unos 155 km"
+        },
+        {
+          "en": "About 15 km",
+          "es": "Unos 15 km"
+        },
+        {
+          "en": "About 1,500 km",
+          "es": "Unos 1.500 km"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q11",
+      "factId": "berlin-graffiti",
+      "q": {
+        "en": "Which side of the Wall was covered in graffiti?",
+        "es": "¿Qué lado del Muro estaba cubierto de grafitis?"
+      },
+      "options": [
+        {
+          "en": "The western side",
+          "es": "El lado oeste"
+        },
+        {
+          "en": "The eastern side",
+          "es": "El lado este"
+        },
+        {
+          "en": "Both, equally",
+          "es": "Los dos por igual"
+        }
+      ]
+    },
+    {
+      "id": "berlin-wall-q12",
+      "factId": "berlin-dawn",
+      "q": {
+        "en": "When was Germany reunified?",
+        "es": "¿Cuándo se reunificó Alemania?"
+      },
+      "options": [
+        {
+          "en": "3 October 1990",
+          "es": "El 3 de octubre de 1990"
+        },
+        {
+          "en": "10 November 1989",
+          "es": "El 10 de noviembre de 1989"
+        },
+        {
+          "en": "1 January 1995",
+          "es": "El 1 de enero de 1995"
+        }
+      ]
+    }
+  ]
+}

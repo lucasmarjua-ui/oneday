@@ -20,6 +20,8 @@ const ICONS = {
   courage: { rows: ['kkkkkkk', 'kbbybbk', 'kbyyybk', 'kbbybbk', '.kbbbk.', '..kbk..', '...k...'], pal: { k: '#14203a', b: '#4f6fa8', y: '#ffd84a' } },
   supplies: { rows: ['kkkkkkk', 'kwwrwwk', 'kwrrrwk', 'kwwrwwk', 'kwwwwwk', 'kkkkkkk'], pal: { k: '#3a0f1c', w: '#f4f4f1', r: '#e03a3a' } },
   saved: { rows: ['..kkk..', '..kwk..', 'kkkwkkk', 'kwwwwwk', 'kkkwkkk', '..kwk..', '..kkk..'], pal: { k: '#0e2a16', w: '#7dff9b' } },
+  cover: { rows: ['..kkk..', '.kwwwk.', 'kwkbkwk', 'kwbbbwk', 'kwkbkwk', '.kwwwk.', '..kkk..'], pal: { k: '#1d2230', w: '#c9ced8', b: '#2a2f3a' } },
+  photos: { rows: ['..kk...', 'kkkkkkk', 'kwwwwwk', 'kwkkkwk', 'kwkbkwk', 'kwkkkwk', 'kkkkkkk'], pal: { k: '#1b1620', w: '#c9c6bd', b: '#7fb3d9' } },
   scroll: { rows: ['kkkkkkk', 'kwwwwwk', '.kbbbk.', '.kwwwk.', '.kbbbk.', 'kwwwwwk', 'kkkkkkk'], pal: { k: '#3a2a10', w: '#f3e3bf', b: '#b08a52' } },
   cursor: { rows: ['k....', 'kk...', 'kyk..', 'kyyk.', 'kyyyk', 'kyyk.', 'kyk..', 'kk...', 'k....'], pal: { k: '#14111c', y: 'currentColor' } },
   menu: { rows: ['wwwwwww', '.......', 'wwwwwww', '.......', 'wwwwwww'], pal: { w: 'currentColor' } },
@@ -35,7 +37,7 @@ const ICONS = {
   book: { rows: ['kkkkkkk', 'kwwkwwk', 'kwwkwwk', 'kwwkwwk', 'kwwkwwk', 'kkkkkkk', '.kbbbk.'], pal: { k: '#2a1e10', w: '#f3e3bf', b: '#b08a52' } },
 };
 
-const RESOURCE_ICON = { energy: 'energy', health: 'health', hunger: 'hunger', thirst: 'thirst', currency: 'currency', reputation: 'reputation', survival: 'survival', oxygen: 'oxygen', fuel: 'fuel', focus: 'focus', samples: 'samples', morale: 'morale', peace: 'peace', voice: 'voice', favour: 'favour', insight: 'insight', courage: 'courage', supplies: 'supplies', saved: 'saved' };
+const RESOURCE_ICON = { energy: 'energy', health: 'health', hunger: 'hunger', thirst: 'thirst', currency: 'currency', reputation: 'reputation', survival: 'survival', oxygen: 'oxygen', fuel: 'fuel', focus: 'focus', samples: 'samples', morale: 'morale', peace: 'peace', voice: 'voice', favour: 'favour', insight: 'insight', courage: 'courage', supplies: 'supplies', saved: 'saved', cover: 'cover', photos: 'photos' };
 
 /** An inline SVG for `name`, `scale` CSS pixels per icon pixel. */
 export function icon(name, scale = 2, className = 'px-icon') {

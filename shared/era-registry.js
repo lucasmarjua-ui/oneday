@@ -51,6 +51,18 @@ export const ERAS = [
     cardsPath: './data/eras/d-day/cards.json',
     available: true,
   },
+  {
+    id: 'berlin-wall',
+    sortYear: 1989,
+    name: { en: 'The Fall of the Berlin Wall', es: 'La caída del Muro de Berlín' },
+    tagline: { en: 'Be in the room when a mumbled sentence opens the Wall, then race the crowd to Bornholmer Straße.', es: 'Estate en la sala cuando una frase titubeante abre el Muro, y corre con la multitud hasta Bornholmer Straße.' },
+    year: { en: '9 November 1989', es: '9 de noviembre de 1989' },
+    place: { en: 'East Berlin, GDR', es: 'Berlín Este, RDA' },
+    accent: 0,
+    configPath: './data/eras/berlin-wall/era.json',
+    cardsPath: './data/eras/berlin-wall/cards.json',
+    available: true,
+  },
 ];
 
 /** The playable events in the order they happened. */
