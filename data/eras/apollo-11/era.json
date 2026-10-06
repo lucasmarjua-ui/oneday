@@ -1,0 +1,493 @@
+{
+  "id": "apollo-11",
+  "name": {
+    "en": "Apollo 11",
+    "es": "Apolo 11"
+  },
+  "tagline": {
+    "en": "20 July 1969. Two of you will try to land on the Moon.",
+    "es": "20 de julio de 1969. Dos de vosotros intentaréis alunizar."
+  },
+  "role": {
+    "en": "You fly as Buzz Aldrin, Lunar Module Pilot. Neil Armstrong commands; Michael Collins will stay in orbit aboard Columbia. You wake up 110 km above the Moon.",
+    "es": "Vuelas como Buzz Aldrin, piloto del módulo lunar. Neil Armstrong es el comandante; Michael Collins se quedará en órbita a bordo del Columbia. Despiertas a 110 km sobre la Luna."
+  },
+  "history": {
+    "en": "On 20 July 1969 Eagle undocked from Columbia and began its descent. Program alarms 1202 and 1201 flashed during the final approach; Mission Control's guidance officer Steve Bales, backed by Jack Garman, called GO. Armstrong took semi-manual control to fly past a boulder field and landed at 20:17 UTC with only seconds of fuel margin. Six and a half hours later he stepped onto the Sea of Tranquility, followed by Aldrin. They planted a flag, left a seismometer and a laser reflector, collected 21.5 kg of rock and spent about two and a half hours outside. All three astronauts returned to Earth on 24 July.",
+    "es": "El 20 de julio de 1969 el Eagle se separó del Columbia e inició el descenso. Las alarmas 1202 y 1201 saltaron en la aproximación final; el oficial de guiado de Control de Misión, Steve Bales, respaldado por Jack Garman, dio el GO. Armstrong tomó el control semimanual para sobrevolar un campo de rocas y alunizó a las 20:17 UTC con apenas segundos de margen de combustible. Seis horas y media después pisó el Mar de la Tranquilidad, seguido de Aldrin. Plantaron una bandera, dejaron un sismómetro y un reflector láser, recogieron 21,5 kg de roca y pasaron unas dos horas y media fuera. Los tres astronautas volvieron a la Tierra el 24 de julio."
+  },
+  "day": {
+    "totalTime": 18,
+    "startLabel": "06:00",
+    "endLabel": "24:00",
+    "openingCard": "apollo-wake",
+    "slots": [
+      {
+        "id": "columbia",
+        "label": {
+          "en": "In lunar orbit",
+          "es": "En órbita lunar"
+        },
+        "from": 0,
+        "to": 4
+      },
+      {
+        "id": "descent",
+        "label": {
+          "en": "Powered descent",
+          "es": "Descenso propulsado"
+        },
+        "from": 4,
+        "to": 9
+      },
+      {
+        "id": "tranquility",
+        "label": {
+          "en": "Tranquility Base",
+          "es": "Base Tranquilidad"
+        },
+        "from": 9,
+        "to": 13
+      },
+      {
+        "id": "eva",
+        "label": {
+          "en": "Moonwalk",
+          "es": "Paseo lunar"
+        },
+        "from": 13,
+        "to": 18
+      }
+    ]
+  },
+  "resources": {
+    "fuel": {
+      "label": {
+        "en": "Descent fuel",
+        "es": "Combustible de descenso"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 100,
+      "critical": true
+    },
+    "oxygen": {
+      "label": {
+        "en": "Oxygen",
+        "es": "Oxígeno"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 100,
+      "critical": true
+    },
+    "focus": {
+      "label": {
+        "en": "Focus",
+        "es": "Concentración"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 70
+    },
+    "reputation": {
+      "label": {
+        "en": "Houston's trust",
+        "es": "Confianza de Houston"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 50
+    },
+    "samples": {
+      "label": {
+        "en": "Samples (kg)",
+        "es": "Muestras (kg)"
+      },
+      "min": 0,
+      "max": 999999,
+      "start": 0
+    }
+  },
+  "npcs": [
+    {
+      "id": "npc-houston",
+      "name": {
+        "en": "Houston",
+        "es": "Houston"
+      },
+      "role": {
+        "en": "Mission Control, CAPCOM",
+        "es": "Control de Misión, CAPCOM"
+      },
+      "portraitColor": "#4f8fd8",
+      "attitudeCounter": "houstonTrust"
+    },
+    {
+      "id": "npc-neil",
+      "name": {
+        "en": "Neil Armstrong",
+        "es": "Neil Armstrong"
+      },
+      "role": {
+        "en": "Commander",
+        "es": "Comandante"
+      },
+      "portraitColor": "#e9e4d8",
+      "attitudeCounter": "neilTrust"
+    },
+    {
+      "id": "npc-collins",
+      "name": {
+        "en": "Michael Collins",
+        "es": "Michael Collins"
+      },
+      "role": {
+        "en": "Command Module Pilot",
+        "es": "Piloto del módulo de mando"
+      },
+      "portraitColor": "#a58be0",
+      "attitudeCounter": "collinsBond"
+    }
+  ],
+  "personas": [
+    {
+      "id": "test-pilot",
+      "trait": "bold",
+      "name": {
+        "en": "The Test Pilot",
+        "es": "El Piloto de Pruebas"
+      },
+      "description": {
+        "en": "You flew it like you meant it: alarms, boulders and fuel lights were problems to fly through, not reasons to stop.",
+        "es": "Lo pilotaste con decisión: alarmas, rocas y luces de combustible eran problemas que atravesar, no motivos para parar."
+      }
+    },
+    {
+      "id": "flight-rules",
+      "trait": "prudent",
+      "name": {
+        "en": "The Flight Rules",
+        "es": "Las Reglas de Vuelo"
+      },
+      "description": {
+        "en": "Every call by the book. Mission rules were written in other people's crashes, and you read them all.",
+        "es": "Cada decisión según el manual. Las reglas de misión se escribieron con los accidentes de otros, y tú las leíste todas."
+      }
+    },
+    {
+      "id": "crewmate",
+      "trait": "generous",
+      "name": {
+        "en": "The Crewmate",
+        "es": "El Compañero"
+      },
+      "description": {
+        "en": "You talked to Houston, to Neil, to Collins alone behind the Moon. Nobody on this mission felt by themselves.",
+        "es": "Hablaste con Houston, con Neil, con Collins solo tras la Luna. Nadie en esta misión se sintió solo."
+      }
+    },
+    {
+      "id": "improviser",
+      "trait": "cunning",
+      "name": {
+        "en": "The Improviser",
+        "es": "El Improvisador"
+      },
+      "description": {
+        "en": "A felt-tip pen where a switch should be. When the plan ran out, you found another way home.",
+        "es": "Un rotulador donde debería haber un interruptor. Cuando el plan se acabó, encontraste otra forma de volver."
+      }
+    },
+    {
+      "id": "dr-rendezvous",
+      "trait": "diligent",
+      "name": {
+        "en": "Dr. Rendezvous",
+        "es": "Doctor Rendezvous"
+      },
+      "description": {
+        "en": "Aldrin's real nickname, earned with an MIT doctorate on orbital rendezvous. Numbers called out, checklists closed, nothing left to luck.",
+        "es": "El apodo real de Aldrin, ganado con un doctorado del MIT sobre encuentros orbitales. Cifras cantadas, listas cerradas, nada al azar."
+      }
+    },
+    {
+      "id": "geologist",
+      "trait": "curious",
+      "name": {
+        "en": "The Geologist",
+        "es": "El Geólogo"
+      },
+      "description": {
+        "en": "You looked out of every window and picked up every rock. You came for the Moon itself, not just the landing.",
+        "es": "Miraste por cada ventana y recogiste cada roca. Viniste por la Luna en sí, no solo por el alunizaje."
+      }
+    },
+    {
+      "id": "passenger",
+      "trait": null,
+      "name": {
+        "en": "The Passenger",
+        "es": "El Pasajero"
+      },
+      "description": {
+        "en": "History happened all around you. You were there for it, quietly, from the right-hand side of the cabin.",
+        "es": "La historia sucedió a tu alrededor. Estuviste ahí, en silencio, desde el lado derecho de la cabina."
+      }
+    }
+  ],
+  "endings": [
+    {
+      "id": "bingo",
+      "when": {
+        "depleted": "fuel"
+      },
+      "title": {
+        "en": "Bingo Fuel",
+        "es": "Combustible agotado"
+      },
+      "description": {
+        "en": "The descent engine coughed dry metres above the surface. The abort stage fired on its own and threw the ascent stage back into the sky. You lived. Nobody landed.",
+        "es": "El motor de descenso se quedó seco a pocos metros del suelo. La etapa de ascenso se disparó sola y os devolvió al cielo. Sobrevivisteis. Nadie alunizó."
+      }
+    },
+    {
+      "id": "back-inside",
+      "when": {
+        "depleted": "oxygen"
+      },
+      "title": {
+        "en": "Back Inside, Fast",
+        "es": "Adentro, rápido"
+      },
+      "description": {
+        "en": "Your suit's oxygen ran into the red. Neil hauled you up the ladder and slammed the hatch. The Moon would have to wait for a better-planned walk.",
+        "es": "El oxígeno del traje entró en rojo. Neil te subió por la escalerilla y cerró la escotilla. La Luna tendría que esperar a un paseo mejor planificado."
+      }
+    },
+    {
+      "id": "abort",
+      "when": {
+        "flagsRequired": [
+          "aborted"
+        ]
+      },
+      "title": {
+        "en": "Abort Stage",
+        "es": "Etapa de aborto"
+      },
+      "description": {
+        "en": "You chose to live to try again. Eagle climbed back to Columbia, and four months later Apollo 12 landed on the Ocean of Storms.",
+        "es": "Elegiste sobrevivir para intentarlo otra vez. El Eagle volvió con el Columbia, y cuatro meses después el Apolo 12 alunizó en el Océano de las Tormentas."
+      }
+    },
+    {
+      "id": "west-crater",
+      "when": {
+        "flagsRequired": [
+          "landed",
+          "landed-in-boulders"
+        ]
+      },
+      "title": {
+        "en": "West Crater",
+        "es": "Cráter Oeste"
+      },
+      "description": {
+        "en": "You landed where the computer wanted, among boulders the size of cars. Eagle sat tilted; one leg rested on a rock. The walk was short and nervous, and the liftoff even more so.",
+        "es": "Alunizasteis donde quería el ordenador, entre rocas del tamaño de coches. El Eagle quedó inclinado, con una pata sobre una roca. El paseo fue corto y tenso, y el despegue aún más."
+      }
+    },
+    {
+      "id": "long-walk",
+      "when": {
+        "flagsRequired": [
+          "first-step",
+          "extended-eva"
+        ]
+      },
+      "title": {
+        "en": "The Long Walk",
+        "es": "El largo paseo"
+      },
+      "description": {
+        "en": "You walked farther than the flight plan allowed and brought back the best rocks of the mission. Houston forgave you once they saw the samples.",
+        "es": "Caminaste más lejos de lo que permitía el plan de vuelo y trajiste las mejores rocas de la misión. Houston te perdonó al ver las muestras."
+      }
+    },
+    {
+      "id": "tranquility",
+      "historical": true,
+      "when": {
+        "flagsRequired": [
+          "first-step"
+        ]
+      },
+      "title": {
+        "en": "Tranquility Base",
+        "es": "Base Tranquilidad"
+      },
+      "description": {
+        "en": "\"Houston, Tranquility Base here. The Eagle has landed.\" Then a step, a flag and a few hours of magnificent desolation. It went the way it really went.",
+        "es": "\"Houston, aquí Base Tranquilidad. El Eagle ha alunizado.\" Después, un paso, una bandera y unas horas de magnífica desolación. Salió como salió de verdad."
+      }
+    },
+    {
+      "id": "no-walk",
+      "when": {
+        "flagsRequired": [
+          "landed"
+        ]
+      },
+      "title": {
+        "en": "Landed, Door Shut",
+        "es": "Alunizados, puerta cerrada"
+      },
+      "description": {
+        "en": "You landed on the Moon and the day ran out before anyone stepped onto it. The first footprint would belong to someone else.",
+        "es": "Alunizasteis y el día se acabó antes de que nadie bajara. La primera huella sería de otro."
+      }
+    },
+    {
+      "id": "orbit",
+      "when": {},
+      "title": {
+        "en": "Still Circling",
+        "es": "Todavía en órbita"
+      },
+      "description": {
+        "en": "The day slipped away above the Moon. Eagle never touched the ground.",
+        "es": "El día se escapó sobre la Luna. El Eagle nunca tocó el suelo."
+      }
+    }
+  ],
+  "objectivesPool": [
+    {
+      "id": "land",
+      "description": {
+        "en": "Land on the Moon",
+        "es": "Aluniza"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "landed"
+      }
+    },
+    {
+      "id": "walk",
+      "description": {
+        "en": "Walk on the Moon",
+        "es": "Camina sobre la Luna"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "first-step"
+      }
+    },
+    {
+      "id": "flag",
+      "description": {
+        "en": "Plant the flag",
+        "es": "Planta la bandera"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "flag-planted"
+      }
+    },
+    {
+      "id": "reflector",
+      "description": {
+        "en": "Leave the laser reflector",
+        "es": "Deja el reflector láser"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "reflector-deployed"
+      }
+    },
+    {
+      "id": "samples",
+      "description": {
+        "en": "Bring back 20 kg of samples",
+        "es": "Trae 20 kg de muestras"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "samples",
+        "value": 20
+      }
+    },
+    {
+      "id": "fuel-margin",
+      "description": {
+        "en": "Never let fuel drop below 10",
+        "es": "Que el combustible nunca baje de 10"
+      },
+      "check": {
+        "type": "resourceNeverBelow",
+        "resource": "fuel",
+        "value": 10
+      }
+    },
+    {
+      "id": "trusted",
+      "description": {
+        "en": "End with Houston's trust at 70",
+        "es": "Termina con la confianza de Houston en 70"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "reputation",
+        "value": 70
+      }
+    },
+    {
+      "id": "breaker",
+      "description": {
+        "en": "Find the broken breaker",
+        "es": "Encuentra el interruptor roto"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "breaker-fixed"
+      }
+    }
+  ],
+  "metaAchievements": [
+    {
+      "id": "rock-collector",
+      "title": {
+        "en": "Rock Collector",
+        "es": "Coleccionista de rocas"
+      },
+      "description": {
+        "en": "Bring back 100 kg of lunar samples across playthroughs.",
+        "es": "Trae 100 kg de muestras lunares a lo largo de varias partidas."
+      },
+      "accumulates": "samples",
+      "threshold": 100
+    },
+    {
+      "id": "houston-favourite",
+      "title": {
+        "en": "Houston's Favourite",
+        "es": "El favorito de Houston"
+      },
+      "description": {
+        "en": "Earn 300 of Houston's trust across playthroughs.",
+        "es": "Gana 300 de confianza de Houston a lo largo de varias partidas."
+      },
+      "accumulates": "reputation",
+      "threshold": 300
+    }
+  ],
+  "memories": {
+    "flags": [],
+    "counters": [
+      "houstonTrust",
+      "neilTrust",
+      "collinsBond"
+    ]
+  }
+}

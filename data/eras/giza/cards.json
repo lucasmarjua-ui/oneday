@@ -1,0 +1,2240 @@
+[
+  {
+    "id": "giza-wake",
+    "text": {
+      "en": "A blast on a ram's horn rolls over the workers' town before the sun is up. Your gang, the Friends of Khufu, is already stirring on the reed mats.",
+      "es": "Un toque de cuerno de carnero recorre el poblado antes de que salga el sol. Tu cuadrilla, los Amigos de Keops, ya se despereza sobre las esteras de junco."
+    },
+    "timeSlots": [
+      "dawn"
+    ],
+    "weight": 100,
+    "fact": {
+      "en": "The builders lived in a town just south of the pyramids, excavated since the 1990s by archaeologists led by Mark Lehner. It had long dormitory halls, houses, bakeries and storerooms.",
+      "es": "Los constructores vivían en un poblado al sur de las pirámides, excavado desde los años noventa por arqueólogos dirigidos por Mark Lehner. Tenía largos dormitorios, casas, panaderías y almacenes."
+    },
+    "options": [
+      {
+        "id": "drum-up",
+        "text": {
+          "en": "Beat the drum and get everyone moving",
+          "es": "Toca el tambor y pon a todos en marcha"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 5,
+            "reputation": 3
+          },
+          "text": {
+            "en": "Forty men up, sandals on, in the time it takes to boil water.",
+            "es": "Cuarenta hombres en pie, sandalias puestas, en lo que tarda en hervir el agua."
+          }
+        }
+      },
+      {
+        "id": "let-sleep",
+        "text": {
+          "en": "Let them rest a little longer",
+          "es": "Déjales descansar un poco más"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 10,
+            "energy": 5
+          },
+          "text": {
+            "en": "A few grateful grunts. They will pull harder for it.",
+            "es": "Unos gruñidos de agradecimiento. Tirarán con más ganas."
+          }
+        }
+      },
+      {
+        "id": "sunrise",
+        "text": {
+          "en": "Watch the sun rise behind the pyramid",
+          "es": "Mira el sol salir detrás de la pirámide"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 5
+          },
+          "text": {
+            "en": "The unfinished pyramid glows. Every course you add brings it closer to the sky.",
+            "es": "La pirámide inacabada brilla. Cada hilada que añadís la acerca al cielo."
+          }
+        }
+      }
+    ],
+    "alarm": true
+  },
+  {
+    "id": "giza-bread",
+    "text": {
+      "en": "At the bakery, bread comes out of bell-shaped clay pots and beer is ladled from tall jars. Today's rations are yours to hand out.",
+      "es": "En la panadería, el pan sale de moldes de barro con forma de campana y la cerveza se sirve de jarras altas. Hoy te toca repartir las raciones."
+    },
+    "timeSlots": [
+      "dawn"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsExcluded": [
+        "fed"
+      ]
+    },
+    "fact": {
+      "en": "Workers were paid mostly in bread and beer. Archaeologists found bakeries with bell-shaped bread moulds and the bones of thousands of cattle, sheep and goats: the builders ate well.",
+      "es": "A los trabajadores se les pagaba sobre todo con pan y cerveza. Se han encontrado panaderías con moldes en forma de campana y huesos de miles de vacas, ovejas y cabras: los constructores comían bien."
+    },
+    "options": [
+      {
+        "id": "double",
+        "text": {
+          "en": "Give everyone a double ration",
+          "es": "Da a todos ración doble"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "currency": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 15,
+            "energy": 10
+          },
+          "flagsSet": [
+            "fed"
+          ],
+          "text": {
+            "en": "Full bellies, loud jokes. The best start a gang can have.",
+            "es": "Barrigas llenas, bromas en voz alta. El mejor comienzo para una cuadrilla."
+          }
+        }
+      },
+      {
+        "id": "fair-share",
+        "text": {
+          "en": "Hand out the usual fair share",
+          "es": "Reparte la parte justa de siempre"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 5
+          },
+          "flagsSet": [
+            "fed"
+          ],
+          "text": {
+            "en": "Ten loaves, two jars per man. Nobody complains, nobody celebrates.",
+            "es": "Diez panes, dos jarras por hombre. Nadie se queja, nadie lo celebra."
+          }
+        }
+      },
+      {
+        "id": "trade-beer",
+        "text": {
+          "en": "Trade some beer for sharper copper chisels",
+          "es": "Cambia algo de cerveza por cinceles de cobre más afilados"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "currency": -5
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "flagsSet": [
+            "fed",
+            "sharp-chisels"
+          ],
+          "text": {
+            "en": "The stonecutters drink, your gang gets the good chisels.",
+            "es": "Los canteros beben y tu cuadrilla se lleva los buenos cinceles."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-orders",
+    "npcId": "npc-hemiunu",
+    "threadId": "hemiunu-thread",
+    "text": {
+      "en": "Hemiunu, the king's vizier, arrives on a carrying chair. \"The last granite beam over the King's Chamber goes up today. Before sunset, Nefer.\"",
+      "es": "Hemiunu, el visir del rey, llega en una silla de manos. \"Hoy se sube la última viga de granito sobre la Cámara del Rey. Antes del ocaso, Nefer\"."
+    },
+    "timeSlots": [
+      "dawn",
+      "morning"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "fed"
+      ],
+      "flagsExcluded": [
+        "orders"
+      ]
+    },
+    "fact": {
+      "en": "Hemiunu was Khufu's vizier and is thought to have directed the building of the Great Pyramid. His life-size statue is in a museum in Hildesheim, Germany.",
+      "es": "Hemiunu fue visir de Keops y se cree que dirigió la construcción de la Gran Pirámide. Su estatua a tamaño real está en un museo de Hildesheim, en Alemania."
+    },
+    "options": [
+      {
+        "id": "promise",
+        "text": {
+          "en": "\"Before sunset. You have my word.\"",
+          "es": "\"Antes del ocaso. Tienes mi palabra\""
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8,
+            "morale": -5
+          },
+          "flagsSet": [
+            "orders"
+          ],
+          "countersAdd": {
+            "hemiunuFavour": 1
+          },
+          "text": {
+            "en": "He nods once. A promise to a vizier is not a small thing.",
+            "es": "Asiente una vez. Una promesa a un visir no es poca cosa."
+          }
+        }
+      },
+      {
+        "id": "ask-men",
+        "text": {
+          "en": "Ask for twenty extra haulers",
+          "es": "Pide veinte arrastradores más"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 10
+          },
+          "flagsSet": [
+            "orders",
+            "extra-men"
+          ],
+          "countersAdd": {
+            "hemiunuFavour": 1
+          },
+          "text": {
+            "en": "\"Ten,\" he says. Better than none.",
+            "es": "\"Diez\", dice. Mejor que nada."
+          }
+        }
+      },
+      {
+        "id": "ask-why",
+        "text": {
+          "en": "Ask how he plans the weight to be carried",
+          "es": "Pregúntale cómo planea repartir el peso"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "orders"
+          ],
+          "countersAdd": {
+            "hemiunuFavour": 2
+          },
+          "text": {
+            "en": "He sketches the chambers above the King's Chamber in the dust. Five of them, to spread the load.",
+            "es": "Dibuja en el polvo las cámaras sobre la Cámara del Rey. Cinco, para repartir la carga."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-harbour",
+    "npcId": "npc-merer",
+    "threadId": "merer-thread",
+    "text": {
+      "en": "At the harbour basin, the granite beam lies on a barge that came all the way from Aswan. It is longer than four men lying head to toe.",
+      "es": "En la dársena del puerto, la viga de granito descansa en una barcaza que vino desde Asuán. Es más larga que cuatro hombres tumbados uno tras otro."
+    },
+    "timeSlots": [
+      "morning",
+      "midday"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "orders"
+      ],
+      "flagsExcluded": [
+        "beam-landed"
+      ]
+    },
+    "fact": {
+      "en": "The granite for the King's Chamber came from Aswan, about 800 km up the Nile. It was floated downstream on boats, probably during the yearly flood, when water reached close to Giza.",
+      "es": "El granito de la Cámara del Rey vino de Asuán, unos 800 km Nilo arriba. Se bajaba en barcos río abajo, probablemente durante la crecida anual, cuando el agua llegaba cerca de Giza."
+    },
+    "options": [
+      {
+        "id": "rollers",
+        "text": {
+          "en": "Roll it off fast on logs",
+          "es": "Bájala rápido sobre troncos"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.6,
+          "resourceBonus": {
+            "resource": "energy",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "morale": 5
+          },
+          "flagsSet": [
+            "beam-landed"
+          ],
+          "text": {
+            "en": "Off the barge and onto the sledge before the heat starts.",
+            "es": "Fuera de la barcaza y sobre el trineo antes de que apriete el calor."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -20,
+            "morale": -10
+          },
+          "flagsSet": [
+            "beam-landed",
+            "accident"
+          ],
+          "text": {
+            "en": "A log snaps and the beam lurches. Two men are hurt.",
+            "es": "Un tronco se parte y la viga da un bandazo. Dos hombres heridos."
+          }
+        }
+      },
+      {
+        "id": "levers",
+        "text": {
+          "en": "Lever it off slowly with ropes",
+          "es": "Bájala despacio con palancas y cuerdas"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 2
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": -10
+          },
+          "flagsSet": [
+            "beam-landed"
+          ],
+          "text": {
+            "en": "Slow as the tide, safe as a temple. The beam settles on the sledge.",
+            "es": "Lento como la marea, seguro como un templo. La viga se asienta en el trineo."
+          }
+        }
+      },
+      {
+        "id": "ask-merer",
+        "text": {
+          "en": "Ask Merer's boat crew to lend a hand",
+          "es": "Pide ayuda a la tripulación de Merer"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 5
+          },
+          "flagsSet": [
+            "beam-landed"
+          ],
+          "countersAdd": {
+            "mererTrust": 2
+          },
+          "text": {
+            "en": "Forty more arms and a lot of shouting. Done.",
+            "es": "Cuarenta brazos más y muchos gritos. Hecho."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-sledge",
+    "text": {
+      "en": "The beam is on its wooden sledge. Your gang takes up the ropes. In front of you: half a mile of desert sand to the foot of the ramp.",
+      "es": "La viga está sobre su trineo de madera. Tu cuadrilla toma las cuerdas. Delante: casi un kilómetro de arena hasta el pie de la rampa."
+    },
+    "timeSlots": [
+      "morning",
+      "midday",
+      "afternoon"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "beam-landed"
+      ],
+      "flagsExcluded": [
+        "beam-moving"
+      ]
+    },
+    "fact": {
+      "en": "A tomb painting of the governor Djehutihotep shows a man pouring water in front of a sledge carrying a huge statue. In 2014 physicists showed that wet sand can halve the force needed to pull a sledge.",
+      "es": "Una pintura de la tumba del gobernador Djehutihotep muestra a un hombre vertiendo agua delante de un trineo con una estatua enorme. En 2014 unos físicos demostraron que la arena mojada puede reducir a la mitad la fuerza necesaria para arrastrarlo."
+    },
+    "options": [
+      {
+        "id": "wet-sand",
+        "text": {
+          "en": "Have a man pour water on the sand ahead",
+          "es": "Que un hombre vierta agua sobre la arena delante"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 10,
+            "morale": 5
+          },
+          "flagsSet": [
+            "beam-moving",
+            "wet-sand"
+          ],
+          "text": {
+            "en": "The wet sand firms up and the sledge glides. Half the men could pull it now.",
+            "es": "La arena mojada se endurece y el trineo se desliza. Ahora podría tirar la mitad de hombres."
+          }
+        }
+      },
+      {
+        "id": "more-pull",
+        "text": {
+          "en": "Put every man on the ropes and pull",
+          "es": "Pon a todos los hombres en las cuerdas y tirad"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -20
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": -5
+          },
+          "flagsSet": [
+            "beam-moving"
+          ],
+          "text": {
+            "en": "It moves, grudgingly, a cubit at a time.",
+            "es": "Se mueve, de mala gana, codo a codo."
+          }
+        }
+      },
+      {
+        "id": "chant",
+        "text": {
+          "en": "Set a hauling chant to keep the rhythm",
+          "es": "Marca un canto de arrastre para llevar el ritmo"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 8
+          },
+          "flagsSet": [
+            "beam-moving"
+          ],
+          "text": {
+            "en": "\"Pull for Khufu!\" Forty voices, forty steps, one beam.",
+            "es": "\"¡Tirad por Keops!\" Cuarenta voces, cuarenta pasos, una viga."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-ramp",
+    "text": {
+      "en": "The ramp: mud brick, rubble and limestone chips, climbing the side of the pyramid. The sledge creaks at the first slope.",
+      "es": "La rampa: adobe, cascotes y lascas de caliza, trepando por un lado de la pirámide. El trineo cruje en la primera pendiente."
+    },
+    "timeSlots": [
+      "midday",
+      "afternoon"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "beam-moving"
+      ],
+      "flagsExcluded": [
+        "beam-up"
+      ]
+    },
+    "fact": {
+      "en": "Nobody knows exactly how the ramps were built. In 2018 archaeologists found, at an ancient quarry called Hatnub, a steep ramp with staircases and post holes for ropes, dating to Khufu's time.",
+      "es": "Nadie sabe exactamente cómo eran las rampas. En 2018 se descubrió, en una antigua cantera llamada Hatnub, una rampa empinada con escaleras y agujeros para postes de cuerdas, de la época de Keops."
+    },
+    "options": [
+      {
+        "id": "steady",
+        "text": {
+          "en": "Slow and steady, chant by chant",
+          "es": "Despacio y firme, canto a canto"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -15
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 5
+          },
+          "flagsSet": [
+            "beam-up"
+          ],
+          "text": {
+            "en": "Up, rest, up, rest. The beam climbs like the sun.",
+            "es": "Arriba, descanso, arriba, descanso. La viga sube como el sol."
+          }
+        }
+      },
+      {
+        "id": "rush-ramp",
+        "text": {
+          "en": "Rush it before the midday heat",
+          "es": "Súbela deprisa antes del calor del mediodía"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 0.55,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.05
+          },
+          "resourceBonus": {
+            "resource": "energy",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "beam-up"
+          ],
+          "text": {
+            "en": "At the top before anyone has time to be tired.",
+            "es": "Arriba antes de que nadie tenga tiempo de cansarse."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -30,
+            "morale": -15
+          },
+          "flagsSet": [
+            "beam-up",
+            "accident"
+          ],
+          "text": {
+            "en": "A section of the ramp wall gives way under the sledge. Men are thrown into the rubble.",
+            "es": "Un tramo del muro de la rampa cede bajo el trineo. Los hombres caen entre los cascotes."
+          }
+        }
+      },
+      {
+        "id": "check-ramp",
+        "text": {
+          "en": "Inspect the ramp's walls first",
+          "es": "Revisa antes los muros de la rampa"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 2,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "health": 5
+          },
+          "flagsSet": [
+            "beam-up"
+          ],
+          "text": {
+            "en": "One weak section, packed with fresh rubble before you climb. Then up.",
+            "es": "Un tramo débil, rellenado con cascotes antes de subir. Luego, arriba."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-crack",
+    "npcId": "npc-hemiunu",
+    "threadId": "hemiunu-thread",
+    "text": {
+      "en": "At the top, in the sunlight, you see it: a hairline crack running across the beam.",
+      "es": "Arriba, a pleno sol, la ves: una grieta fina como un cabello que cruza la viga."
+    },
+    "timeSlots": [
+      "midday",
+      "afternoon"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "beam-up"
+      ],
+      "flagsExcluded": [
+        "cracked-beam"
+      ]
+    },
+    "fact": {
+      "en": "Several granite beams in the King's Chamber ceiling are cracked. In ancient times the cracks were filled with gypsum plaster, which shows the builders noticed and repaired them.",
+      "es": "Varias vigas de granito del techo de la Cámara del Rey están agrietadas. En la Antigüedad se rellenaron las grietas con yeso, lo que demuestra que los constructores las vieron y las repararon."
+    },
+    "options": [
+      {
+        "id": "hide-crack",
+        "text": {
+          "en": "Say nothing and set it anyway",
+          "es": "No digas nada y colócala igualmente"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 5
+          },
+          "flagsSet": [
+            "cracked-beam"
+          ],
+          "text": {
+            "en": "Nobody else noticed. Yet.",
+            "es": "Nadie más se ha dado cuenta. Todavía."
+          }
+        }
+      },
+      {
+        "id": "report-crack",
+        "text": {
+          "en": "Report it to Hemiunu's inspector",
+          "es": "Informa al inspector de Hemiunu"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 10
+          },
+          "flagsSet": [
+            "cracked-beam",
+            "crack-patched"
+          ],
+          "countersAdd": {
+            "hemiunuFavour": 2
+          },
+          "text": {
+            "en": "He studies it, taps it, decides it will hold. And remembers your honesty.",
+            "es": "La estudia, la golpea con los nudillos, decide que aguantará. Y recuerda tu honradez."
+          }
+        }
+      },
+      {
+        "id": "gypsum",
+        "text": {
+          "en": "Fill the crack with gypsum mortar",
+          "es": "Rellena la grieta con mortero de yeso"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "cracked-beam",
+            "crack-patched"
+          ],
+          "text": {
+            "en": "A smear of pale plaster and the crack disappears. It will still be there, patched, in 4,500 years.",
+            "es": "Una capa de yeso claro y la grieta desaparece. Seguirá ahí, reparada, dentro de 4.500 años."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-set",
+    "text": {
+      "en": "The beam hangs at the edge of its place over the King's Chamber, held by levers and sandbags. One last move.",
+      "es": "La viga cuelga al borde de su sitio sobre la Cámara del Rey, sostenida por palancas y sacos de arena. Un último movimiento."
+    },
+    "timeSlots": [
+      "afternoon"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "beam-up"
+      ],
+      "flagsExcluded": [
+        "beam-set"
+      ]
+    },
+    "fact": {
+      "en": "The King's Chamber is roofed with nine granite beams weighing roughly 25 to 80 tonnes each. Above them are five low 'relieving chambers', stacked to spread the weight of the pyramid.",
+      "es": "La Cámara del Rey tiene un techo de nueve vigas de granito de entre 25 y 80 toneladas cada una. Encima hay cinco 'cámaras de descarga' bajas, apiladas para repartir el peso de la pirámide."
+    },
+    "options": [
+      {
+        "id": "lever-careful",
+        "text": {
+          "en": "Lower it a finger's width at a time",
+          "es": "Bájala el ancho de un dedo cada vez"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 2
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 10,
+            "morale": 10
+          },
+          "flagsSet": [
+            "beam-set"
+          ],
+          "text": {
+            "en": "It settles into its bed with a sound like a closing door.",
+            "es": "Se asienta en su lecho con un ruido como de puerta que se cierra."
+          }
+        }
+      },
+      {
+        "id": "drop-it",
+        "text": {
+          "en": "Pull the sandbags all at once",
+          "es": "Quita todos los sacos de golpe"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.55,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.05
+          }
+        },
+        "success": {
+          "resources": {
+            "reputation": 8,
+            "morale": 5
+          },
+          "flagsSet": [
+            "beam-set"
+          ],
+          "text": {
+            "en": "Down in one move. Perfect.",
+            "es": "Abajo de un solo movimiento. Perfecto."
+          }
+        },
+        "failure": {
+          "resources": {
+            "health": -25,
+            "morale": -10
+          },
+          "flagsSet": [
+            "beam-set",
+            "accident"
+          ],
+          "text": {
+            "en": "It lands crooked, crushing a hand. You shift it back into place with blood on the stone.",
+            "es": "Cae torcida y aplasta una mano. La devolvéis a su sitio con sangre en la piedra."
+          }
+        }
+      },
+      {
+        "id": "mason-calls",
+        "text": {
+          "en": "Let your oldest mason call the moves",
+          "es": "Deja que tu cantero más viejo dirija"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 10
+          },
+          "flagsSet": [
+            "beam-set"
+          ],
+          "text": {
+            "en": "He has set forty beams in his life. This is his forty-first.",
+            "es": "Ha colocado cuarenta vigas en su vida. Esta es la cuadragésima primera."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-graffiti",
+    "text": {
+      "en": "The beam is set. A painter's pot of red ochre sits nearby. Gangs often mark the stones they move. Nobody will ever see this side of the beam again.",
+      "es": "La viga está colocada. Cerca hay un bote de ocre rojo. Las cuadrillas suelen marcar las piedras que mueven. Nadie volverá a ver este lado de la viga."
+    },
+    "timeSlots": [
+      "afternoon"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "beam-set"
+      ],
+      "flagsExcluded": [
+        "gang-mark"
+      ]
+    },
+    "fact": {
+      "en": "In 1837 Colonel Howard Vyse blasted his way into the relieving chambers and found work-gang graffiti in red paint, including names like 'Friends of Khufu' and the king's cartouche: key evidence of who built the pyramid.",
+      "es": "En 1837 el coronel Howard Vyse entró a la fuerza en las cámaras de descarga y encontró pintadas de las cuadrillas en rojo, con nombres como 'Amigos de Keops' y el cartucho del rey: una prueba clave de quién construyó la pirámide."
+    },
+    "options": [
+      {
+        "id": "paint-name",
+        "text": {
+          "en": "Paint your gang's name and the king's",
+          "es": "Pinta el nombre de tu cuadrilla y el del rey"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 10
+          },
+          "flagsSet": [
+            "gang-mark"
+          ],
+          "text": {
+            "en": "'Friends of Khufu', and the king's name inside its oval. Neat, red, proud.",
+            "es": "'Amigos de Keops', y el nombre del rey dentro de su óvalo. Limpio, rojo, orgulloso."
+          }
+        }
+      },
+      {
+        "id": "youngest",
+        "text": {
+          "en": "Let the youngest worker paint it",
+          "es": "Deja que lo pinte el trabajador más joven"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 15
+          },
+          "flagsSet": [
+            "gang-mark"
+          ],
+          "text": {
+            "en": "Crooked letters, enormous grin. It will last longer than any of you.",
+            "es": "Letras torcidas, sonrisa enorme. Durará más que todos vosotros."
+          }
+        }
+      },
+      {
+        "id": "no-mark",
+        "text": {
+          "en": "Leave the stone clean",
+          "es": "Deja la piedra limpia"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "text": {
+            "en": "Stone is for the king, not for you. You pack up.",
+            "es": "La piedra es para el rey, no para vosotros. Recogéis."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-tomb-offer",
+    "npcId": "npc-hemiunu",
+    "threadId": "hemiunu-thread",
+    "text": {
+      "en": "Hemiunu climbs up to see the beam himself. He looks at it, at the red paint, at you. \"Builders who do this deserve to rest near what they built.\"",
+      "es": "Hemiunu sube a ver la viga en persona. La mira a ella, a la pintura roja, a ti. \"Quienes construyen así merecen descansar cerca de lo que levantaron\"."
+    },
+    "timeSlots": [
+      "afternoon"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "gang-mark"
+      ],
+      "flagsExcluded": [
+        "tomb-granted"
+      ],
+      "resources": {
+        "reputation": {
+          "min": 45
+        }
+      }
+    },
+    "fact": {
+      "en": "In 1990 a horse stumbled on the wall of a tomb near the pyramids, leading to the builders' cemetery. Workers buried there with bread and beer for the afterlife show they were respected, not slaves.",
+      "es": "En 1990 un caballo tropezó con el muro de una tumba cerca de las pirámides, y así se descubrió el cementerio de los constructores. Los trabajadores enterrados allí con pan y cerveza para el más allá muestran que eran respetados, no esclavos."
+    },
+    "options": [
+      {
+        "id": "accept-tomb",
+        "text": {
+          "en": "Accept a tomb in the builders' cemetery",
+          "es": "Acepta una tumba en el cementerio de los constructores"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "tomb-granted"
+          ],
+          "countersAdd": {
+            "hemiunuFavour": 2
+          },
+          "text": {
+            "en": "A small tomb of mud brick, with your name and your wife's. Forever, in sight of the pyramid.",
+            "es": "Una pequeña tumba de adobe, con tu nombre y el de tu esposa. Para siempre, a la vista de la pirámide."
+          }
+        }
+      },
+      {
+        "id": "tomb-for-all",
+        "text": {
+          "en": "Ask for places for your whole gang",
+          "es": "Pide sitio para toda tu cuadrilla"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 20
+          },
+          "flagsSet": [
+            "tomb-granted"
+          ],
+          "countersAdd": {
+            "hemiunuFavour": 1
+          },
+          "text": {
+            "en": "He hesitates, then agrees. Your gang cheers loud enough to be heard in the quarry.",
+            "es": "Duda y luego acepta. Tu cuadrilla vitorea tan fuerte que se oye en la cantera."
+          }
+        }
+      },
+      {
+        "id": "decline",
+        "text": {
+          "en": "Thank him and decline",
+          "es": "Agradécelo y recházalo"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "text": {
+            "en": "\"The pyramid is enough,\" you say. He looks at you a long time.",
+            "es": "\"Con la pirámide basta\", dices. Te mira un buen rato."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-merer-log",
+    "npcId": "npc-merer",
+    "threadId": "merer-thread",
+    "text": {
+      "en": "Merer, inspector of a boat crew, is writing in his logbook by the harbour: every trip, every load, every day.",
+      "es": "Merer, inspector de una tripulación, escribe en su diario junto al puerto: cada viaje, cada carga, cada día."
+    },
+    "timeSlots": [
+      "dawn",
+      "morning"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "In 2013 archaeologists found the Diary of Merer at Wadi al-Jarf on the Red Sea. It is the oldest inscribed papyrus ever found and records how his crew shipped limestone from Tura to Giza for Khufu's pyramid.",
+      "es": "En 2013 se descubrió el Diario de Merer en Wadi al-Jarf, junto al mar Rojo. Es el papiro escrito más antiguo jamás encontrado y cuenta cómo su tripulación llevaba caliza de Tura a Giza para la pirámide de Keops."
+    },
+    "options": [
+      {
+        "id": "help-count",
+        "text": {
+          "en": "Help him count the loads",
+          "es": "Ayúdale a contar las cargas"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "countersAdd": {
+            "mererTrust": 2
+          },
+          "text": {
+            "en": "Forty blocks of Tura limestone this trip. He writes it down in neat red and black.",
+            "es": "Cuarenta bloques de caliza de Tura este viaje. Lo anota con buena letra, en rojo y negro."
+          }
+        }
+      },
+      {
+        "id": "ask-tura",
+        "text": {
+          "en": "Ask about the white stone from Tura",
+          "es": "Pregúntale por la piedra blanca de Tura"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 3
+          },
+          "countersAdd": {
+            "mererTrust": 1
+          },
+          "text": {
+            "en": "Across the river, he says, the whitest limestone in Egypt, for the outer casing. When it's finished the pyramid will shine.",
+            "es": "Al otro lado del río, dice, la caliza más blanca de Egipto, para el revestimiento. Cuando esté acabada, la pirámide brillará."
+          }
+        }
+      },
+      {
+        "id": "share-beer",
+        "text": {
+          "en": "Share your beer with his crew",
+          "es": "Comparte tu cerveza con su tripulación"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "currency": -3
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 5
+          },
+          "countersAdd": {
+            "mererTrust": 2
+          },
+          "text": {
+            "en": "Friends on the river are worth more than beer.",
+            "es": "Los amigos en el río valen más que la cerveza."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-casing",
+    "npcId": "npc-merer",
+    "threadId": "merer-thread",
+    "text": {
+      "en": "Merer's boat is unloading casing blocks: smooth, white limestone that will cover the whole pyramid like polished skin.",
+      "es": "El barco de Merer descarga bloques de revestimiento: caliza blanca y lisa que cubrirá toda la pirámide como una piel pulida."
+    },
+    "timeSlots": [
+      "morning",
+      "midday"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "The pyramid was once covered in polished white Tura limestone. Most of the casing was removed after an earthquake in 1303 and reused to build Cairo; a few blocks remain at the base.",
+      "es": "La pirámide estuvo cubierta de caliza blanca pulida de Tura. Casi todo el revestimiento se retiró tras un terremoto en 1303 y se reutilizó para construir El Cairo; quedan algunos bloques en la base."
+    },
+    "options": [
+      {
+        "id": "admire",
+        "text": {
+          "en": "Run your hand over the polished face",
+          "es": "Pasa la mano por la cara pulida"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 5
+          },
+          "countersAdd": {
+            "mererTrust": 1
+          },
+          "text": {
+            "en": "Smooth as water. In sunlight it will be blinding.",
+            "es": "Lisa como el agua. Al sol cegará."
+          }
+        }
+      },
+      {
+        "id": "lend-gang",
+        "text": {
+          "en": "Lend him half your gang for an hour",
+          "es": "Préstale media cuadrilla durante una hora"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "energy": -10
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3
+          },
+          "countersAdd": {
+            "mererTrust": 2
+          },
+          "text": {
+            "en": "He will remember the favour on the river.",
+            "es": "Recordará el favor en el río."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-quarry",
+    "text": {
+      "en": "On the way, the quarry calls for help: a block for the next course has stuck halfway out of the rock.",
+      "es": "De camino, la cantera pide ayuda: un bloque para la siguiente hilada se ha atascado a medio salir de la roca."
+    },
+    "timeSlots": [
+      "morning",
+      "midday"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "Most of the pyramid's 2.3 million blocks were limestone quarried right on the Giza plateau with copper chisels and wooden wedges. The hard granite was shaped by pounding it with balls of even harder dolerite.",
+      "es": "La mayoría de los 2,3 millones de bloques de la pirámide eran de caliza extraída en la propia meseta de Giza con cinceles de cobre y cuñas de madera. El duro granito se trabajaba golpeándolo con bolas de dolerita, aún más dura."
+    },
+    "options": [
+      {
+        "id": "chisels",
+        "text": {
+          "en": "Use your sharp copper chisels",
+          "es": "Usa tus cinceles de cobre afilados"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "text": {
+            "en": "Copper bites limestone. The block comes free.",
+            "es": "El cobre muerde la caliza. El bloque se suelta."
+          }
+        }
+      },
+      {
+        "id": "wedges",
+        "text": {
+          "en": "Drive in wooden wedges and soak them",
+          "es": "Mete cuñas de madera y empápalas"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 2
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5,
+            "energy": 5
+          },
+          "text": {
+            "en": "The wood swells and the rock splits along the line. Clever and quiet.",
+            "es": "La madera se hincha y la roca se parte por la línea. Ingenioso y silencioso."
+          }
+        }
+      },
+      {
+        "id": "walk-past",
+        "text": {
+          "en": "Walk past: your beam comes first",
+          "es": "Sigue: tu viga es lo primero"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 0
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 5
+          },
+          "text": {
+            "en": "They will manage. You have a vizier waiting.",
+            "es": "Ya se apañarán. Te espera un visir."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-accident",
+    "npcId": "npc-tia",
+    "threadId": "tia-thread",
+    "text": {
+      "en": "A cry from the ropes: a worker's arm is crushed under a shifting block.",
+      "es": "Un grito desde las cuerdas: el brazo de un trabajador ha quedado aplastado bajo un bloque que se ha movido."
+    },
+    "timeSlots": [
+      "morning",
+      "midday",
+      "afternoon"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "Skeletons from the builders' cemetery show healed broken bones, and even a successful amputation. The workers had real medical care, something nobody would give to slaves.",
+      "es": "Los esqueletos del cementerio de los constructores muestran huesos rotos que soldaron bien, e incluso una amputación que cicatrizó. Los trabajadores tenían atención médica de verdad, algo que nadie daría a esclavos."
+    },
+    "options": [
+      {
+        "id": "carry-tia",
+        "text": {
+          "en": "Carry him to Tia the healer yourself",
+          "es": "Llévalo tú mismo a Tia, la sanadora"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 2
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "health": 10,
+            "morale": 10
+          },
+          "flagsSet": [
+            "saw-tia"
+          ],
+          "countersAdd": {
+            "tiaBond": 2
+          },
+          "text": {
+            "en": "Tia sets the bone and splints it with wood and linen. \"He'll work again,\" she says.",
+            "es": "Tia recoloca el hueso y lo entablilla con madera y lino. \"Volverá a trabajar\", dice."
+          }
+        }
+      },
+      {
+        "id": "splint",
+        "text": {
+          "en": "Splint it on the spot and send him home",
+          "es": "Entablíllalo allí mismo y mándalo a casa"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "health": 5
+          },
+          "flagsSet": [
+            "saw-tia"
+          ],
+          "countersAdd": {
+            "tiaBond": 1
+          },
+          "text": {
+            "en": "A rough splint, a friend to walk him down. It will do.",
+            "es": "Una tablilla basta y un amigo que lo acompañe. Servirá."
+          }
+        }
+      },
+      {
+        "id": "keep-going",
+        "text": {
+          "en": "Keep the gang working",
+          "es": "Que la cuadrilla siga trabajando"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": -15
+          },
+          "text": {
+            "en": "The work goes on. The men look at you differently.",
+            "es": "El trabajo sigue. Los hombres te miran de otra manera."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-tia-herbs",
+    "npcId": "npc-tia",
+    "threadId": "tia-thread",
+    "text": {
+      "en": "Tia stops you on her rounds with a jar of something that smells of honey and garlic.",
+      "es": "Tia te para en su ronda con un tarro de algo que huele a miel y ajo."
+    },
+    "timeSlots": [
+      "midday",
+      "afternoon"
+    ],
+    "weight": 5,
+    "conditions": {
+      "flagsRequired": [
+        "saw-tia"
+      ]
+    },
+    "fact": {
+      "en": "Egyptian medical papyri recommend honey for wounds. Honey is acidic and draws out water, which stops many bacteria from growing; it is still used in some modern wound dressings.",
+      "es": "Los papiros médicos egipcios recomiendan miel para las heridas. La miel es ácida y absorbe agua, lo que impide crecer a muchas bacterias; aún se usa en algunos apósitos modernos."
+    },
+    "options": [
+      {
+        "id": "take-salve",
+        "text": {
+          "en": "Take the salve for the gang's blisters",
+          "es": "Acepta el ungüento para las ampollas de la cuadrilla"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "health": 15
+          },
+          "countersAdd": {
+            "tiaBond": 1
+          },
+          "text": {
+            "en": "Honey on rope burns. By afternoon the hands are better.",
+            "es": "Miel en las quemaduras de cuerda. Por la tarde las manos están mejor."
+          }
+        }
+      },
+      {
+        "id": "ask-honey",
+        "text": {
+          "en": "Ask why honey",
+          "es": "Pregunta por qué miel"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "health": 10,
+            "morale": 3
+          },
+          "countersAdd": {
+            "tiaBond": 2
+          },
+          "text": {
+            "en": "\"Wounds covered in honey don't rot,\" she says. She doesn't know why. She just knows.",
+            "es": "\"Las heridas cubiertas de miel no se pudren\", dice. No sabe por qué. Simplemente lo sabe."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-heat",
+    "text": {
+      "en": "Noon. The sun is straight overhead and the limestone throws the heat back up at you.",
+      "es": "Mediodía. El sol cae a plomo y la caliza devuelve el calor hacia arriba."
+    },
+    "timeSlots": [
+      "midday"
+    ],
+    "weight": 6,
+    "fact": {
+      "en": "Many historians think much of the heavy work was done during the Nile flood, from about July to October, when farmers could not work their fields and joined the building crews in rotating shifts.",
+      "es": "Muchos historiadores creen que gran parte del trabajo pesado se hacía durante la crecida del Nilo, de julio a octubre aproximadamente, cuando los campesinos no podían trabajar sus campos y se unían a las cuadrillas por turnos."
+    },
+    "options": [
+      {
+        "id": "water-break",
+        "text": {
+          "en": "Call a water break in the shade",
+          "es": "Ordena un descanso para beber a la sombra"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 15,
+            "morale": 5
+          },
+          "text": {
+            "en": "Jars passed hand to hand. Faces come back to life.",
+            "es": "Jarras de mano en mano. Las caras vuelven a la vida."
+          }
+        }
+      },
+      {
+        "id": "push-heat",
+        "text": {
+          "en": "Push on through the heat",
+          "es": "Seguid a pesar del calor"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 0
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "health": -10,
+            "energy": -10,
+            "reputation": 3
+          },
+          "text": {
+            "en": "Nobody stops. Several men stagger.",
+            "es": "Nadie para. Varios hombres se tambalean."
+          }
+        }
+      },
+      {
+        "id": "shade-work",
+        "text": {
+          "en": "Switch to work on the shaded side",
+          "es": "Pasad a trabajar en el lado de sombra"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 5
+          },
+          "text": {
+            "en": "Less glamour, less sunstroke.",
+            "es": "Menos lucimiento, menos insolación."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-grumble",
+    "text": {
+      "en": "Grumbling in the gang: a rumour says the bakery shorted this morning's rations.",
+      "es": "Murmullos en la cuadrilla: se rumorea que la panadería ha racaneado las raciones de esta mañana."
+    },
+    "timeSlots": [
+      "midday",
+      "afternoon"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "The first strike in recorded history happened about 1,400 years after the Great Pyramid, around 1157 BC, when tomb-builders at Deir el-Medina stopped work because their grain rations were late.",
+      "es": "La primera huelga de la historia registrada ocurrió unos 1.400 años después de la Gran Pirámide, hacia 1157 a. C., cuando los constructores de tumbas de Deir el-Medina dejaron de trabajar porque sus raciones de grano llegaban tarde."
+    },
+    "options": [
+      {
+        "id": "share-own",
+        "text": {
+          "en": "Share out your own bread",
+          "es": "Reparte tu propio pan"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "currency": -5
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 15
+          },
+          "text": {
+            "en": "You go hungry; nobody else does.",
+            "es": "Tú pasas hambre; nadie más."
+          }
+        }
+      },
+      {
+        "id": "promise-beer",
+        "text": {
+          "en": "Promise extra beer when the beam is set",
+          "es": "Promete cerveza extra cuando la viga esté puesta"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 10
+          },
+          "flagsSet": [
+            "promised-beer"
+          ],
+          "text": {
+            "en": "A cheer, and suddenly everyone wants to work.",
+            "es": "Un vítor, y de repente todos quieren trabajar."
+          }
+        }
+      },
+      {
+        "id": "order-quiet",
+        "text": {
+          "en": "Order them back to work",
+          "es": "Ordénales volver al trabajo"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": -10,
+            "reputation": 3
+          },
+          "text": {
+            "en": "They obey. Not happily.",
+            "es": "Obedecen. Sin ganas."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-north",
+    "text": {
+      "en": "A surveyor is lining up a cord with a star chart scratched on a board. \"True north,\" he says. \"The king's house faces it exactly.\"",
+      "es": "Un agrimensor alinea una cuerda con un mapa de estrellas rayado en una tabla. \"El norte verdadero\", dice. \"La casa del rey mira exactamente hacia él\"."
+    },
+    "timeSlots": [
+      "dawn",
+      "morning",
+      "midday",
+      "afternoon"
+    ],
+    "weight": 3,
+    "fact": {
+      "en": "The Great Pyramid's sides are aligned to true north with an error of only about a fifteenth of a degree, probably by watching stars that circle the celestial pole.",
+      "es": "Los lados de la Gran Pirámide están alineados con el norte verdadero con un error de apenas una quinceava parte de grado, probablemente observando estrellas que giran alrededor del polo celeste."
+    },
+    "options": [
+      {
+        "id": "ask-stars",
+        "text": {
+          "en": "Ask how he finds north without a compass",
+          "es": "Pregúntale cómo encuentra el norte sin brújula"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3,
+            "morale": 3
+          },
+          "text": {
+            "en": "Two stars that circle the pole, a plumb line, a lot of patience at night.",
+            "es": "Dos estrellas que giran alrededor del polo, una plomada y mucha paciencia de noche."
+          }
+        }
+      },
+      {
+        "id": "hold-cord",
+        "text": {
+          "en": "Hold the cord steady for him",
+          "es": "Sujétale la cuerda firme"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "text": {
+            "en": "Not a finger's width of drift.",
+            "es": "Ni un dedo de desviación."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-cubit",
+    "text": {
+      "en": "A master builder checks a course of stones with a cubit rod, frowning at a gap.",
+      "es": "Un maestro de obras revisa una hilada de piedras con una vara de codo, frunciendo el ceño ante un hueco."
+    },
+    "timeSlots": [
+      "morning",
+      "midday",
+      "afternoon"
+    ],
+    "weight": 3,
+    "fact": {
+      "en": "Egyptians measured with the royal cubit, about 52.4 cm, divided into palms and fingers. The Great Pyramid's base sides, around 230 m each, differ from one another by only a few centimetres.",
+      "es": "Los egipcios medían con el codo real, de unos 52,4 cm, dividido en palmos y dedos. Los lados de la base de la Gran Pirámide, de unos 230 m, solo se diferencian entre sí en unos centímetros."
+    },
+    "options": [
+      {
+        "id": "measure-again",
+        "text": {
+          "en": "Measure it again with him",
+          "es": "Mídelo otra vez con él"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "text": {
+            "en": "Off by the width of a thumb. Fixed.",
+            "es": "Desviado el ancho de un pulgar. Arreglado."
+          }
+        }
+      },
+      {
+        "id": "fill-gap",
+        "text": {
+          "en": "Fill the gap with mortar and move on",
+          "es": "Rellena el hueco con mortero y sigue"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 5
+          },
+          "text": {
+            "en": "Nobody will ever see it.",
+            "es": "Nadie lo verá nunca."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-boat-pit",
+    "text": {
+      "en": "Beside the pyramid, carpenters are fitting the planks of a huge cedar boat, then taking it apart again and stacking it in a pit.",
+      "es": "Junto a la pirámide, unos carpinteros encajan las tablas de un enorme barco de cedro, y luego lo desmontan y lo apilan en un foso."
+    },
+    "timeSlots": [
+      "morning",
+      "midday",
+      "afternoon"
+    ],
+    "weight": 3,
+    "fact": {
+      "en": "In 1954 a 43-metre cedar boat was found in pieces in a sealed pit beside the Great Pyramid. Reassembled, the 'Khufu ship' is one of the oldest and best-preserved ships in the world.",
+      "es": "En 1954 se encontró un barco de cedro de 43 metros desmontado en un foso sellado junto a la Gran Pirámide. Reconstruido, el 'barco de Keops' es uno de los barcos más antiguos y mejor conservados del mundo."
+    },
+    "options": [
+      {
+        "id": "ask-boat",
+        "text": {
+          "en": "Ask what the boat is for",
+          "es": "Pregunta para qué es el barco"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 3
+          },
+          "text": {
+            "en": "\"For the king, to sail with the sun,\" a carpenter says.",
+            "es": "\"Para el rey, para navegar con el sol\", dice un carpintero."
+          }
+        }
+      },
+      {
+        "id": "lend-rope",
+        "text": {
+          "en": "Lend them rope from your sledge",
+          "es": "Préstales cuerda de tu trineo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "currency": 5
+          },
+          "text": {
+            "en": "They thank you with a jar of their own beer.",
+            "es": "Te lo agradecen con una jarra de su propia cerveza."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-sunset",
+    "text": {
+      "en": "The sun is sinking behind the western desert, the land of the dead. Your gang looks at you for the word to stop.",
+      "es": "El sol se hunde tras el desierto occidental, la tierra de los muertos. Tu cuadrilla te mira esperando la orden de parar."
+    },
+    "timeSlots": [
+      "afternoon"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "For the Egyptians the west, where the sun set, was the land of the dead, which is why the pyramids and their cemeteries were built on the west bank of the Nile. The pyramid was called Akhet Khufu, 'Horizon of Khufu'.",
+      "es": "Para los egipcios el oeste, por donde se ponía el sol, era la tierra de los muertos; por eso las pirámides y sus cementerios se construían en la orilla occidental del Nilo. La pirámide se llamaba Ajet Jufu, 'Horizonte de Keops'."
+    },
+    "options": [
+      {
+        "id": "stop-now",
+        "text": {
+          "en": "Call it a day",
+          "es": "Dad por terminado el día"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": 10,
+            "morale": 5
+          },
+          "text": {
+            "en": "Ropes coiled, tools counted, home to the town.",
+            "es": "Cuerdas enrolladas, herramientas contadas, de vuelta al poblado."
+          }
+        }
+      },
+      {
+        "id": "one-more",
+        "text": {
+          "en": "One more hour by torchlight",
+          "es": "Una hora más a la luz de las antorchas"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "energy": -15,
+            "reputation": 5
+          },
+          "text": {
+            "en": "Tired, slow, a little further.",
+            "es": "Cansados, lentos, un poco más allá."
+          }
+        }
+      },
+      {
+        "id": "feast",
+        "text": {
+          "en": "Pay the promised beer and celebrate",
+          "es": "Paga la cerveza prometida y celebradlo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1,
+          "resources": {
+            "currency": -8
+          }
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 20
+          },
+          "text": {
+            "en": "Songs, bread, beer. Tomorrow will be easier.",
+            "es": "Canciones, pan, cerveza. Mañana será más fácil."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "giza-scribe",
+    "text": {
+      "en": "A scribe with a reed pen tallies your gang's work on a shard of pottery.",
+      "es": "Un escriba con un cálamo anota el trabajo de tu cuadrilla en un trozo de cerámica."
+    },
+    "timeSlots": [
+      "dawn",
+      "morning",
+      "midday",
+      "afternoon"
+    ],
+    "weight": 3,
+    "fact": {
+      "en": "Building the pyramid needed huge amounts of record-keeping. Scribes used a quick handwriting called hieratic, written in ink on papyrus or on cheap pieces of pottery called ostraca.",
+      "es": "Construir la pirámide exigía muchísima contabilidad. Los escribas usaban una escritura rápida llamada hierática, con tinta sobre papiro o sobre trozos baratos de cerámica llamados óstraca."
+    },
+    "options": [
+      {
+        "id": "check-tally",
+        "text": {
+          "en": "Check his tally",
+          "es": "Revisa su cuenta"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "currency": 5
+          },
+          "text": {
+            "en": "He had you down for one block less. Corrected.",
+            "es": "Os había apuntado un bloque menos. Corregido."
+          }
+        }
+      },
+      {
+        "id": "learn-signs",
+        "text": {
+          "en": "Ask him to teach you a few signs",
+          "es": "Pídele que te enseñe unos signos"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "morale": 3
+          },
+          "text": {
+            "en": "A bread loaf, a water ripple, a seated man. You can write 'gang' now.",
+            "es": "Un pan, unas ondas de agua, un hombre sentado. Ya sabes escribir 'cuadrilla'."
+          }
+        }
+      }
+    ]
+  }
+]

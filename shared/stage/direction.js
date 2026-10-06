@@ -49,28 +49,25 @@ const EARTH_SKY = [
 ];
 
 const SKIES = {
-  mars: [
-    [0.0, '#d9905e', '#f2c69a', 0.5],
-    [0.25, '#d8a476', '#f0d2ad', 0.85],
-    [0.6, '#c98957', '#e9bf8f', 0.8],
-    [0.8, '#5a6d93', '#c98a62', 0.35],
-    [1.0, '#1a1622', '#3a2a2e', 0.06],
+  // Out in space the sky is black all day and the Sun never sets.
+  'apollo-11': [
+    [0.0, '#04050c', '#0d1024', 1.0],
+    [1.0, '#04050c', '#0d1024', 1.0],
   ],
-  'future-city': [
-    [0.0, '#5d4f9c', '#f0839b', 0.5],
-    [0.3, '#4d77b8', '#b9c8e8', 0.8],
-    [0.6, '#5b5fa8', '#e18aa6', 0.6],
-    [0.8, '#26164d', '#7a2f7a', 0.25],
-    [1.0, '#0a0718', '#1d1036', 0.05],
-  ],
-  neanderthal: [
-    [0.0, '#e7a46c', '#f6d2a2', 0.55],
-    [0.3, '#9cc4dc', '#dbe9ee', 0.9],
-    [0.65, '#d98f52', '#f4c486', 0.7],
-    [0.82, '#4f3f66', '#c0715a', 0.3],
-    [1.0, '#0e1222', '#22243a', 0.06],
+  giza: [
+    [0.0, '#f2a86a', '#ffd9a0', 0.55],
+    [0.2, '#86bde6', '#f3e3c3', 0.95],
+    [0.5, '#5fa8e6', '#f0dcb4', 1.0],
+    [0.75, '#f0995a', '#ffc77a', 0.7],
+    [0.9, '#5b3f7a', '#e07c5a', 0.3],
+    [1.0, '#151a38', '#2b2b55', 0.06],
   ],
 };
+
+/** Events played out in space: no sunset, no night. */
+export function isSpaceEvent(eraId) {
+  return eraId === 'apollo-11';
+}
 
 function hexToRgb(hex) {
   const n = parseInt(hex.slice(1), 16);

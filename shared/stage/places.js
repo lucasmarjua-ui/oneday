@@ -1,65 +1,71 @@
-// Where on the stage each card happens. Every era's diorama has a handful of
-// landmarks; a card is sent to the first landmark whose keywords appear in its
-// id (or that its NPC belongs to), so the character walks to the agora to
-// haggle and to the temple to make an offering. Cards that match nothing are
-// spread across landmarks by a stable hash, so the same card always plays out
-// in the same place. Positions are diorama coordinates (x, z) on a 24x24 island.
+// Where each card happens. An event is told across several scenes (a cabin,
+// a harbour, the Moon's surface...), each its own small diorama; a scene has
+// one or more spots the character walks to. A card goes to the first place
+// whose keywords appear in its id; cards that match nothing fall back to a
+// stable hash, so the same card always plays out in the same place.
+// The first place of every event is where the day starts: waking up.
+
+export const SCENES = {
+  'apollo-11': {
+    columbia: { kind: 'room', size: [7, 6], interior: true, entrance: [1, 1], cast: ['npc-neil', 'npc-collins'], outfit: 'cabin' },
+    eagle: { kind: 'room', size: [6, 5], interior: true, entrance: [1, 1], cast: ['npc-neil'], outfit: 'cabin' },
+    surface: { kind: 'island', size: 11, space: true, entrance: [-2, 2], cast: ['npc-neil'], outfit: 'helmet', showcase: true },
+  },
+  giza: {
+    house: { kind: 'room', size: [7, 6], interior: true, entrance: [1.5, 1.5], cast: [] },
+    village: { kind: 'island', size: 10, entrance: [-4, 4], crowd: 4 },
+    harbour: { kind: 'island', size: 10, entrance: [-4, 4], crowd: 3 },
+    quarry: { kind: 'island', size: 9, entrance: [-3, 4], crowd: 3 },
+    pyramid: { kind: 'island', size: 12, entrance: [-6, 5], crowd: 4, showcase: true },
+  },
+};
+
+// Which NPCs are physically present in which scenes. Anyone else speaks over
+// the radio or from afar: their name shows, no body appears.
+export const NPC_SCENES = {
+  'apollo-11': { 'npc-neil': ['columbia', 'eagle', 'surface'], 'npc-collins': ['columbia'], 'npc-houston': [] },
+  giza: { 'npc-hemiunu': ['village', 'pyramid'], 'npc-merer': ['harbour'], 'npc-tia': ['village', 'pyramid', 'quarry'] },
+};
 
 export const PLACES = {
-  greece: [
-    { id: 'home', label: { en: 'Your home', es: 'Tu casa' }, pos: [-5.5, 4.5], keywords: ['wake', 'family', 'sick-neighbor', 'night-watch'] },
-    { id: 'agora', label: { en: 'The agora', es: 'El ágora' }, pos: [0, 1.5], keywords: ['agora', 'market', 'bread', 'thief', 'beggar', 'performer', 'dice', 'spartan', 'craftsman', 'potter', 'merchant'], npcs: ['npc-thales'] },
-    { id: 'assembly', label: { en: 'The Pnyx', es: 'La Pnyx' }, pos: [4.5, -1.5], keywords: ['assembly', 'ostracism', 'dispute', 'kleon', 'philosopher', 'sophia', 'scroll'], npcs: ['npc-kleon', 'npc-sophia'] },
-    { id: 'temple', label: { en: 'The temple', es: 'El templo' }, pos: [-2.5, -5.5], keywords: ['temple', 'athena', 'oracle', 'festival', 'stargazer'] },
-    { id: 'gymnasium', label: { en: 'The gymnasium', es: 'El gimnasio' }, pos: [-5.5, -1], keywords: ['gymnasium', 'wrestling', 'theatre', 'poetry', 'symposium', 'tavern'] },
-    { id: 'harbor', label: { en: 'Piraeus harbour', es: 'El puerto del Pireo' }, pos: [5.5, 5.5], keywords: ['fisherman', 'piraeus', 'well'] },
-    { id: 'grove', label: { en: 'The olive hills', es: 'Las colinas de olivos' }, pos: [4, -6], keywords: ['olive', 'shrine'] },
+  'apollo-11': [
+    { id: 'bunk', scene: 'columbia', label: { en: 'Columbia, lunar orbit', es: 'Columbia, órbita lunar' }, pos: [-1, -1], keywords: ['wake', 'breakfast', 'neil-photos', 'suitup', 'transfer', 'undock', 'earthrise', 'home-burn', 'abort-dock', 'abort-tv'] },
+    { id: 'cabin', scene: 'eagle', label: { en: 'Eagle', es: 'Eagle' }, pos: [0, 0], keywords: ['doi', 'pdi', 'alarm', 'boulders', 'sixty', 'contact', 'stay', 'west-crater', 'rest', 'communion', 'breaker', 'abort-climb', 'collins-alone', 'dust'] },
+    { id: 'ladder', scene: 'surface', label: { en: 'Tranquility Base', es: 'Base Tranquilidad' }, pos: [-0.5, 1.5], keywords: ['hatch', 'first-step', 'magnificent', 'plaque', 'nixon'] },
+    { id: 'flag', scene: 'surface', label: { en: 'Tranquility Base', es: 'Base Tranquilidad' }, pos: [2.5, 2.5], keywords: ['flag', 'earth', 'footprint'] },
+    { id: 'experiments', scene: 'surface', label: { en: 'Tranquility Base', es: 'Base Tranquilidad' }, pos: [3, -2], keywords: ['experiments', 'samples'] },
   ],
-  cordoba: [
-    { id: 'home', label: { en: 'Your courtyard', es: 'Tu patio' }, pos: [-5.5, 4.5], keywords: ['wake', 'orphan'] },
-    { id: 'souk', label: { en: 'The souk', es: 'El zoco' }, pos: [1, 2.5], keywords: ['souk', 'yusuf', 'bread', 'lamp', 'silk', 'thief'], npcs: ['npc-yusuf'] },
-    { id: 'library', label: { en: 'The library', es: 'La biblioteca' }, pos: [4.5, -2.5], keywords: ['library', 'lubna', 'astrolabe', 'poetry'], npcs: ['npc-lubna'] },
-    { id: 'clinic', label: { en: 'The clinic', es: 'La clínica' }, pos: [-4.5, -1.5], keywords: ['marwan', 'bathhouse'], npcs: ['npc-marwan'] },
-    { id: 'mosque', label: { en: 'The Great Mosque', es: 'La Mezquita' }, pos: [-1, -5.5], keywords: ['mosque', 'caliph'] },
-    { id: 'river', label: { en: 'The Guadalquivir', es: 'El Guadalquivir' }, pos: [5.5, 5.5], keywords: ['river', 'water', 'tannery'] },
-  ],
-  edo: [
-    { id: 'home', label: { en: 'Your tenement', es: 'Tu casa de vecinos' }, pos: [-5.5, 4.5], keywords: ['wake', 'night-return', 'well'] },
-    { id: 'market', label: { en: 'Nihonbashi market', es: 'El mercado de Nihonbashi' }, pos: [1, 2.5], keywords: ['miso', 'fish', 'soba', 'rice', 'pickpocket', 'dice', 'dutch', 'doctor', 'woodblock', 'paper', 'daimyo', 'horse'] },
-    { id: 'temple', label: { en: 'Sensoji temple', es: 'El templo Sensoji' }, pos: [-1.5, -5.5], keywords: ['temple', 'tetsuo', 'shrine', 'garden', 'moon'], npcs: ['npc-tetsuo'] },
-    { id: 'teahouse', label: { en: 'The tea-house', es: 'La casa de té' }, pos: [4.5, -2.5], keywords: ['hana', 'kabuki', 'bathhouse'], npcs: ['npc-hana'] },
-    { id: 'street', label: { en: 'The fire-watch street', es: 'La calle de la guardia' }, pos: [-4.5, -1], keywords: ['saburo', 'sumo', 'fire'], npcs: ['npc-saburo'] },
-    { id: 'canal', label: { en: 'The canal', es: 'El canal' }, pos: [5.5, 5.5], keywords: ['canal'] },
-  ],
-  neanderthal: [
-    { id: 'camp', label: { en: 'The camp fire', es: 'La hoguera' }, pos: [-2.5, 3], keywords: ['wake', 'fire', 'share', 'ember', 'child', 'elder', 'stranger', 'night', 'burial', 'storm', 'injured', 'spear'], npcs: ['npc-ember'] },
-    { id: 'cave', label: { en: 'The cave', es: 'La cueva' }, pos: [-4.5, -4.5], keywords: ['cave', 'kaia', 'shaman', 'fever'], npcs: ['npc-kaia'] },
-    { id: 'forest', label: { en: 'The forest edge', es: 'El linde del bosque' }, pos: [4.5, -4], keywords: ['forag', 'berry', 'honey', 'flint', 'wolf', 'lost'] },
-    { id: 'hunt', label: { en: 'The hunting grounds', es: 'El cazadero' }, pos: [4.5, 2.5], keywords: ['hunt', 'beast', 'deer', 'boar', 'predator', 'thorn', 'tracks'], npcs: ['npc-thorn'] },
-    { id: 'river', label: { en: 'The river', es: 'El río' }, pos: [1, 6], keywords: ['water', 'river', 'ice', 'hide', 'tool'] },
-  ],
-  'future-city': [
-    { id: 'pod', label: { en: 'Your sleep pod', es: 'Tu cápsula' }, pos: [-5.5, 4.5], keywords: ['wake', 'nap', 'memory', 'gene'] },
-    { id: 'street', label: { en: 'Street level', es: 'A pie de calle' }, pos: [0, 2.5], keywords: ['street-market', 'diner', 'hydro', 'ramen', 'overclock', 'elder', 'charity', 'runner', 'arcade', 'broker', 'nyx'], npcs: ['npc-nyx'] },
-    { id: 'tower', label: { en: 'Corporate tower', es: 'La torre corporativa' }, pos: [4.5, -3], keywords: ['boardroom', 'office', 'vance', 'recruiter', 'algorithm', 'crypto', 'union'], npcs: ['npc-vance'] },
-    { id: 'rooftop', label: { en: 'The rooftops', es: 'Las azoteas' }, pos: [-4, -4.5], keywords: ['rooftop', 'farm', 'drone', 'billboard'] },
-    { id: 'underground', label: { en: 'The server district', es: 'El distrito de servidores' }, pos: [4.5, 4.5], keywords: ['server', 'network', 'echo', 'blackout', 'coolant', 'traffic', 'security', 'gig'], npcs: ['npc-echo'] },
-  ],
-  mars: [
-    { id: 'habitat', label: { en: 'Habitat ring', es: 'El anillo habitable' }, pos: [-4, 3], keywords: ['wake', 'ration', 'earth', 'arrival', 'council', 'quota', 'inventory', 'observation'] },
-    { id: 'clinic', label: { en: 'Med bay', es: 'La enfermería' }, pos: [-5.5, -3], keywords: ['clinic', 'okonkwo', 'suit'], npcs: ['npc-okonkwo'] },
-    { id: 'lifesupport', label: { en: 'Life support', es: 'Soporte vital' }, pos: [1.5, -4.5], keywords: ['scrubber', 'rask', 'oxygen', 'hull', 'recycler'], npcs: ['npc-rask'] },
-    { id: 'greenhouse', label: { en: 'The greenhouse', es: 'El invernadero' }, pos: [5.5, -1], keywords: ['greenhouse'] },
-    { id: 'surface', label: { en: 'The surface', es: 'La superficie' }, pos: [4, 5.5], keywords: ['piper', 'ice', 'dust', 'derelict', 'rover', 'eva'], npcs: ['npc-piper'] },
+  giza: [
+    { id: 'house', scene: 'house', label: { en: 'Your house, workers\' town', es: 'Tu casa, poblado de obreros' }, pos: [-1, -1], keywords: ['wake'] },
+    { id: 'bakery', scene: 'village', label: { en: 'The bakery', es: 'La panadería' }, pos: [1, -1], keywords: ['bread', 'grumble', 'orders', 'scribe'] },
+    { id: 'healer', scene: 'village', label: { en: 'Tia\'s courtyard', es: 'El patio de Tia' }, pos: [-2.5, 1.5], keywords: ['tia'] },
+    { id: 'harbour', scene: 'harbour', label: { en: 'The harbour basin', es: 'La dársena del puerto' }, pos: [0, 1], keywords: ['harbour', 'merer', 'casing'] },
+    { id: 'quarry', scene: 'quarry', label: { en: 'The quarry', es: 'La cantera' }, pos: [0, 1], keywords: ['quarry', 'cubit'] },
+    { id: 'ramp-foot', scene: 'pyramid', label: { en: 'Foot of the ramp', es: 'Pie de la rampa' }, pos: [-3, 4], keywords: ['sledge', 'ramp', 'heat', 'north', 'boat-pit', 'accident'] },
+    { id: 'summit', scene: 'pyramid', label: { en: 'Above the King\'s Chamber', es: 'Sobre la Cámara del Rey' }, pos: [2, -2], y: 5.5, via: [-2.4, 3.3], keywords: ['crack', 'set', 'graffiti', 'tomb', 'sunset'] },
   ],
 };
 
 export function getPlaces(eraId) {
-  return PLACES[eraId] || PLACES.greece;
+  return PLACES[eraId] || [];
+}
+
+export function getScenes(eraId) {
+  return SCENES[eraId] || {};
 }
 
 export function getHomePlace(eraId) {
   return getPlaces(eraId)[0];
+}
+
+export function showcaseScene(eraId) {
+  const scenes = getScenes(eraId);
+  return Object.keys(scenes).find(id => scenes[id].showcase) || Object.keys(scenes)[0];
+}
+
+/** Is this NPC physically present in this scene (rather than a voice)? */
+export function npcPresent(eraId, npcId, sceneId) {
+  return (NPC_SCENES[eraId]?.[npcId] || []).includes(sceneId);
 }
 
 function stableHash(text) {
@@ -74,10 +80,6 @@ function stableHash(text) {
 export function placeForCard(eraId, card) {
   const places = getPlaces(eraId);
   if (!card) return places[0];
-  if (card.npcId) {
-    const byNpc = places.find(place => (place.npcs || []).includes(card.npcId));
-    if (byNpc) return byNpc;
-  }
   const id = String(card.id || '');
   const byKeyword = places.find(place => place.keywords.some(keyword => id.includes(keyword)));
   if (byKeyword) return byKeyword;

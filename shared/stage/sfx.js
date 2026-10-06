@@ -43,6 +43,8 @@ export const sfx = {
   bad() { tone(220, { dur: 0.25, type: 'sawtooth', gain: 0.04, slide: -110 }); },
   neutral() { tone(523, { dur: 0.08, type: 'triangle' }); },
   chime() { [784, 988, 1175].forEach((f, i) => tone(f, { at: i * 0.12, dur: 0.3, type: 'triangle', gain: 0.04 })); },
+  /** An alarm clock, a cockpit master alarm, a horn: three urgent beeps. */
+  alarm() { [0, 0.16, 0.32].forEach(at => tone(1320, { at, dur: 0.1, gain: 0.05 })); },
   end(good) {
     const notes = good ? [392, 523, 659, 784, 1047] : [392, 349, 311, 262];
     notes.forEach((f, i) => tone(f, { at: i * 0.14, dur: 0.22, type: 'triangle', gain: 0.07 }));

@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="OneDay: pick an era, live one day of decisions, and find out who they turn you into.">
+  <meta name="description" content="OneDay: live one real day from history, decision by decision, and find every ending.">
   <meta name="theme-color" content="#120e18">
   <meta property="og:type" content="website">
   <meta property="og:title" content="OneDay">
-  <meta property="og:description" content="Pick an era, live one day of decisions, and find out who they turn you into.">
+  <meta property="og:description" content="Live one real day from history, decision by decision, and find every ending.">
   <meta property="og:image" content="https://lucasmarjua-ui.github.io/oneday/assets/social-preview.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:url" content="https://lucasmarjua-ui.github.io/oneday/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="OneDay">
-  <meta name="twitter:description" content="Pick an era, live one day of decisions, and find out who they turn you into.">
+  <meta name="twitter:description" content="Live one real day from history, decision by decision, and find every ending.">
   <meta name="twitter:image" content="https://lucasmarjua-ui.github.io/oneday/assets/social-preview.png">
   <title>OneDay</title>
   <link rel="icon" type="image/svg+xml" href="./favicon.svg">
@@ -56,6 +56,7 @@
           <span class="t8 soft" data-i18n="home.pressStart"></span> <span class="t8" style="color:var(--gold)" id="picker-year"></span>
           <h3 class="picker-name" id="picker-name"></h3>
           <p class="picker-tagline" id="picker-tagline"></p>
+          <p class="t8 picker-progress" id="picker-progress"></p>
         </div>
         <button class="btn btn-icon" type="button" id="next-era" aria-label="Next era"><span id="next-icon"></span></button>
       </div>
@@ -66,8 +67,8 @@
       </div>
       <p class="stats-line t8">
         <b id="stat-eras">–</b> <span data-i18n="home.statsEras"></span> ·
-        <b id="stat-cards">211</b> <span data-i18n="home.statsCards"></span> ·
-        <b id="stat-tests">207</b> <span data-i18n="home.statsTests"></span> ·
+        <b id="stat-cards">56</b> <span data-i18n="home.statsCards"></span> ·
+        <b id="stat-tests">174</b> <span data-i18n="home.statsTests"></span> ·
         <span data-i18n="home.indexHint"></span>
       </p>
     </section>
@@ -147,6 +148,8 @@
     import { getEraProgress } from './shared/achievements.js';
     import { getEraStats } from './shared/stats.js';
     import { getStreak } from './shared/streaks.js';
+    import { getProgress } from './shared/progress.js';
+    import { completion } from './shared/progress-logic.js';
     import { t, localize, loadStrings, getLanguage, setLanguage, onLanguageChange } from './shared/i18n.js';
     import { getLocalDailyResult, todayDateKey, hasPlayedToday } from './shared/daily-challenge.js';
     import { sfx } from './shared/stage/sfx.js';
@@ -208,10 +211,29 @@
       });
     }
 
+    // How much of each event the player has uncovered: endings and facts.
+    const loadedEvents = new Map();
+    function eventData(eraId) {
+      if (!loadedEvents.has(eraId)) loadedEvents.set(eraId, loadEra(eraId));
+      return loadedEvents.get(eraId);
+    }
+    async function renderProgress(eraId) {
+      const el = document.querySelector('#picker-progress');
+      try {
+        const { era, cards } = await eventData(eraId);
+        if (availableEras[selected].id !== eraId) return;
+        const done = completion(getProgress(eraId), era, cards);
+        el.textContent = t('home.progress', { found: done.endings, total: done.totalEndings, facts: done.facts, totalFacts: done.totalFacts });
+      } catch {
+        el.textContent = '';
+      }
+    }
+
     function renderPicker() {
       const era = availableEras[selected];
       document.body.dataset.era = era.id;
-      document.querySelector('#picker-year').textContent = localize(era.year);
+      document.querySelector('#picker-year').textContent = `${localize(era.year)} · ${localize(era.place)}`;
+      renderProgress(era.id);
       document.querySelector('#picker-name').textContent = localize(era.name);
       document.querySelector('#picker-tagline').textContent = localize(era.tagline);
       const playedToday = hasPlayedToday(getLocalDailyResult(era.id), todayDateKey());
@@ -343,6 +365,9 @@
       }
       setLoading(0.8);
       renderPicker();
+      Promise.all(availableEras.map(era => eventData(era.id)))
+        .then(all => { document.querySelector('#stat-cards').textContent = all.reduce((sum, { cards }) => sum + cards.length, 0); })
+        .catch(() => {});
       await stageQueue;
       setLoading(1);
       finishLoading();

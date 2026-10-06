@@ -68,3 +68,11 @@ export function resolveOption(option, context, rng) {
   const outcome = (success ? option.success : option.failure) || { text: {}, resources: {} };
   return { success, chance, outcome };
 }
+
+// Every event opens on the same scene -- waking up -- so the first card of a
+// day is the one the event names as its opening, if it is still playable.
+export function openingCard(cards, era, dayState) {
+  const id = era.day?.openingCard;
+  if (!id || dayState.playedCardIds.length > 0) return null;
+  return cards.find(card => card.id === id) || null;
+}

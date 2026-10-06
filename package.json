@@ -2,7 +2,7 @@
   "name": "oneday",
   "private": true,
   "type": "module",
-  "description": "OneDay: pick an era, build a character, live one decisive day.",
+  "description": "OneDay: live one real day from history, decision by decision, and find every ending.",
   "scripts": {
     "test": "node --test tests/*.test.js"
   }

@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { pickDailyObjectives, isObjectiveComplete } from '../shared/objectives.js';
+import { pickDailyObjectives, isObjectiveComplete, objectiveStatus } from '../shared/objectives.js';
 import { mulberry32 } from '../shared/rng.js';
 
 const era = {
@@ -53,4 +53,17 @@ test('isObjectiveComplete: flagSet', () => {
 
 test('isObjectiveComplete: unknown check type is always false', () => {
   assert.equal(isObjectiveComplete(era.objectivesPool[4], { resourceState: {}, dayState: {} }), false);
+});
+
+test('the live tracker only calls done what can no longer be undone', () => {
+  const [a, b, c, d, e] = era.objectivesPool;
+  const dayState = { minSeen: { thirst: 30 }, flags: ['found-shrine'] };
+  const resourceState = { currency: 120, health: 80, thirst: 30 };
+  assert.equal(objectiveStatus(d, { resourceState, dayState }), 'done');
+  assert.equal(objectiveStatus(a, { resourceState, dayState }), 'holding');
+  assert.equal(objectiveStatus(b, { resourceState, dayState }), 'open');
+  assert.equal(objectiveStatus(c, { resourceState, dayState }), 'holding');
+  assert.equal(objectiveStatus(c, { resourceState, dayState: { ...dayState, minSeen: { thirst: 5 } } }), 'failed');
+  assert.equal(objectiveStatus(d, { resourceState, dayState: { ...dayState, flags: [] } }), 'open');
+  assert.equal(objectiveStatus(e, { resourceState, dayState }), 'open');
 });

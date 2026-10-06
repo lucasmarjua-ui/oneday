@@ -30,12 +30,8 @@
   --button-gold: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12' shape-rendering='crispEdges'%3E%3Crect x='1' y='1' width='10' height='10' fill='%23f2c14e'/%3E%3Cg fill='%230b0910'%3E%3Crect x='2' y='0' width='8' height='1'/%3E%3Crect x='2' y='11' width='8' height='1'/%3E%3Crect x='0' y='2' width='1' height='8'/%3E%3Crect x='11' y='2' width='1' height='8'/%3E%3Crect x='1' y='1' width='1' height='1'/%3E%3Crect x='10' y='1' width='1' height='1'/%3E%3Crect x='1' y='10' width='1' height='1'/%3E%3Crect x='10' y='10' width='1' height='1'/%3E%3C/g%3E%3Crect x='2' y='1' width='8' height='1' fill='%23fff0b8'/%3E%3Crect x='1' y='2' width='1' height='7' fill='%23fff0b8'/%3E%3Crect x='2' y='9' width='8' height='1' fill='%23b7862a'/%3E%3Crect x='10' y='2' width='1' height='8' fill='%23b7862a'/%3E%3C/svg%3E");
 }
 
-body[data-era="greece"] { --accent-h: 38; }
-body[data-era="cordoba"] { --accent-h: 152; }
-body[data-era="edo"] { --accent-h: 350; }
-body[data-era="neanderthal"] { --accent-h: 24; }
-body[data-era="future-city"] { --accent-h: 300; }
-body[data-era="mars"] { --accent-h: 16; }
+body[data-era="apollo-11"] { --accent-h: 215; }
+body[data-era="giza"] { --accent-h: 40; }
 
 * { box-sizing: border-box; }
 
@@ -88,7 +84,48 @@ a { color: inherit; }
   transition: filter 0.6s;
 }
 
-.stage-canvas { display: block; image-rendering: pixelated; }
+.stage.stage-interior {
+  background: radial-gradient(ellipse at 50% 35%, #2e2638 0%, #120e18 72%);
+}
+
+/* Space: black, with a scatter of pixel stars. */
+.stage.stage-space {
+  background:
+    radial-gradient(2px 2px at 12% 18%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 78% 12%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 34% 8%, #cfe0ff 50%, transparent 51%),
+    radial-gradient(2px 2px at 91% 41%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 6% 52%, #ffe9c4 50%, transparent 51%),
+    radial-gradient(2px 2px at 58% 27%, #fff 50%, transparent 51%),
+    radial-gradient(2px 2px at 24% 36%, #cfe0ff 50%, transparent 51%),
+    radial-gradient(2px 2px at 68% 58%, #fff 50%, transparent 51%),
+    linear-gradient(180deg, var(--sky-top, #04050c) 0%, var(--sky-horizon, #0d1024) 100%);
+  background-size: 420px 300px, 420px 300px, 420px 300px, 420px 300px, 420px 300px, 420px 300px, 420px 300px, 420px 300px, auto;
+}
+
+/* The canvas is centred on the stage, so it can only ever overflow evenly. */
+.stage-canvas {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  transform: translate(-50%, -50%);
+  image-rendering: pixelated;
+  transition: opacity 0.24s steps(4);
+}
+
+.stage-fade .stage-canvas, .stage-fade .stage-labels { opacity: 0; }
+
+.stage.stage-alarm::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 6px rgb(255 59 59 / 0.75), inset 0 0 80px rgb(255 40 40 / 0.35);
+  animation: alarm-blink 0.7s steps(2) infinite;
+}
+
+@keyframes alarm-blink { 50% { opacity: 0; } }
 
 .stage-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
 
@@ -116,6 +153,8 @@ a { color: inherit; }
   text-shadow: none;
   box-shadow: 0 0 0 2px var(--night), 0 0 0 4px rgb(246 241 231 / 0.85);
 }
+
+.stage-label.npc-tag.voice { color: #7fe3ff; }
 
 .stage-critical { filter: saturate(0.5) contrast(1.05); }
 
@@ -486,6 +525,45 @@ body.no-stage .stage { background: radial-gradient(circle at 50% 30%, hsl(var(--
 .unlock { margin-top: 10px; padding: 8px; border: 8px solid transparent; border-image: var(--frame-gold) 4 fill / 8px stretch; animation: pop 0.3s steps(4) both; }
 
 .recap p { margin: 0 0 6px; color: var(--ink-soft); }
+
+/* --- Briefing, historical notes, endings, collection ----------------------- */
+
+.briefing .brief-name { margin: 8px 0 4px; font-family: var(--font-pixel); font-size: 32px; font-weight: 400; line-height: 1.1; text-transform: uppercase; color: var(--gold); text-shadow: 0 3px 0 #000; }
+.brief-when { margin: 0 0 16px; color: var(--accent); }
+.briefing .col-head { margin-top: 16px; }
+.brief-collection { margin-top: 16px; }
+
+.fact-note { margin-top: 12px; padding: 8px 10px; border-left: 4px solid var(--gold); background: rgb(242 193 78 / 0.08); }
+.fact-note p { margin: 6px 0 0; color: var(--ink-soft); }
+.fact-head { display: inline-flex; gap: 8px; align-items: center; color: var(--gold); }
+
+.ending-badge { display: inline-block; margin-left: 8px; padding: 4px 6px 3px; color: #120e18; background: var(--accent); }
+.ending-badge.historical { background: var(--gold); }
+.verdict-desc.bad { color: var(--bad); }
+.new-ending { margin: 4px 0 8px; color: var(--good); animation: pulse 1s steps(4) 3; }
+.history-box { margin: 16px 0 0; padding: 8px 10px; border: 8px solid transparent; border-image: var(--frame-slot) 4 fill / 8px stretch; }
+.history-box p { margin: 0; color: var(--ink-soft); }
+.facts-list li { align-items: flex-start; }
+.new-tag { padding: 2px 4px 1px; color: #0b2412; background: var(--good); }
+.collection { display: grid; gap: 8px; }
+.collection-row { display: grid; grid-template-columns: 1fr 120px; gap: 10px; align-items: center; font-family: var(--font-pixel); font-size: 16px; }
+.collection-bar { height: 8px; background: var(--line); }
+.collection-bar span { display: block; height: 100%; background: var(--gold); }
+.picker-progress { margin: 8px 0 0; color: var(--gold); }
+
+.quests { margin-top: 2px; padding-top: 8px; border-top: 2px solid var(--line); }
+.quests ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.quest { display: grid; grid-template-columns: 12px 1fr; gap: 6px; font-size: 16px; line-height: 1; color: var(--ink-soft); }
+.quest .mark { font-family: var(--font-pixel); font-size: 8px; line-height: 2; color: var(--ink-faint); }
+.quest.done { color: var(--good); }
+.quest.done .mark { color: var(--good); }
+.quest.holding .mark { color: var(--gold); }
+.quest.failed { color: var(--ink-faint); text-decoration: line-through; }
+.quest.failed .mark { color: var(--bad); }
+
+#toast-host { position: fixed; top: 132px; left: 50%; z-index: 40; display: grid; gap: 8px; transform: translateX(-50%); pointer-events: none; }
+.toast { display: grid; gap: 4px; padding: 6px 12px; text-align: center; animation: toast 3.2s steps(16) forwards; }
+@keyframes toast { 0% { opacity: 0; transform: translateY(-12px); } 8%, 85% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 .actions-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
 .muted { color: var(--ink-faint); }
 
@@ -629,6 +707,8 @@ body.no-stage .stage { background: radial-gradient(circle at 50% 30%, hsl(var(--
   .clock .day-track { grid-column: span 2; margin-top: 4px; }
   .hud { top: 136px; left: 8px; right: 8px; width: auto; grid-template-columns: repeat(3, 1fr); gap: 6px 10px; padding: 0 2px; }
   .hud .leaning { grid-column: span 3; }
+  .hud .quests { display: none; }
+  #toast-host { top: 40%; width: calc(100vw - 32px); }
   .res { grid-template-columns: 16px 1fr auto; gap: 2px 6px; }
   .dialog { bottom: 8px; width: calc(100vw - 16px); }
   .dialog-body { grid-template-columns: 1fr; gap: 8px; max-height: 56vh; }
