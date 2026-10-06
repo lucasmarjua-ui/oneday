@@ -1,0 +1,453 @@
+{
+  "id": "d-day",
+  "name": {
+    "en": "D-Day: Omaha Beach",
+    "es": "Día D: Omaha Beach"
+  },
+  "tagline": {
+    "en": "6 June 1944. A medic's longest day, from a troopship to the top of the bluffs.",
+    "es": "6 de junio de 1944. El día más largo de un sanitario, de un barco de tropas a lo alto de los acantilados."
+  },
+  "role": {
+    "en": "You are Ray Novak, 19, a combat medic with the 116th Infantry Regiment, a National Guard unit from Virginia. You carry no rifle, only a Red Cross armband, morphine, sulfa powder and bandages. In a few hours your company lands on the stretch of Omaha Beach codenamed Dog Green.",
+    "es": "Eres Ray Novak, 19 años, sanitario de combate del 116.º Regimiento de Infantería, una unidad de la Guardia Nacional de Virginia. No llevas fusil, solo un brazalete de la Cruz Roja, morfina, sulfamida y vendas. En unas horas tu compañía desembarca en el tramo de Omaha Beach llamado Dog Green."
+  },
+  "history": {
+    "en": "On 6 June 1944 about 156,000 Allied soldiers landed in Normandy by sea and air, on five beaches: Utah and Omaha (American), Gold and Sword (British) and Juno (Canadian). Omaha was the bloodiest. Rough seas sank most of the swimming tanks, the bombers missed the defences, and the first waves landed under fire from bluffs held by a German division stronger than expected. For hours the attack hung in the balance. Small groups, rallied by officers like Brigadier General Norman Cota, blew gaps in the wire and climbed the bluffs between the strongpoints, and destroyers came dangerously close inshore to fire on them. By nightfall the Americans held a strip about 2 km deep, at a cost of some 2,400 casualties at Omaha alone. The town of Bedford, Virginia, lost 19 of its young men that morning, proportionally the heaviest loss of any American community.",
+    "es": "El 6 de junio de 1944 unos 156.000 soldados aliados desembarcaron en Normandía por mar y aire, en cinco playas: Utah y Omaha (estadounidenses), Gold y Sword (británicas) y Juno (canadiense). Omaha fue la más sangrienta. El mar agitado hundió la mayoría de los tanques anfibios, los bombarderos fallaron sus objetivos y las primeras oleadas desembarcaron bajo el fuego de unos acantilados defendidos por una división alemana más fuerte de lo previsto. Durante horas el ataque estuvo en el aire. Pequeños grupos, reunidos por oficiales como el general de brigada Norman Cota, abrieron brechas en las alambradas y escalaron los acantilados entre los puntos fortificados, y los destructores se acercaron peligrosamente a la costa para dispararles. Al anochecer los estadounidenses tenían una franja de unos 2 km de fondo, a costa de unas 2.400 bajas solo en Omaha. El pueblo de Bedford, en Virginia, perdió aquella mañana a 19 de sus jóvenes, proporcionalmente la mayor pérdida de una comunidad estadounidense."
+  },
+  "day": {
+    "totalTime": 17,
+    "startLabel": "03:00",
+    "endLabel": "20:00",
+    "openingCard": "dday-wake",
+    "slots": [
+      {
+        "id": "ship",
+        "label": {
+          "en": "Aboard the troopship",
+          "es": "A bordo del transporte"
+        },
+        "from": 0,
+        "to": 2
+      },
+      {
+        "id": "run-in",
+        "label": {
+          "en": "The run-in",
+          "es": "La aproximación"
+        },
+        "from": 2,
+        "to": 4
+      },
+      {
+        "id": "beach",
+        "label": {
+          "en": "Omaha Beach",
+          "es": "Omaha Beach"
+        },
+        "from": 4,
+        "to": 10
+      },
+      {
+        "id": "inland",
+        "label": {
+          "en": "The bluffs",
+          "es": "Los acantilados"
+        },
+        "from": 10,
+        "to": 17
+      }
+    ]
+  },
+  "resources": {
+    "health": {
+      "label": {
+        "en": "Health",
+        "es": "Salud"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 100,
+      "critical": true
+    },
+    "courage": {
+      "label": {
+        "en": "Nerve",
+        "es": "Temple"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 70,
+      "critical": true
+    },
+    "energy": {
+      "label": {
+        "en": "Stamina",
+        "es": "Aguante"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 80
+    },
+    "supplies": {
+      "label": {
+        "en": "Medical kit",
+        "es": "Botiquín"
+      },
+      "min": 0,
+      "max": 100,
+      "start": 100
+    },
+    "saved": {
+      "label": {
+        "en": "Men treated",
+        "es": "Hombres atendidos"
+      },
+      "min": 0,
+      "max": 99,
+      "start": 0
+    }
+  },
+  "npcs": [
+    {
+      "id": "npc-sarge",
+      "name": {
+        "en": "Sergeant Kowalski",
+        "es": "Sargento Kowalski"
+      },
+      "role": {
+        "en": "Your section sergeant",
+        "es": "Tu sargento de sección"
+      },
+      "portraitColor": "#6b7a4a",
+      "attitudeCounter": "sargeTrust"
+    },
+    {
+      "id": "npc-eddie",
+      "name": {
+        "en": "Eddie",
+        "es": "Eddie"
+      },
+      "role": {
+        "en": "Rifleman, from Bedford, Virginia",
+        "es": "Fusilero, de Bedford, Virginia"
+      },
+      "portraitColor": "#8a7a52",
+      "attitudeCounter": "eddieBond"
+    },
+    {
+      "id": "npc-cota",
+      "name": {
+        "en": "General Cota",
+        "es": "General Cota"
+      },
+      "role": {
+        "en": "Assistant commander, 29th Division",
+        "es": "Segundo jefe, 29.ª División"
+      },
+      "portraitColor": "#5a6b7a",
+      "attitudeCounter": "cotaNotice"
+    }
+  ],
+  "personas": [
+    {
+      "id": "first-up",
+      "trait": "bold",
+      "name": {
+        "en": "First Up the Bluff",
+        "es": "El Primero en Subir"
+      },
+      "description": {
+        "en": "Where others froze, you ran. More than once, men got up because they saw you go.",
+        "es": "Donde otros se quedaban helados, tú corrías. Más de una vez, otros se levantaron porque te vieron ir."
+      }
+    },
+    {
+      "id": "survivor",
+      "trait": "prudent",
+      "name": {
+        "en": "The Survivor",
+        "es": "El Superviviente"
+      },
+      "description": {
+        "en": "You picked your moments and your cover. A live medic saves more men than a dead hero.",
+        "es": "Elegiste tus momentos y tus coberturas. Un sanitario vivo salva a más hombres que un héroe muerto."
+      }
+    },
+    {
+      "id": "doc",
+      "trait": "generous",
+      "name": {
+        "en": "\"Doc\"",
+        "es": "\"Doc\""
+      },
+      "description": {
+        "en": "Every shout of 'Medic!' got an answer. Your kit was empty by noon; you kept going with your hands.",
+        "es": "Cada grito de '¡Sanitario!' tuvo respuesta. A mediodía tenías el botiquín vacío; seguiste con las manos."
+      }
+    },
+    {
+      "id": "scrounger",
+      "trait": "cunning",
+      "name": {
+        "en": "The Scrounger",
+        "es": "El Buscavidas"
+      },
+      "description": {
+        "en": "Bandages from a wrecked jeep, morphine from a sunken boat. You found what the day was missing.",
+        "es": "Vendas de un jeep destrozado, morfina de una lancha hundida. Encontraste lo que le faltaba al día."
+      }
+    },
+    {
+      "id": "steady-hands",
+      "trait": "diligent",
+      "name": {
+        "en": "Steady Hands",
+        "es": "Manos Firmes"
+      },
+      "description": {
+        "en": "Tourniquet, sulfa, dressing, tag. The same way every time, under any fire.",
+        "es": "Torniquete, sulfamida, vendaje, etiqueta. Siempre igual, bajo cualquier fuego."
+      }
+    },
+    {
+      "id": "observer",
+      "trait": "curious",
+      "name": {
+        "en": "The Observer",
+        "es": "El Observador"
+      },
+      "description": {
+        "en": "You noticed the gaps in the wire, the path up the bluff, the tide. Details kept men alive.",
+        "es": "Te fijaste en los huecos de la alambrada, el sendero del acantilado, la marea. Los detalles mantuvieron vivos a otros."
+      }
+    },
+    {
+      "id": "one-of-thousands",
+      "trait": null,
+      "name": {
+        "en": "One of 156,000",
+        "es": "Uno de 156.000"
+      },
+      "description": {
+        "en": "One soldier among an army that crossed the Channel in a single day. Every one of them had a day like yours.",
+        "es": "Un soldado más en un ejército que cruzó el Canal en un solo día. Cada uno de ellos tuvo un día como el tuyo."
+      }
+    }
+  ],
+  "endings": [
+    {
+      "id": "wounded",
+      "when": {
+        "depleted": "health"
+      },
+      "title": {
+        "en": "Wounded on Omaha",
+        "es": "Herido en Omaha"
+      },
+      "description": {
+        "en": "Another medic reaches you on the sand. By evening you are on a ship back to England with a tag on your jacket. Your war is over; you will live.",
+        "es": "Otro sanitario llega hasta ti en la arena. Al anochecer vas en un barco de vuelta a Inglaterra con una etiqueta en la chaqueta. Tu guerra ha terminado; vivirás."
+      }
+    },
+    {
+      "id": "pinned",
+      "when": {
+        "depleted": "courage"
+      },
+      "title": {
+        "en": "Pinned at the Shingle",
+        "es": "Clavado en los guijarros"
+      },
+      "description": {
+        "en": "You cannot make your legs move again. You stay behind the shingle bank until dark, treating whoever crawls to you. Nobody who was there blames you.",
+        "es": "No consigues que tus piernas vuelvan a moverse. Te quedas tras el banco de guijarros hasta el anochecer, atendiendo a quien se arrastra hasta ti. Nadie que estuviera allí te lo reprocha."
+      }
+    },
+    {
+      "id": "swamped",
+      "when": {
+        "flagsRequired": [
+          "swamped"
+        ]
+      },
+      "title": {
+        "en": "Swamped Off Omaha",
+        "es": "Hundidos frente a Omaha"
+      },
+      "description": {
+        "en": "Your landing craft fills with water and goes down a mile out. A passing boat fishes you out of the sea, shivering, alive, and takes you back to the fleet.",
+        "es": "Tu lancha se llena de agua y se hunde a una milla de la costa. Una embarcación que pasa te saca del mar, tiritando y vivo, y te devuelve a la flota."
+      }
+    },
+    {
+      "id": "medal",
+      "when": {
+        "flagsRequired": [
+          "bluff-climbed"
+        ],
+        "resources": {
+          "saved": {
+            "min": 20
+          }
+        }
+      },
+      "title": {
+        "en": "The Medic of Dog Green",
+        "es": "El sanitario de Dog Green"
+      },
+      "description": {
+        "en": "You reached the top of the bluffs with a trail of patched-up men behind you. Months later, a citation arrives. You never talk about it.",
+        "es": "Llegaste a lo alto de los acantilados con un reguero de hombres curados detrás de ti. Meses después llega una condecoración. Nunca hablas de ello."
+      }
+    },
+    {
+      "id": "toehold",
+      "historical": true,
+      "when": {
+        "flagsRequired": [
+          "bluff-climbed"
+        ]
+      },
+      "title": {
+        "en": "A Toehold in France",
+        "es": "Un pie en Francia"
+      },
+      "description": {
+        "en": "By nightfall you are dug in above the beach, in a strip of France barely two kilometres deep. It cost thousands of men. It held. That is how it went.",
+        "es": "Al anochecer estás atrincherado sobre la playa, en una franja de Francia de apenas dos kilómetros. Costó miles de hombres. Aguantó. Así fue."
+      }
+    },
+    {
+      "id": "still-on-the-beach",
+      "when": {},
+      "title": {
+        "en": "Still on the Beach",
+        "es": "Todavía en la playa"
+      },
+      "description": {
+        "en": "Night falls with you still on the sand, between the tide and the seawall. Others have climbed the bluffs; tomorrow you will follow.",
+        "es": "Cae la noche y sigues en la arena, entre la marea y el muro. Otros han subido los acantilados; mañana los seguirás."
+      }
+    }
+  ],
+  "objectivesPool": [
+    {
+      "id": "off-beach",
+      "description": {
+        "en": "Get off the beach and up the bluffs",
+        "es": "Sal de la playa y sube los acantilados"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "bluff-climbed"
+      }
+    },
+    {
+      "id": "treat-10",
+      "description": {
+        "en": "Treat 10 wounded men",
+        "es": "Atiende a 10 heridos"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "saved",
+        "value": 10
+      }
+    },
+    {
+      "id": "eddie",
+      "description": {
+        "en": "Keep Eddie alive",
+        "es": "Mantén vivo a Eddie"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "eddie-saved"
+      }
+    },
+    {
+      "id": "gap",
+      "description": {
+        "en": "Help blow a gap in the wire",
+        "es": "Ayuda a abrir una brecha en la alambrada"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "wire-breached"
+      }
+    },
+    {
+      "id": "nerve",
+      "description": {
+        "en": "Never let your nerve drop below 30",
+        "es": "Que tu temple nunca baje de 30"
+      },
+      "check": {
+        "type": "resourceNeverBelow",
+        "resource": "courage",
+        "value": 30
+      }
+    },
+    {
+      "id": "kit",
+      "description": {
+        "en": "End the day with some medical kit left",
+        "es": "Termina el día con algo de botiquín"
+      },
+      "check": {
+        "type": "resourceAtLeast",
+        "resource": "supplies",
+        "value": 20
+      }
+    },
+    {
+      "id": "prisoner",
+      "description": {
+        "en": "Treat a wounded enemy soldier",
+        "es": "Atiende a un soldado enemigo herido"
+      },
+      "check": {
+        "type": "flagSet",
+        "flag": "treated-enemy"
+      }
+    }
+  ],
+  "metaAchievements": [
+    {
+      "id": "angel-of-omaha",
+      "title": {
+        "en": "Angel of Omaha",
+        "es": "Ángel de Omaha"
+      },
+      "description": {
+        "en": "Treat 60 men across playthroughs.",
+        "es": "Atiende a 60 hombres a lo largo de varias partidas."
+      },
+      "accumulates": "saved",
+      "threshold": 60
+    },
+    {
+      "id": "iron-nerve",
+      "title": {
+        "en": "Iron Nerve",
+        "es": "Temple de acero"
+      },
+      "description": {
+        "en": "Gather 300 nerve across playthroughs.",
+        "es": "Acumula 300 de temple a lo largo de varias partidas."
+      },
+      "accumulates": "courage",
+      "threshold": 300
+    }
+  ],
+  "memories": {
+    "flags": [],
+    "counters": [
+      "sargeTrust",
+      "eddieBond",
+      "cotaNotice"
+    ]
+  }
+}

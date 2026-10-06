@@ -1,0 +1,2850 @@
+[
+  {
+    "id": "tenoch-wake",
+    "text": {
+      "en": "A conch trumpet groans from the temple of Iztapalapa, then the drums. You wake in a room of Cuitlahuac's palace, smelling of cedar and flowers. Today you enter Tenochtitlan.",
+      "es": "Una caracola gime desde el templo de Iztapalapa, luego los tambores. Despiertas en una sala del palacio de Cuitláhuac, que huele a cedro y a flores. Hoy entras en Tenochtitlan."
+    },
+    "timeSlots": [
+      "dawn"
+    ],
+    "weight": 100,
+    "fact": {
+      "en": "Cortés described the palace of Iztapalapa, home of Moctezuma's brother Cuitlahuac, as being as good as the finest in Spain, with gardens, orchards and a great pool of fresh water.",
+      "es": "Cortés describió el palacio de Iztapalapa, residencia de Cuitláhuac, hermano de Moctezuma, como tan bueno como los mejores de España, con jardines, huertos y un gran estanque de agua dulce."
+    },
+    "options": [
+      {
+        "id": "rehearse",
+        "text": {
+          "en": "Rehearse the words of greeting in both tongues",
+          "es": "Ensaya las palabras de saludo en ambas lenguas"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "voice": 5,
+            "reputation": 3
+          },
+          "text": {
+            "en": "Nahuatl, Maya, Nahuatl again. The courtly forms come back to you like a song.",
+            "es": "Náhuatl, maya, náhuatl otra vez. Las fórmulas de corte vuelven a ti como una canción."
+          }
+        }
+      },
+      {
+        "id": "gardens",
+        "text": {
+          "en": "Walk out into the palace gardens",
+          "es": "Sal a los jardines del palacio"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 1,
+            "voice": 3
+          },
+          "text": {
+            "en": "Fruit trees, roses, a stone pool full of fish, birds on the water. Even the Spaniards go quiet here.",
+            "es": "Árboles frutales, rosas, un estanque de piedra lleno de peces, aves en el agua. Hasta los españoles callan aquí."
+          }
+        }
+      },
+      {
+        "id": "sleep",
+        "text": {
+          "en": "Let the drums play and rest a moment longer",
+          "es": "Deja sonar los tambores y descansa un poco más"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "voice": 10
+          },
+          "text": {
+            "en": "A long day of speaking lies ahead. You save your voice.",
+            "es": "Te espera un largo día hablando. Guardas la voz."
+          }
+        }
+      }
+    ],
+    "alarm": true
+  },
+  {
+    "id": "tenoch-allies",
+    "text": {
+      "en": "The Tlaxcalan captains are painting for war. \"We enter the city of our enemies today,\" one says. \"Let them see us.\"",
+      "es": "Los capitanes tlaxcaltecas se pintan para la guerra. \"Hoy entramos en la ciudad de nuestros enemigos\", dice uno. \"Que nos vean\"."
+    },
+    "timeSlots": [
+      "dawn",
+      "causeway"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsExcluded": [
+        "march"
+      ]
+    },
+    "fact": {
+      "en": "Tlaxcala was an independent state that the Mexica had never conquered. Several thousand Tlaxcalan warriors marched with Cortés; without allies like them the conquest would have been impossible.",
+      "es": "Tlaxcala era un estado independiente que los mexicas nunca habían conquistado. Varios miles de guerreros tlaxcaltecas marchaban con Cortés; sin aliados como ellos la conquista habría sido imposible."
+    },
+    "options": [
+      {
+        "id": "rear",
+        "text": {
+          "en": "Persuade them to march at the rear, weapons lowered",
+          "es": "Convéncelos de marchar en la retaguardia, con las armas bajas"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.65,
+          "resourceBonus": {
+            "resource": "voice",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "peace": 10
+          },
+          "flagsSet": [
+            "march"
+          ],
+          "text": {
+            "en": "Grumbling, they agree. The Mexica will see guests first, enemies second.",
+            "es": "Refunfuñando, aceptan. Los mexicas verán primero invitados y después enemigos."
+          }
+        },
+        "failure": {
+          "resources": {
+            "peace": -10
+          },
+          "flagsSet": [
+            "march"
+          ],
+          "text": {
+            "en": "They refuse. Feathered shields and war cries at the front.",
+            "es": "Se niegan. Escudos de plumas y gritos de guerra en cabeza."
+          }
+        }
+      },
+      {
+        "id": "let-them",
+        "text": {
+          "en": "Let them march as they wish",
+          "es": "Déjalos marchar como quieran"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": -12,
+            "reputation": 3
+          },
+          "flagsSet": [
+            "march"
+          ],
+          "text": {
+            "en": "Drums, banners, painted faces. Across the lake, people are watching.",
+            "es": "Tambores, estandartes, rostros pintados. Al otro lado del lago, la gente mira."
+          }
+        }
+      },
+      {
+        "id": "ask-cortes",
+        "text": {
+          "en": "Translate the matter to Cortés and let him decide",
+          "es": "Traduce el asunto a Cortés y deja que decida"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 3,
+            "reputation": 5
+          },
+          "flagsSet": [
+            "march"
+          ],
+          "countersAdd": {
+            "cortesTrust": 1
+          },
+          "text": {
+            "en": "He wants a show of strength, but not too much. A compromise: armed, but silent.",
+            "es": "Quiere una muestra de fuerza, pero no demasiada. Un término medio: armados, pero en silencio."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-cortes-quetzal",
+    "npcId": "npc-cortes",
+    "threadId": "cortes-thread",
+    "text": {
+      "en": "Cortés finds you by the pool. \"Marina. Do they think we are gods? The men say so.\"",
+      "es": "Cortés te encuentra junto al estanque. \"Marina, ¿creen que somos dioses? Los hombres lo dicen\"."
+    },
+    "timeSlots": [
+      "dawn",
+      "causeway"
+    ],
+    "weight": 6,
+    "fact": {
+      "en": "The story that the Mexica took Cortés for the returning god Quetzalcoatl is doubted by most historians today: it appears only in accounts written decades after the conquest.",
+      "es": "La historia de que los mexicas tomaron a Cortés por el dios Quetzalcóatl que regresaba es puesta en duda hoy por la mayoría de historiadores: solo aparece en relatos escritos décadas después de la conquista."
+    },
+    "options": [
+      {
+        "id": "truth",
+        "text": {
+          "en": "\"No. They think you are dangerous strangers.\"",
+          "es": "\"No. Creen que sois extranjeros peligrosos\""
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5,
+            "insight": 1
+          },
+          "countersAdd": {
+            "cortesTrust": 2
+          },
+          "text": {
+            "en": "He frowns, then nods. \"Better to know.\"",
+            "es": "Frunce el ceño y asiente. \"Mejor saberlo\"."
+          }
+        }
+      },
+      {
+        "id": "let-him",
+        "text": {
+          "en": "\"Let them wonder. It keeps you safe.\"",
+          "es": "\"Que se lo pregunten. Eso os protege\""
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8,
+            "peace": -5
+          },
+          "countersAdd": {
+            "cortesTrust": 1
+          },
+          "text": {
+            "en": "He smiles. He likes that answer more than he should.",
+            "es": "Sonríe. Le gusta esa respuesta más de lo que debería."
+          }
+        }
+      },
+      {
+        "id": "explain",
+        "text": {
+          "en": "Explain who the Mexica gods really are",
+          "es": "Explícale quiénes son de verdad los dioses mexicas"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 2
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2,
+            "voice": -5
+          },
+          "countersAdd": {
+            "cortesTrust": 1
+          },
+          "text": {
+            "en": "Huitzilopochtli, Tlaloc, Quetzalcoatl. He listens, for once, all the way through.",
+            "es": "Huitzilopochtli, Tláloc, Quetzalcóatl. Por una vez, escucha hasta el final."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-aguilar-1",
+    "npcId": "npc-aguilar",
+    "threadId": "aguilar-thread",
+    "text": {
+      "en": "Aguilar rubs his eyes. \"You put it into Maya, I put it into Spanish. Every word crosses three languages. Pray we lose nothing on the way.\"",
+      "es": "Aguilar se frota los ojos. \"Tú lo pasas al maya, yo al castellano. Cada palabra cruza tres lenguas. Recemos para no perder nada por el camino\"."
+    },
+    "timeSlots": [
+      "dawn"
+    ],
+    "weight": 6,
+    "fact": {
+      "en": "Jerónimo de Aguilar was shipwrecked off Yucatán in 1511 and lived eight years among the Maya. Malintzin translated Nahuatl into Maya, Aguilar Maya into Spanish, until she learned Spanish herself.",
+      "es": "Jerónimo de Aguilar naufragó frente a Yucatán en 1511 y vivió ocho años entre los mayas. Malintzin traducía del náhuatl al maya y Aguilar del maya al castellano, hasta que ella aprendió castellano."
+    },
+    "options": [
+      {
+        "id": "practise",
+        "text": {
+          "en": "Practise the courtly phrases together",
+          "es": "Practicad juntos las frases de corte"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "voice": -5,
+            "reputation": 5
+          },
+          "flagsSet": [
+            "practised"
+          ],
+          "countersAdd": {
+            "aguilarBond": 2
+          },
+          "text": {
+            "en": "By the time the drums stop you have a dozen phrases agreed, word for word.",
+            "es": "Cuando los tambores callan tenéis una docena de frases acordadas, palabra por palabra."
+          }
+        }
+      },
+      {
+        "id": "spanish",
+        "text": {
+          "en": "Tell him you will speak Spanish yourself",
+          "es": "Dile que hablarás tú misma en castellano"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.5,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.05
+          }
+        },
+        "success": {
+          "resources": {
+            "reputation": 8
+          },
+          "flagsSet": [
+            "practised"
+          ],
+          "countersAdd": {
+            "aguilarBond": 1
+          },
+          "text": {
+            "en": "Your Spanish is rough but clear. He laughs. \"Soon they will not need me.\"",
+            "es": "Tu castellano es tosco pero claro. Se ríe. \"Pronto no me necesitarán\"."
+          }
+        },
+        "failure": {
+          "resources": {
+            "voice": -5
+          },
+          "countersAdd": {
+            "aguilarBond": 1
+          },
+          "text": {
+            "en": "A word goes wrong and the soldiers snicker. Aguilar steps in.",
+            "es": "Una palabra sale mal y los soldados se ríen. Aguilar interviene."
+          }
+        }
+      },
+      {
+        "id": "ask-story",
+        "text": {
+          "en": "Ask about his eight years among the Maya",
+          "es": "Pregúntale por sus ocho años entre los mayas"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 1
+          },
+          "countersAdd": {
+            "aguilarBond": 2
+          },
+          "text": {
+            "en": "A shipwreck, captivity, a new life. He speaks Maya better than Spanish now, he admits.",
+            "es": "Un naufragio, el cautiverio, una vida nueva. Ahora habla mejor maya que castellano, admite."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-memory",
+    "text": {
+      "en": "In the quiet, you think of the girl you were: a noble's daughter in Coatzacoalcos, given away, sold, then handed to the strangers with nineteen other women in Tabasco.",
+      "es": "En el silencio piensas en la niña que fuiste: hija de nobles en Coatzacoalcos, regalada, vendida y luego entregada a los extranjeros con otras diecinueve mujeres en Tabasco."
+    },
+    "timeSlots": [
+      "dawn"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "Malintzin was born to a noble Nahua family near Coatzacoalcos. As a girl she was sold into slavery and ended up among the Maya of Tabasco, who gave her to Cortés in March 1519.",
+      "es": "Malintzin nació en una familia noble nahua cerca de Coatzacoalcos. De niña fue vendida como esclava y acabó entre los mayas de Tabasco, que la entregaron a Cortés en marzo de 1519."
+    },
+    "options": [
+      {
+        "id": "resolve",
+        "text": {
+          "en": "Decide that today, your voice will matter",
+          "es": "Decide que hoy tu voz importará"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "voice": 10
+          },
+          "text": {
+            "en": "Nobody chose this life for you kindly. But today, everyone will need you.",
+            "es": "Nadie eligió esta vida para ti con bondad. Pero hoy todos te necesitarán."
+          }
+        }
+      },
+      {
+        "id": "pray",
+        "text": {
+          "en": "Say a quiet prayer to the old gods",
+          "es": "Reza en voz baja a los dioses antiguos"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 3,
+            "voice": 5
+          },
+          "text": {
+            "en": "Old words, your mother's words. They steady you.",
+            "es": "Palabras antiguas, las palabras de tu madre. Te serenan."
+          }
+        }
+      },
+      {
+        "id": "listen",
+        "text": {
+          "en": "Listen to the servants' gossip in Nahuatl",
+          "es": "Escucha los chismes de los sirvientes en náhuatl"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "text": {
+            "en": "The servants say the city has argued for weeks about whether to let the strangers in.",
+            "es": "Los sirvientes dicen que la ciudad lleva semanas discutiendo si dejar entrar a los extranjeros."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-envoy",
+    "text": {
+      "en": "Before the march begins, a lord in a fine mantle arrives from the city. \"The huey tlatoani is unwell. The road is hard. Perhaps the strangers should go back to the sea.\"",
+      "es": "Antes de que empiece la marcha llega de la ciudad un señor con un manto fino. \"El huey tlatoani no se encuentra bien. El camino es difícil. Quizá los extranjeros deberían volver al mar\"."
+    },
+    "timeSlots": [
+      "dawn",
+      "causeway"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "march"
+      ],
+      "flagsExcluded": [
+        "envoy-heard",
+        "turned-back"
+      ]
+    },
+    "fact": {
+      "en": "Moctezuma sent several embassies with rich gifts and polite messages trying to stop the Spaniards on their way inland, without success. Even after Cholula, his envoys still urged them not to come.",
+      "es": "Moctezuma envió varias embajadas con ricos regalos y mensajes corteses para detener a los españoles en su camino tierra adentro, sin éxito. Aun después de Cholula, sus enviados insistían en que no vinieran."
+    },
+    "options": [
+      {
+        "id": "faithful",
+        "text": {
+          "en": "Translate every word, exactly",
+          "es": "Traduce cada palabra, exactamente"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3,
+            "favour": 5
+          },
+          "flagsSet": [
+            "envoy-heard"
+          ],
+          "countersAdd": {
+            "cortesTrust": 1
+          },
+          "text": {
+            "en": "Cortés hears it plainly, thanks the lord, and marches on anyway.",
+            "es": "Cortés lo oye con claridad, da las gracias al señor y sigue adelante igualmente."
+          }
+        }
+      },
+      {
+        "id": "urge-back",
+        "text": {
+          "en": "Add your own advice: turn back",
+          "es": "Añade tu propio consejo: dad la vuelta"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.25,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.04
+          }
+        },
+        "success": {
+          "resources": {
+            "peace": 20,
+            "reputation": -20
+          },
+          "flagsSet": [
+            "envoy-heard",
+            "turned-back"
+          ],
+          "text": {
+            "en": "For a long moment Cortés looks at the city across the water. Then he gives the order to turn back.",
+            "es": "Durante un largo momento Cortés mira la ciudad al otro lado del agua. Luego da la orden de volver."
+          }
+        },
+        "failure": {
+          "resources": {
+            "reputation": -8
+          },
+          "flagsSet": [
+            "envoy-heard"
+          ],
+          "text": {
+            "en": "\"We did not come this far to turn back,\" he says coldly.",
+            "es": "\"No hemos llegado hasta aquí para volver\", dice con frialdad."
+          }
+        }
+      },
+      {
+        "id": "soften",
+        "text": {
+          "en": "Soften it into a polite welcome",
+          "es": "Suavízalo hasta que suene a bienvenida cortés"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5,
+            "favour": -5,
+            "peace": -3
+          },
+          "flagsSet": [
+            "envoy-heard"
+          ],
+          "text": {
+            "en": "Cortés hears only courtesy. The envoy hears that his message was delivered.",
+            "es": "Cortés solo oye cortesía. El enviado oye que su mensaje fue entregado."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-retreat",
+    "text": {
+      "en": "The order runs down the column: turn around. Spaniards curse, Tlaxcalans laugh with relief, and the envoy watches you go, astonished. The long road back to the coast begins.",
+      "es": "La orden recorre la columna: media vuelta. Los españoles maldicen, los tlaxcaltecas ríen aliviados y el enviado os ve marchar, asombrado. Empieza el largo camino de vuelta a la costa."
+    },
+    "timeSlots": [
+      "dawn",
+      "causeway",
+      "meeting",
+      "palace"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "turned-back"
+      ],
+      "flagsExcluded": [
+        "retreated"
+      ]
+    },
+    "fact": {
+      "en": "In the summer of 1519 Cortés had his own ships run aground and wrecked on the coast, so that none of his men could sail back to Cuba. Retreat was never an option he allowed himself.",
+      "es": "En el verano de 1519 Cortés hizo varar y desguazar sus propios barcos en la costa, para que ninguno de sus hombres pudiera volver a Cuba. La retirada nunca fue una opción que se permitiera."
+    },
+    "options": [
+      {
+        "id": "look-back",
+        "text": {
+          "en": "Look back at the city one last time",
+          "es": "Mira la ciudad por última vez"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 16
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 1
+          },
+          "flagsSet": [
+            "retreated"
+          ],
+          "text": {
+            "en": "White towers on blue water. You will never see them closer.",
+            "es": "Torres blancas sobre agua azul. Nunca las verás más de cerca."
+          }
+        }
+      },
+      {
+        "id": "thank-envoy",
+        "text": {
+          "en": "Thank the envoy, in the courtly way",
+          "es": "Da las gracias al enviado, a la manera cortesana"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 16
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 10
+          },
+          "flagsSet": [
+            "retreated"
+          ],
+          "text": {
+            "en": "He bows deeply. Word of the woman who turned the strangers back will reach the palace by noon.",
+            "es": "Se inclina profundamente. La noticia de la mujer que hizo volver a los extranjeros llegará al palacio a mediodía."
+          }
+        }
+      },
+      {
+        "id": "calm-cortes",
+        "text": {
+          "en": "Walk beside Cortés and calm his temper",
+          "es": "Camina junto a Cortés y calma su enfado"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 16
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5
+          },
+          "flagsSet": [
+            "retreated"
+          ],
+          "countersAdd": {
+            "cortesTrust": 1
+          },
+          "text": {
+            "en": "He is silent for hours. Then: \"Another time, Marina.\"",
+            "es": "Pasa horas en silencio. Luego: \"En otra ocasión, Marina\"."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-causeway",
+    "text": {
+      "en": "The causeway runs straight across the lake, wide enough for eight horsemen side by side. Ahead, white towers rise out of the water. Behind you, a soldier whispers: \"It is like the enchantments in the book of Amadís.\"",
+      "es": "La calzada cruza el lago en línea recta, tan ancha que caben ocho jinetes de frente. Delante, torres blancas se alzan sobre el agua. Detrás de ti, un soldado susurra: \"Parece las cosas de encantamiento que cuentan en el libro de Amadís\"."
+    },
+    "timeSlots": [
+      "causeway",
+      "meeting"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "envoy-heard"
+      ],
+      "flagsExcluded": [
+        "on-causeway",
+        "turned-back"
+      ]
+    },
+    "fact": {
+      "en": "The soldier Bernal Díaz del Castillo wrote that, seeing the city from the causeway, they were amazed and said it was like the enchantments in the book of Amadís, a popular romance of chivalry.",
+      "es": "El soldado Bernal Díaz del Castillo escribió que, al ver la ciudad desde la calzada, se quedaron admirados y decían que parecía las cosas de encantamiento que cuentan en el libro de Amadís, una novela de caballerías."
+    },
+    "options": [
+      {
+        "id": "lead",
+        "text": {
+          "en": "Walk at the front, beside Cortés",
+          "es": "Camina en cabeza, junto a Cortés"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5,
+            "voice": -5
+          },
+          "flagsSet": [
+            "on-causeway"
+          ],
+          "countersAdd": {
+            "cortesTrust": 1
+          },
+          "text": {
+            "en": "Thousands of faces turn towards you. They will remember the woman at the front.",
+            "es": "Miles de rostros se vuelven hacia ti. Recordarán a la mujer que iba delante."
+          }
+        }
+      },
+      {
+        "id": "watch",
+        "text": {
+          "en": "Watch the city grow closer",
+          "es": "Mira cómo la ciudad se acerca"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "flagsSet": [
+            "on-causeway"
+          ],
+          "text": {
+            "en": "Temples, palaces, canals, gardens on the water. No city in Spain, the soldiers say, is half as large.",
+            "es": "Templos, palacios, canales, jardines sobre el agua. Ninguna ciudad de España, dicen los soldados, es ni la mitad de grande."
+          }
+        }
+      },
+      {
+        "id": "calm-men",
+        "text": {
+          "en": "Walk among the soldiers and calm their nerves",
+          "es": "Camina entre los soldados y calma sus nervios"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 8,
+            "voice": -5
+          },
+          "flagsSet": [
+            "on-causeway"
+          ],
+          "text": {
+            "en": "A water gourd here, a word there. The swords stay in their scabbards.",
+            "es": "Una calabaza de agua aquí, una palabra allá. Las espadas se quedan en sus vainas."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-chinampas",
+    "text": {
+      "en": "Beside the causeway, farmers pole between long green plots that seem to float on the lake: maize, beans, flowers, all growing on the water.",
+      "es": "Junto a la calzada, unos campesinos avanzan con pértigas entre largas parcelas verdes que parecen flotar en el lago: maíz, frijoles, flores, todo creciendo sobre el agua."
+    },
+    "timeSlots": [
+      "causeway",
+      "meeting"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "Chinampas were fields built up from lake mud and reeds, anchored by willow trees. They could produce several harvests a year and helped feed one of the largest cities in the world.",
+      "es": "Las chinampas eran campos construidos con lodo del lago y juncos, sujetos por sauces. Daban varias cosechas al año y ayudaban a alimentar a una de las mayores ciudades del mundo."
+    },
+    "options": [
+      {
+        "id": "ask-farmer",
+        "text": {
+          "en": "Call out and ask how they are made",
+          "es": "Pregúntales a gritos cómo las hacen"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2,
+            "favour": 3
+          },
+          "text": {
+            "en": "\"Mud from the lake bed, reeds, willow trees to hold it all.\" He is proud of it.",
+            "es": "\"Lodo del fondo del lago, juncos, sauces para sujetarlo todo\". Está orgulloso."
+          }
+        }
+      },
+      {
+        "id": "translate-cortes",
+        "text": {
+          "en": "Explain them to Cortés",
+          "es": "Explícaselas a Cortés"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3,
+            "insight": 1
+          },
+          "text": {
+            "en": "He wants to know how many people they feed. Many, you tell him. Very many.",
+            "es": "Quiere saber a cuánta gente alimentan. A mucha, le dices. A muchísima."
+          }
+        }
+      },
+      {
+        "id": "move-on",
+        "text": {
+          "en": "Keep walking; the column must not stop",
+          "es": "Sigue caminando; la columna no debe detenerse"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 3
+          },
+          "text": {
+            "en": "A long column is a nervous column. You keep it moving.",
+            "es": "Una columna larga es una columna nerviosa. La mantienes en marcha."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-canoes",
+    "text": {
+      "en": "The lake is crowded with canoes, hundreds of them, full of people who have come to stare. Some point; some shout. A child throws a flower.",
+      "es": "El lago está abarrotado de canoas, cientos, llenas de gente que ha venido a mirar. Unos señalan, otros gritan. Un niño lanza una flor."
+    },
+    "timeSlots": [
+      "causeway",
+      "meeting"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "Tenochtitlan was linked to the shore by three great causeways with removable bridges. Most people and goods moved through the city by canoe along its canals.",
+      "es": "Tenochtitlan estaba unida a la orilla por tres grandes calzadas con puentes desmontables. La mayoría de personas y mercancías se movían por la ciudad en canoa por sus canales."
+    },
+    "options": [
+      {
+        "id": "wave",
+        "text": {
+          "en": "Wave and greet them in Nahuatl",
+          "es": "Saluda con la mano y en náhuatl"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 8,
+            "peace": 3
+          },
+          "text": {
+            "en": "\"She speaks like us!\" The word passes from canoe to canoe.",
+            "es": "\"¡Habla como nosotros!\" La voz corre de canoa en canoa."
+          }
+        }
+      },
+      {
+        "id": "listen-crowd",
+        "text": {
+          "en": "Listen to what they are saying",
+          "es": "Escucha lo que dicen"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "text": {
+            "en": "Fear, curiosity, jokes about the beards. And anger about Cholula.",
+            "es": "Miedo, curiosidad, bromas sobre las barbas. Y rabia por Cholula."
+          }
+        }
+      },
+      {
+        "id": "warn-crossbows",
+        "text": {
+          "en": "Warn the crossbowmen not to raise their weapons",
+          "es": "Advierte a los ballesteros que no alcen las armas"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 8,
+            "reputation": -2
+          },
+          "text": {
+            "en": "A tense moment passes. Nobody fires.",
+            "es": "Pasa un momento tenso. Nadie dispara."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-horses",
+    "text": {
+      "en": "A horse snorts and stamps on the causeway. On the nearest canoe, a family shrinks back in terror. They have never seen such an animal.",
+      "es": "Un caballo resopla y patea la calzada. En la canoa más cercana, una familia retrocede aterrada. Nunca han visto un animal así."
+    },
+    "timeSlots": [
+      "causeway",
+      "meeting"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "Horses had been extinct in the Americas for over ten thousand years. The Spaniards brought only a few to Tenochtitlan, but their charges terrified warriors who had never seen one.",
+      "es": "Los caballos llevaban más de diez mil años extinguidos en América. Los españoles solo llevaron unos pocos a Tenochtitlan, pero sus cargas aterraban a guerreros que nunca habían visto uno."
+    },
+    "options": [
+      {
+        "id": "explain-horse",
+        "text": {
+          "en": "Explain that it is an animal, like a great deer",
+          "es": "Explica que es un animal, como un gran venado"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 5,
+            "peace": 3
+          },
+          "text": {
+            "en": "The children laugh nervously. The father keeps his paddle ready.",
+            "es": "Los niños ríen nerviosos. El padre mantiene el remo a punto."
+          }
+        }
+      },
+      {
+        "id": "let-fear",
+        "text": {
+          "en": "Say nothing; their fear protects you",
+          "es": "No digas nada; su miedo os protege"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3,
+            "favour": -5
+          },
+          "text": {
+            "en": "The horses do half your work for you.",
+            "es": "Los caballos hacen la mitad de tu trabajo."
+          }
+        }
+      },
+      {
+        "id": "rider",
+        "text": {
+          "en": "Ask the rider to dismount and lead it",
+          "es": "Pide al jinete que desmonte y lo lleve de la brida"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 5,
+            "voice": -3
+          },
+          "text": {
+            "en": "A horse on a rope is less of a monster.",
+            "es": "Un caballo con una cuerda es menos monstruo."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-aguilar-2",
+    "npcId": "npc-aguilar",
+    "threadId": "aguilar-thread",
+    "text": {
+      "en": "Aguilar hurries up, pale. \"Cortés wants the greeting to say he comes as a friend of their king. But he also wants it to say he serves a greater king. How do we say both?\"",
+      "es": "Aguilar se acerca a toda prisa, pálido. \"Cortés quiere que el saludo diga que viene como amigo de su rey. Pero también que sirve a un rey mayor. ¿Cómo decimos las dos cosas?\""
+    },
+    "timeSlots": [
+      "causeway"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "march"
+      ]
+    },
+    "fact": {
+      "en": "Formal Nahuatl, tecpillatolli, was the polished speech of the nobility, full of metaphors and courtesies. Malintzin, of noble birth, could speak it, which made her far more than a simple interpreter.",
+      "es": "El náhuatl formal, tecpillatolli, era el habla pulida de la nobleza, llena de metáforas y cortesías. Malintzin, de origen noble, podía hablarlo, lo que la hacía mucho más que una simple intérprete."
+    },
+    "options": [
+      {
+        "id": "both",
+        "text": {
+          "en": "Say both, plainly, in the right order",
+          "es": "Dilas las dos, con claridad y en el orden justo"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3,
+            "favour": 3
+          },
+          "countersAdd": {
+            "aguilarBond": 2
+          },
+          "text": {
+            "en": "Friendship first, then the distant emperor. It is honest, and it is clear.",
+            "es": "Primero la amistad, luego el emperador lejano. Es honesto, y es claro."
+          }
+        }
+      },
+      {
+        "id": "drop",
+        "text": {
+          "en": "Quietly drop the part about the greater king",
+          "es": "Omite discretamente lo del rey mayor"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 5,
+            "reputation": -3
+          },
+          "countersAdd": {
+            "aguilarBond": 1
+          },
+          "text": {
+            "en": "Aguilar raises an eyebrow, and lets it go.",
+            "es": "Aguilar alza una ceja y lo deja pasar."
+          }
+        }
+      },
+      {
+        "id": "ask-courtly",
+        "text": {
+          "en": "Use the formal Nahuatl of the nobility",
+          "es": "Usa el náhuatl formal de la nobleza"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 5,
+            "voice": -5
+          },
+          "countersAdd": {
+            "aguilarBond": 1
+          },
+          "text": {
+            "en": "In the courtly tongue, even a claim of empire can sound like a compliment.",
+            "es": "En la lengua cortesana, hasta una pretensión de imperio puede sonar a cumplido."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-meeting",
+    "npcId": "npc-moctezuma",
+    "threadId": "moctezuma-thread",
+    "text": {
+      "en": "Where the causeways meet, the lords of the valley step aside. Moctezuma descends from his litter beneath a canopy of green feathers, supported by two lords, walking on mantles laid on the ground. Cortés dismounts and steps forward, arms open.",
+      "es": "Donde se juntan las calzadas, los señores del valle se apartan. Moctezuma baja de sus andas bajo un palio de plumas verdes, sostenido por dos señores, caminando sobre mantas tendidas en el suelo. Cortés desmonta y avanza con los brazos abiertos."
+    },
+    "timeSlots": [
+      "causeway",
+      "meeting",
+      "palace"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "on-causeway"
+      ],
+      "flagsExcluded": [
+        "met"
+      ]
+    },
+    "fact": {
+      "en": "Cortés wrote that when he went to embrace Moctezuma, the two lords with him stopped him from touching him. The meeting took place at Xoloc, where the causeway from Coyoacán joins the one from Iztapalapa.",
+      "es": "Cortés escribió que, cuando fue a abrazar a Moctezuma, los dos señores que lo acompañaban le impidieron tocarlo. El encuentro tuvo lugar en Xoloc, donde la calzada de Coyoacán se une a la de Iztapalapa."
+    },
+    "options": [
+      {
+        "id": "stop-embrace",
+        "text": {
+          "en": "Warn Cortés: nobody touches the huey tlatoani",
+          "es": "Avisa a Cortés: nadie toca al huey tlatoani"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 12,
+            "favour": 5
+          },
+          "flagsSet": [
+            "met"
+          ],
+          "countersAdd": {
+            "moctezumaRegard": 1
+          },
+          "text": {
+            "en": "He stops short just in time. The lords around Moctezuma breathe again.",
+            "es": "Se detiene justo a tiempo. Los señores que rodean a Moctezuma vuelven a respirar."
+          }
+        }
+      },
+      {
+        "id": "let-embrace",
+        "text": {
+          "en": "Let him try to embrace him",
+          "es": "Deja que intente abrazarlo"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": -15,
+            "favour": -8
+          },
+          "flagsSet": [
+            "met"
+          ],
+          "text": {
+            "en": "Two lords step in and hold Cortés back. A murmur runs through the crowd like wind through reeds.",
+            "es": "Dos señores se interponen y sujetan a Cortés. Un murmullo recorre a la multitud como el viento entre los juncos."
+          }
+        }
+      },
+      {
+        "id": "greet-first",
+        "text": {
+          "en": "Step forward and greet Moctezuma yourself, in courtly Nahuatl",
+          "es": "Adelántate y saluda tú misma a Moctezuma en náhuatl cortesano"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.6,
+          "resourceBonus": {
+            "resource": "voice",
+            "scale": 0.3
+          }
+        },
+        "success": {
+          "resources": {
+            "favour": 12,
+            "peace": 5
+          },
+          "flagsSet": [
+            "met"
+          ],
+          "countersAdd": {
+            "moctezumaRegard": 2
+          },
+          "text": {
+            "en": "He looks at you, a woman who speaks like a lady of his court, and something in his face eases.",
+            "es": "Te mira, una mujer que habla como una dama de su corte, y algo en su rostro se relaja."
+          }
+        },
+        "failure": {
+          "resources": {
+            "favour": -5
+          },
+          "flagsSet": [
+            "met"
+          ],
+          "text": {
+            "en": "A lord answers coldly: women do not address the tlatoani first.",
+            "es": "Un señor responde con frialdad: las mujeres no se dirigen primero al tlatoani."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-necklaces",
+    "npcId": "npc-moctezuma",
+    "threadId": "moctezuma-thread",
+    "text": {
+      "en": "Cortés takes off a necklace of glass beads, scented with musk, and holds it out. Moctezuma's servant brings a gift in return: two necklaces of red shells, each hung with golden shrimps.",
+      "es": "Cortés se quita un collar de cuentas de vidrio, perfumado con almizcle, y lo ofrece. Un servidor de Moctezuma trae un regalo a cambio: dos collares de conchas rojas, de cada uno cuelgan camarones de oro."
+    },
+    "timeSlots": [
+      "meeting",
+      "palace"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "met"
+      ],
+      "flagsExcluded": [
+        "gifts"
+      ]
+    },
+    "fact": {
+      "en": "According to Cortés, he gave Moctezuma a necklace of pearls and cut glass, and received two necklaces of red snail shells hung with gold shrimps. Glass beads were cheap in Europe but unknown in Mexico.",
+      "es": "Según Cortés, él dio a Moctezuma un collar de perlas y vidrio tallado, y recibió dos collares de caracoles rojos de los que colgaban camarones de oro. Las cuentas de vidrio eran baratas en Europa pero desconocidas en México."
+    },
+    "options": [
+      {
+        "id": "praise",
+        "text": {
+          "en": "Translate Cortés's thanks with all the courtesy you know",
+          "es": "Traduce el agradecimiento de Cortés con toda la cortesía que conoces"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 8,
+            "peace": 5
+          },
+          "flagsSet": [
+            "gifts"
+          ],
+          "countersAdd": {
+            "moctezumaRegard": 1
+          },
+          "text": {
+            "en": "Gift for gift, word for word. For a moment the two men are simply two lords.",
+            "es": "Regalo por regalo, palabra por palabra. Por un momento los dos hombres son solo dos señores."
+          }
+        }
+      },
+      {
+        "id": "value",
+        "text": {
+          "en": "Whisper to Cortés what the gift is really worth",
+          "es": "Susurra a Cortés lo que vale de verdad el regalo"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2,
+            "reputation": 3
+          },
+          "flagsSet": [
+            "gifts"
+          ],
+          "text": {
+            "en": "Red spondylus shell from the far coast, gold worked by the best smiths. He understands the honour, and the wealth.",
+            "es": "Concha roja de spondylus de la costa lejana, oro trabajado por los mejores orfebres. Entiende el honor, y la riqueza."
+          }
+        }
+      },
+      {
+        "id": "glass",
+        "text": {
+          "en": "Say nothing about the glass being cheap",
+          "es": "No digas nada de que el vidrio es barato"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 3,
+            "favour": -3
+          },
+          "flagsSet": [
+            "gifts"
+          ],
+          "text": {
+            "en": "Moctezuma wears the beads. You know what they are; he does not.",
+            "es": "Moctezuma se pone las cuentas. Tú sabes lo que son; él no."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-painters",
+    "text": {
+      "en": "Behind the lords, painters kneel with folded books of bark paper, brushing quick pictures: the beards, the horses, the cannon, you.",
+      "es": "Detrás de los señores, unos pintores arrodillados con libros plegados de papel de corteza pintan deprisa: las barbas, los caballos, los cañones, a ti."
+    },
+    "timeSlots": [
+      "meeting",
+      "palace"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "Mexica scribes recorded events in painted books (codices). Moctezuma's envoys brought him paintings of the Spaniards, and later codices such as the Lienzo de Tlaxcala show Malintzin interpreting beside Cortés.",
+      "es": "Los escribas mexicas registraban los hechos en libros pintados (códices). Los enviados de Moctezuma le llevaron pinturas de los españoles, y códices posteriores como el Lienzo de Tlaxcala muestran a Malintzin traduciendo junto a Cortés."
+    },
+    "options": [
+      {
+        "id": "pose",
+        "text": {
+          "en": "Stand where they can draw you clearly",
+          "es": "Ponte donde puedan dibujarte bien"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 3,
+            "insight": 1
+          },
+          "text": {
+            "en": "Centuries from now, people will know your face from pictures like these.",
+            "es": "Dentro de siglos, la gente conocerá tu rostro por dibujos como estos."
+          }
+        }
+      },
+      {
+        "id": "look",
+        "text": {
+          "en": "Look at what they are painting",
+          "es": "Mira lo que están pintando"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "text": {
+            "en": "Spaniards as pale men with yellow hair, horses like great deer, you always beside Cortés, speaking.",
+            "es": "Españoles como hombres pálidos de pelo amarillo, caballos como grandes venados, tú siempre junto a Cortés, hablando."
+          }
+        }
+      },
+      {
+        "id": "hide-guns",
+        "text": {
+          "en": "Ask the gunners to cover the cannon",
+          "es": "Pide a los artilleros que tapen los cañones"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 5
+          },
+          "text": {
+            "en": "A cloth over the bronze. One less fear sent to the palace.",
+            "es": "Una tela sobre el bronce. Un miedo menos enviado al palacio."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-name",
+    "text": {
+      "en": "In the crowd you hear it again and again: \"Malintzin.\" And when they point at Cortés, they call him by your name too: \"Malinche\", Malintzin's lord.",
+      "es": "Entre la multitud lo oyes una y otra vez: \"Malintzin\". Y cuando señalan a Cortés, también lo llaman por tu nombre: \"Malinche\", el señor de Malintzin."
+    },
+    "timeSlots": [
+      "meeting",
+      "palace"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "The Spaniards called her Doña Marina; the Nahua, Malintzin. Cortés became 'Malinche', and centuries later 'malinchista' came to mean someone who prefers foreign things, a reputation historians now question.",
+      "es": "Los españoles la llamaban doña Marina; los nahuas, Malintzin. Cortés pasó a ser 'Malinche' y, siglos después, 'malinchista' llegó a significar quien prefiere lo extranjero, una fama que hoy los historiadores cuestionan."
+    },
+    "options": [
+      {
+        "id": "smile",
+        "text": {
+          "en": "Smile and answer to your name",
+          "es": "Sonríe y responde a tu nombre"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 6
+          },
+          "text": {
+            "en": "They expected a monster's slave. They got a woman who talks back with a smile.",
+            "es": "Esperaban a la esclava de un monstruo. Se encuentran a una mujer que responde con una sonrisa."
+          }
+        }
+      },
+      {
+        "id": "proud",
+        "text": {
+          "en": "Stand taller; they know who speaks here",
+          "es": "Yérguete; saben quién habla aquí"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "voice": 5,
+            "reputation": 2
+          },
+          "text": {
+            "en": "Cortés does not understand why they say your name. You do not tell him.",
+            "es": "Cortés no entiende por qué dicen tu nombre. No se lo cuentas."
+          }
+        }
+      },
+      {
+        "id": "think",
+        "text": {
+          "en": "Wonder how they will remember you",
+          "es": "Pregúntate cómo te recordarán"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 1,
+            "peace": 2
+          },
+          "text": {
+            "en": "A guide, a traitor, a mother, a survivor? Every century will answer differently.",
+            "es": "¿Guía, traidora, madre, superviviente? Cada siglo responderá de forma distinta."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-templo",
+    "text": {
+      "en": "Above the rooftops rises the Great Temple, its stairs climbing to two shrines: one painted blue for Tlaloc, god of rain, one red for Huitzilopochtli, god of war. Smoke drifts from the top.",
+      "es": "Sobre los tejados se alza el Templo Mayor, cuyas escaleras suben a dos santuarios: uno pintado de azul para Tláloc, dios de la lluvia, y otro de rojo para Huitzilopochtli, dios de la guerra. Del remate sale humo."
+    },
+    "timeSlots": [
+      "meeting",
+      "palace"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "The Templo Mayor was the heart of Tenochtitlan, rebuilt and enlarged seven times. Its remains were rediscovered in 1978 in the centre of Mexico City, after workers found a huge carved stone of the goddess Coyolxauhqui.",
+      "es": "El Templo Mayor era el corazón de Tenochtitlan, reconstruido y ampliado siete veces. Sus restos se redescubrieron en 1978 en el centro de Ciudad de México, después de que unos obreros hallaran una enorme piedra tallada de la diosa Coyolxauhqui."
+    },
+    "options": [
+      {
+        "id": "explain-temple",
+        "text": {
+          "en": "Explain the twin shrines to Aguilar",
+          "es": "Explica los santuarios gemelos a Aguilar"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "countersAdd": {
+            "aguilarBond": 1
+          },
+          "text": {
+            "en": "Rain and war, water and sun: the two things the Mexica world is built on.",
+            "es": "Lluvia y guerra, agua y sol: las dos cosas sobre las que se levanta el mundo mexica."
+          }
+        }
+      },
+      {
+        "id": "silence-priests",
+        "text": {
+          "en": "Ask the friar to keep his sermon for another day",
+          "es": "Pide al fraile que guarde su sermón para otro día"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 8
+          },
+          "text": {
+            "en": "Father Olmedo agrees. Today is not a day to insult anybody's gods.",
+            "es": "El padre Olmedo accede. Hoy no es día de insultar a los dioses de nadie."
+          }
+        }
+      },
+      {
+        "id": "translate-insult",
+        "text": {
+          "en": "Translate a soldier's sneer at the idols",
+          "es": "Traduce la burla de un soldado sobre los ídolos"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": -12,
+            "reputation": 2
+          },
+          "text": {
+            "en": "A priest hears it. His look follows you all the way to the palace.",
+            "es": "Un sacerdote lo oye. Su mirada te sigue hasta el palacio."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-aqueduct",
+    "text": {
+      "en": "Along the street runs a stone channel of clear water. A woman fills a jar from it. \"From the springs of Chapultepec,\" she says, \"for the whole city.\"",
+      "es": "A lo largo de la calle corre un canal de piedra con agua clara. Una mujer llena un cántaro. \"De los manantiales de Chapultepec\", dice, \"para toda la ciudad\"."
+    },
+    "timeSlots": [
+      "meeting",
+      "palace"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "Fresh water reached Tenochtitlan through a masonry aqueduct from the springs of Chapultepec, built with a double channel. During the siege of 1521 Cortés cut it, leaving the city short of water.",
+      "es": "El agua dulce llegaba a Tenochtitlan por un acueducto de mampostería desde los manantiales de Chapultepec, construido con doble canal. Durante el asedio de 1521 Cortés lo cortó y dejó a la ciudad sin agua."
+    },
+    "options": [
+      {
+        "id": "drink",
+        "text": {
+          "en": "Ask for a drink and thank her",
+          "es": "Pide de beber y dale las gracias"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "voice": 10,
+            "favour": 3
+          },
+          "text": {
+            "en": "Cold, sweet water. She looks at your clothes, then at your face, and decides you are one of them.",
+            "es": "Agua fría y dulce. Mira tu ropa, luego tu cara, y decide que eres de los suyos."
+          }
+        }
+      },
+      {
+        "id": "how",
+        "text": {
+          "en": "Ask how the water crosses the lake",
+          "es": "Pregunta cómo cruza el agua el lago"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "text": {
+            "en": "Two channels side by side, so one can be cleaned while the other flows. Clever.",
+            "es": "Dos canales lado a lado, para limpiar uno mientras corre el otro. Ingenioso."
+          }
+        }
+      },
+      {
+        "id": "note",
+        "text": {
+          "en": "Point it out to Cortés",
+          "es": "Señálaselo a Cortés"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 5,
+            "peace": -5
+          },
+          "text": {
+            "en": "He looks at it a long time. A city that drinks through one pipe can be made thirsty.",
+            "es": "Lo mira largo rato. Una ciudad que bebe por un solo conducto puede quedarse sin agua."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-cholula",
+    "text": {
+      "en": "A Tlaxcalan warrior boasts loudly, in Nahuatl, about what happened at Cholula three weeks ago. People in the street stop and turn.",
+      "es": "Un guerrero tlaxcalteca presume en voz alta, en náhuatl, de lo que pasó en Cholula hace tres semanas. La gente se detiene en la calle y se vuelve."
+    },
+    "timeSlots": [
+      "meeting",
+      "palace"
+    ],
+    "weight": 5,
+    "fact": {
+      "en": "In October 1519, at Cholula, Cortés's forces and their Tlaxcalan allies killed thousands of people after Malintzin reported a plot against the Spaniards. Whether the plot was real is still debated.",
+      "es": "En octubre de 1519, en Cholula, las fuerzas de Cortés y sus aliados tlaxcaltecas mataron a miles de personas después de que Malintzin informara de una conspiración contra los españoles. Aún se discute si fue real."
+    },
+    "options": [
+      {
+        "id": "hush",
+        "text": {
+          "en": "Silence him sharply",
+          "es": "Hazlo callar con dureza"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 8,
+            "voice": -3
+          },
+          "text": {
+            "en": "He glares, but stops. The street starts moving again.",
+            "es": "Te fulmina con la mirada, pero calla. La calle vuelve a moverse."
+          }
+        }
+      },
+      {
+        "id": "speak-cholula",
+        "text": {
+          "en": "Tell the townsfolk, honestly, what happened there",
+          "es": "Cuenta a la gente, con honestidad, lo que pasó allí"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2,
+            "favour": 5,
+            "peace": -5
+          },
+          "flagsSet": [
+            "warned"
+          ],
+          "text": {
+            "en": "A plot, real or feared; a massacre, certainly. They listen in silence and remember.",
+            "es": "Una conspiración, real o temida; una matanza, seguro. Escuchan en silencio y recuerdan."
+          }
+        }
+      },
+      {
+        "id": "move-along",
+        "text": {
+          "en": "Hurry the column along",
+          "es": "Apresura a la columna"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 3
+          },
+          "text": {
+            "en": "By the time anyone gathers, you are gone.",
+            "es": "Para cuando alguien se reúne, ya os habéis ido."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-lodged",
+    "text": {
+      "en": "Moctezuma leads you into the palace of his father, Axayacatl: great halls, mats and cushions, enough rooms for every Spaniard and the Tlaxcalans in the courtyards. He takes Cortés by the hand to a dais.",
+      "es": "Moctezuma os conduce al palacio de su padre, Axayácatl: grandes salas, esteras y cojines, habitaciones para todos los españoles y patios para los tlaxcaltecas. Toma a Cortés de la mano y lo lleva a un estrado."
+    },
+    "timeSlots": [
+      "meeting",
+      "palace"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "gifts"
+      ],
+      "flagsExcluded": [
+        "lodged"
+      ]
+    },
+    "fact": {
+      "en": "The Spaniards were lodged in the palace of Axayacatl, Moctezuma's father. A few days later they found a sealed room in it holding the royal treasure, which they later tried, and largely failed, to carry away.",
+      "es": "Los españoles se alojaron en el palacio de Axayácatl, padre de Moctezuma. Pocos días después encontraron en él una sala tapiada con el tesoro real, que más tarde intentaron llevarse, en gran parte sin éxito."
+    },
+    "options": [
+      {
+        "id": "thank",
+        "text": {
+          "en": "Translate a full, formal thanks",
+          "es": "Traduce un agradecimiento formal y completo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 8,
+            "peace": 5
+          },
+          "flagsSet": [
+            "lodged"
+          ],
+          "countersAdd": {
+            "moctezumaRegard": 1
+          },
+          "text": {
+            "en": "He answers with the old words of hospitality: this is your house.",
+            "es": "Responde con las viejas palabras de hospitalidad: esta es vuestra casa."
+          }
+        }
+      },
+      {
+        "id": "guards",
+        "text": {
+          "en": "Quietly tell Cortés where the exits are",
+          "es": "Dile discretamente a Cortés dónde están las salidas"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 8,
+            "peace": -5
+          },
+          "flagsSet": [
+            "lodged"
+          ],
+          "countersAdd": {
+            "cortesTrust": 1
+          },
+          "text": {
+            "en": "He posts guards at every door. The servants notice.",
+            "es": "Pone guardias en cada puerta. Los sirvientes se dan cuenta."
+          }
+        }
+      },
+      {
+        "id": "look-around",
+        "text": {
+          "en": "Take in the palace, room by room",
+          "es": "Recorre el palacio, sala por sala"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "flagsSet": [
+            "lodged"
+          ],
+          "text": {
+            "en": "Painted walls, carved cedar, and behind one plastered-over door, something the servants avoid looking at.",
+            "es": "Muros pintados, cedro tallado y, tras una puerta tapiada, algo que los sirvientes evitan mirar."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-speech",
+    "npcId": "npc-moctezuma",
+    "threadId": "moctezuma-thread",
+    "text": {
+      "en": "In the afternoon Moctezuma returns with gifts and speaks at length: of ancestors who came from far away, of a lord who would one day return from where the sun rises. \"You are in your own house. Rest.\"",
+      "es": "Por la tarde Moctezuma vuelve con regalos y habla largamente: de antepasados que vinieron de lejos, de un señor que algún día volvería de donde sale el sol. \"Estáis en vuestra casa. Descansad\"."
+    },
+    "timeSlots": [
+      "palace"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "lodged"
+      ],
+      "flagsExcluded": [
+        "speech"
+      ]
+    },
+    "fact": {
+      "en": "Cortés reported Moctezuma's speech as an offer to submit to Charles V. Many historians think he twisted a formal Mexica courtesy, 'you are in your own house', into a legal surrender that justified the conquest.",
+      "es": "Cortés presentó el discurso de Moctezuma como una oferta de sumisión a Carlos V. Muchos historiadores creen que retorció una cortesía formal mexica, 'estáis en vuestra casa', hasta convertirla en una rendición legal que justificaba la conquista."
+    },
+    "options": [
+      {
+        "id": "faithful-speech",
+        "text": {
+          "en": "Translate it exactly, every courtesy and every doubt",
+          "es": "Tradúcelo con exactitud, cada cortesía y cada duda"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 10,
+            "reputation": 3
+          },
+          "flagsSet": [
+            "speech",
+            "honest-words"
+          ],
+          "countersAdd": {
+            "moctezumaRegard": 2
+          },
+          "text": {
+            "en": "Cortés hears a host, not a subject. Moctezuma sees that his words arrived whole.",
+            "es": "Cortés oye a un anfitrión, no a un súbdito. Moctezuma ve que sus palabras han llegado enteras."
+          }
+        }
+      },
+      {
+        "id": "submission",
+        "text": {
+          "en": "Let it sound like a surrender to the Spanish king",
+          "es": "Deja que suene a rendición ante el rey de España"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "reputation": 10,
+            "favour": -5
+          },
+          "flagsSet": [
+            "speech"
+          ],
+          "countersAdd": {
+            "cortesTrust": 2
+          },
+          "text": {
+            "en": "Cortés is delighted. That is what he will write home. It is not quite what was said.",
+            "es": "Cortés está encantado. Eso es lo que escribirá a casa. No es exactamente lo que se dijo."
+          }
+        }
+      },
+      {
+        "id": "warn-him",
+        "text": {
+          "en": "Add a warning of your own, in courtly words only he will catch",
+          "es": "Añade una advertencia tuya, en palabras cortesanas que solo él captará"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.5,
+          "traitBonus": {
+            "trait": "bold",
+            "perPoint": 0.05
+          }
+        },
+        "success": {
+          "resources": {
+            "favour": 12,
+            "peace": 5
+          },
+          "flagsSet": [
+            "speech",
+            "warned"
+          ],
+          "countersAdd": {
+            "moctezumaRegard": 2
+          },
+          "text": {
+            "en": "His eyes flick to you for a heartbeat. He has understood.",
+            "es": "Sus ojos se posan en ti un instante. Ha entendido."
+          }
+        },
+        "failure": {
+          "resources": {
+            "reputation": -12
+          },
+          "flagsSet": [
+            "speech"
+          ],
+          "text": {
+            "en": "Aguilar notices the extra words and frowns. So does Cortés.",
+            "es": "Aguilar nota las palabras de más y frunce el ceño. Cortés también."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-cannons",
+    "text": {
+      "en": "To celebrate their arrival, Cortés orders the cannon fired in the courtyard. Smoke and thunder roll over the city.",
+      "es": "Para celebrar la llegada, Cortés ordena disparar los cañones en el patio. Humo y trueno ruedan sobre la ciudad."
+    },
+    "timeSlots": [
+      "palace"
+    ],
+    "weight": 6,
+    "conditions": {
+      "flagsRequired": [
+        "lodged"
+      ]
+    },
+    "fact": {
+      "en": "Bernal Díaz recalled that on arriving at their lodgings the Spaniards fired their artillery, which greatly frightened the people of the city, who had never heard anything like it.",
+      "es": "Bernal Díaz recordó que al llegar a su alojamiento los españoles dispararon la artillería, lo que espantó mucho a la gente de la ciudad, que nunca había oído nada parecido."
+    },
+    "options": [
+      {
+        "id": "talk-him-out",
+        "text": {
+          "en": "Talk him out of it",
+          "es": "Disuádelo"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 0.45,
+          "resourceBonus": {
+            "resource": "reputation",
+            "scale": 0.4
+          }
+        },
+        "success": {
+          "resources": {
+            "peace": 10
+          },
+          "countersAdd": {
+            "cortesTrust": 1
+          },
+          "text": {
+            "en": "\"Tomorrow, perhaps.\" The gunners put out their match cords.",
+            "es": "\"Mañana, quizá\". Los artilleros apagan las mechas."
+          }
+        },
+        "failure": {
+          "resources": {
+            "peace": -10
+          },
+          "text": {
+            "en": "Boom. Outside, people run and scream.",
+            "es": "Bum. Fuera, la gente corre y grita."
+          }
+        }
+      },
+      {
+        "id": "explain-guns",
+        "text": {
+          "en": "Run out and explain to the people it is a salute",
+          "es": "Sal corriendo y explica a la gente que es un saludo"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 5,
+            "voice": -10,
+            "favour": 3
+          },
+          "text": {
+            "en": "A salute, a greeting of thunder. Some believe you.",
+            "es": "Un saludo, una bienvenida de trueno. Algunos te creen."
+          }
+        }
+      },
+      {
+        "id": "let-fire",
+        "text": {
+          "en": "Let it happen",
+          "es": "Deja que ocurra"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": -10,
+            "reputation": 5
+          },
+          "text": {
+            "en": "The whole city hears the strangers' thunder, as Cortés wanted.",
+            "es": "Toda la ciudad oye el trueno de los extranjeros, como quería Cortés."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-cacao",
+    "text": {
+      "en": "A servant offers you a gourd of frothy, bitter cacao, beaten with vanilla and chilli. \"The drink of lords,\" she says.",
+      "es": "Una sirvienta te ofrece una jícara de cacao espumoso y amargo, batido con vainilla y chile. \"La bebida de los señores\", dice."
+    },
+    "timeSlots": [
+      "meeting",
+      "palace"
+    ],
+    "weight": 4,
+    "fact": {
+      "en": "Cacao was drunk cold and frothy, often with chilli or vanilla, mostly by nobles and warriors. Cacao beans were also used as money in Mexica markets.",
+      "es": "El cacao se bebía frío y espumoso, a menudo con chile o vainilla, sobre todo por nobles y guerreros. Los granos de cacao también se usaban como moneda en los mercados mexicas."
+    },
+    "options": [
+      {
+        "id": "drink-cacao",
+        "text": {
+          "en": "Drink it slowly and rest your voice",
+          "es": "Bébelo despacio y descansa la voz"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "voice": 15
+          },
+          "text": {
+            "en": "Bitter, warm, strong. Your throat thanks you.",
+            "es": "Amargo, cálido, fuerte. Tu garganta te lo agradece."
+          }
+        }
+      },
+      {
+        "id": "share-cacao",
+        "text": {
+          "en": "Share it with Aguilar and the women of the camp",
+          "es": "Compártelo con Aguilar y las mujeres del campamento"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "voice": 5,
+            "peace": 3
+          },
+          "countersAdd": {
+            "aguilarBond": 1
+          },
+          "text": {
+            "en": "A small feast in a strange palace. Laughter, for once.",
+            "es": "Un pequeño banquete en un palacio extraño. Risas, por una vez."
+          }
+        }
+      },
+      {
+        "id": "ask-beans",
+        "text": {
+          "en": "Ask about the beans",
+          "es": "Pregunta por los granos"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "text": {
+            "en": "\"In the market, a hundred beans buy a turkey hen.\" Money that grows on trees.",
+            "es": "\"En el mercado, cien granos compran una guajolota\". Dinero que crece en los árboles."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-feast",
+    "npcId": "npc-moctezuma",
+    "threadId": "moctezuma-thread",
+    "text": {
+      "en": "Food arrives from Moctezuma's kitchens: turkey, fish from the lake, tortillas, tamales, fruit, and fodder for the horses. Servants keep coming long after dark.",
+      "es": "Llega comida de las cocinas de Moctezuma: guajolote, pescado del lago, tortillas, tamales, fruta y forraje para los caballos. Los sirvientes siguen llegando mucho después de anochecer."
+    },
+    "timeSlots": [
+      "palace"
+    ],
+    "weight": 5,
+    "conditions": {
+      "flagsRequired": [
+        "lodged"
+      ]
+    },
+    "fact": {
+      "en": "Bernal Díaz describes Moctezuma's meals: over thirty kinds of dishes prepared daily, served behind a gilded screen so nobody would see him eat.",
+      "es": "Bernal Díaz describe las comidas de Moctezuma: más de treinta clases de platos preparados a diario, servidos tras un biombo dorado para que nadie lo viera comer."
+    },
+    "options": [
+      {
+        "id": "thanks-feast",
+        "text": {
+          "en": "Send thanks back with the servants",
+          "es": "Envía agradecimientos con los sirvientes"
+        },
+        "traits": {
+          "generous": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 6
+          },
+          "countersAdd": {
+            "moctezumaRegard": 1
+          },
+          "text": {
+            "en": "Courtesy goes back across the courtyard, the way food came.",
+            "es": "La cortesía vuelve a cruzar el patio, igual que llegó la comida."
+          }
+        }
+      },
+      {
+        "id": "taste",
+        "text": {
+          "en": "Taste everything first, in case",
+          "es": "Pruébalo todo antes, por si acaso"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 5,
+            "voice": -3
+          },
+          "text": {
+            "en": "No poison, only very good food. You tell the men so, loudly.",
+            "es": "Ni veneno, solo comida muy buena. Se lo dices a los hombres, en voz alta."
+          }
+        }
+      },
+      {
+        "id": "count",
+        "text": {
+          "en": "Count how many people the palace feeds",
+          "es": "Cuenta a cuánta gente alimenta el palacio"
+        },
+        "traits": {
+          "curious": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "text": {
+            "en": "Hundreds of dishes a day, the servants say, for the tlatoani's court alone.",
+            "es": "Cientos de platos al día, dicen los sirvientes, solo para la corte del tlatoani."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-seize",
+    "npcId": "npc-cortes",
+    "threadId": "cortes-thread",
+    "text": {
+      "en": "At night Cortés calls you aside, his captains around him. \"We are a few hundred in a city of thousands. If we held Moctezuma, they could not touch us. Tell me how they would take it.\"",
+      "es": "De noche Cortés te llama aparte, rodeado de sus capitanes. \"Somos unos cientos en una ciudad de miles. Si retuviéramos a Moctezuma, no podrían tocarnos. Dime cómo se lo tomarían\"."
+    },
+    "timeSlots": [
+      "palace"
+    ],
+    "weight": 100,
+    "conditions": {
+      "flagsRequired": [
+        "speech"
+      ],
+      "flagsExcluded": [
+        "night-council"
+      ]
+    },
+    "fact": {
+      "en": "On 14 November 1519, six days after the meeting, Cortés took Moctezuma prisoner in his own city, using an attack on Spaniards at the coast as his pretext. Moctezuma ruled as a captive until his death in June 1520.",
+      "es": "El 14 de noviembre de 1519, seis días después del encuentro, Cortés hizo prisionero a Moctezuma en su propia ciudad, usando como pretexto un ataque a españoles en la costa. Moctezuma gobernó cautivo hasta su muerte en junio de 1520."
+    },
+    "options": [
+      {
+        "id": "patience",
+        "text": {
+          "en": "\"Not tonight. Wait, and learn the city first.\"",
+          "es": "\"Esta noche no. Espera y conoce antes la ciudad\""
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": 5,
+            "reputation": 3
+          },
+          "flagsSet": [
+            "night-council"
+          ],
+          "countersAdd": {
+            "cortesTrust": 1
+          },
+          "text": {
+            "en": "He agrees to wait. Historians know he waited six days.",
+            "es": "Acepta esperar. Los historiadores saben que esperó seis días."
+          }
+        }
+      },
+      {
+        "id": "truth-war",
+        "text": {
+          "en": "\"It would mean war. The whole valley would rise.\"",
+          "es": "\"Significaría guerra. Todo el valle se levantaría\""
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 1,
+            "peace": 3
+          },
+          "flagsSet": [
+            "night-council"
+          ],
+          "countersAdd": {
+            "cortesTrust": 2
+          },
+          "text": {
+            "en": "He listens. Whether he believes it is another matter.",
+            "es": "Escucha. Otra cosa es que lo crea."
+          }
+        }
+      },
+      {
+        "id": "help-plan",
+        "text": {
+          "en": "Tell him exactly how it could be done tonight",
+          "es": "Dile exactamente cómo podría hacerse esta noche"
+        },
+        "traits": {
+          "bold": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "peace": -25,
+            "reputation": 10
+          },
+          "flagsSet": [
+            "night-council",
+            "seized"
+          ],
+          "countersAdd": {
+            "cortesTrust": 2
+          },
+          "text": {
+            "en": "By midnight, Spanish guards stand outside Moctezuma's door.",
+            "es": "A medianoche, guardias españoles vigilan la puerta de Moctezuma."
+          }
+        }
+      }
+    ]
+  },
+  {
+    "id": "tenoch-night",
+    "text": {
+      "en": "Night over the lake. Fires burn on the temples, conch shells mark the hours, and in the palace, three hundred strangers try to sleep. You stand at a window between two worlds.",
+      "es": "Noche sobre el lago. Arden fuegos en los templos, las caracolas marcan las horas y, en el palacio, trescientos extranjeros intentan dormir. Estás en una ventana entre dos mundos."
+    },
+    "timeSlots": [
+      "palace"
+    ],
+    "weight": 4,
+    "conditions": {
+      "flagsRequired": [
+        "lodged"
+      ]
+    },
+    "fact": {
+      "en": "Tenochtitlan may have had around 200,000 inhabitants in 1519, more than any city in Spain at the time. Seville, the largest, had perhaps 50,000 to 70,000.",
+      "es": "Tenochtitlan pudo tener unos 200.000 habitantes en 1519, más que cualquier ciudad de España en aquella época. Sevilla, la mayor, tenía quizá entre 50.000 y 70.000."
+    },
+    "options": [
+      {
+        "id": "write-down",
+        "text": {
+          "en": "Go over everything you heard today",
+          "es": "Repasa todo lo que oíste hoy"
+        },
+        "traits": {
+          "diligent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "insight": 2
+          },
+          "text": {
+            "en": "Names, places, promises. Tomorrow someone will ask, and you will know.",
+            "es": "Nombres, lugares, promesas. Mañana alguien preguntará, y lo sabrás."
+          }
+        }
+      },
+      {
+        "id": "rest-night",
+        "text": {
+          "en": "Sleep; tomorrow they will need your voice again",
+          "es": "Duerme; mañana volverán a necesitar tu voz"
+        },
+        "traits": {
+          "prudent": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "voice": 15
+          },
+          "text": {
+            "en": "Sleep comes slowly, and then all at once.",
+            "es": "El sueño llega despacio, y luego de golpe."
+          }
+        }
+      },
+      {
+        "id": "servants-word",
+        "text": {
+          "en": "Slip a word of caution to a palace servant",
+          "es": "Desliza una advertencia a un sirviente del palacio"
+        },
+        "traits": {
+          "cunning": 1
+        },
+        "cost": {
+          "time": 1
+        },
+        "successChance": {
+          "base": 1
+        },
+        "success": {
+          "resources": {
+            "favour": 5,
+            "reputation": -5
+          },
+          "flagsSet": [
+            "warned"
+          ],
+          "text": {
+            "en": "She nods once and is gone. By morning, the right ears will have heard.",
+            "es": "Asiente una vez y desaparece. Al amanecer, los oídos adecuados lo habrán oído."
+          }
+        }
+      }
+    ]
+  }
+]

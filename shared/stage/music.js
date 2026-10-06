@@ -7,6 +7,8 @@ import { getSettings, onSettingsChange } from '../ui/settings.js';
 const THEMES = {
   title: { tempo: 92, root: 60, scale: [0, 2, 4, 7, 9], progression: [0, 3, 4, 2], lead: 'square' },
   'apollo-11': { tempo: 70, root: 57, scale: [0, 2, 4, 6, 7, 9, 11], progression: [0, 4, 5, 3], lead: 'sine' },
+  tenochtitlan: { tempo: 88, root: 62, scale: [0, 3, 5, 7, 10], progression: [0, 2, 3, 0], lead: 'triangle', drums: true },
+  'd-day': { tempo: 76, root: 57, scale: [0, 2, 3, 5, 7, 8, 10], progression: [0, 5, 3, 4], lead: 'square' },
   giza: { tempo: 84, root: 62, scale: [0, 1, 4, 5, 7, 8, 10], progression: [0, 1, 6, 0], lead: 'triangle', drums: true },
 };
 
