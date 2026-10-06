@@ -537,6 +537,7 @@ body.no-stage .stage { background: radial-gradient(circle at 50% 30%, hsl(var(--
 
 .fact-note { margin-top: 12px; padding: 8px 10px; border-left: 4px solid var(--gold); background: rgb(242 193 78 / 0.08); }
 .fact-note p { margin: 6px 0 0; color: var(--ink-soft); }
+.fact-note.in-dialog { margin: 2px 0 12px; padding: 6px 10px; animation: pop 0.25s steps(3) both; }
 .fact-head { display: inline-flex; gap: 8px; align-items: center; color: var(--gold); }
 
 .ending-badge { display: inline-block; margin-left: 8px; padding: 4px 6px 3px; color: #120e18; background: var(--accent); }

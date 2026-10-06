@@ -8,7 +8,8 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { buildFrame, POSES, SPRITE_W, SPRITE_H, OUTFITS, playerPalette, npcPalette } from '../shared/stage/sprites.js';
 import { PLACES, NPC_SCENES, getPlaces, getScenes, placeForCard, showcaseScene, npcPresent } from '../shared/stage/places.js';
-import { actionForOption, reactionForOutcome, deltaPopups, skyAt, mixHex, TRAIT_ACTIONS, isSpaceEvent } from '../shared/stage/direction.js';
+import { actionForOption, reactionForOutcome, deltaPopups, skyAt, mixHex, TRAIT_ACTIONS, ACTIONS, isSpaceEvent } from '../shared/stage/direction.js';
+import { playerLook, npcLook, ACCESSORIES } from '../shared/stage/looks.js';
 import { ERAS } from '../shared/era-registry.js';
 import { TRAITS } from '../shared/persona.js';
 
@@ -135,21 +136,59 @@ test('cards are spread across the stage, not piled in one place', () => {
   });
 });
 
-test('each trait has its own body language', () => {
+// The GLB's JSON chunk: node names and animation names, without three.js.
+function readGlb(path) {
+  const data = readFileSync(join(here, '..', path));
+  const length = data.readUInt32LE(12);
+  return JSON.parse(data.subarray(20, 20 + length).toString('utf8'));
+}
+const character = readGlb('assets/models/character.glb');
+const props = readGlb('assets/models/props.glb');
+const clipNames = new Set(character.animations.map(animation => animation.name));
+const characterNodes = new Set(character.nodes.map(node => node.name));
+
+test('each trait has its own fallback body language', () => {
   TRAITS.forEach(trait => assert.ok(TRAIT_ACTIONS[trait], `no action for ${trait}`));
   assert.equal(new Set(Object.values(TRAIT_ACTIONS)).size, TRAITS.length);
-  assert.equal(actionForOption({ traits: { bold: 1 } }), 'dash');
+  assert.equal(actionForOption({ traits: { bold: 1 } }), 'run');
   assert.equal(actionForOption({ traits: { prudent: 1, curious: 2 } }), 'inspect');
-  assert.equal(actionForOption({}), 'wait');
+  assert.equal(actionForOption({ act: 'drink', traits: { bold: 1 } }), 'drink');
+  assert.equal(actionForOption({ act: 'moonwalk', traits: { bold: 1 } }), 'run');
+  assert.equal(actionForOption({}), 'nod');
 });
 
-test('every option in every era resolves to a known action', () => {
-  const known = new Set([...Object.values(TRAIT_ACTIONS), 'wait']);
+test('every action, walk, idle and reaction is animated in the Blender character', () => {
+  [...ACTIONS, 'idle', 'walk', 'stumble'].forEach(name => assert.ok(clipNames.has(name), `no "${name}" clip in character.glb`));
+});
+
+test('every option says what the character does, and it can be acted out', () => {
   eraIds.forEach(eraId => {
     readJson(`data/eras/${eraId}/cards.json`).forEach(card => {
-      card.options.forEach(option => assert.ok(known.has(actionForOption(option)), `${card.id}/${option.id}`));
+      card.options.forEach(option => {
+        assert.ok(ACTIONS.includes(option.act), `${card.id}/${option.id} has no known action ("${option.act}")`);
+        assert.equal(actionForOption(option), option.act);
+      });
     });
   });
+});
+
+test('everybody is dressed with accessories the model actually has', () => {
+  ACCESSORIES.forEach(name => assert.ok([...characterNodes].some(node => node === name || node.startsWith(`${name}_`)), `character.glb has no "${name}"`));
+  eraIds.forEach(eraId => {
+    [playerLook(eraId), playerLook(eraId, 'helmet'), npcLook(eraId, { id: 'npc-moctezuma' })].forEach(look => {
+      Object.values(look.colors).forEach(color => assert.match(color, /^#[0-9a-f]{6}$/i));
+    });
+  });
+  assert.ok(playerLook('apollo-11', 'helmet').accessories.includes('acc_spacehelmet'));
+  assert.ok(npcLook('tenochtitlan', { id: 'npc-moctezuma' }).accessories.includes('acc_feathers'));
+});
+
+test('every prop the scenes place was modelled in Blender', () => {
+  const names = new Set(props.nodes.map(node => node.name));
+  const worlds = readFileSync(join(here, '..', 'shared/stage/worlds.js'), 'utf8');
+  const used = [...worlds.matchAll(/model\('([a-z_]+)'/g)].map(match => match[1]);
+  assert.ok(used.length >= 10, 'scenes should use the Blender props');
+  used.forEach(name => assert.ok(names.has(name), `props.glb has no "${name}"`));
 });
 
 test('only real gambles get a big reaction', () => {

@@ -2,21 +2,30 @@
 // does on stage. Pure functions only, so the mapping is covered by tests and
 // the 3D layer just plays back whatever these return.
 
-// Each trait has a body language. The option's strongest trait decides it.
+// Everything the character can act out. Each name is an animation of the
+// character modelled in Blender (tools/blender/character.py).
+export const ACTIONS = [
+  'run', 'sit', 'sleep', 'crouch', 'give', 'pickup', 'work', 'pull', 'push', 'inspect', 'point', 'talk', 'cheer', 'wave',
+  'drink', 'write', 'treat', 'carry', 'climb', 'swim', 'pray', 'bow', 'think', 'salute', 'look', 'dig', 'nod',
+];
+
+// Options say what the character does (`act`); when one does not, its
+// strongest trait gives the body language.
 export const TRAIT_ACTIONS = {
-  bold: 'dash',
-  prudent: 'rest',
+  bold: 'run',
+  prudent: 'think',
   generous: 'give',
-  cunning: 'sneak',
+  cunning: 'crouch',
   diligent: 'work',
   curious: 'inspect',
 };
 
 export function actionForOption(option) {
+  if (option?.act && ACTIONS.includes(option.act)) return option.act;
   const traits = Object.entries(option?.traits || {}).filter(([, value]) => value > 0);
-  if (!traits.length) return 'wait';
+  if (!traits.length) return 'nod';
   traits.sort((a, b) => b[1] - a[1]);
-  return TRAIT_ACTIONS[traits[0][0]] || 'wait';
+  return TRAIT_ACTIONS[traits[0][0]] || 'nod';
 }
 
 // A real gamble gets a big reaction; a certain option just a nod.

@@ -67,6 +67,10 @@
         <canvas class="portrait" id="portrait" width="16" height="14" aria-hidden="true"></canvas>
         <div class="dialog-main">
           <p class="dialog-text" id="card-text"></p>
+          <aside class="fact-note in-dialog" id="card-fact" hidden>
+            <span class="fact-head t8"><span id="fact-icon"></span><span data-i18n="game.factHeading"></span></span>
+            <p id="card-fact-text"></p>
+          </aside>
           <div class="choices revealing" id="options" role="listbox"></div>
           <div class="dialog-foot t8"><span id="card-meta"></span><span>·</span><span data-i18n="game.keysHint"></span></div>
         </div>
@@ -79,10 +83,6 @@
           <span class="outcome-tag" id="outcome-tag"></span>
           <p class="dialog-text" id="outcome-text"></p>
           <div class="deltas" id="outcome-deltas"></div>
-          <aside class="fact-note" id="outcome-fact" hidden>
-            <span class="fact-head t8"><span id="fact-icon"></span><span data-i18n="game.factHeading"></span></span>
-            <p id="outcome-fact-text"></p>
-          </aside>
           <div class="dialog-foot">
             <button id="outcome-continue" class="btn btn-primary" type="button"><span data-i18n="game.continue"></span> <span class="next-indicator" id="next-icon"></span></button>
           </div>
@@ -422,7 +422,19 @@
       const opening = openingCard(cards, era, dayState);
       if (opening) { currentCard = opening; return; }
       const valid = getValidCards(cards, era, resourceState, dayState);
-      currentCard = valid.length ? pickWeightedCard(valid, rng) : FILLER_CARD;
+      if (valid.length) { currentCard = pickWeightedCard(valid, rng); return; }
+      // Even a quiet moment teaches something: a note the day has not shown yet.
+      const unseen = cards.filter(card => card.fact && !factsToday.includes(card.id));
+      const source = unseen.length ? unseen[Math.floor(rng() * unseen.length)] : null;
+      currentCard = source ? { ...FILLER_CARD, fact: source.fact, factSource: source.id } : FILLER_CARD;
+    }
+
+    // Every dialogue carries its piece of history, like a footnote in a
+    // historical novel: what really happened at this moment.
+    function renderFact(show) {
+      const fact = currentCard?.fact;
+      $('#card-fact').hidden = !fact || !show;
+      $('#card-fact-text').textContent = fact ? localize(fact) : '';
     }
 
     function startAlarm() {
@@ -544,6 +556,7 @@
       renderHUD();
       renderDecisionHead();
       cardText.textContent = localize(currentCard.text);
+      renderFact(true);
       renderOptions();
       optionsEl.classList.remove('revealing');
     }
@@ -563,9 +576,11 @@
       phase = 'decision';
       decisionScreen.hidden = false;
       renderDecisionHead();
+      renderFact(false);
       renderOptions();
       optionsEl.classList.add('revealing');
       await typeInto(cardText, localize(currentCard.text));
+      renderFact(true);
       optionsEl.classList.remove('revealing');
       busy = false;
     }
@@ -591,10 +606,11 @@
       dayState = { ...dayState, playedCardIds: [...dayState.playedCardIds, currentCard.id] };
       gainsThisDay = mergeDeltas(gainsThisDay, combined);
       if (outcome.text) narrativeLog.push(outcome.text);
-      if (currentCard.fact && !factsToday.includes(currentCard.id)) factsToday.push(currentCard.id);
+      const factId = currentCard.factSource || currentCard.id;
+      if (currentCard.fact && !factsToday.includes(factId)) factsToday.push(factId);
 
       // A sure thing is not a gamble: it gets no SUCCESS/FAILURE tag and no big reaction.
-      currentOutcome = { hasChance: !!option.successChance && chance < 1, success, text: outcome.text, combined, fact: currentCard.fact || null };
+      currentOutcome = { hasChance: !!option.successChance && chance < 1, success, text: outcome.text, combined };
 
       // The stage acts it out before the words arrive.
       phase = 'acting';
@@ -631,9 +647,7 @@
         .filter(([, value]) => value !== 0)
         .map(([key, value]) => `<span class="delta ${value > 0 ? 'up' : 'down'}">${resourceIcon(key, 1)}${value > 0 ? '+' : ''}${value} ${localize(era.resources[key].label)}</span>`)
         .join('');
-      // What really happened at this moment: the game teaches as it goes.
-      $('#outcome-fact').hidden = !currentOutcome.fact;
-      $('#outcome-fact-text').textContent = currentOutcome.fact ? localize(currentOutcome.fact) : '';
+
     }
 
     function continueDay() {

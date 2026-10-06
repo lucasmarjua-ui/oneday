@@ -213,9 +213,9 @@ loaded.forEach(({ meta, era, cards }) => {
     assert.ok(!card.timeSlots || card.timeSlots.includes(era.day.slots[0].id), 'the opening card must be playable in the first slot');
   });
 
-  test(`${eraId}: teaches history: most cards carry a bilingual fact`, () => {
-    const withFacts = cards.filter(card => card.fact).length;
-    assert.ok(withFacts >= 15 && withFacts / cards.length >= 0.75, `only ${withFacts}/${cards.length} cards carry a fact`);
+  test(`${eraId}: teaches history: every card carries a bilingual fact`, () => {
+    // A historical novel: every single dialogue carries its piece of history.
+    cards.forEach(card => assert.ok(card.fact?.en && card.fact?.es, `${card.id} has no historical note`));
   });
 
   test(`${eraId}: the historical ending and several alternatives are reachable in play`, () => {
